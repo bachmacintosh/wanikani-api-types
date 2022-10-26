@@ -1,6 +1,6 @@
 {
 	"name": "@bachmacintosh/wanikani-api-types",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "Regularly updated type definitions for the WaniKani API",
 	"keywords": [
 		"wanikani",
@@ -18,9 +18,9 @@
 			"import": "./dist/index.js",
 			"types": "./dist/index.d.ts"
 		},
-		"./v*": {
-			"import": "./dist/v*.js",
-			"types": "./dist/v*.d.ts"
+		"./v20170710.js": {
+			"import": "./dist/v20170710.js",
+			"types": "./dist/v20170710.d.ts"
 		}
 	},
 	"scripts": {

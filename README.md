@@ -53,6 +53,9 @@ We provide a helper function, `stringifyParameters`, that accepts any of the Par
 Here's a quick example code snippet that lays the foundation of fetching a collection of assignments, possibly using an old `data_updated_at` value from a previous collection of assignments, or a date calculated from a time period library.
 
 ```typescript
+import type { WKAssignmentParameters, WKDatableString } from "@bachmacintosh/wanikani-api-docs/v20170710";
+import { stringifyParameters } from "@bachmacintosh/wanikani-api-docs/v20170710";
+
 function getAssignments(newerThan?: WKDatableString | Date) {
 	let params: WKAssignmentParameters = {};
 	if (typeof newerThan !== "undefined") {
