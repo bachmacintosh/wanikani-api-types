@@ -1,0 +1,23 @@
+changelog:
+  categories:
+    - title: ⚠️ BREAKING CHANGES
+      labels:
+        - "breaking change"
+    - title: 🎉 New Features
+      labels:
+        - enhancement
+    - title: 🐛 Bug Fixes
+      labels:
+        - bug
+    - title: 📓 Documentation Updates
+      labels:
+        - documentation
+    - title: 🔄 Dependency Updates
+      labels:
+        - dependencies
+    - title: ☑️ TypeScript Changes
+      labels:
+        - typescript
+    - title: Other Changes
+      labels:
+        - "*"

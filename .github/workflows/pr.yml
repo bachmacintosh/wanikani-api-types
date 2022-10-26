@@ -1,0 +1,40 @@
+name: Tests (PR)
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  test:
+    name: "Test Pull Request"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install Dependencies
+        run: npm ci
+      - name: Lint Code
+        run: npm run lint
+      - name: Run Unit Tests
+        run: npm test
+      - name: Build Documentation
+        run: npm run build:docs
+      - name: Install TypeScript 4.5
+        run: 'npm install --no-save typescript@"~4.5"'
+      - name: Build Library on TypeScript 4.5
+        run: npm run build
+      - name: Install TypeScript 4.6
+        run: 'npm install --no-save typescript@"~4.6"'
+      - name: Build Library on TypeScript 4.6
+        run: npm run build
+      - name: Install TypeScript 4.7
+        run: 'npm install --no-save typescript@"~4.7"'
+      - name: Build Library on TypeScript 4.7
+        run: npm run build
+      - name: Install TypeScript 4.8
+        run: 'npm install --no-save typescript@"~4.8"'
+      - name: Build Library on TypeScript 4.8
+        run: npm run build

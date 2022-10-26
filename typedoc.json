@@ -1,0 +1,29 @@
+{
+	"$schema": "https://typedoc.org/schema.json",
+	"entryPoints": ["./src/v20170710.ts", "./src/index.ts"],
+	"out": "docs",
+	"cleanOutputDir": true,
+	"categorizeByGroup": false,
+	"categoryOrder": ["Base", "Collections", "Data", "Parameters", "Payloads", "Reports", "Resources", "*"],
+	"sort": ["required-first", "alphabetical"],
+	"visibilityFilters": {},
+	"treatWarningsAsErrors": true,
+	"requiredToBeDocumented": [
+		"Enum",
+		"EnumMember",
+		"Variable",
+		"Function",
+		"Class",
+		"Interface",
+		"Property",
+		"Method",
+		"Accessor",
+		"TypeAlias"
+	],
+	"validation": {
+		"notDocumented": true,
+		"invalidLink": true,
+		"notExported": true
+	},
+	"intentionallyNotExported": ["Brand", "Range"]
+}

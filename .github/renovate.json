@@ -1,0 +1,30 @@
+{
+	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+	"extends": ["config:js-lib", "group:allNonMajor", ":gitSignOff"],
+	"schedule": ["after 5am and before 11am"],
+	"timezone": "America/New_York",
+	"labels": ["dependencies"],
+	"assignees": ["bachmacintosh"],
+	"rebaseWhen": "behind-base-branch",
+	"platformCommit": true,
+	"packageRules": [
+		{
+			"matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+			"automerge": true,
+			"platformAutomerge": true
+		},
+		{
+			"matchPackageNames": ["typescript"],
+			"matchUpdateTypes": ["patch"],
+			"labels": ["typescript"],
+			"automerge": true,
+			"platformAutomerge": true
+		},
+		{
+			"matchPackageNames": ["typescript"],
+			"matchUpdateTypes": ["major", "minor"],
+			"labels": ["typescript"],
+			"dependencyDashboardApproval": true
+		}
+	]
+}

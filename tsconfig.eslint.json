@@ -1,0 +1,7 @@
+{
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"allowJs": true
+	},
+	"include": ["v20170710.ts", "assignments/**/*.ts", "base/**/*.ts", "level_progressions/**/*.ts", "util/**/*.ts"]
+}
