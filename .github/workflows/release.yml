@@ -38,3 +38,4 @@ jobs:
           projectName: bachmacintosh-wanikani-api-types
           directory: "./docs"
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
