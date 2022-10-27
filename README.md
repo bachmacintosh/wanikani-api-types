@@ -59,16 +59,12 @@ import { stringifyParameters } from "@bachmacintosh/wanikani-api-docs/v20170710.
 function getAssignments(newerThan?: WKDatableString | Date) {
 	let params: WKAssignmentParameters = {};
 	if (typeof newerThan !== "undefined") {
-		if (newerThan instanceof Date) {
-			params = {
-				updated_after: newerThan.toISOString(),
-			};
-		} else if (!isWKDatableString(startDate)) {
-			throw new Error("Invalid Start Date!");
-		} else {
+		if (newerThan instanceof Date || isWKDatableString(newerThan)) {
 			params = {
 				updated_after: newerThan,
 			};
+		} else {
+			throw new Error("Invalid Start Date!");
 		}
 	}
 	const queryString = stringifyParameters(params);
