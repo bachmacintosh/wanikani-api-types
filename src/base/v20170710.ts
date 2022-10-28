@@ -48,6 +48,15 @@ import type { Brand } from "../internal/index.js";
 export type WKApiRevision = "20170710";
 
 /**
+ * A constant representing the WaniKani API revision. This will match the revision module being imported from, or the
+ * latest revision when importing from the root module.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#revisions-aka-versioning}
+ * @category Base
+ */
+export const WK_API_REVISION: WKApiRevision = "20170710";
+
+/**
  * The common properties across all Collection items from the WaniKani API
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#response-structure}
@@ -147,6 +156,13 @@ export interface WKError {
 export type WKMaxLessonBatchSize = 10;
 
 /**
+ * The maximum batch size for lessons in the WaniKani app; exported for use in lieu of a Magic Number.
+ *
+ * @category Base
+ */
+export const WK_MAX_LESSON_BATCH_SIZE: WKMaxLessonBatchSize = 10;
+
+/**
  * The maximum level provided by WaniKani; used to calculate level ranges.
  *
  * @category Base
@@ -154,11 +170,25 @@ export type WKMaxLessonBatchSize = 10;
 export type WKMaxLevels = 60;
 
 /**
+ * The maximum level provided by WaniKani; exported for use in lieu of a Magic Number.
+ *
+ * @category Base
+ */
+export const WK_MAX_LEVELS: WKMaxLevels = 60;
+
+/**
  * The maximum number of SRS Stages used in WaniKani's SRS; used to calculate SRS Stage ranges.
  *
  * @category Base
  */
 export type WKMaxSrsStages = 9;
+
+/**
+ * The maximum number of SRS Stages used in WaniKani's SRS; exported for use in lieu of a Magic Number.
+ *
+ * @category Base
+ */
+export const WK_MAX_SRS_STAGES: WKMaxSrsStages = 9;
 
 /**
  * The maximum number of SRS Stages used in WaniKani's SRS, minus one; used to calculate SRS Stage ranges for reviews.
@@ -175,11 +205,26 @@ export type WKMaxSrsStagesMinusOne = 8;
 export type WKMinLessonBatchSize = 3;
 
 /**
+ * The minimum batch size for lessons in the WaniKani app; exported for use in lieu of a Magic Number.
+ *
+ * @category Base
+ */
+export const WK_MIN_LESSON_BATCH_SIZE: WKMinLessonBatchSize = 3;
+
+/**
  * The lowest number of levels that a WaniKani user has access to, when they are on a free subscription.
  *
  * @category Base
  */
 export type WKMinLevels = 3;
+
+/**
+ * The lowest number of levels that a WaniKani user has access to, when they are on a free subscription; exported for
+ * use in lieu of a Magic Number.
+ *
+ * @category Base
+ */
+export const WK_MIN_LEVELS: WKMinLevels = 3;
 
 /**
  * All types of parameters that can be passed to various endpoints across the WaniKani API.
