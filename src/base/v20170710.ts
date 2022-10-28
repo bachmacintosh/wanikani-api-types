@@ -154,6 +154,13 @@ export type WKMaxLessonBatchSize = 10;
 export type WKMaxLevels = 60;
 
 /**
+ * The maximum number of SRS Stages used in WaniKani's reviews.
+ *
+ * @category Base
+ */
+export type WKMaxSrsReviewStages = 8;
+
+/**
  * The maximum number of SRS Stages used in WaniKani's SRS; used to calculate SRS Stage ranges.
  *
  * @category Base
@@ -164,6 +171,7 @@ export type WKMaxSrsStages = 9;
  * The maximum number of SRS Stages used in WaniKani's SRS, minus one; used to calculate SRS Stage ranges for reviews.
  *
  * @category Base
+ * @deprecated Use {@link WKMaxSrsReviewStages} instead.
  */
 export type WKMaxSrsStagesMinusOne = 8;
 
