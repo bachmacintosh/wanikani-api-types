@@ -17,10 +17,10 @@ This Pull Request:
 - [ ] Updates Documentation
 - [ ] Updates Project and/or Community Health files (e.g. README, GitHub Actions, etc.)
 
-Its code constitutes a:
+Its changes constitutes a:
 
-- [ ] Bug Fix (i.e. patch version bump)
-- [ ] Enhancement (i.e. minor version bump)
+- [ ] Bug Fix or Other Small Changes (i.e. patch version bump)
+- [ ] Forward-compatible Enhancement (i.e. minor version bump)
 - [ ] ⚠️ BREAKING CHANGE regarding TypeScript, Package, and/or WaniKani API version (i.e. MAJOR version bump)
 
 # Additional Info
