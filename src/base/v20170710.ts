@@ -184,6 +184,13 @@ export const WK_MAX_LEVELS: WKMaxLevels = 60;
 export type WKMaxSrsReviewStages = 8;
 
 /**
+ * The maximum number of SRS Stages used in WaniKani's reviews; exported for use in lieu of a Magic Number.
+ *
+ * @category Base
+ */
+export const WK_MAX_SRS_REVIEW_STAGES: WKMaxSrsReviewStages = 8;
+
+/**
  * The maximum number of SRS Stages used in WaniKani's SRS; used to calculate SRS Stage ranges.
  *
  * @category Base
