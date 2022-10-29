@@ -1,4 +1,14 @@
-export { isWKDatableString, stringifyParameters } from "./base/v20170710.js";
+export {
+	WK_API_REVISION,
+	WK_MAX_LESSON_BATCH_SIZE,
+	WK_MAX_LEVELS,
+	WK_MAX_SRS_REVIEW_STAGES,
+	WK_MAX_SRS_STAGES,
+	WK_MIN_LESSON_BATCH_SIZE,
+	WK_MIN_LEVELS,
+	isWKDatableString,
+	stringifyParameters,
+} from "./base/v20170710.js";
 
 export type {
 	WKAssignment,
