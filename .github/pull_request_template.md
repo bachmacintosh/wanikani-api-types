@@ -6,15 +6,22 @@ Add your description here.
 
 Closes #
 
-# Type of Pull Request
+# Nature of Pull Request
+
+This Pull Request:
 
 - [ ] Adds/Updates Type(s) described in the WaniKani API Docs
 - [ ] Adds/Updates Type(s) provided by the `wanikani-api-types` package itself
 - [ ] Adds/Updates constants or other variables provided by the package
 - [ ] Adds/Updates Helper Functions/Type Guards provided by the package
-- [ ] Bug Fix
-- [ ] Enhancement
-- [ ] ⚠️ BREAKING CHANGE regarding TypeScript, Package, and/or WaniKani API version
+- [ ] Updates Documentation
+- [ ] Updates Project and/or Community Health files (e.g. README, GitHub Actions, etc.)
+
+Its code constitutes a:
+
+- [ ] Bug Fix (i.e. patch version bump)
+- [ ] Enhancement (i.e. minor version bump)
+- [ ] ⚠️ BREAKING CHANGE regarding TypeScript, Package, and/or WaniKani API version (i.e. MAJOR version bump)
 
 # Additional Info
 
