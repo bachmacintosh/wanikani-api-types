@@ -18,7 +18,7 @@ Please include in your description not only a detailed summary of the requested 
 
 ## Feature Implementations
 
-Open a Pull Request either as a completely new implementation for your own feature request, or to satisfy an existing Issue. Within the thread, please include an explanation of the improvement, and do your best to document any new or changed code. Please also be sure to label the Pull Request either `breaking change`, `enhancement`, `documentation`, or `bug` so it can be called out properly in release notes.
+Open a Pull Request either as a completely new implementation for your own feature request, or to satisfy an existing Issue. Within the thread, please include an explanation of the improvement, and do your best to document any new or changed code.
 
 This project uses sensible ESLint rules. Please make sure that your code passes the lint when possible. **Any pull requests that error out in ESLint will not be accepted until the errors are handled.** Any warnings should be dealt with either with code revision or a rule override (e.g. `eslint-disable-next-line`) if to rule violation cannot be avoided.
 

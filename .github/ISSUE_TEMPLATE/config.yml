@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: "Package Discussion"
+    url: "https://community.wanikani.com/t/typescript-wanikani-api-types/59064?u=bachmac"
+    about: "Feel free to ask questions, leave feedback, etc. in the package's thread on the WaniKani Community Forums."
+  - name: "WaniKani Bug Reports"
+    url: https://community.wanikani.com/c/wanikani/bugs-errors/15
+    about: "Please report any bugs/errors for the WaniKani App or API on the Community Forums (e.g. 500 Internal Server Error)."
+  - name: "WaniKani API Questions"
+    url: https://community.wanikani.com/c/wanikani/api-and-third-party-apps/6
+    about: "Consult the WaniKani Community Forums for general questions about the API itself."
