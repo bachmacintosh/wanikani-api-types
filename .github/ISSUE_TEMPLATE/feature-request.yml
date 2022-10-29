@@ -1,0 +1,68 @@
+name: Feature Request
+description: Request a new feature for the package, such as missing WaniKani API types, new variables/helper functions, etc.
+title: "Feature: "
+labels: ["enhancement"]
+assignees:
+  - bachmacintosh
+body:
+  - type: markdown
+    attributes:
+      value: |
+        We welcome requests for features to be added to this package. Please fill out the form below -- thank you!
+  - type: dropdown
+    id: feature-type
+    attributes:
+      label: Type of Feature
+      description: Select one of the options below indicating the type of feature requested.
+      multiple: false
+      options:
+        - "New/Missing WaniKani API Type for Item in API Docs"
+        - "New Type Provided by This Package"
+        - "New Constant or Other Variable"
+        - "New Helper Function/Type Guard"
+        - "Other (specify below)"
+    validations:
+      required: true
+  - type: textarea
+    id: feature-details
+    attributes:
+      label: New Feature Details
+      description: "Describe in more detail the sort of feature you are requesting here."
+      placeholder: "e.g. Describe a new type/constant/function/etc."
+    validations:
+      required: true
+  - type: textarea
+    id: code-snippet
+    attributes:
+      label: Code Snippet (if any)
+      description: If you have an example code snippet of the feature's application, you can paste it here.
+      placeholder: "Your TypeScript/JavaScript code goes here..."
+      render: "TypeScript"
+    validations:
+      required: false
+  - type: input
+    id: ts-version
+    attributes:
+      label: TypeScript Version
+      description: If this feature is limited to certain versions of TypeScript, indicated the version here (if you don't know, that's fine -- leave blank)
+      placeholder: "e.g. 4.8.4 or 5.2.3"
+    validations:
+      required: false
+  - type: textarea
+    id: other-info
+    attributes:
+      label: Any additional info?
+      description: "If there's anything else to consider with regards to the environment, feel free to add it here."
+      placeholder: "e.g. OS version, using types in a testing framework, etc."
+    validations:
+      required: false
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Agree to Contributing Terms
+      description: By submitting this issue, you agree to follow our [Contributing Guidelines](https://github.com/bachmacintosh/wanikani-api-types/blob/main/CONTRIBUTING.md) and [Code of Conduct](https://github.com/bachmacintosh/wanikani-api-types/blob/main/CODE_OF_CONDUCT.md)
+      options:
+        - label: I agree to follow this project's Contributing Guidelines and Code of Conduct
+          required: true
+        - label: I understand this is a feature request for the wanikani-api-types package, not for the WaniKani API itself
+          required: true
