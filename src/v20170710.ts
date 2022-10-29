@@ -19,6 +19,7 @@ export type {
 	WKError,
 	WKMaxLessonBatchSize,
 	WKMaxLevels,
+	WKMaxSrsReviewStages,
 	WKMaxSrsStages,
 	WKMaxSrsStagesMinusOne,
 	WKMinLessonBatchSize,

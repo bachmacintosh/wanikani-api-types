@@ -1,8 +1,8 @@
 import type {
 	WKCollection,
 	WKDatableString,
+	WKMaxSrsReviewStages,
 	WKMaxSrsStages,
-	WKMaxSrsStagesMinusOne,
 	WKResource,
 	WKReviewStatistic,
 	WKUpdatedAssignment,
@@ -115,7 +115,7 @@ export interface WKReviewData {
 	spaced_repetition_system_id: number;
 
 	/** The starting SRS stage interval, with valid values ranging from `1` to `8` */
-	starting_srs_stage: Range<1, WKMaxSrsStagesMinusOne>;
+	starting_srs_stage: Range<1, WKMaxSrsReviewStages>;
 
 	/**
 	 * Unique identifier of the associated subject.

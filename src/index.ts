@@ -26,6 +26,7 @@ export type {
 	WKLevelProgressionParameters,
 	WKMaxLessonBatchSize,
 	WKMaxLevels,
+	WKMaxSrsReviewStages,
 	WKMaxSrsStages,
 	WKMaxSrsStagesMinusOne,
 	WKMinLessonBatchSize,
