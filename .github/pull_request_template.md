@@ -21,7 +21,7 @@ Its changes constitutes a:
 
 - [ ] Bug Fix or Other Small Changes (i.e. patch version bump)
 - [ ] Forward-compatible Enhancement (i.e. minor version bump)
-- [ ] ⚠️ BREAKING CHANGE regarding TypeScript, Package, and/or WaniKani API version (i.e. MAJOR version bump)
+- [ ] ⚠️ BREAKING CHANGE regarding TypeScript, Package, and/or WaniKani API version(s) (i.e. MAJOR version bump)
 
 # Additional Info
 
