@@ -19,6 +19,7 @@ This Pull Request:
 
 Its changes constitutes a:
 
+- [ ] Non-code change (i.e. no version bump)
 - [ ] Bug Fix or Other Small Changes (i.e. patch version bump)
 - [ ] Forward-compatible Enhancement (i.e. minor version bump)
 - [ ] ⚠️ BREAKING CHANGE regarding TypeScript, Package, and/or WaniKani API version(s) (i.e. MAJOR version bump)
