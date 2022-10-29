@@ -1,0 +1,85 @@
+name: Bug Report
+description: Report an issue encountered while using this package
+title: "Bug: "
+labels: ["bug"]
+assignees:
+  - bachmacintosh
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report! Please fill out the below form with as much info as possible.
+  - type: textarea
+    id: tried-doing
+    attributes:
+      label: What did you try to do?
+      description: "Describe here what actions you tried taking using the package."
+      placeholder: "e.g. Tried to use WKAssignmentPayload to start an assignment on WaniKani"
+    validations:
+      required: true
+  - type: textarea
+    id: code-snippet
+    attributes:
+      label: Code Snippet (if any)
+      description: If you have a snippet of code that can be tested against, please paste it here.
+      placeholder: "Your TypeScript/JavaScript code goes here..."
+      render: "TypeScript"
+    validations:
+      required: false
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect to happen?
+      description: "Describe here what sort of outcome was expected when you attempted to do the above action."
+      placeholder: "e.g. Expected WaniKani to return HTTP Code 200 OK with a body of the started assignment."
+    validations:
+      required: true
+  - type: textarea
+    id: got
+    attributes:
+      label: What happened instead?
+      description: "Describe here the outcome that occurred instead of the expected behavior."
+      placeholder: "e.g. Got HTTP Error 422 because the payload body contents were invalid"
+    validations:
+      required: true
+  - type: input
+    id: ts-version
+    attributes:
+      label: TypeScript Version
+      description: The version of TypeScript you have installed in your dependencies
+      placeholder: "e.g. 4.8.4 or 5.2.3"
+    validations:
+      required: true
+  - type: textarea
+    id: tsconfig-json
+    attributes:
+      label: Your tsconfig.json File
+      description: Copy and paste the contents of the tsconfig.json file used to build your project.
+      placeholder: "Your tsconfig.json file contents here..."
+      render: "JSON"
+    validations:
+      required: true
+  - type: input
+    id: using-module
+    attributes:
+      label: Module Used
+      description: The WaniKani API revision-matched module being used; this can be left blank if using the root module.
+      placeholder: "e.g. v20170710"
+    validations:
+      required: false
+  - type: textarea
+    id: other-info
+    attributes:
+      label: Any additional info?
+      description: "If there's anything else to consider with regards to the environment, feel free to add it here."
+      placeholder: "e.g. OS version, using types in a testing framework, etc."
+    validations:
+      required: false
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Agree to Contributing Terms
+      description: By submitting this issue, you agree to follow our [Contributing Guidelines](https://github.com/bachmacintosh/wanikani-api-types/blob/main/CONTRIBUTING.md) and [Code of Conduct](https://github.com/bachmacintosh/wanikani-api-types/blob/main/CODE_OF_CONDUCT.md)
+      options:
+        - label: I agree to follow this project's Contributing Guidelines and Code of Conduct
+          required: true
