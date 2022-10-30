@@ -22,7 +22,52 @@ Major releases indicate a new version of the WaniKani API, or a [breaking change
 npm install --save-dev @bachmacintosh/wanikani-api-types
 ```
 
-Direct usage via the web is coming soon.
+Then, import using one of two methods.
+
+#### Specific API Revision (Recommended)
+
+The module you import from matches a [WaniKani API Revision](https://docs.api.wanikani.com/20170710/#revisions-aka-versioning); you shouldn't expect any breaking changes from the package.
+
+```typescript
+import type { WKAssignmentParameters, WKDatableString } from "@bachmacintosh/wanikani-api-docs/v20170710.js";
+import { stringifyParameters } from "@bachmacintosh/wanikani-api-docs/v20170710.js";
+```
+
+#### Latest API Revision (Not Recommended)
+
+Importing from the index module will always provide types, methods, etc. for use with the latest and greatest API Revision.
+
+```typescript
+import type { WKAssignmentParameters, WKDatableString } from "@bachmacintosh/wanikani-api-docs";
+import { stringifyParameters } from "@bachmacintosh/wanikani-api-docs";
+```
+
+### Deno and Other Environments
+
+You can import the modules directly with `esm.sh`.
+
+**Be sure to replace `x.y.z` with your desired version number.**
+
+#### Specific API Revision (Recommended)
+
+The module you import from matches a [WaniKani API Revision](https://docs.api.wanikani.com/20170710/#revisions-aka-versioning); you shouldn't expect any breaking changes from the package.
+
+```typescript
+import type {
+	WKAssignmentParameters,
+	WKDatableString,
+} from "https://esm.sh/@bachmacintosh/wanikani-api-types@x.y.z/dist/v20170710.js";
+import { stringifyParameters } from "https://esm.sh/@bachmacintosh/wanikani-api-types@x.y.z/dist/v20170710.js";
+```
+
+#### Latest API Revision (Not Recommended)
+
+Importing from the index module will always provide types, methods, etc. for use with the latest and greatest API Revision.
+
+```typescript
+import type { WKAssignmentParameters, WKDatableString } from "https://esm.sh/@bachmacintosh/wanikani-api-types@x.y.z";
+import { stringifyParameters } from "https://esm.sh/@bachmacintosh/wanikani-api-types@x.y.z";
+```
 
 ### Documentation
 
