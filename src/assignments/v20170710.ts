@@ -260,6 +260,9 @@ export type WKStartedAssignmentData = Omit<WKAssignmentData, "hidden">;
  *
  * @category Assignments
  * @category Resources
+ * @deprecated This type was originally created because the WaniKani API docs indicated that an updated assignment
+ * alongside a created review had additional properties, but further testing found this was not the case; this type will
+ * be removed in version 1.0, and should be substituted with {@link WKAssignment} instead.
  */
 export interface WKUpdatedAssignment extends WKResource {
 	/**
@@ -283,6 +286,9 @@ export interface WKUpdatedAssignment extends WKResource {
  *
  * @category Assignments
  * @category Data
+ * @deprecated This type was originally created because the WaniKani API docs indicated that an updated assignment
+ * alongside a created review had additional properties, but further testing found this was not the case; this type will
+ * be removed in version 1.0, and should be substituted with {@link WKAssignmentData} instead.
  */
 export interface WKUpdatedAssignmentData extends WKAssignmentData {
 	/**
