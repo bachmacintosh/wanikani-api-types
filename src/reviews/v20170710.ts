@@ -1,11 +1,11 @@
 import type {
+	WKAssignment,
 	WKCollection,
 	WKDatableString,
 	WKMaxSrsReviewStages,
 	WKMaxSrsStages,
 	WKResource,
 	WKReviewStatistic,
-	WKUpdatedAssignment,
 } from "../v20170710.js";
 import type { Range } from "../internal/index.js";
 
@@ -33,7 +33,7 @@ export interface WKCreatedReview extends WKResource {
 	/** The resources updated alongside creating the review */
 	resources_updated: {
 		/** The updated assignment upon creating the review */
-		assignment: WKUpdatedAssignment;
+		assignment: WKAssignment;
 
 		/** The updated review statistic upon creating the review */
 		review_statistic: WKReviewStatistic;
