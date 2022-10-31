@@ -79,6 +79,7 @@ export type {
 
 export type {
 	WKStudyMaterial,
+	WKStudyMaterialBaseData,
 	WKStudyMaterialCollection,
 	WKStudyMaterialCreatePayload,
 	WKStudyMaterialData,

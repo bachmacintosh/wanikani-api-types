@@ -1,5 +1,4 @@
 import type { WKCollection, WKDatableString, WKSubjectTuple, WKSubjectType } from "../v20170710.js";
-import type { Nullable } from "../internal/index.js";
 
 /**
  * Study materials store user-specific notes and synonyms for a given subject. The records are created as soon as the
@@ -26,16 +25,29 @@ export interface WKStudyMaterial {
 	data: WKStudyMaterialData;
 }
 
-interface WKStudyMaterialBaseData {
+/**
+ * Data found in all study materials whether they are being created/updated, or received from the WaniKani API
+ *
+ * @category Data
+ * @category Study Materials
+ * @remarks For creating study materials, use {@link WKStudyMaterialCreatePayload}; for updating study materials, use
+ * {@link WKStudyMaterialUpdatePayload}; for study materials received from the API, use {@link WKStudyMaterialData}
+ */
+export interface WKStudyMaterialBaseData {
 	/**
 	 * Free form note related to the meaning(s) of the associated subject.
 	 */
-	meaning_note: string;
+	meaning_note: string | null;
 
 	/**
 	 * Free form note related to the reading(s) of the associated subject.
 	 */
-	reading_note: string;
+	reading_note: string | null;
+
+	/**
+	 * Synonyms for the meaning of the subject. These are used as additional correct answers during reviews.
+	 */
+	meaning_synonyms: string[];
 }
 
 /**
@@ -69,9 +81,10 @@ export interface WKStudyMaterialCreatePayload extends WKStudyMaterialUpdatePaylo
 /**
  * Data for study material returned from the WaniKani API
  *
+ * @category Data
  * @category Study Materials
  */
-export interface WKStudyMaterialData extends Nullable<WKStudyMaterialBaseData> {
+export interface WKStudyMaterialData extends WKStudyMaterialBaseData {
 	/**
 	 * Timestamp when the study material was created.
 	 */
@@ -81,11 +94,6 @@ export interface WKStudyMaterialData extends Nullable<WKStudyMaterialBaseData> {
 	 * Indicates if the associated subject has been hidden, preventing it from appearing in lessons or reviews.
 	 */
 	hidden: boolean;
-
-	/**
-	 * Synonyms for the meaning of the subject. These are used as additional correct answers during reviews.
-	 */
-	meaning_synonyms: string[];
 
 	/**
 	 * Unique identifier of the associated subject.
@@ -138,10 +146,6 @@ export interface WKStudyMaterialParameters {
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#update-a-study-material}
  * @category Payloads
+ * @category Study Materials
  */
-export interface WKStudyMaterialUpdatePayload extends Partial<WKStudyMaterialBaseData> {
-	/**
-	 * Synonyms for the meaning of the subject. These are used as additional correct answers during reviews.
-	 */
-	meaning_synonyms?: string[];
-}
+export type WKStudyMaterialUpdatePayload = Partial<WKStudyMaterialBaseData>;

@@ -74,6 +74,7 @@ export type {
 	WKStartedAssignment,
 	WKStartedAssignmentData,
 	WKStudyMaterial,
+	WKStudyMaterialBaseData,
 	WKStudyMaterialCollection,
 	WKStudyMaterialCreatePayload,
 	WKStudyMaterialData,
