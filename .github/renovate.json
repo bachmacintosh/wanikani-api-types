@@ -7,6 +7,7 @@
 	"assignees": ["bachmacintosh"],
 	"rebaseWhen": "behind-base-branch",
 	"platformCommit": true,
+	"stabilityDays": 3,
 	"packageRules": [
 		{
 			"matchUpdateTypes": ["minor", "patch", "pin", "digest"],
