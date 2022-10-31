@@ -27,6 +27,10 @@
 			"labels": ["typescript"],
 			"groupName": "TypeScript",
 			"dependencyDashboardApproval": true
+		},
+		{
+			"matchDatasources": ["npm"],
+			"stabilityDays": 3
 		}
 	]
 }
