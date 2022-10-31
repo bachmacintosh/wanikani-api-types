@@ -1,6 +1,6 @@
 {
 	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
-	"extends": ["config:js-lib", "group:allNonMajor", ":gitSignOff"],
+	"extends": ["config:js-lib", ":gitSignOff"],
 	"schedule": ["after 5am and before 11am"],
 	"timezone": "America/New_York",
 	"labels": ["dependencies"],
