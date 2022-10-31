@@ -219,7 +219,7 @@ export interface WKAssignmentPayload {
 	/**
 	 * When the assignment was started. Must be greater than or equal to the assignment's `unlocked_at` date.
 	 */
-	started_at?: WKDatableString;
+	started_at?: Date | WKDatableString;
 }
 
 /**
