@@ -1,6 +1,6 @@
 {
 	"name": "@bachmacintosh/wanikani-api-types",
-	"version": "0.3.0",
+	"version": "0.4.0",
 	"description": "Regularly updated type definitions for the WaniKani API",
 	"keywords": [
 		"wanikani",
@@ -12,14 +12,17 @@
 	"homepage": "https://wanikani-api-types.bachman.dev",
 	"type": "module",
 	"main": "./dist/index.js",
+	"module": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"exports": {
 		".": {
 			"import": "./dist/index.js",
+			"require": "./dist/index.js",
 			"types": "./dist/index.d.ts"
 		},
-		"./v20170710.js": {
+		"./dist/v20170710": {
 			"import": "./dist/v20170710.js",
+			"require": "./dist/v20170710.js",
 			"types": "./dist/v20170710.d.ts"
 		}
 	},

@@ -29,8 +29,8 @@ Then, import using one of two methods.
 The module you import from matches a [WaniKani API Revision](https://docs.api.wanikani.com/20170710/#revisions-aka-versioning); you shouldn't expect any breaking changes from the package.
 
 ```typescript
-import type { WKAssignmentParameters, WKDatableString } from "@bachmacintosh/wanikani-api-docs/v20170710.js";
-import { stringifyParameters } from "@bachmacintosh/wanikani-api-docs/v20170710.js";
+import type { WKAssignmentParameters, WKDatableString } from "@bachmacintosh/wanikani-api-docs/dist/v20170710";
+import { stringifyParameters } from "@bachmacintosh/wanikani-api-docs/dist/v20170710";
 ```
 
 #### Latest API Revision (Not Recommended)
