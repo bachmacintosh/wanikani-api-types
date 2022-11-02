@@ -29,8 +29,8 @@ Then, import using one of two methods.
 The module you import from matches a [WaniKani API Revision](https://docs.api.wanikani.com/20170710/#revisions-aka-versioning); you shouldn't expect any breaking changes from the package.
 
 ```typescript
-import type { WKAssignmentParameters, WKDatableString } from "@bachmacintosh/wanikani-api-docs/dist/v20170710";
-import { stringifyParameters } from "@bachmacintosh/wanikani-api-docs/dist/v20170710";
+import type { WKAssignmentParameters, WKDatableString } from "@bachmacintosh/wanikani-api-types/dist/v20170710";
+import { stringifyParameters } from "@bachmacintosh/wanikani-api-types/dist/v20170710";
 ```
 
 #### Latest API Revision (Not Recommended)
@@ -38,8 +38,8 @@ import { stringifyParameters } from "@bachmacintosh/wanikani-api-docs/dist/v2017
 Importing from the index module will always provide types, methods, etc. for use with the latest and greatest API Revision.
 
 ```typescript
-import type { WKAssignmentParameters, WKDatableString } from "@bachmacintosh/wanikani-api-docs";
-import { stringifyParameters } from "@bachmacintosh/wanikani-api-docs";
+import type { WKAssignmentParameters, WKDatableString } from "@bachmacintosh/wanikani-api-types";
+import { stringifyParameters } from "@bachmacintosh/wanikani-api-types";
 ```
 
 ### Deno and Other Environments
@@ -98,8 +98,8 @@ We provide a helper function, `stringifyParameters`, that accepts any of the Par
 Here's a quick example code snippet that lays the foundation of fetching a collection of assignments, possibly using an old `data_updated_at` value from a previous collection of assignments, or a date calculated from a time period library.
 
 ```typescript
-import type { WKAssignmentParameters, WKDatableString } from "@bachmacintosh/wanikani-api-docs/v20170710.js";
-import { stringifyParameters } from "@bachmacintosh/wanikani-api-docs/v20170710.js";
+import type { WKAssignmentParameters, WKDatableString } from "@bachmacintosh/wanikani-api-types/v20170710.js";
+import { stringifyParameters } from "@bachmacintosh/wanikani-api-types/v20170710.js";
 
 function getAssignments(newerThan?: WKDatableString | Date) {
 	let params: WKAssignmentParameters = {};
