@@ -141,7 +141,7 @@ export interface WKCollectionParameters {
 	/**
 	 * Get a collection's previous page containing `pages.per_page` resources before the given ID.
 	 *
-	 * The `page_after_id` parameter takes precedence over this if it is specified.
+	 * The `page_after_id` parameter takes precedence over this if it is specified alongside this parameter.
 	 */
 	page_before_id?: number;
 }
