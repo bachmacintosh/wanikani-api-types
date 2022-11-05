@@ -268,6 +268,8 @@ export const WK_MIN_LEVELS: WKMinLevels = 3;
  *
  * @category Base
  * @category Parameters
+ * @deprecated Use a type that extends {@link WKCollectionParameters} instead. This union type will be removed in
+ * version 1.0.
  */
 export type WKParameters =
 	| WKAssignmentParameters
