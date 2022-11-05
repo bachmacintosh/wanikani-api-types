@@ -133,11 +133,15 @@ export interface WKCollection {
 export interface WKCollectionParameters {
 	/**
 	 * Get a collection's next page containing `pages.per_page` resources after the given ID.
+	 *
+	 * This will take precedence over `page_before_id` if both are specified.
 	 */
 	page_after_id?: number;
 
 	/**
 	 * Get a collection's previous page containing `pages.per_page` resources before the given ID.
+	 *
+	 * The `page_after_id` parameter takes precedence over this if it is specified.
 	 */
 	page_before_id?: number;
 }
