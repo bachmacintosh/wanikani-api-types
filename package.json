@@ -1,6 +1,6 @@
 {
 	"name": "@bachmacintosh/wanikani-api-types",
-	"version": "0.5.0",
+	"version": "0.5.1",
 	"description": "Regularly updated type definitions for the WaniKani API",
 	"keywords": [
 		"wanikani",
@@ -28,6 +28,7 @@
 	},
 	"scripts": {
 		"build": "rimraf dist && tsc",
+		"prebuild:docs": "tsc ./src/internal/docs/MethodsTheme.cts --target es2020 --module commonjs --outDir ./dist/internal/docs",
 		"build:docs": "typedoc",
 		"lint": "eslint . && prettier --check .",
 		"lint:fix": "eslint --fix . && prettier --write .",
