@@ -125,6 +125,28 @@ export interface WKCollection {
 }
 
 /**
+ * Query string parameters that can be sent to any WaniKani API collection endpoint.
+ *
+ * @category Base
+ * @category Parameters
+ */
+export interface WKCollectionParameters {
+	/**
+	 * Get a collection's next page containing `pages.per_page` resources after the given ID.
+	 *
+	 * This will take precedence over `page_before_id` if both are specified.
+	 */
+	page_after_id?: number;
+
+	/**
+	 * Get a collection's previous page containing `pages.per_page` resources before the given ID.
+	 *
+	 * The `page_after_id` parameter takes precedence over this if it is specified alongside this parameter.
+	 */
+	page_before_id?: number;
+}
+
+/**
  * A `string` sent to/returned from the WaniKani API that can be converted into a JavaScript `Date` object
  *
  * @category Base
@@ -438,7 +460,7 @@ export function isWKDatableString(possibleWKDatableString: unknown): possibleWKD
  * @returns A query string of all the parameters, which can be added to a base URL
  * @category Base
  */
-export function stringifyParameters(params: WKParameters): string {
+export function stringifyParameters<T extends WKCollectionParameters>(params: T): string {
 	if (typeof params !== "object") {
 		throw new TypeError();
 	}

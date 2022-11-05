@@ -1,4 +1,11 @@
-import type { WKCollection, WKDatableString, WKResource, WKSubjectTuple, WKSubjectType } from "../v20170710.js";
+import type {
+	WKCollection,
+	WKCollectionParameters,
+	WKDatableString,
+	WKResource,
+	WKSubjectTuple,
+	WKSubjectType,
+} from "../v20170710.js";
 
 /**
  * Review statistics summarize the activity recorded in reviews. They contain sum the number of correct and incorrect
@@ -122,7 +129,7 @@ export interface WKReviewStatisticData {
  * @category Parameters
  * @category Review Statistics
  */
-export interface WKReviewStatisticParameters {
+export interface WKReviewStatisticParameters extends WKCollectionParameters {
 	/**
 	 * Return review statistics with a matching value in the `hidden` attribute
 	 */

@@ -1,4 +1,4 @@
-import type { WKCollection, WKDatableString, WKResource } from "../v20170710.js";
+import type { WKCollection, WKCollectionParameters, WKDatableString, WKResource } from "../v20170710.js";
 
 /**
  * Available voice actors used for vocabulary reading pronunciation audio.
@@ -71,7 +71,7 @@ export interface WKVoiceActorData {
  * @category Parameters
  * @category Voice Actors
  */
-export interface WKVoiceActorParameters {
+export interface WKVoiceActorParameters extends WKCollectionParameters {
 	/**
 	 * Only `voice_actors` where `data.id` matches one of the array values are returned.
 	 */

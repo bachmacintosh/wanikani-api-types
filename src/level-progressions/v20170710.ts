@@ -1,4 +1,4 @@
-import type { WKCollection, WKDatableString, WKMaxLevels, WKResource } from "../v20170710.js";
+import type { WKCollection, WKCollectionParameters, WKDatableString, WKMaxLevels, WKResource } from "../v20170710.js";
 import type { Range } from "../internal/index.js";
 
 /**
@@ -97,7 +97,7 @@ export interface WKLevelProgressionData {
  * @category Level Progressions
  * @category Parameters
  */
-export interface WKLevelProgressionParameters {
+export interface WKLevelProgressionParameters extends WKCollectionParameters {
 	/**
 	 * Only level progressions where `data.id` matches one of the array values are returned.
 	 */

@@ -1,5 +1,6 @@
 import type {
 	WKCollection,
+	WKCollectionParameters,
 	WKDatableString,
 	WKMaxLevels,
 	WKMaxSrsStages,
@@ -125,7 +126,7 @@ export interface WKAssignmentData {
  * @category Assignments
  * @category Parameters
  */
-export interface WKAssignmentParameters {
+export interface WKAssignmentParameters extends WKCollectionParameters {
 	/**
 	 * Only assignments available at or after this time are returned.
 	 */

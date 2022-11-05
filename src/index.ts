@@ -23,6 +23,7 @@ export type {
 	WKAssignmentParameters,
 	WKAssignmentPayload,
 	WKCollection,
+	WKCollectionParameters,
 	WKCreatedReview,
 	WKDatableString,
 	WKError,

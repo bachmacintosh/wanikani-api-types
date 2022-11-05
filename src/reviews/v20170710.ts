@@ -1,6 +1,7 @@
 import type {
 	WKAssignment,
 	WKCollection,
+	WKCollectionParameters,
 	WKDatableString,
 	WKMaxSrsReviewStages,
 	WKMaxSrsStages,
@@ -130,7 +131,7 @@ export interface WKReviewData {
  * @category Parameters
  * @category Reviews
  */
-export interface WKReviewParameters {
+export interface WKReviewParameters extends WKCollectionParameters {
 	/** Only reviews where `data.assignment_id` matches one of the array values are returned. */
 	assignment_ids?: number[];
 

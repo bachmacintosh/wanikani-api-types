@@ -1,4 +1,10 @@
-import type { WKCollection, WKDatableString, WKSubjectTuple, WKSubjectType } from "../v20170710.js";
+import type {
+	WKCollection,
+	WKCollectionParameters,
+	WKDatableString,
+	WKSubjectTuple,
+	WKSubjectType,
+} from "../v20170710.js";
 
 /**
  * Study materials store user-specific notes and synonyms for a given subject. The records are created as soon as the
@@ -113,7 +119,7 @@ export interface WKStudyMaterialData extends WKStudyMaterialBaseData {
  * @category Parameters
  * @category Study Materials
  */
-export interface WKStudyMaterialParameters {
+export interface WKStudyMaterialParameters extends WKCollectionParameters {
 	/**
 	 * Return study materials with a matching value in the `hidden` attribute
 	 */

@@ -1,5 +1,6 @@
 import type {
 	WKCollection,
+	WKCollectionParameters,
 	WKDatableString,
 	WKMaxLevels,
 	WKResource,
@@ -481,7 +482,7 @@ export interface WKSubjectMeaning {
  * @category Parameters
  * @category Subjects
  */
-export interface WKSubjectParameters {
+export interface WKSubjectParameters extends WKCollectionParameters {
 	/**
 	 * Only subjects where `data.id` matches one of the array values are returned.
 	 */

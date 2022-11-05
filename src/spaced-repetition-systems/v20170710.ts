@@ -1,4 +1,4 @@
-import type { WKCollection, WKDatableString, WKResource } from "../v20170710.js";
+import type { WKCollection, WKCollectionParameters, WKDatableString, WKResource } from "../v20170710.js";
 
 /**
  * Available spaced repetition systems used for calculating `srs_stage` changes to Assignments and Reviews. Has
@@ -94,7 +94,7 @@ export interface WKSpacedRepetitionSystemData {
  * @category Parameters
  * @category Spaced Repetition Systems
  */
-export interface WKSpacedRepetitionSystemParameters {
+export interface WKSpacedRepetitionSystemParameters extends WKCollectionParameters {
 	/**
 	 * Only `spaced_repetition_systems` where `data.id` matches one of the array values are returned.
 	 */

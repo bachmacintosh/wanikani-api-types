@@ -25,6 +25,7 @@ export type {
 export type {
 	WKApiRevision,
 	WKCollection,
+	WKCollectionParameters,
 	WKDatableString,
 	WKError,
 	WKMaxLessonBatchSize,
