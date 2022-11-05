@@ -456,7 +456,7 @@ export function isWKDatableString(possibleWKDatableString: unknown): possibleWKD
  * @returns A query string of all the parameters, which can be added to a base URL
  * @category Base
  */
-export function stringifyParameters(params: WKParameters): string {
+export function stringifyParameters<T extends WKCollectionParameters>(params: T): string {
 	if (typeof params !== "object") {
 		throw new TypeError();
 	}
