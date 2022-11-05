@@ -125,6 +125,24 @@ export interface WKCollection {
 }
 
 /**
+ * Query string parameters that can be send to any WaniKani API collection endpoint.
+ *
+ * @category Base
+ * @category Parameters
+ */
+export interface WKCollectionParameters {
+	/**
+	 * Get a collection's next page containing `pages.per_page` resources after the given ID.
+	 */
+	page_after_id?: number;
+
+	/**
+	 * Get a collection's previous page containing `pages.per_page` resources before the given ID.
+	 */
+	page_before_id?: number;
+}
+
+/**
  * A `string` sent to/returned from the WaniKani API that can be converted into a JavaScript `Date` object
  *
  * @category Base
