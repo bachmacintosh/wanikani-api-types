@@ -2,6 +2,8 @@
 	"$schema": "https://typedoc.org/schema.json",
 	"entryPoints": ["./src/v20170710.ts", "./src/index.ts"],
 	"out": "docs",
+	"plugin": ["./dist/internal/docs/MethodsTheme.cjs"],
+	"theme": "methodsTheme",
 	"cleanOutputDir": true,
 	"categorizeByGroup": false,
 	"categoryOrder": ["Base", "Collections", "Data", "Parameters", "Payloads", "Reports", "Resources", "*"],

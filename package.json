@@ -28,6 +28,7 @@
 	},
 	"scripts": {
 		"build": "rimraf dist && tsc",
+		"prebuild:docs": "tsc ./src/internal/docs/MethodsTheme.cts --target es2020 --module commonjs --outDir ./dist/internal/docs",
 		"build:docs": "typedoc",
 		"lint": "eslint . && prettier --check .",
 		"lint:fix": "eslint --fix . && prettier --write .",
