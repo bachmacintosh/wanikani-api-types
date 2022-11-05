@@ -125,7 +125,7 @@ export interface WKCollection {
 }
 
 /**
- * Query string parameters that can be send to any WaniKani API collection endpoint.
+ * Query string parameters that can be sent to any WaniKani API collection endpoint.
  *
  * @category Base
  * @category Parameters
