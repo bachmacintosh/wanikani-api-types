@@ -1,4 +1,4 @@
-import type { WKCollection, WKDatableString, WKMaxLevels, WKResource } from "../v20170710.js";
+import type { WKCollection, WKCollectionParameters, WKDatableString, WKMaxLevels, WKResource } from "../v20170710.js";
 import type { Range } from "../internal/index.js";
 
 /**
@@ -77,7 +77,7 @@ export interface WKResetData {
  * @category Parameters
  * @category Resets
  */
-export interface WKResetParameters {
+export interface WKResetParameters extends WKCollectionParameters {
 	/**
 	 * Only resets where `data.id` matches one of the array values are returned.
 	 */
