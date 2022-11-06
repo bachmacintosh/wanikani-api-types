@@ -650,9 +650,9 @@ export interface WKVocabularyPronunciationAudio {
 	url: string;
 
 	/**
-	 * The content type of the audio. Currently the API delivers `audio/mpeg` and `audio/ogg`.
+	 * The content type of the audio. Currently the API delivers `audio/mpeg`, `audio/ogg`, and `audio/webm`.
 	 */
-	content_type: "audio/mpeg" | "audio/ogg";
+	content_type: "audio/mpeg" | "audio/ogg" | "audio/webm";
 
 	/**
 	 * Details about the pronunciation audio.
