@@ -2,6 +2,7 @@ import type {
 	WKCollection,
 	WKCollectionParameters,
 	WKDatableString,
+	WKResource,
 	WKSubjectTuple,
 	WKSubjectType,
 } from "../v20170710.js";
@@ -14,7 +15,7 @@ import type {
  * @category Resources
  * @category Study Materials
  */
-export interface WKStudyMaterial {
+export interface WKStudyMaterial extends WKResource {
 	/**
 	 * A unique number identifying the study material.
 	 */
