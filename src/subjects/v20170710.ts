@@ -5,7 +5,6 @@ import type {
 	WKMaxLevels,
 	WKResource,
 	WKSubjectTuple,
-	WKSubjectType,
 } from "../v20170710.js";
 import type { Range } from "../internal/index.js";
 
@@ -21,7 +20,7 @@ import type { Range } from "../internal/index.js";
  * @category Resources
  * @category Subjects
  */
-export interface WKKanji extends WKSubject {
+export interface WKKanji extends WKResource {
 	/**
 	 * The kind of object returned.
 	 */
@@ -40,7 +39,7 @@ export interface WKKanji extends WKSubject {
  * @category Collections
  * @category Subjects
  */
-export interface WKKanjiCollection extends WKSubjectCollection {
+export interface WKKanjiCollection extends WKCollection {
 	/**
 	 * An array of returned kanji subjects.
 	 */
@@ -155,7 +154,7 @@ export interface WKKanjiReading {
  * @category Resources
  * @category Subjects
  */
-export interface WKRadical extends WKSubject {
+export interface WKRadical extends WKResource {
 	/**
 	 * The kind of object returned.
 	 */
@@ -250,7 +249,7 @@ export interface WKRadicalCharacterImageSvgMetadata {
  * @category Collections
  * @category Subjects
  */
-export interface WKRadicalCollection extends WKSubjectCollection {
+export interface WKRadicalCollection extends WKCollection {
 	/**
 	 * An array of returned radical subjects.
 	 */
@@ -331,22 +330,7 @@ export interface WKRadicalData extends WKSubjectData {
  * @category Resources
  * @category Subjects
  */
-export interface WKSubject extends WKResource {
-	/**
-	 * A unique number identifying the subject.
-	 */
-	id: number;
-
-	/**
-	 * The kind of object returned.
-	 */
-	object: WKSubjectType;
-
-	/**
-	 * Subject data.
-	 */
-	data: WKKanjiData | WKRadicalData | WKVocabularyData;
-}
+export type WKSubject = WKKanji | WKRadical | WKVocabulary;
 
 /**
  * A subject's auxilliary meanings.
@@ -526,7 +510,7 @@ export interface WKSubjectParameters extends WKCollectionParameters {
  * @category Resources
  * @category Subjects
  */
-export interface WKVocabulary extends WKSubject {
+export interface WKVocabulary extends WKResource {
 	/**
 	 * The kind of object returned.
 	 */
@@ -545,7 +529,7 @@ export interface WKVocabulary extends WKSubject {
  * @category Collections
  * @category Subjects
  */
-export interface WKVocabularyCollection extends WKSubjectCollection {
+export interface WKVocabularyCollection extends WKCollection {
 	/**
 	 * An array of returned vocabulary subjects.
 	 */
