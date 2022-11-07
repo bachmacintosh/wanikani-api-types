@@ -22,6 +22,11 @@ import type { Range } from "../internal/index.js";
  */
 export interface WKKanji extends WKResource {
 	/**
+	 * A unique number identifying the kanji.
+	 */
+	id: number;
+
+	/**
 	 * The kind of object returned.
 	 */
 	object: "kanji";
@@ -155,6 +160,11 @@ export interface WKKanjiReading {
  * @category Subjects
  */
 export interface WKRadical extends WKResource {
+	/**
+	 * A unique number identifying the radical.
+	 */
+	id: number;
+
 	/**
 	 * The kind of object returned.
 	 */
@@ -511,6 +521,11 @@ export interface WKSubjectParameters extends WKCollectionParameters {
  * @category Subjects
  */
 export interface WKVocabulary extends WKResource {
+	/**
+	 * A unique number identifying the vocabulary.
+	 */
+	id: number;
+
 	/**
 	 * The kind of object returned.
 	 */
