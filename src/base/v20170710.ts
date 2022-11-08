@@ -162,12 +162,47 @@ export interface WKError {
 	/**
 	 * A message string that describes the error.
 	 */
-	error?: string;
+	error: string;
 
 	/**
 	 * An HTTP status code indicating the type of error.
 	 */
 	code: number;
+
+	/**
+	 * An error will never include a `data` property.
+	 */
+	data?: never;
+
+	/**
+	 * An error will never include a `data_updated_at` property.
+	 */
+	data_updated_at?: never;
+
+	/**
+	 * An error will never include an `id` property.
+	 */
+	id?: never;
+
+	/**
+	 * An error will never include an `object` property.
+	 */
+	object?: never;
+
+	/**
+	 * An error will never include a `pages` property.
+	 */
+	pages?: never;
+
+	/**
+	 * An error will never include a `total_count` property.
+	 */
+	total_count?: never;
+
+	/**
+	 * An error will never include a `url` property.
+	 */
+	url?: never;
 }
 
 /**
