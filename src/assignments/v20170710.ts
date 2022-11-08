@@ -178,7 +178,7 @@ export interface WKAssignmentParameters extends WKCollectionParameters {
 	 * Only assignments where `data.srs_stage` matches one of the array values are returned. Valid values range from `0`
 	 * to `9`
 	 */
-	srs_stages?: Range<0, WKMaxSrsStages>;
+	srs_stages?: Range<0, WKMaxSrsStages>[];
 
 	/**
 	 * When set to `true`, returns assignments that have a value in `data.started_at`. Returns assignments with a `null`
