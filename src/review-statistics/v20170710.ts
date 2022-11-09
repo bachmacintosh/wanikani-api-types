@@ -136,11 +136,6 @@ export interface WKReviewStatisticParameters extends WKCollectionParameters {
 	hidden?: boolean;
 
 	/**
-	 * Only review statistics where `data.id` matches one of the array values are returned.
-	 */
-	ids?: number[];
-
-	/**
 	 * Return review statistics where the `percentage_correct` is greater than the value.
 	 */
 	percentages_greater_than?: number;
@@ -160,9 +155,4 @@ export interface WKReviewStatisticParameters extends WKCollectionParameters {
 	 * `radical`, `kanji`, or `vocabulary`.
 	 */
 	subject_types?: WKSubjectTuple;
-
-	/**
-	 * Only review statistics updated after this time are returned.
-	 */
-	updated_after?: Date | WKDatableString;
 }

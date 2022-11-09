@@ -478,11 +478,6 @@ export interface WKSubjectMeaning {
  */
 export interface WKSubjectParameters extends WKCollectionParameters {
 	/**
-	 * Only subjects where `data.id` matches one of the array values are returned.
-	 */
-	ids?: number[];
-
-	/**
 	 * Return subjects of the specified types.
 	 */
 	types?: WKSubjectTuple;
@@ -501,11 +496,6 @@ export interface WKSubjectParameters extends WKCollectionParameters {
 	 * Return subjects which are or are not hidden from the user-facing application.
 	 */
 	hidden?: boolean;
-
-	/**
-	 * Only subjects updated after this time are returned.
-	 */
-	updated_after?: Date | WKDatableString;
 }
 
 /**

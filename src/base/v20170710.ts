@@ -132,6 +132,11 @@ export interface WKCollection {
  */
 export interface WKCollectionParameters {
 	/**
+	 * Only resources where `data.id` matches one of the array values are returned.
+	 */
+	ids?: number[];
+
+	/**
 	 * Get a collection's next page containing `pages.per_page` resources after the given ID.
 	 *
 	 * This will take precedence over `page_before_id` if both are specified.
@@ -144,6 +149,11 @@ export interface WKCollectionParameters {
 	 * The `page_after_id` parameter takes precedence over this if it is specified alongside this parameter.
 	 */
 	page_before_id?: number;
+
+	/**
+	 * Only resources updated after this time are returned.
+	 */
+	updated_after?: Date | WKDatableString;
 }
 
 /**
