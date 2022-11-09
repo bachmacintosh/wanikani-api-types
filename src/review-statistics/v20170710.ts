@@ -155,9 +155,4 @@ export interface WKReviewStatisticParameters extends WKCollectionParameters {
 	 * `radical`, `kanji`, or `vocabulary`.
 	 */
 	subject_types?: WKSubjectTuple;
-
-	/**
-	 * Only review statistics updated after this time are returned.
-	 */
-	updated_after?: Date | WKDatableString;
 }

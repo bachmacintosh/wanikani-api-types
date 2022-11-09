@@ -496,11 +496,6 @@ export interface WKSubjectParameters extends WKCollectionParameters {
 	 * Return subjects which are or are not hidden from the user-facing application.
 	 */
 	hidden?: boolean;
-
-	/**
-	 * Only subjects updated after this time are returned.
-	 */
-	updated_after?: Date | WKDatableString;
 }
 
 /**

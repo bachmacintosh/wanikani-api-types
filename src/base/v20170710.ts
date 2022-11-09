@@ -149,6 +149,11 @@ export interface WKCollectionParameters {
 	 * The `page_after_id` parameter takes precedence over this if it is specified alongside this parameter.
 	 */
 	page_before_id?: number;
+
+	/**
+	 * Only resources updated after this time are returned.
+	 */
+	updated_after?: Date | WKDatableString;
 }
 
 /**

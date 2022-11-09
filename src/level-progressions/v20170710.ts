@@ -97,9 +97,4 @@ export interface WKLevelProgressionData {
  * @category Level Progressions
  * @category Parameters
  */
-export interface WKLevelProgressionParameters extends WKCollectionParameters {
-	/**
-	 * Only level progressions updated after this time are returned.
-	 */
-	updated_after?: Date | WKDatableString;
-}
+export type WKLevelProgressionParameters = WKCollectionParameters;

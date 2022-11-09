@@ -136,11 +136,6 @@ export interface WKStudyMaterialParameters extends WKCollectionParameters {
 	 * are: `radical`, `kanji`, or `vocabulary`.
 	 */
 	subject_types?: WKSubjectTuple;
-
-	/**
-	 * Only study material records updated after this time are returned.
-	 */
-	updated_after?: Date | WKDatableString;
 }
 
 /**

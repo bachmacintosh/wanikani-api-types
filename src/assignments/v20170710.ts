@@ -197,11 +197,6 @@ export interface WKAssignmentParameters extends WKCollectionParameters {
 	 * `data.unlocked_at` if `false`.
 	 */
 	unlocked?: boolean;
-
-	/**
-	 * Only assignments updated after this time, in ISO-8601 format, are returned.
-	 */
-	updated_after?: Date | WKDatableString;
 }
 
 /**

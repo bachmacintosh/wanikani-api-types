@@ -77,9 +77,4 @@ export interface WKResetData {
  * @category Parameters
  * @category Resets
  */
-export interface WKResetParameters extends WKCollectionParameters {
-	/**
-	 * Only resets updated after this time are returned.
-	 */
-	updated_after?: Date | WKDatableString;
-}
+export type WKResetParameters = WKCollectionParameters;

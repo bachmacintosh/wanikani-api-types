@@ -71,9 +71,4 @@ export interface WKVoiceActorData {
  * @category Parameters
  * @category Voice Actors
  */
-export interface WKVoiceActorParameters extends WKCollectionParameters {
-	/**
-	 * Only `voice_actors` updated after this time are returned.
-	 */
-	updated_after?: Date | WKDatableString;
-}
+export type WKVoiceActorParameters = WKCollectionParameters;

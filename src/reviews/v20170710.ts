@@ -137,9 +137,6 @@ export interface WKReviewParameters extends WKCollectionParameters {
 
 	/** Only reviews where `data.subject_id` matches one of the array values are returned. */
 	subject_ids?: number[];
-
-	/** Only reviews updated after this time are returned. */
-	updated_after?: Date | WKDatableString;
 }
 
 /**

@@ -94,12 +94,7 @@ export interface WKSpacedRepetitionSystemData {
  * @category Parameters
  * @category Spaced Repetition Systems
  */
-export interface WKSpacedRepetitionSystemParameters extends WKCollectionParameters {
-	/**
-	 * Only `spaced_repetition_systems` updated after this time are returned.
-	 */
-	updated_after?: Date | WKDatableString;
-}
+export type WKSpacedRepetitionSystemParameters = WKCollectionParameters;
 
 /**
  * An individual Spaced Repetition System (SRS) Stage
