@@ -127,11 +127,6 @@ export interface WKStudyMaterialParameters extends WKCollectionParameters {
 	hidden?: boolean;
 
 	/**
-	 * Only study material records where `data.id` matches one of the array values are returned.
-	 */
-	ids?: number[];
-
-	/**
 	 * Only study material records where `data.subject_id` matches one of the array values are returned.
 	 */
 	subject_ids?: number[];

@@ -149,11 +149,6 @@ export interface WKAssignmentParameters extends WKCollectionParameters {
 	hidden?: boolean;
 
 	/**
-	 * Only assignments where `data.id` matches one of the array values are returned.
-	 */
-	ids?: number[];
-
-	/**
 	 * When set to `true`, returns assignments which are immediately available for lessons
 	 */
 	immediately_available_for_lessons?: boolean;

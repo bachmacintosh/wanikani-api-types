@@ -136,11 +136,6 @@ export interface WKReviewStatisticParameters extends WKCollectionParameters {
 	hidden?: boolean;
 
 	/**
-	 * Only review statistics where `data.id` matches one of the array values are returned.
-	 */
-	ids?: number[];
-
-	/**
 	 * Return review statistics where the `percentage_correct` is greater than the value.
 	 */
 	percentages_greater_than?: number;

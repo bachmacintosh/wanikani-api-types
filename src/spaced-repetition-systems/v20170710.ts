@@ -96,11 +96,6 @@ export interface WKSpacedRepetitionSystemData {
  */
 export interface WKSpacedRepetitionSystemParameters extends WKCollectionParameters {
 	/**
-	 * Only `spaced_repetition_systems` where `data.id` matches one of the array values are returned.
-	 */
-	ids?: number[];
-
-	/**
 	 * Only `spaced_repetition_systems` updated after this time are returned.
 	 */
 	updated_after?: Date | WKDatableString;

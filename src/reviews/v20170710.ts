@@ -135,9 +135,6 @@ export interface WKReviewParameters extends WKCollectionParameters {
 	/** Only reviews where `data.assignment_id` matches one of the array values are returned. */
 	assignment_ids?: number[];
 
-	/** Only reviews where `data.id` matches one of the array values are returned. */
-	ids?: number[];
-
 	/** Only reviews where `data.subject_id` matches one of the array values are returned. */
 	subject_ids?: number[];
 

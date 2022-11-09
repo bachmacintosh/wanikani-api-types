@@ -478,11 +478,6 @@ export interface WKSubjectMeaning {
  */
 export interface WKSubjectParameters extends WKCollectionParameters {
 	/**
-	 * Only subjects where `data.id` matches one of the array values are returned.
-	 */
-	ids?: number[];
-
-	/**
 	 * Return subjects of the specified types.
 	 */
 	types?: WKSubjectTuple;

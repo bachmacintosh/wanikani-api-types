@@ -99,11 +99,6 @@ export interface WKLevelProgressionData {
  */
 export interface WKLevelProgressionParameters extends WKCollectionParameters {
 	/**
-	 * Only level progressions where `data.id` matches one of the array values are returned.
-	 */
-	ids?: number[];
-
-	/**
 	 * Only level progressions updated after this time are returned.
 	 */
 	updated_after?: Date | WKDatableString;

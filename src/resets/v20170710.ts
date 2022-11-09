@@ -79,11 +79,6 @@ export interface WKResetData {
  */
 export interface WKResetParameters extends WKCollectionParameters {
 	/**
-	 * Only resets where `data.id` matches one of the array values are returned.
-	 */
-	ids?: number[];
-
-	/**
 	 * Only resets updated after this time are returned.
 	 */
 	updated_after?: Date | WKDatableString;
