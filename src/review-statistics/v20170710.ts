@@ -30,7 +30,7 @@ export interface WKReviewStatistic extends WKResource {
 	object: "review_statistic";
 
 	/**
-	 * Data for the returned Review Statistic.
+	 * Data for the returned review statistic.
 	 */
 	data: WKReviewStatisticData;
 }
