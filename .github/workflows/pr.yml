@@ -12,13 +12,8 @@ jobs:
   test:
     name: "Test Pull Request"
     runs-on: ubuntu-latest
+    if: ${{ !github.event.pull_request.draft }}
     steps:
-      - name: Fail Check on Draft PR
-        if: "github.event.pull_request.draft"
-        uses: actions/github-script@v6
-        with:
-          script: |
-            core.setFailed('This Pull Request is a Draft and is not ready to be checked.')
       - name: Checkout
         uses: actions/checkout@v3
       - name: Setup Node.js
