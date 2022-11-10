@@ -32,7 +32,7 @@ export interface WKKanji extends WKResource {
 	object: "kanji";
 
 	/**
-	 * Kanji data.
+	 * Data for the returned kanji.
 	 */
 	data: WKKanjiData;
 }
@@ -54,6 +54,7 @@ export interface WKKanjiCollection extends WKCollection {
 /**
  * Data returned only for kanji subjects.
  *
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Data
  * @category Subjects
  */
@@ -123,6 +124,7 @@ export interface WKKanjiData extends WKSubjectData {
 /**
  * Information pertaining to a reading of a kanji subject.
  *
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
 export interface WKKanjiReading {
@@ -171,7 +173,7 @@ export interface WKRadical extends WKResource {
 	object: "radical";
 
 	/**
-	 * Radical data.
+	 * Data for the returned radical.
 	 */
 	data: WKRadicalData;
 }
@@ -179,6 +181,7 @@ export interface WKRadical extends WKResource {
 /**
  * An image representing a radical subject.
  *
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
 export interface WKRadicalCharacterImage {
@@ -201,21 +204,22 @@ export interface WKRadicalCharacterImage {
 /**
  * Character image metadata for `image/png` type images.
  *
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
 export interface WKRadicalCharacterImagePngMetadata {
 	/**
-	 * Color of the asset in hexadecimal
+	 * Color of the asset in hexadecimal.
 	 */
 	color: string;
 
 	/**
-	 * Dimension of the asset in pixels
+	 * Dimension of the asset in pixels.
 	 */
 	dimensions: string;
 
 	/**
-	 * A name descriptor
+	 * A name descriptor.
 	 */
 	style_name: string;
 
@@ -228,11 +232,12 @@ export interface WKRadicalCharacterImagePngMetadata {
 /**
  * Character image metadata for `image/svg+xml` type images.
  *
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
 export interface WKRadicalCharacterImageSvgMetadata {
 	/**
-	 * The SVG asset contains built-in CSS styling
+	 * The SVG asset contains built-in CSS styling.
 	 */
 	inline_styles: boolean;
 
@@ -269,6 +274,7 @@ export interface WKRadicalCollection extends WKCollection {
 /**
  * Data returned only for radical subjects.
  *
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Data
  * @category Subjects
  */
@@ -345,6 +351,7 @@ export type WKSubject = WKKanji | WKRadical | WKVocabulary;
 /**
  * A subject's auxilliary meanings.
  *
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
 export interface WKSubjectAuxiliaryMeaning {
@@ -361,7 +368,7 @@ export interface WKSubjectAuxiliaryMeaning {
 }
 
 /**
- * A collection of subjects of mixed or unknown types returned from the WaniKani API
+ * A collection of subjects of mixed or unknown types returned from the WaniKani API.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-subjects}
  * @category Collections
@@ -381,6 +388,7 @@ export interface WKSubjectCollection extends WKCollection {
  * This only represents a partial structure of a subject, and it's highly recommended to use one of the child type
  * definitions that extend this type definition.
  *
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Data
  * @category Subjects
  */
@@ -442,7 +450,7 @@ export interface WKSubjectData {
 	slug: string;
 
 	/**
-	 * Unique identifier of the associated `spaced_repetition_system`.
+	 * Unique identifier of the associated Spaced Repetition System.
 	 */
 	spaced_repetition_system_id: number;
 }
@@ -450,6 +458,7 @@ export interface WKSubjectData {
 /**
  * Information pertaining to a subject's meaning.
  *
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
 export interface WKSubjectMeaning {
@@ -473,6 +482,7 @@ export interface WKSubjectMeaning {
  * Parameters that can be passed to the WaniKani API to filter a request for a Subject Collection.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-subjects}
+ * @see {@link stringifyParameters}
  * @category Parameters
  * @category Subjects
  */
@@ -522,7 +532,7 @@ export interface WKVocabulary extends WKResource {
 	object: "vocabulary";
 
 	/**
-	 * Radical data.
+	 * Data for the returned vocabulary.
 	 */
 	data: WKVocabularyData;
 }
@@ -544,16 +554,17 @@ export interface WKVocabularyCollection extends WKCollection {
 /**
  * Japanese context sentences for vocabulary, with a corresponding English translation.
  *
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
 export interface WKVocabularyContextSentence {
 	/**
-	 * English translation of the sentence
+	 * English translation of the sentence.
 	 */
 	en: string;
 
 	/**
-	 * Japanese context sentence
+	 * Japanese context sentence.
 	 */
 	ja: string;
 }
@@ -561,6 +572,7 @@ export interface WKVocabularyContextSentence {
 /**
  * Data returned only for vocabulary subjects.
  *
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Data
  * @category Subjects
  */
@@ -630,6 +642,7 @@ export interface WKVocabularyData extends WKSubjectData {
 /**
  * Information pertaining to pronunciation audio for a subject.
  *
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
 export interface WKVocabularyPronunciationAudio {
@@ -682,6 +695,7 @@ export interface WKVocabularyPronunciationAudio {
 /**
  * Information pertaining to a reading of a vocabulary subject..
  *
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
 export interface WKVocabularyReading {
