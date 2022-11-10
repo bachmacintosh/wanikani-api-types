@@ -5,6 +5,7 @@
 	"plugin": ["./dist/internal/docs/MethodsTheme.cjs"],
 	"theme": "methodsTheme",
 	"cleanOutputDir": true,
+	"includeVersion": true,
 	"categorizeByGroup": false,
 	"categoryOrder": ["Base", "Collections", "Data", "Parameters", "Payloads", "Reports", "Resources", "*"],
 	"sort": ["required-first", "alphabetical"],
