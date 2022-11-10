@@ -9,7 +9,7 @@ import type {
 import type { Range } from "../internal/index.js";
 
 /**
- * A user and their status/information on WaniKani
+ * A user and their status/information on WaniKani.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#user}
  * @category Resources
@@ -23,13 +23,16 @@ export interface WKUser extends WKResource {
 	 */
 	object: "user";
 
-	/** User data */
+	/**
+	 * Data for the returned user.
+	 */
 	data: WKUserData;
 }
 
 /**
  * Data for a user returned from the WaniKani API.
  *
+ * @see {@link https://docs.api.wanikani.com/20170710/#user}
  * @category Data
  * @category User
  */
@@ -41,7 +44,7 @@ export interface WKUserData {
 	current_vacation_started_at: WKDatableString | null;
 
 	/**
-	 * A user's unique ID string
+	 * A user's unique ID string.
 	 */
 	id: string;
 
@@ -126,13 +129,13 @@ export interface WKUserPreferences {
 	reviews_presentation_order: "lower_levels_first" | "shuffled";
 
 	/**
-	 * Whether or not the user has enabled Script Compatibility Mode in the WaniKani app
+	 * Whether or not the user has enabled Script Compatibility Mode in the WaniKani app.
 	 */
 	wanikani_compatibility_mode: boolean;
 }
 
 /**
- * The payload sent to the WaniKani API to update a user's preferences
+ * The payload sent to the WaniKani API to update a user's preferences.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#update-user-information}
  * @category Payloads
