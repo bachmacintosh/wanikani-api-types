@@ -19,14 +19,15 @@ export interface WKVoiceActor extends WKResource {
 	object: "voice_actor";
 
 	/**
-	 * Voice Actor data
+	 * Data for the returned voice actor.
 	 */
 	data: WKVoiceActorData;
 }
 
 /**
- * A collection of voice actors returned from the WaniKani API
+ * A collection of voice actors returned from the WaniKani API.
  *
+ * @see {@link https://docs.api.wanikani.com/20170710/#get-all-voice-actors}
  * @category Collections
  * @category Voice Actors
  */
@@ -40,6 +41,7 @@ export interface WKVoiceActorCollection extends WKCollection {
 /**
  * Data for a voice actor returned from the WaniKani API.
  *
+ * @see {@link https://docs.api.wanikani.com/20170710/#voice-actors}
  * @category Data
  * @category Voice Actors
  */
@@ -59,15 +61,16 @@ export interface WKVoiceActorData {
 	gender: "female" | "male";
 
 	/**
-	 * The voice actor's name
+	 * The voice actor's name.
 	 */
 	name: string;
 }
 
 /**
- * Parameters that can be passed to the WaniKani API to filter a request for a Voice Actor Collection
+ * Parameters that can be passed to the WaniKani API to filter a request for a Voice Actor Collection.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-voice-actors}
+ * @see {@link stringifyParameters}
  * @category Parameters
  * @category Voice Actors
  */
