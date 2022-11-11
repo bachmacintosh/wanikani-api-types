@@ -122,6 +122,16 @@ export interface WKCollection {
 		| WKSubject[]
 		| WKVocabulary[]
 		| WKVoiceActor[];
+
+	/**
+	 * A collection will never have a `code` property.
+	 */
+	code?: never;
+
+	/**
+	 * A collection will never have an `error` property.
+	 */
+	error?: never;
 }
 
 /**
@@ -357,6 +367,16 @@ export interface WKReport {
 	 * The report's data, dependent on the particular report.
 	 */
 	data: WKSummaryData;
+
+	/**
+	 * A report will never have a `code` property.
+	 */
+	code?: never;
+
+	/**
+	 * A report will never have an `error` property.
+	 */
+	error?: never;
 }
 
 /**
@@ -408,6 +428,16 @@ export interface WKResource {
 		| WKUserData
 		| WKVocabularyData
 		| WKVoiceActorData;
+
+	/**
+	 * A resource will never have a `code` property.
+	 */
+	code?: never;
+
+	/**
+	 * A resource will never have an `error` property.
+	 */
+	error?: never;
 }
 
 /**
