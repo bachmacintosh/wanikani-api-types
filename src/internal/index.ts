@@ -1,5 +1,5 @@
 /**
- * A generic Brand type to brand basic types
+ * A generic Brand type to brand basic types.
  *
  * @internal
  */
@@ -8,7 +8,7 @@
 export type Brand<K, T> = K & { __brand: T };
 
 /**
- * Tail-recursion for excluding numbers
+ * Tail-recursion for excluding numbers.
  *
  * Adapted from: https://stackoverflow.com/a/70307091
  *
@@ -20,14 +20,14 @@ export type Enumerate<N extends number, Acc extends number[] = []> = Acc["length
 	: Enumerate<N, [...Acc, Acc["length"]]>;
 
 /**
- * A type that makes a given type's properties nullable
+ * A type that makes a given type's properties nullable.
  *
  * @internal
  */
 export type Nullable<T> = { [K in keyof T]: Nullable<T[K]> | null };
 
 /**
- * A range of numbers starting from number F to number T
+ * A range of numbers starting from number F to number T.
  *
  * E.g. Range<1, 10> = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
  *

@@ -30,13 +30,13 @@ export interface WKReviewStatistic extends WKResource {
 	object: "review_statistic";
 
 	/**
-	 * Review Statistic data
+	 * Data for the returned review statistic.
 	 */
 	data: WKReviewStatisticData;
 }
 
 /**
- * A collection of review statistics returned from the WaniKani API
+ * A collection of review statistics returned from the WaniKani API.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-review-statistics}
  * @category Collections
@@ -44,14 +44,15 @@ export interface WKReviewStatistic extends WKResource {
  */
 export interface WKReviewStatisticCollection extends WKCollection {
 	/**
-	 * An array of returned review statistics
+	 * An array of returned review statistics.
 	 */
 	data: WKReviewStatistic[];
 }
 
 /**
- * Data for a review statistic returned from the WaniKani API
+ * Data for a review statistic returned from the WaniKani API.
  *
+ * @see {@link https://docs.api.wanikani.com/20170710/#review-statistics}
  * @category Data
  * @category Review Statistics
  */
@@ -123,15 +124,16 @@ export interface WKReviewStatisticData {
 }
 
 /**
- * Parameters that can be passed to the WaniKani API to filter a request for a Review Statistic Collection
+ * Parameters that can be passed to the WaniKani API to filter a request for a Review Statistic Collection.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-review-statistics}
+ * @see {@link stringifyParameters}
  * @category Parameters
  * @category Review Statistics
  */
 export interface WKReviewStatisticParameters extends WKCollectionParameters {
 	/**
-	 * Return review statistics with a matching value in the `hidden` attribute
+	 * Return review statistics with a matching value in the `hidden` attribute.
 	 */
 	hidden?: boolean;
 

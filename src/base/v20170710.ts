@@ -40,7 +40,7 @@ import type {
 import type { Brand } from "../internal/index.js";
 
 /**
- * All known WaniKani API revisions, created when breaking changes are introduced to the WaniKani API
+ * All known WaniKani API revisions, created when breaking changes are introduced to the WaniKani API.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#revisions-aka-versioning}
  * @category Base
@@ -57,7 +57,7 @@ export type WKApiRevision = "20170710";
 export const WK_API_REVISION: WKApiRevision = "20170710";
 
 /**
- * The common properties across all Collection items from the WaniKani API
+ * The common properties across all Collection items from the WaniKani API.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#response-structure}
  * @category Base
@@ -65,7 +65,7 @@ export const WK_API_REVISION: WKApiRevision = "20170710";
  */
 export interface WKCollection {
 	/**
-	 * The kind of object returned
+	 * The kind of object returned.
 	 */
 	object: "collection";
 
@@ -127,6 +127,7 @@ export interface WKCollection {
 /**
  * Query string parameters that can be sent to any WaniKani API collection endpoint.
  *
+ * @see {@link stringifyParameters}
  * @category Base
  * @category Parameters
  */
@@ -157,8 +158,9 @@ export interface WKCollectionParameters {
 }
 
 /**
- * A `string` sent to/returned from the WaniKani API that can be converted into a JavaScript `Date` object
+ * A `string` sent to/returned from the WaniKani API that can be converted into a JavaScript `Date` object.
  *
+ * @see {@link isWKDatableString}
  * @category Base
  */
 export type WKDatableString = Brand<string, "WKDatableString">;
@@ -337,7 +339,7 @@ export type WKParameters =
  */
 export interface WKReport {
 	/**
-	 * The kind of object returned
+	 * The kind of object returned.
 	 */
 	object: "report";
 
@@ -347,7 +349,7 @@ export interface WKReport {
 	url: string;
 
 	/**
-	 * The last time the report was updated, in ISO-8601 format.
+	 * The last time the report was updated.
 	 */
 	data_updated_at: WKDatableString;
 
@@ -409,7 +411,7 @@ export interface WKResource {
 }
 
 /**
- * The types of resources used on WaniKani and its API
+ * The types of resources used on WaniKani and its API.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#response-structure}
  * @category Base
@@ -426,7 +428,7 @@ export type WKResourceType =
 	| "voice_actor";
 
 /**
- * A non-empty array of WaniKani subject types
+ * A non-empty array of WaniKani subject types.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Base
@@ -435,7 +437,7 @@ export type WKResourceType =
 export type WKSubjectTuple = [WKSubjectType, ...WKSubjectType[]];
 
 /**
- * The types of subjects used on WaniKani and its API
+ * The types of subjects used on WaniKani and its API.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Base
@@ -444,10 +446,10 @@ export type WKSubjectTuple = [WKSubjectType, ...WKSubjectType[]];
 export type WKSubjectType = "kanji" | "radical" | "vocabulary";
 
 /**
- * A type guard to determine if a given item is a valid {@link WKDatableString}
+ * A type guard to determine if a given item is a valid {@link WKDatableString}.
  *
- * @param possibleWKDatableString - An unknown item
- * @returns `true` if the item is a valid {@link WKDatableString}, `false` if not
+ * @param possibleWKDatableString - An unknown item.
+ * @returns `true` if the item is a valid {@link WKDatableString}, `false` if not.
  * @category Base
  */
 export function isWKDatableString(possibleWKDatableString: unknown): possibleWKDatableString is WKDatableString {
@@ -501,10 +503,10 @@ export function isWKDatableString(possibleWKDatableString: unknown): possibleWKD
 }
 
 /**
- * Parses a parameter object, for use with the WaniKani API
+ * Parses a parameter object, for use with the WaniKani API.
  *
- * @param params -- An object containing the query string parameters to parse
- * @returns A query string of all the parameters, which can be added to a base URL
+ * @param params -- An object containing the query string parameters to parse.
+ * @returns A query string of all the parameters, which can be added to a base URL.
  * @category Base
  */
 export function stringifyParameters<T extends WKCollectionParameters>(params: T): string {

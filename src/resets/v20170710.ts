@@ -23,13 +23,13 @@ export interface WKReset extends WKResource {
 	object: "reset";
 
 	/**
-	 * Reset data
+	 * Data for the returned reset.
 	 */
 	data: WKResetData;
 }
 
 /**
- * A collection of resets returned from the WaniKani API
+ * A collection of resets returned from the WaniKani API.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-resets}
  * @category Collections
@@ -45,6 +45,7 @@ export interface WKResetCollection extends WKCollection {
 /**
  * Data for resets returned from the WaniKani API.
  *
+ * @see {@link https://docs.api.wanikani.com/20170710/#resets}
  * @category Data
  * @category Resets
  */
@@ -60,7 +61,7 @@ export interface WKResetData {
 	created_at: WKDatableString;
 
 	/**
-	 * The user's level before the reset, from `1` to `60`
+	 * The user's level before the reset, from `1` to `60`.
 	 */
 	original_level: Range<1, WKMaxLevels>;
 
@@ -71,9 +72,10 @@ export interface WKResetData {
 }
 
 /**
- * Parameters that can be passed to the WaniKani API to filter a request for a Reset Collection
+ * Parameters that can be passed to the WaniKani API to filter a request for a Reset Collection.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-resets}
+ * @see {@link stringifyParameters}
  * @category Parameters
  * @category Resets
  */

@@ -27,13 +27,13 @@ export interface WKLevelProgression extends WKResource {
 	object: "level_progression";
 
 	/**
-	 * Level Progression data
+	 * Data for the returned level progression.
 	 */
 	data: WKLevelProgressionData;
 }
 
 /**
- * A collection of level progressions returned from the WaniKani API
+ * A collection of level progressions returned from the WaniKani API.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-level-progressions}
  * @category Collections
@@ -41,7 +41,7 @@ export interface WKLevelProgression extends WKResource {
  */
 export interface WKLevelProgressionCollection extends WKCollection {
 	/**
-	 * An array of returned level progressions
+	 * An array of returned level progressions.
 	 */
 	data: WKLevelProgression[];
 }
@@ -49,6 +49,7 @@ export interface WKLevelProgressionCollection extends WKCollection {
 /**
  * Data for level progressions returned from the WaniKani API.
  *
+ * @see {@link https://docs.api.wanikani.com/20170710/#level-progressions}
  * @category Data
  * @category Level Progressions
  */
@@ -64,7 +65,7 @@ export interface WKLevelProgressionData {
 	completed_at: WKDatableString | null;
 
 	/**
-	 * Timestamp when the level progression is created
+	 * Timestamp when the level progression is created.
 	 */
 	created_at: WKDatableString;
 
@@ -91,9 +92,10 @@ export interface WKLevelProgressionData {
 }
 
 /**
- * Parameters that can be passed to the WaniKani API to filter a request for a Level Progression Collection
+ * Parameters that can be passed to the WaniKani API to filter a request for a Level Progression Collection.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-level-progressions}
+ * @see {@link stringifyParameters}
  * @category Level Progressions
  * @category Parameters
  */

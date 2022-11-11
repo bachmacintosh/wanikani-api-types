@@ -27,18 +27,18 @@ export interface WKStudyMaterial extends WKResource {
 	object: "study_material";
 
 	/**
-	 * Study material data
+	 * Data for the returned study material.
 	 */
 	data: WKStudyMaterialData;
 }
 
 /**
- * Data found in all study materials whether they are being created/updated, or received from the WaniKani API
+ * Data found in all study materials whether they are being created/updated, or received from the WaniKani API.
  *
  * @category Data
  * @category Study Materials
  * @remarks For creating study materials, use {@link WKStudyMaterialCreatePayload}; for updating study materials, use
- * {@link WKStudyMaterialUpdatePayload}; for study materials received from the API, use {@link WKStudyMaterialData}
+ * {@link WKStudyMaterialUpdatePayload}; for study materials received from the API, use {@link WKStudyMaterialData}.
  */
 export interface WKStudyMaterialBaseData {
 	/**
@@ -58,7 +58,7 @@ export interface WKStudyMaterialBaseData {
 }
 
 /**
- * A collection of study materials returned from the WaniKani API
+ * A collection of study materials returned from the WaniKani API.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-study-materials}
  * @category Collections
@@ -66,13 +66,13 @@ export interface WKStudyMaterialBaseData {
  */
 export interface WKStudyMaterialCollection extends WKCollection {
 	/**
-	 * An array of returned study materials
+	 * An array of returned study materials.
 	 */
 	data: WKStudyMaterial[];
 }
 
 /**
- * The payload sent to the WaniKani API when creating new study materials
+ * The payload sent to the WaniKani API when creating new study materials.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#create-a-study-material}
  * @category Payloads
@@ -86,8 +86,9 @@ export interface WKStudyMaterialCreatePayload extends WKStudyMaterialUpdatePaylo
 }
 
 /**
- * Data for study material returned from the WaniKani API
+ * Data for study materials returned from the WaniKani API.
  *
+ * @see {@link https://docs.api.wanikani.com/20170710/#study-materials}
  * @category Data
  * @category Study Materials
  */
@@ -114,15 +115,16 @@ export interface WKStudyMaterialData extends WKStudyMaterialBaseData {
 }
 
 /**
- * Parameters that can be passed to the WaniKani API to filter a request for a Study Material Collection
+ * Parameters that can be passed to the WaniKani API to filter a request for a Study Material Collection.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-study-materials}
+ * @see {@link stringifyParameters}
  * @category Parameters
  * @category Study Materials
  */
 export interface WKStudyMaterialParameters extends WKCollectionParameters {
 	/**
-	 * Return study materials with a matching value in the `hidden` attribute
+	 * Return study materials with a matching value in the `hidden` attribute.
 	 */
 	hidden?: boolean;
 
@@ -139,7 +141,7 @@ export interface WKStudyMaterialParameters extends WKCollectionParameters {
 }
 
 /**
- * The payload sent to the WaniKani API when updating study materials
+ * The payload sent to the WaniKani API when updating study materials.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#update-a-study-material}
  * @category Payloads

@@ -31,7 +31,7 @@ export interface WKAssignment extends WKResource {
 	object: "assignment";
 
 	/**
-	 * Assignment data.
+	 * Date for the returned assignment.
 	 */
 	data: WKAssignmentData;
 }
@@ -53,6 +53,7 @@ export interface WKAssignmentCollection extends WKCollection {
 /**
  * Data for assignments returned from the WaniKani API.
  *
+ * @see {@link https://docs.api.wanikani.com/20170710/#assignments}
  * @category Assignments
  * @category Data
  */
@@ -123,6 +124,7 @@ export interface WKAssignmentData {
  * Assignment Collection.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-assignments}
+ * @see {@link stringifyParameters}
  * @category Assignments
  * @category Parameters
  */
@@ -144,22 +146,22 @@ export interface WKAssignmentParameters extends WKCollectionParameters {
 	burned?: boolean;
 
 	/**
-	 * Return assignments with a matching value in the `hidden` attribute
+	 * Return assignments with a matching value in the `hidden` attribute.
 	 */
 	hidden?: boolean;
 
 	/**
-	 * When set to `true`, returns assignments which are immediately available for lessons
+	 * When set to `true`, returns assignments which are immediately available for lessons.
 	 */
 	immediately_available_for_lessons?: boolean;
 
 	/**
-	 * When set to `true`, returns assignments which are immediately available for review
+	 * When set to `true`, returns assignments which are immediately available for review.
 	 */
 	immediately_available_for_review?: boolean;
 
 	/**
-	 * When set to `true`, returns assignments which are in the review state
+	 * When set to `true`, returns assignments which are in the review state.
 	 */
 	in_review?: boolean;
 
@@ -171,7 +173,7 @@ export interface WKAssignmentParameters extends WKCollectionParameters {
 
 	/**
 	 * Only assignments where `data.srs_stage` matches one of the array values are returned. Valid values range from `0`
-	 * to `9`
+	 * to `9`.
 	 */
 	srs_stages?: Range<0, WKMaxSrsStages>[];
 

@@ -2,7 +2,7 @@ import type { WKCollection, WKCollectionParameters, WKDatableString, WKResource 
 
 /**
  * Available spaced repetition systems used for calculating `srs_stage` changes to Assignments and Reviews. Has
- * relationship with Subjects
+ * relationship with Subjects.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#spaced-repetition-systems}
  * @category Resources
@@ -20,13 +20,13 @@ export interface WKSpacedRepetitionSystem extends WKResource {
 	object: "spaced_repetition_system";
 
 	/**
-	 * Spaced Repetition System data
+	 * Data for the return Spaced Repetition System.
 	 */
 	data: WKSpacedRepetitionSystemData;
 }
 
 /**
- * A collection of Spaced Repetition Systems returned from the WaniKani API
+ * A collection of Spaced Repetition Systems returned from the WaniKani API.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-spaced-repetition-systems}
  * @category Collections
@@ -34,7 +34,7 @@ export interface WKSpacedRepetitionSystem extends WKResource {
  */
 export interface WKSpacedRepetitionSystemCollection extends WKCollection {
 	/**
-	 * An array of returned Spaced Repetition Systems
+	 * An array of returned Spaced Repetition Systems.
 	 */
 	data: WKSpacedRepetitionSystem[];
 }
@@ -42,6 +42,7 @@ export interface WKSpacedRepetitionSystemCollection extends WKCollection {
 /**
  * Data for a Spaced Repetition System returned from the WaniKani API.
  *
+ * @see {@link https://docs.api.wanikani.com/20170710/#spaced-repetition-systems}
  * @category Data
  * @category Spaced Repetition Systems
  */
@@ -62,7 +63,7 @@ export interface WKSpacedRepetitionSystemData {
 	description: string;
 
 	/**
-	 * The name of the spaced repetition system
+	 * The name of the spaced repetition system.
 	 */
 	name: string;
 
@@ -88,16 +89,17 @@ export interface WKSpacedRepetitionSystemData {
 }
 
 /**
- * Parameters that can be passed to the WaniKani API to filter a request for a Spaced Repetition System Collection
+ * Parameters that can be passed to the WaniKani API to filter a request for a Spaced Repetition System Collection.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-spaced-repetition-systems}
+ * @see {@link stringifyParameters}
  * @category Parameters
  * @category Spaced Repetition Systems
  */
 export type WKSpacedRepetitionSystemParameters = WKCollectionParameters;
 
 /**
- * An individual Spaced Repetition System (SRS) Stage
+ * An individual Spaced Repetition System (SRS) Stage.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#spaced-repetition-systems}
  * @category Spaced Repetition Systems

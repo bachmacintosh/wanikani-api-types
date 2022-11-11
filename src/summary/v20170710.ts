@@ -10,14 +10,15 @@ import type { WKDatableString, WKReport } from "../v20170710.js";
  */
 export interface WKSummary extends WKReport {
 	/**
-	 * Summary data
+	 * Data for the Summary report.
 	 */
 	data: WKSummaryData;
 }
 
 /**
- * Data for a summary report returned from the WaniKani API.
+ * Data for the Summary report returned from the WaniKani API.
  *
+ * @see {@link https://docs.api.wanikani.com/20170710/#summary}
  * @category Data
  * @category Summary
  */
@@ -39,7 +40,7 @@ export interface WKSummaryData {
 }
 
 /**
- * Details about subjects available for lessons.
+ * Details about subjects listed as available for lessons in the Summary report.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#summary}
  * @category Summary
@@ -58,7 +59,7 @@ export interface WKSummaryLesson {
 }
 
 /**
- * Details about subjects available for reviews.
+ * Details about subjects listed as available for reviews in the Summary report.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#summary}
  * @category Summary
