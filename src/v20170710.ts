@@ -7,6 +7,8 @@ export {
 	WK_MIN_LESSON_BATCH_SIZE,
 	WK_MIN_LEVELS,
 	isWKDatableString,
+	isWKLevel,
+	isWKLevelArray,
 	stringifyParameters,
 } from "./base/v20170710.js";
 
@@ -28,6 +30,7 @@ export type {
 	WKCollectionParameters,
 	WKDatableString,
 	WKError,
+	WKLevel,
 	WKMaxLessonBatchSize,
 	WKMaxLevels,
 	WKMaxSrsReviewStages,

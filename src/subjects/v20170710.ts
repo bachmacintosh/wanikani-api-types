@@ -2,11 +2,10 @@ import type {
 	WKCollection,
 	WKCollectionParameters,
 	WKDatableString,
-	WKMaxLevels,
+	WKLevel,
 	WKResource,
 	WKSubjectTuple,
 } from "../v20170710.js";
-import type { Range } from "../internal/index.js";
 
 /**
  * The exact structure of a subject depends on the subject type. The available subject types are `radical`, `kanji`, and
@@ -431,7 +430,7 @@ export interface WKSubjectData {
 	/**
 	 * The level of the subject, from `1` to `60`.
 	 */
-	level: Range<1, WKMaxLevels>;
+	level: WKLevel;
 
 	/**
 	 * The subject's meaning mnemonic.
@@ -500,7 +499,7 @@ export interface WKSubjectParameters extends WKCollectionParameters {
 	/**
 	 * Return subjects at the specified levels.
 	 */
-	levels?: Range<1, WKMaxLevels>[];
+	levels?: WKLevel[];
 
 	/**
 	 * Return subjects which are or are not hidden from the user-facing application.

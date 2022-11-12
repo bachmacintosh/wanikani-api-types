@@ -12,6 +12,8 @@ export {
 	WK_MIN_LESSON_BATCH_SIZE,
 	WK_MIN_LEVELS,
 	isWKDatableString,
+	isWKLevel,
+	isWKLevelArray,
 	stringifyParameters,
 } from "./v20170710.js";
 
@@ -31,6 +33,7 @@ export type {
 	WKKanjiCollection,
 	WKKanjiData,
 	WKKanjiReading,
+	WKLevel,
 	WKLevelProgression,
 	WKLevelProgressionCollection,
 	WKLevelProgressionData,
