@@ -2,6 +2,7 @@ import type {
 	WKCollection,
 	WKCollectionParameters,
 	WKDatableString,
+	WKLevel,
 	WKMaxLevels,
 	WKMaxSrsStages,
 	WKResource,
@@ -169,7 +170,7 @@ export interface WKAssignmentParameters extends WKCollectionParameters {
 	 * Only assignments where the associated subject level matches one of the array values are returned. Valid values
 	 * range from `1` to `60`.
 	 */
-	levels?: Range<1, WKMaxLevels>[];
+	levels?: WKLevel[];
 
 	/**
 	 * Only assignments where `data.srs_stage` matches one of the array values are returned. Valid values range from `0`

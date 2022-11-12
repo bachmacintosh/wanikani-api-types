@@ -1,3 +1,4 @@
+import type { Brand, Range } from "../internal/index.js";
 import type {
 	WKAssignment,
 	WKAssignmentData,
@@ -37,7 +38,6 @@ import type {
 	WKVoiceActorData,
 	WKVoiceActorParameters,
 } from "../v20170710.js";
-import type { Brand } from "../internal/index.js";
 
 /**
  * All known WaniKani API revisions, created when breaking changes are introduced to the WaniKani API.
@@ -226,6 +226,11 @@ export interface WKError {
 	 */
 	url?: never;
 }
+
+/**
+ * A number representing a level in WaniKani, from `1` to `60`
+ */
+export type WKLevel = Range<1, WKMaxLevels>;
 
 /**
  * The maximum batch size for lessons in the WaniKani app.
@@ -530,6 +535,43 @@ export function isWKDatableString(possibleWKDatableString: unknown): possibleWKD
 		return true;
 	}
 	return false;
+}
+
+/**
+ * A type guard to determine if a given item is a {@link WKLevel}.
+ *
+ * @param possibleWKLevel - An unknown item.
+ * @returns `true` if the item is a valid {@link WKLevel}, `false` if not.
+ * @category Base
+ */
+export function isWKLevel(possibleWKLevel: unknown): possibleWKLevel is WKLevel {
+	return (
+		typeof possibleWKLevel === "number" &&
+		Number.isInteger(possibleWKLevel) &&
+		possibleWKLevel >= 1 &&
+		possibleWKLevel <= WK_MAX_LEVELS
+	);
+}
+
+/**
+ * A type guard to determine if a given item is a {@link WKLevel} array.
+ *
+ * @param possibleWKLevelArray - An unknown item.
+ * @returns `true` if the item is a valid {@link WKLevel} array, `false` if not.
+ * @category Base
+ */
+export function isWKLevelArray(possibleWKLevelArray: unknown): possibleWKLevelArray is WKLevel[] {
+	if (!Array.isArray(possibleWKLevelArray)) {
+		return false;
+	}
+	if (possibleWKLevelArray.length === 0) {
+		return false;
+	}
+	const allNumbersAndAllIntegers = possibleWKLevelArray.every(Number.isInteger);
+	const allNumbersInRange = possibleWKLevelArray.every((value) => {
+		return value >= 1 && value <= WK_MAX_LEVELS;
+	});
+	return allNumbersAndAllIntegers && allNumbersInRange;
 }
 
 /**

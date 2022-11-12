@@ -1,5 +1,6 @@
 import type {
 	WKDatableString,
+	WKLevel,
 	WKMaxLessonBatchSize,
 	WKMaxLevels,
 	WKMinLessonBatchSize,
@@ -51,7 +52,7 @@ export interface WKUserData {
 	/**
 	 * The current level of the user. This ignores subscription status.
 	 */
-	level: Range<1, WKMaxLevels>;
+	level: WKLevel;
 
 	/**
 	 * User settings specific to the WaniKani application.
