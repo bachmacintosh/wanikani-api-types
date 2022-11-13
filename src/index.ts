@@ -14,6 +14,8 @@ export {
 	isWKDatableString,
 	isWKLevel,
 	isWKLevelArray,
+	isWKSrsStageNumber,
+	isWKSrsStageNumberArray,
 	stringifyParameters,
 } from "./v20170710.js";
 
@@ -75,6 +77,7 @@ export type {
 	WKSpacedRepetitionSystemData,
 	WKSpacedRepetitionSystemParameters,
 	WKSpacedRepetitionSystemStage,
+	WKSrsStageNumber,
 	WKStartedAssignment,
 	WKStartedAssignmentData,
 	WKStudyMaterial,
