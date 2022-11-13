@@ -1,4 +1,10 @@
-import type { WKCollection, WKCollectionParameters, WKDatableString, WKResource } from "../v20170710.js";
+import type {
+	WKCollection,
+	WKCollectionParameters,
+	WKDatableString,
+	WKResource,
+	WKSrsStageNumber,
+} from "../v20170710.js";
 
 /**
  * Available spaced repetition systems used for calculating `srs_stage` changes to Assignments and Reviews. Has
@@ -70,7 +76,7 @@ export interface WKSpacedRepetitionSystemData {
 	/**
 	 * `position` of the passing stage.
 	 */
-	passing_stage_position: number;
+	passing_stage_position: WKSrsStageNumber;
 
 	/**
 	 * A collection of stages.
@@ -80,12 +86,12 @@ export interface WKSpacedRepetitionSystemData {
 	/**
 	 * `position` of the starting stage.
 	 */
-	starting_stage_position: number;
+	starting_stage_position: WKSrsStageNumber;
 
 	/**
 	 * `position` of the unlocking stage.
 	 */
-	unlocking_stage_position: number;
+	unlocking_stage_position: WKSrsStageNumber;
 }
 
 /**
@@ -118,5 +124,5 @@ export interface WKSpacedRepetitionSystemStage {
 	/**
 	 * The position of the stage within the continuous order.
 	 */
-	position: number;
+	position: WKSrsStageNumber;
 }
