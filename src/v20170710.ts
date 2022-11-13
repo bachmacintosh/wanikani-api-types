@@ -9,6 +9,8 @@ export {
 	isWKDatableString,
 	isWKLevel,
 	isWKLevelArray,
+	isWKSrsStageNumber,
+	isWKSrsStageNumberArray,
 	stringifyParameters,
 } from "./base/v20170710.js";
 
@@ -42,6 +44,7 @@ export type {
 	WKReport,
 	WKResource,
 	WKResourceType,
+	WKSrsStageNumber,
 	WKSubjectTuple,
 	WKSubjectType,
 } from "./base/v20170710.js";

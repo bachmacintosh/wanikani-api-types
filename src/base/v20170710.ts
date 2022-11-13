@@ -463,6 +463,13 @@ export type WKResourceType =
 	| "voice_actor";
 
 /**
+ * A valid WaniKani Spaced Repetition System (SRS) Stage Number, based on the known SRS' on WaniKani and its API.
+ *
+ * @category Base
+ */
+export type WKSrsStageNumber = Range<0, WKMaxSrsStages>;
+
+/**
  * A non-empty array of WaniKani subject types.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
@@ -570,6 +577,45 @@ export function isWKLevelArray(possibleWKLevelArray: unknown): possibleWKLevelAr
 	const allNumbersAndAllIntegers = possibleWKLevelArray.every(Number.isInteger);
 	const allNumbersInRange = possibleWKLevelArray.every((value) => {
 		return value >= 1 && value <= WK_MAX_LEVELS;
+	});
+	return allNumbersAndAllIntegers && allNumbersInRange;
+}
+
+/**
+ * A type guard to determine if a given item is a {@link WKSrsStageNumber}.
+ *
+ * @param possibleWKSrsStageNumber - An unknown item.
+ * @returns `true` if the item is a valid {@link WKSrsStageNumber}, `false` if not.
+ * @category Base
+ */
+export function isWKSrsStageNumber(possibleWKSrsStageNumber: unknown): possibleWKSrsStageNumber is WKSrsStageNumber {
+	return (
+		typeof possibleWKSrsStageNumber === "number" &&
+		Number.isInteger(possibleWKSrsStageNumber) &&
+		possibleWKSrsStageNumber >= 0 &&
+		possibleWKSrsStageNumber <= WK_MAX_SRS_STAGES
+	);
+}
+
+/**
+ * A type guard to determine if a given item is a {@link WKSrsStageNumber} array.
+ *
+ * @param possibleWKSrsStageNumberArray - An unknown item.
+ * @returns `true` if the item is a valid {@link WKSrsStageNumber} array, `false` if not.
+ * @category Base
+ */
+export function isWKSrsStageNumberArray(
+	possibleWKSrsStageNumberArray: unknown,
+): possibleWKSrsStageNumberArray is WKSrsStageNumber[] {
+	if (!Array.isArray(possibleWKSrsStageNumberArray)) {
+		return false;
+	}
+	if (possibleWKSrsStageNumberArray.length === 0) {
+		return false;
+	}
+	const allNumbersAndAllIntegers = possibleWKSrsStageNumberArray.every(Number.isInteger);
+	const allNumbersInRange = possibleWKSrsStageNumberArray.every((value) => {
+		return value >= 0 && value <= WK_MAX_SRS_STAGES;
 	});
 	return allNumbersAndAllIntegers && allNumbersInRange;
 }

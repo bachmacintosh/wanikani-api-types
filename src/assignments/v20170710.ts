@@ -4,8 +4,8 @@ import type {
 	WKDatableString,
 	WKLevel,
 	WKMaxLevels,
-	WKMaxSrsStages,
 	WKResource,
+	WKSrsStageNumber,
 	WKSubjectTuple,
 	WKSubjectType,
 } from "../v20170710.js";
@@ -93,7 +93,7 @@ export interface WKAssignmentData {
 	 * The current SRS stage interval. The interval range is determined by the related subject's Spaced Repetition
 	 * System.
 	 */
-	srs_stage: Range<0, WKMaxSrsStages>;
+	srs_stage: WKSrsStageNumber;
 
 	/**
 	 * When the user completes the lesson for the related subject.
@@ -176,7 +176,7 @@ export interface WKAssignmentParameters extends WKCollectionParameters {
 	 * Only assignments where `data.srs_stage` matches one of the array values are returned. Valid values range from `0`
 	 * to `9`.
 	 */
-	srs_stages?: Range<0, WKMaxSrsStages>[];
+	srs_stages?: WKSrsStageNumber[];
 
 	/**
 	 * When set to `true`, returns assignments that have a value in `data.started_at`. Returns assignments with a `null`
