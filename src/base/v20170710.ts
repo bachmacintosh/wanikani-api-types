@@ -235,7 +235,9 @@ export interface WKError {
 export type WKLessonBatchSizeNumber = Range<WKMinLessonBatchSize, WKMaxLessonBatchSize>;
 
 /**
- * A number representing a level in WaniKani, from `1` to `60`
+ * A number representing a level in WaniKani, from `1` to `60`.
+ *
+ * @category Base
  */
 export type WKLevel = Range<1, WKMaxLevels>;
 
