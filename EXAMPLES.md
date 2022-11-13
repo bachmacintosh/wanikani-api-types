@@ -5,16 +5,12 @@ Below are some code examples to illustrate the various types, constants, and fun
 ## Set Your WaniKani API Key in The Environment
 
 ```typescript
-/*
-  NodeJS:
-*/
+/* NodeJS: */
 import * as dotenv from "dotenv";
 dotenv.config();
 const WANIKANI_API_TOKEN = process.env("WANIKANI_API_TOKEN");
 
-/*
-  Deno:
-*/
+/* Deno: */
 import { config } from "https://deno.land/std@0.163.0/dotenv/mod.ts";
 const env = await config();
 const WANIKANI_API_TOKEN = env["WANIKANI_API_TOKEN"];
