@@ -28,13 +28,14 @@ type WaniKaniLessonLevels = Partial<Record<WKLevel, WaniKaniLesson[]>>;
 /*
   NodeJS:
 */
-  const WANIKANI_API_TOKEN = process.env("WANIKANI_API_TOKEN");
+const WANIKANI_API_TOKEN = process.env("WANIKANI_API_TOKEN");
 
 /*
   Deno:
 */
-  const WANIKANI_API_TOKEN = Deno.env.get("WANIKANI_API_TOKEN");
-*/
+const env = await config();
+const WANIKANI_API_TOKEN = env["WANIKANI_API_TOKEN"];
+
 async function getLessons(): Promise<WaniKaniLesson[]> {
   const headers = {
     Authorization: `Bearer ${WANIKANI_API_TOKEN}`,
