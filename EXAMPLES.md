@@ -4,6 +4,8 @@ Below are some code examples to illustrate the various types, constants, and fun
 
 ## Set Your WaniKani API Key in The Environment
 
+These examples assume you have a `.env` file in your project.
+
 ```typescript
 /* NodeJS: */
 import * as dotenv from "dotenv";
@@ -17,6 +19,8 @@ const WANIKANI_API_TOKEN = env["WANIKANI_API_TOKEN"];
 ```
 
 ## Get a 24-Hour Review Forecast
+
+Maybe you want a bar/line graph of your review workload for the day...
 
 ```typescript
 import type { WKError, WKSummary } from "@bachmacintosh/wanikani-api-types/dist/v20170710.js";
@@ -60,6 +64,8 @@ async function reviewForecast(): Promise<WaniKaniReviewForecast[]> {
 ```
 
 ## Get Subjects by Optional Level
+
+A very wide collection of subjects, but can be limited by level.
 
 ```typescript
 import type {
@@ -111,6 +117,8 @@ async function getSubjects(level?: number): Promise<WKSubjectData[]> {
 ```
 
 ## Get Lessons
+
+Fetches all the info you need to display the lesson, hear pronunciation audio, and which assignments to start after the quiz.
 
 ```typescript
 import type {
@@ -250,6 +258,8 @@ async function getLessons(): Promise<WaniKaniLesson[]> {
 
 ## Start an Assignment
 
+For instance, the aforementioned assignments you quizzed after getting the lessons above...
+
 ```typescript
 import type {
   WKAssignment,
@@ -288,6 +298,8 @@ async function startAssignment(id: number, started_at?: WKDatableString | Date):
 ```
 
 ## Create a Review
+
+Later that day, when a review is available, create it against the started assignment(s)...
 
 ```typescript
 import type {
