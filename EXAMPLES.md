@@ -245,3 +245,62 @@ async function startAssignment(id: number, started_at?: WKDatableString | Date):
   }
 }
 ```
+
+## Create a Review
+
+```typescript
+import type {
+  WKCreatedReview,
+  WKDatableString,
+  WKError,
+  WKReviewPayload,
+} from "@bachmacintosh/wanikani-api-types/dist/v20170710.js";
+import { WK_API_REVISION, isWKDatableString } from "@bachmacintosh/wanikani-api-types/dist/v20170710.js";
+
+async function createReview(
+  id: number,
+  incorrect_meaning_answers = 0,
+  incorrect_reading_answers = 0,
+  idType: "assignment" | "subject" = "assignment",
+  created_at?: WKDatableString | Date,
+): Promise<WKCreatedReview> {
+  const headers = {
+    Authorization: `Bearer ${WANIKANI_API_TOKEN}`,
+    "Wanikani-Revision": WK_API_REVISION,
+  };
+  const url = "https://api.wanikani.com/v2/reviews/";
+  const created = 201;
+  let payload: WKReviewPayload = {
+    review: {
+      assignment_id: id,
+      incorrect_meaning_answers,
+      incorrect_reading_answers,
+    },
+  };
+  if (idType === "subject") {
+    payload = {
+      review: {
+        subject_id: id,
+        incorrect_meaning_answers,
+        incorrect_reading_answers,
+      },
+    };
+  }
+  if (typeof created_at !== "undefined" && (isWKDatableString(created_at) || created_at instanceof Date)) {
+    payload.review.created_at = created_at;
+  }
+  const init: RequestInit = {
+    headers,
+    method: "POST",
+    body: JSON.stringify(payload),
+  };
+  const response = await fetch(url, init);
+  if (response.status === created) {
+    const createdReview = (await response.json()) as WKCreatedReview;
+    return createdReview;
+  } else {
+    const error = (await response.json()) as WKError;
+    throw new Error(error.error);
+  }
+}
+```
