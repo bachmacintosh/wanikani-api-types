@@ -18,13 +18,6 @@ import type {
 } from "@bachmacintosh/wanikani-api-types/dist/v20170710.js";
 import { WK_API_REVISION, stringifyParameters } from "@bachmacintosh/wanikani-api-types/dist/v20170710.js";
 
-interface WaniKaniLesson {
-  subject: WKSubjectData;
-  assignment: WKAssignmentData;
-}
-
-type WaniKaniLessonLevels = Partial<Record<WKLevel, WaniKaniLesson[]>>;
-
 /*
   NodeJS:
 */
@@ -33,8 +26,16 @@ const WANIKANI_API_TOKEN = process.env("WANIKANI_API_TOKEN");
 /*
   Deno:
 */
+import { config } from "https://deno.land/std@0.163.0/dotenv/mod.ts";
 const env = await config();
 const WANIKANI_API_TOKEN = env["WANIKANI_API_TOKEN"];
+
+interface WaniKaniLesson {
+  subject: WKSubjectData;
+  assignment: WKAssignmentData;
+}
+
+type WaniKaniLessonLevels = Partial<Record<WKLevel, WaniKaniLesson[]>>;
 
 async function getLessons(): Promise<WaniKaniLesson[]> {
   const headers = {
