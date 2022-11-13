@@ -555,6 +555,7 @@ export function isWKDatableString(possibleWKDatableString: unknown): possibleWKD
  * A type guard to determine if a given item is a {@link WKLessonBatchSizeNumber}.
  * @param possibleWKLessonBatchSizeNumber - An unknown item.
  * @returns `true` if the item is a valid {@link WKLessonBatchSizeNumber}, `false` if not.
+ * @category Base
  */
 export function isWKLessonBatchSizeNumber(
 	possibleWKLessonBatchSizeNumber: unknown,
