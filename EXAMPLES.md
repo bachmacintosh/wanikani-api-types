@@ -2,6 +2,8 @@
 
 Below are some code examples to illustrate the various types, constants, and functions available in the library.
 
+Keep in mind these are very simple examples, and you might want to make additional considerations such as rate limiting logic, more robust error handling, etc.
+
 ## Set Your WaniKani API Key in The Environment
 
 These examples assume you have a `.env` file in your project.
