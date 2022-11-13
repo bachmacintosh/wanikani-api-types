@@ -37,7 +37,7 @@ async function getSubjects(level?: number): Promise<WKSubjectData[]> {
   const init = { headers };
 
   if (typeof level !== "undefined" && !isWKLevel(level)) {
-    throw new Error("Invalid WaniKani Level! It must be a whole number between 1 and 60.");
+    throw new Error("Invalid WaniKani Level! It must be a whole number between 1 and 60");
   }
   const params: WKSubjectParameters = {
     hidden: false,
@@ -48,13 +48,13 @@ async function getSubjects(level?: number): Promise<WKSubjectData[]> {
   let url = `https://api.wanikani.com/v2/subjects${stringifyParameters(params)}`;
   let response = await fetch(url, init);
   let subjects = (await response.json()) as WKSubjectCollection | WKError;
-  if (typeof subjects.data === "undefined" || typeof subjects.pages === "undefined") {
-    throw new Error(subjects.error);
-  }
   const subjectData: WKSubjectData[] = [];
   let moreSubjects = true;
   while (moreSubjects) {
-    subjects.data?.forEach((subject) => {
+    if (typeof subjects.data === "undefined" || typeof subjects.pages === "undefined") {
+      throw new Error(subjects.error);
+    }
+    subjects.data.forEach((subject) => {
       subjectData.push(subject.data);
     });
     if (typeof subjects.pages !== "undefined" && subjects.pages.next_url !== null) {
