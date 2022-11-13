@@ -44,3 +44,7 @@ jobs:
         run: 'npm install --no-save typescript@"~4.8"'
       - name: Build Library on TypeScript 4.8
         run: npm run build
+      - name: Install TypeScript 4.9
+        run: 'npm install --no-save typescript@"~4.9"'
+      - name: Build Library on TypeScript 4.9
+        run: npm run build
