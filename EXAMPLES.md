@@ -16,6 +16,49 @@ const env = await config();
 const WANIKANI_API_TOKEN = env["WANIKANI_API_TOKEN"];
 ```
 
+## Get a 24-Hour Review Forecast
+
+```typescript
+import type { WKError, WKSummary } from "@bachmacintosh/wanikani-api-types/dist/v20170710.js";
+import { WK_API_REVISION } from "@bachmacintosh/wanikani-api-types/dist/v20170710.js";
+
+interface WaniKaniReviewForecast {
+  date: Date;
+  reviews: number;
+}
+
+async function reviewForecast(): Promise<WaniKaniReviewForecast[]> {
+  const headers = {
+    Authorization: `Bearer ${WANIKANI_API_TOKEN}`,
+    "Wanikani-Revision": WK_API_REVISION,
+  };
+  const url = "https://api.wanikani.com/v2/summary";
+  const init = { headers };
+  const response = await fetch(url, init);
+  if (response.ok) {
+    const summary = (await response.json()) as WKSummary;
+    const initialForecast: WaniKaniReviewForecast[] = [];
+    summary.data.reviews.forEach((review) => {
+      initialForecast.push({
+        date: new Date(review.available_at),
+        reviews: review.subject_ids.length,
+      });
+    });
+    const forecast = initialForecast.filter((item) => {
+      return item.reviews > 0;
+    });
+    return forecast;
+    /*
+      Or if you wanna include zeroes...
+      return initialForecast;
+    */
+  } else {
+    const error = (await response.json()) as WKError;
+    throw new Error(error.error);
+  }
+}
+```
+
 ## Get Subjects by Optional Level
 
 ```typescript
