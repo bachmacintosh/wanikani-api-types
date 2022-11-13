@@ -28,6 +28,13 @@
 			"labels": ["typescript"],
 			"groupName": "TypeScript",
 			"dependencyDashboardApproval": true
+		},
+		{
+			"matchPackageNames": ["typescript"],
+			"matchDepTypes": ["peerDependencies"],
+			"labels": ["typescript"],
+			"groupName": "TypeScript",
+			"dependencyDashboardApproval": true
 		}
 	]
 }
