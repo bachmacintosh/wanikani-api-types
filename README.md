@@ -54,8 +54,8 @@ The module you import from matches a [WaniKani API Revision](https://docs.api.wa
 
 ```typescript
 import type {
-	WKAssignmentParameters,
-	WKDatableString,
+  WKAssignmentParameters,
+  WKDatableString,
 } from "https://esm.sh/@bachmacintosh/wanikani-api-types@x.y.z/dist/v20170710.js";
 import { stringifyParameters } from "https://esm.sh/@bachmacintosh/wanikani-api-types@x.y.z/dist/v20170710.js";
 ```
@@ -93,31 +93,9 @@ Most of the types defined here are object types with straightforward structure. 
 
 We provide a helper function, `stringifyParameters`, that accepts any of the Parameter object types as an argument, and will return a query string to append to a WaniKani API endpoint; so long as the correct resource's parameters are stringified and appended, the request should be valid.
 
-### Example
+### Examples
 
-Here's a quick example code snippet that lays the foundation of fetching a collection of assignments, possibly using an old `data_updated_at` value from a previous collection of assignments, or a date calculated from a time period library.
-
-```typescript
-import type { WKAssignmentParameters, WKDatableString } from "@bachmacintosh/wanikani-api-types/dist/v20170710.js";
-import { stringifyParameters } from "@bachmacintosh/wanikani-api-types/dist/v20170710.js";
-
-function getAssignments(newerThan?: WKDatableString | Date) {
-	let params: WKAssignmentParameters = {};
-	if (typeof newerThan !== "undefined") {
-		if (newerThan instanceof Date || isWKDatableString(newerThan)) {
-			params = {
-				updated_after: newerThan,
-			};
-		} else {
-			throw new Error("Invalid Start Date!");
-		}
-	}
-	const queryString = stringifyParameters(params);
-	const url = `https://api.wanikani.com/v2/assignments${queryString}`;
-
-	/* Send request to WaniKani, etc. */
-}
-```
+See [EXAMPLES.md](https://github.com/bachmacintosh/wanikani-api-types/blob/main/EXAMPLES.md) for examples using this library.
 
 ## Contributing
 
