@@ -1,13 +1,11 @@
 import type {
 	WKDatableString,
+	WKLessonBatchSizeNumber,
 	WKLevel,
-	WKMaxLessonBatchSize,
 	WKMaxLevels,
-	WKMinLessonBatchSize,
 	WKMinLevels,
 	WKResource,
 } from "../v20170710.js";
-import type { Range } from "../internal/index.js";
 
 /**
  * A user and their status/information on WaniKani.
@@ -106,7 +104,7 @@ export interface WKUserPreferences {
 	/**
 	 * Number of subjects introduced to the user during lessons before quizzing.
 	 */
-	lessons_batch_size: Range<WKMinLessonBatchSize, WKMaxLessonBatchSize>;
+	lessons_batch_size: WKLessonBatchSizeNumber;
 
 	/**
 	 * The order in which lessons are presented. The options are `ascending_level_then_subject`, `shuffled`, and

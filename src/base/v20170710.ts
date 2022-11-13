@@ -228,6 +228,13 @@ export interface WKError {
 }
 
 /**
+ * A number representing a valid lesson batch size in WaniKani, from `3` to `10`.
+ *
+ * @category Base
+ */
+export type WKLessonBatchSizeNumber = Range<WKMinLessonBatchSize, WKMaxLessonBatchSize>;
+
+/**
  * A number representing a level in WaniKani, from `1` to `60`
  */
 export type WKLevel = Range<1, WKMaxLevels>;
@@ -542,6 +549,22 @@ export function isWKDatableString(possibleWKDatableString: unknown): possibleWKD
 		return true;
 	}
 	return false;
+}
+
+/**
+ * A type guard to determine if a given item is a {@link WKLessonBatchSizeNumber}.
+ * @param possibleWKLessonBatchSizeNumber - An unknown item.
+ * @returns `true` if the item is a valid {@link WKLessonBatchSizeNumber}, `false` if not.
+ */
+export function isWKLessonBatchSizeNumber(
+	possibleWKLessonBatchSizeNumber: unknown,
+): possibleWKLessonBatchSizeNumber is WKLessonBatchSizeNumber {
+	return (
+		typeof possibleWKLessonBatchSizeNumber === "number" &&
+		Number.isInteger(possibleWKLessonBatchSizeNumber) &&
+		possibleWKLessonBatchSizeNumber >= WK_MIN_LESSON_BATCH_SIZE &&
+		possibleWKLessonBatchSizeNumber <= WK_MAX_LESSON_BATCH_SIZE
+	);
 }
 
 /**
