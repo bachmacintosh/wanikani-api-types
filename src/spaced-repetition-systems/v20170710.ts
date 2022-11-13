@@ -56,7 +56,7 @@ export interface WKSpacedRepetitionSystemData {
 	/**
 	 * `position` of the burning stage.
 	 */
-	burning_stage_position: number;
+	burning_stage_position: WKSrsStageNumber;
 
 	/**
 	 * Timestamp when the `spaced_repetition_system` was created.
