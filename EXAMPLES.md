@@ -118,7 +118,7 @@ async function getSubjects(level?: number): Promise<WKSubjectData[]> {
 
 ## Get Lessons
 
-Fetches all the info you need to display the lesson, hear pronunciation audio, and which assignments to start after the quiz.
+Fetches all the info you need to display the lesson, hear pronunciation audio, and which assignments to start after the quiz. It also respects the user's lesson presentation and batch size preferences.
 
 ```typescript
 import type {
