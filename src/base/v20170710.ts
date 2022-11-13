@@ -2,41 +2,30 @@ import type { Brand, Range } from "../internal/index.js";
 import type {
 	WKAssignment,
 	WKAssignmentData,
-	WKAssignmentParameters,
 	WKKanji,
 	WKKanjiData,
 	WKLevelProgression,
 	WKLevelProgressionData,
-	WKLevelProgressionParameters,
 	WKRadical,
 	WKRadicalData,
 	WKReset,
 	WKResetData,
-	WKResetParameters,
 	WKReview,
 	WKReviewData,
-	WKReviewParameters,
 	WKReviewStatistic,
 	WKReviewStatisticData,
-	WKReviewStatisticParameters,
 	WKSpacedRepetitionSystem,
 	WKSpacedRepetitionSystemData,
-	WKSpacedRepetitionSystemParameters,
-	WKStartedAssignmentData,
 	WKStudyMaterial,
 	WKStudyMaterialData,
-	WKStudyMaterialParameters,
 	WKSubject,
 	WKSubjectData,
-	WKSubjectParameters,
 	WKSummaryData,
-	WKUpdatedAssignmentData,
 	WKUserData,
 	WKVocabulary,
 	WKVocabularyData,
 	WKVoiceActor,
 	WKVoiceActorData,
-	WKVoiceActorParameters,
 } from "../v20170710.js";
 
 /**
@@ -298,14 +287,6 @@ export type WKMaxSrsStages = 9;
 export const WK_MAX_SRS_STAGES: WKMaxSrsStages = 9;
 
 /**
- * The maximum number of SRS Stages used in WaniKani's SRS, minus one; used to calculate SRS Stage ranges for reviews.
- *
- * @category Base
- * @deprecated Use {@link WKMaxSrsReviewStages} instead.
- */
-export type WKMaxSrsStagesMinusOne = 8;
-
-/**
  * The minimum batch size for lessons in the WaniKani app.
  *
  * @category Base
@@ -333,25 +314,6 @@ export type WKMinLevels = 3;
  * @category Base
  */
 export const WK_MIN_LEVELS: WKMinLevels = 3;
-
-/**
- * All types of parameters that can be passed to various endpoints across the WaniKani API.
- *
- * @category Base
- * @category Parameters
- * @deprecated Use a type that extends {@link WKCollectionParameters} instead. This union type will be removed in
- * version 1.0.
- */
-export type WKParameters =
-	| WKAssignmentParameters
-	| WKLevelProgressionParameters
-	| WKResetParameters
-	| WKReviewParameters
-	| WKReviewStatisticParameters
-	| WKSpacedRepetitionSystemParameters
-	| WKStudyMaterialParameters
-	| WKSubjectParameters
-	| WKVoiceActorParameters;
 
 /**
  * The common properties across all Reports from the WaniKani API
@@ -435,10 +397,8 @@ export interface WKResource {
 		| WKReviewData
 		| WKReviewStatisticData
 		| WKSpacedRepetitionSystemData
-		| WKStartedAssignmentData
 		| WKStudyMaterialData
 		| WKSubjectData
-		| WKUpdatedAssignmentData
 		| WKUserData
 		| WKVocabularyData
 		| WKVoiceActorData;

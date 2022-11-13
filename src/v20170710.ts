@@ -21,10 +21,6 @@ export type {
 	WKAssignmentData,
 	WKAssignmentParameters,
 	WKAssignmentPayload,
-	WKStartedAssignment,
-	WKStartedAssignmentData,
-	WKUpdatedAssignment,
-	WKUpdatedAssignmentData,
 } from "./assignments/v20170710.js";
 
 export type {
@@ -39,10 +35,8 @@ export type {
 	WKMaxLevels,
 	WKMaxSrsReviewStages,
 	WKMaxSrsStages,
-	WKMaxSrsStagesMinusOne,
 	WKMinLessonBatchSize,
 	WKMinLevels,
-	WKParameters,
 	WKReport,
 	WKResource,
 	WKResourceType,
