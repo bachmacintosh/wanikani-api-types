@@ -8,6 +8,8 @@ Below are some code examples to illustrate the various types, constants, and fun
 /*
   NodeJS:
 */
+import * as dotenv from "dotenv";
+dotenv.config();
 const WANIKANI_API_TOKEN = process.env("WANIKANI_API_TOKEN");
 
 /*
