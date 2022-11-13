@@ -206,3 +206,42 @@ async function getLessons(): Promise<WaniKaniLesson[]> {
   return lessonData.slice(0, batchSize);
 }
 ```
+
+## Start an Assignment
+
+```typescript
+import type {
+  WKAssignment,
+  WKAssignmentPayload,
+  WKDatableString,
+  WKError,
+} from "@bachmacintosh/wanikani-api-types/dist/v20170710.js";
+import { WK_API_REVISION, isWKDatableString } from "@bachmacintosh/wanikani-api-types/dist/v20170710.js";
+
+async function startAssignment(id: number, started_at?: WKDatableString | Date): Promise<WKAssignment> {
+  const url = `https://api.wanikani.com/v2/assignments/${id}/start`;
+  const headers = {
+    Authorization: `Bearer ${WANIKANI_API_TOKEN}`,
+    "Wanikani-Revision": WK_API_REVISION,
+  };
+  let payload: WKAssignmentPayload = {};
+  if (typeof started_at !== "undefined" && (isWKDatableString(started_at) || started_at instanceof Date)) {
+    payload = {
+      started_at,
+    };
+  }
+  const init: RequestInit = {
+    headers,
+    method: "PUT",
+    body: JSON.stringify(payload),
+  };
+  const response = await fetch(url, init);
+  if (response.ok) {
+    const assignment = (await response.json()) as WKAssignment;
+    return assignment;
+  } else {
+    const error = (await response.json()) as WKError;
+    throw new Error(error.error);
+  }
+}
+```
