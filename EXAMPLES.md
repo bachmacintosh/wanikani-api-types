@@ -25,9 +25,19 @@ interface WaniKaniLesson {
 
 type WaniKaniLessonLevels = Partial<Record<WKLevel, WaniKaniLesson[]>>;
 
+/*
+  NodeJS:
+*/
+  const WANIKANI_API_TOKEN = process.env("WANIKANI_API_TOKEN");
+
+/*
+  Deno:
+*/
+  const WANIKANI_API_TOKEN = Deno.env.get("WANIKANI_API_TOKEN");
+*/
 async function getLessons(): Promise<WaniKaniLesson[]> {
   const headers = {
-    Authorization: "Bearer <your-token-here>",
+    Authorization: `Bearer ${WANIKANI_API_TOKEN}`,
     "Wanikani-Revision": WK_API_REVISION,
   };
   const init = { headers };
