@@ -54,8 +54,8 @@ The module you import from matches a [WaniKani API Revision](https://docs.api.wa
 
 ```typescript
 import type {
-	WKAssignmentParameters,
-	WKDatableString,
+  WKAssignmentParameters,
+  WKDatableString,
 } from "https://esm.sh/@bachmacintosh/wanikani-api-types@x.y.z/dist/v20170710.js";
 import { stringifyParameters } from "https://esm.sh/@bachmacintosh/wanikani-api-types@x.y.z/dist/v20170710.js";
 ```
@@ -102,20 +102,20 @@ import type { WKAssignmentParameters, WKDatableString } from "@bachmacintosh/wan
 import { stringifyParameters } from "@bachmacintosh/wanikani-api-types/dist/v20170710.js";
 
 function getAssignments(newerThan?: WKDatableString | Date) {
-	let params: WKAssignmentParameters = {};
-	if (typeof newerThan !== "undefined") {
-		if (newerThan instanceof Date || isWKDatableString(newerThan)) {
-			params = {
-				updated_after: newerThan,
-			};
-		} else {
-			throw new Error("Invalid Start Date!");
-		}
-	}
-	const queryString = stringifyParameters(params);
-	const url = `https://api.wanikani.com/v2/assignments${queryString}`;
+  let params: WKAssignmentParameters = {};
+  if (typeof newerThan !== "undefined") {
+    if (newerThan instanceof Date || isWKDatableString(newerThan)) {
+      params = {
+        updated_after: newerThan,
+      };
+    } else {
+      throw new Error("Invalid Start Date!");
+    }
+  }
+  const queryString = stringifyParameters(params);
+  const url = `https://api.wanikani.com/v2/assignments${queryString}`;
 
-	/* Send request to WaniKani, etc. */
+  /* Send request to WaniKani, etc. */
 }
 ```
 
