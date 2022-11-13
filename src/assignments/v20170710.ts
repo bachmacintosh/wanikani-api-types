@@ -3,13 +3,11 @@ import type {
 	WKCollectionParameters,
 	WKDatableString,
 	WKLevel,
-	WKMaxLevels,
 	WKResource,
 	WKSrsStageNumber,
 	WKSubjectTuple,
 	WKSubjectType,
 } from "../v20170710.js";
-import type { Range } from "../internal/index.js";
 
 /**
  * Assignments contain information about a user's progress on a particular subject, including their current state and
@@ -214,95 +212,4 @@ export interface WKAssignmentPayload {
 	 * When the assignment was started. Must be greater than or equal to the assignment's `unlocked_at` date.
 	 */
 	started_at?: Date | WKDatableString;
-}
-
-/**
- * The returned assignment after it has been started via the WaniKani API.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#start-an-assignment}
- * @category Assignments
- * @category Resources
- * @deprecated This type was originally created because the WaniKani API docs indicated that a started assignment
- * alongside a created review had different properties, but further testing found this was not the case; this type will
- * be removed in version 1.0, and should be substituted with {@link WKAssignment} instead.
- */
-export interface WKStartedAssignment extends WKResource {
-	/**
-	 * A unique number identifying the assignment.
-	 */
-	id: number;
-
-	/**
-	 * The kind of object returned.
-	 */
-	object: "assignment";
-
-	/**
-	 * Assignment data.
-	 */
-	data: WKStartedAssignmentData;
-}
-
-/**
- * Data for an assignment when it is started in the WaniKani API; it includes all properties except the `hidden`
- * property from normal assignment data.
- *
- * @category Assignments
- * @category Data
- * @deprecated This type was originally created because the WaniKani API docs indicated that a started assignment
- * alongside a created review had different properties, but further testing found this was not the case; this type will
- * be removed in version 1.0, and should be substituted with {@link WKAssignmentData} instead.
- */
-export type WKStartedAssignmentData = Omit<WKAssignmentData, "hidden">;
-
-/**
- * An assignment that has been updated when another resource is created/updated.
- *
- * @category Assignments
- * @category Resources
- * @deprecated This type was originally created because the WaniKani API docs indicated that an updated assignment
- * alongside a created review had additional properties, but further testing found this was not the case; this type will
- * be removed in version 1.0, and should be substituted with {@link WKAssignment} instead.
- */
-export interface WKUpdatedAssignment extends WKResource {
-	/**
-	 * A unique number identifying the assignment.
-	 */
-	id: number;
-
-	/**
-	 * The kind of object returned.
-	 */
-	object: "assignment";
-
-	/**
-	 * Assignment data.
-	 */
-	data: WKUpdatedAssignmentData;
-}
-
-/**
- * Additional information included in an assignment when it is updated.
- *
- * @category Assignments
- * @category Data
- * @deprecated This type was originally created because the WaniKani API docs indicated that an updated assignment
- * alongside a created review had additional properties, but further testing found this was not the case; this type will
- * be removed in version 1.0, and should be substituted with {@link WKAssignmentData} instead.
- */
-export interface WKUpdatedAssignmentData extends WKAssignmentData {
-	/**
-	 * The level of the assignment's subject, from `1` to `60`.
-	 */
-	level: Range<1, WKMaxLevels>;
-
-	/**
-	 * Whether the assignment has been passed as part of its update.
-	 */
-	passed: boolean;
-
-	/**
-	 * Whether a previously burned assignment has been resurrected as part of its update.
-	 */
-	resurrected: boolean;
 }
