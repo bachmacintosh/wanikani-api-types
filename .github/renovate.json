@@ -1,40 +1,4 @@
 {
 	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
-	"extends": ["config:js-lib", ":gitSignOff"],
-	"schedule": ["after 5am and before 11am"],
-	"timezone": "America/New_York",
-	"labels": ["dependencies"],
-	"assignees": ["bachmacintosh"],
-	"rebaseWhen": "behind-base-branch",
-	"platformCommit": true,
-	"stabilityDays": 3,
-	"packageRules": [
-		{
-			"matchUpdateTypes": ["minor", "patch", "pin", "digest"],
-			"automerge": true,
-			"platformAutomerge": true
-		},
-		{
-			"matchPackageNames": ["typescript"],
-			"matchUpdateTypes": ["patch"],
-			"labels": ["typescript"],
-			"commitMessageTopic": "TypeScript Development Version",
-			"automerge": true,
-			"platformAutomerge": true
-		},
-		{
-			"matchPackageNames": ["typescript"],
-			"matchUpdateTypes": ["major", "minor"],
-			"labels": ["typescript"],
-			"commitMessageTopic": "TypeScript Development Version",
-			"dependencyDashboardApproval": true
-		},
-		{
-			"matchPackageNames": ["typescript"],
-			"matchDepTypes": ["peerDependencies"],
-			"labels": ["typescript"],
-			"commitMessageTopic": "Supported TypeScript Versions",
-			"dependencyDashboardApproval": true
-		}
-	]
+	"extends": ["github>bachmacintosh/renovate-config:jslib"]
 }
