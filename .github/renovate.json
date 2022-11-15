@@ -18,7 +18,7 @@
 			"matchPackageNames": ["typescript"],
 			"matchUpdateTypes": ["patch"],
 			"labels": ["typescript"],
-			"groupName": "TypeScript",
+			"commitMessageTopic": "TypeScript Development Version",
 			"automerge": true,
 			"platformAutomerge": true
 		},
@@ -26,7 +26,14 @@
 			"matchPackageNames": ["typescript"],
 			"matchUpdateTypes": ["major", "minor"],
 			"labels": ["typescript"],
-			"groupName": "TypeScript",
+			"commitMessageTopic": "TypeScript Development Version",
+			"dependencyDashboardApproval": true
+		},
+		{
+			"matchPackageNames": ["typescript"],
+			"matchDepTypes": ["peerDependencies"],
+			"labels": ["typescript"],
+			"commitMessageTopic": "Supported TypeScript Versions",
 			"dependencyDashboardApproval": true
 		}
 	]
