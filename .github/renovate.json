@@ -8,11 +8,28 @@
 	"rebaseWhen": "behind-base-branch",
 	"platformCommit": true,
 	"stabilityDays": 3,
+	"commitMessageTopic": "Dependency \"{{depName}}\"",
 	"packageRules": [
+		{
+			"matchDepTypes": ["devDependencies"],
+			"commitMessageTopic": "Development Dependency \"{{depName}}\""
+		},
 		{
 			"matchUpdateTypes": ["minor", "patch", "pin", "digest"],
 			"automerge": true,
 			"platformAutomerge": true
+		},
+		{
+			"extends": "monorepo:typescript-eslint",
+			"matchUpdateTypes": ["patch", "minor", "major"],
+			"groupName": "Development Dependency TypeScript ESLint",
+			"groupSlug": "typescript-eslint-monorepo"
+		},
+		{
+			"matchPackageNames": ["jest", "@types/jest", "ts-jest"],
+			"matchUpdateTypes": ["patch", "minor", "major"],
+			"groupName": "Jest and/or Related Development Dependencies",
+			"groupSlug": "jest-and-deps"
 		},
 		{
 			"matchPackageNames": ["typescript"],
