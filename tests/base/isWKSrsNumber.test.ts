@@ -1,3 +1,4 @@
+import { expect, it } from "@jest/globals";
 import { isWKSrsStageNumber } from "../../src/base/v20170710";
 
 it("Returns false on non-numbers", () => {

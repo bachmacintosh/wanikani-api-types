@@ -1,3 +1,4 @@
+import { expect, it } from "@jest/globals";
 import { isWKLevelArray } from "../../src/base/v20170710";
 import type { WKLevel } from "../../src/base/v20170710";
 
