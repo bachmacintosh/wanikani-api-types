@@ -129,6 +129,9 @@ export interface WKUserPreferences {
 
 	/**
 	 * Whether or not the user has enabled Script Compatibility Mode in the WaniKani app.
+	 *
+	 * @deprecated WaniKani is retiring Script Compatibility Mode in the near future, and this property may be removed
+	 * from the `/user` endpoint (and this library). Avoid using in new applications.
 	 */
 	wanikani_compatibility_mode: boolean;
 }
