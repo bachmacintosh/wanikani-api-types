@@ -1,3 +1,4 @@
+import { expect, it } from "@jest/globals";
 import { stringifyParameters } from "../../src/base/v20170710";
 import type { WKAssignmentParameters } from "../../src/assignments/v20170710";
 import type { WKDatableString } from "../../src/base/v20170710";

@@ -42,7 +42,7 @@
 	},
 	"devDependencies": {
 		"@bachmacintosh/typedoc-theme": "0.1.2",
-		"@types/jest": "29.2.2",
+		"@jest/globals": "29.3.1",
 		"@typescript-eslint/eslint-plugin": "5.42.1",
 		"@typescript-eslint/parser": "5.42.1",
 		"eslint": "8.27.0",
