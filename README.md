@@ -42,7 +42,34 @@ import type { WKAssignmentParameters, WKDatableString } from "@bachmacintosh/wan
 import { stringifyParameters } from "@bachmacintosh/wanikani-api-types";
 ```
 
-### Deno and Other Environments
+### Deno via NPM Specifier
+
+Deno version 1.28 and up can import the library using an [npm specifier](https://deno.land/manual@v1.28.1/node/npm_specifiers).
+
+**Be sure to replace `x.y.z` with your desired version number.**
+
+#### Specific API Revision (Recommended)
+
+The module you import from matches a [WaniKani API Revision](https://docs.api.wanikani.com/20170710/#revisions-aka-versioning); you shouldn't expect any breaking changes from the package.
+
+```typescript
+import type {
+  WKAssignmentParameters,
+  WKDatableString,
+} from "npm:@bachmacintosh/wanikani-api-types@x.y.z/dist/v20170710";
+import { stringifyParameters } from "npm:@bachmacintosh/wanikani-api-types@x.y.z/dist/v20170710";
+```
+
+#### Latest API Revision (Not Recommended)
+
+Importing from the index module will always provide types, methods, etc. for use with the latest and greatest API Revision.
+
+```typescript
+import type { WKAssignmentParameters, WKDatableString } from "npm:@bachmacintosh/wanikani-api-types@x.y.z";
+import { stringifyParameters } from "npm:@bachmacintosh/wanikani-api-types@x.y.z";
+```
+
+### Other Environments
 
 You can import the modules directly with `esm.sh`.
 
