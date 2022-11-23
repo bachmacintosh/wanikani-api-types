@@ -2,9 +2,9 @@
 
 Add your description here.
 
-# Related Issue(s)
+# Related Issue(s) / Pull Request(s)
 
-Closes #
+e.g. `Closes #123` to close a related issue, or `See #456` to reference an existing issue or PR
 
 # Nature of Pull Request
 
