@@ -126,14 +126,6 @@ export interface WKUserPreferences {
 	 * The order in which reviews are presented. The options are `lower_levels_first` and `shuffled`.
 	 */
 	reviews_presentation_order: "lower_levels_first" | "shuffled";
-
-	/**
-	 * Whether or not the user has enabled Script Compatibility Mode in the WaniKani app.
-	 *
-	 * @deprecated WaniKani is retiring Script Compatibility Mode in the near future, and this property may be removed
-	 * from the `/user` endpoint (and this library). Avoid using in new applications.
-	 */
-	wanikani_compatibility_mode: boolean;
 }
 
 /**
