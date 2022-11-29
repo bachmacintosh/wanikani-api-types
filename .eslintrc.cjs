@@ -15,7 +15,6 @@ const memberTypes = [
 
 	"public-abstract-field",
 	"protected-abstract-field",
-	"private-abstract-field",
 
 	"public-field",
 	"protected-field",
@@ -57,7 +56,6 @@ const memberTypes = [
 
 	"public-abstract-method",
 	"protected-abstract-method",
-	"private-abstract-method",
 
 	"public-method",
 	"protected-method",
