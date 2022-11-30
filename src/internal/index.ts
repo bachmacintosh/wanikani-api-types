@@ -37,3 +37,60 @@ export type Nullable<T> = { [K in keyof T]: Nullable<T[K]> | null };
  */
 
 export type Range<F extends number, T extends number> = Exclude<Enumerate<T>, Enumerate<F>> | T;
+
+/**
+ * Checks if a given year, month, and day compose a valid date.
+ *
+ * @param year - A year number
+ * @param month - A month number
+ * @param day  - A day number
+ * @returns `true` if the year, month, and day are a valid date, `false` if not.
+ * @internal
+ */
+export function isValidDate(year: number, month: number, day: number): boolean {
+	const fourYears = 4;
+	const oneHundredYears = 100;
+	const fourHundredYears = 400;
+	const isLeapYear = (year % fourYears === 0 && year % oneHundredYears !== 0) || year % fourHundredYears === 0;
+	const monthsInYear = 12;
+	const thirtyOneDays = 31;
+	const thirtyDays = 30;
+	const twentyNineDays = 29;
+	const months = {
+		january: 1,
+		february: 2,
+		march: 3,
+		april: 4,
+		may: 5,
+		june: 6,
+		july: 7,
+		august: 8,
+		september: 9,
+		october: 10,
+		november: 11,
+		december: 12,
+	};
+	const monthsWithThirtyDays = [months.april, months.june, months.september, months.november];
+	const monthsWithThirtyOneDays = [
+		months.january,
+		months.march,
+		months.may,
+		months.july,
+		months.august,
+		months.october,
+		months.december,
+	];
+	if (month > monthsInYear) {
+		return false;
+	}
+	if (monthsWithThirtyOneDays.includes(month) && day > thirtyOneDays) {
+		return false;
+	}
+	if (monthsWithThirtyDays.includes(month) && day > thirtyDays) {
+		return false;
+	}
+	if (month === months.february && ((isLeapYear && day >= thirtyDays) || (!isLeapYear && day >= twentyNineDays))) {
+		return false;
+	}
+	return true;
+}

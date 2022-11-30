@@ -27,6 +27,7 @@ import type {
 	WKVoiceActor,
 	WKVoiceActorData,
 } from "../v20170710.js";
+import { isValidDate } from "../internal/index.js";
 
 /**
  * All known WaniKani API revisions, created when breaking changes are introduced to the WaniKani API.
@@ -464,12 +465,6 @@ export type WKSubjectType = "kanji" | "radical" | "vocabulary";
  * @category Base
  */
 export function isWKDatableString(possibleWKDatableString: unknown): possibleWKDatableString is WKDatableString {
-	const monthsInYear = 12;
-	const thirtyDays = 30;
-	const thirtyOneDays = 31;
-	const monthsWithThirtyDays = ["04", "06", "09", "11"];
-	const monthsWithThirtyOneDays = ["01", "03", "05", "07", "08", "10", "12"];
-	const february = 2;
 	const twentyFourHours = 24;
 
 	const datePattern =
@@ -479,19 +474,11 @@ export function isWKDatableString(possibleWKDatableString: unknown): possibleWKD
 		if (matches === null || typeof matches.groups === "undefined") {
 			return false;
 		}
+		const yearNumber = parseInt(matches.groups.year, 10);
 		const monthNumber = parseInt(matches.groups.month, 10);
 		const dayNumber = parseInt(matches.groups.day, 10);
 		const hourNumber = parseInt(matches.groups.hour, 10);
-		if (monthNumber > monthsInYear) {
-			return false;
-		}
-		if (monthsWithThirtyDays.includes(matches.groups.month) && dayNumber > thirtyDays) {
-			return false;
-		}
-		if (monthsWithThirtyOneDays.includes(matches.groups.month) && dayNumber > thirtyOneDays) {
-			return false;
-		}
-		if (monthNumber === february && dayNumber >= thirtyDays) {
+		if (!isValidDate(yearNumber, monthNumber, dayNumber)) {
 			return false;
 		}
 		if (hourNumber >= twentyFourHours) {

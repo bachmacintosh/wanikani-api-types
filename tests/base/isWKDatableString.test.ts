@@ -27,6 +27,7 @@ it("Returns false on invalid/incomplete date-time strings", () => {
 	const stringWithOnlyDate = "2022-10-31";
 	const stringWithBadYear = "800-10-31T12:00:00.000000Z";
 	const stringWithBadMonth = "2022-13-31T12:00:00.000000Z";
+	const stringWithBadLeapDay = "2021-02-29T12:00:00.000000Z";
 	const stringsWithBadDays = [
 		"2022-10-32T12:00:00.000000Z",
 		"2022-09-31T12:00:00.000000Z",
@@ -45,6 +46,7 @@ it("Returns false on invalid/incomplete date-time strings", () => {
 	expect(isWKDatableString(stringWithOnlyDate)).toBe(false);
 	expect(isWKDatableString(stringWithBadYear)).toBe(false);
 	expect(isWKDatableString(stringWithBadMonth)).toBe(false);
+	expect(isWKDatableString(stringWithBadLeapDay)).toBe(false);
 	stringsWithBadDays.forEach((month) => {
 		expect(isWKDatableString(month)).toBe(false);
 	});
@@ -61,10 +63,12 @@ it("Returns false on invalid/incomplete date-time strings", () => {
 it("Returns true on valid ISO-8601 date-time strings", () => {
 	const dateTimeUtcString = "2022-10-23T15:17:38.828455Z";
 	const dateTimeOffsetString = "2022-10-23T15:17:38.828455+09:00";
+	const validLeapYear = "2020-02-29T12:00:00.000000Z";
 	const date = new Date();
 	const dateIsoString = date.toISOString();
 
 	expect(isWKDatableString(dateTimeUtcString)).toBe(true);
 	expect(isWKDatableString(dateTimeOffsetString)).toBe(true);
 	expect(isWKDatableString(dateIsoString)).toBe(true);
+	expect(isWKDatableString(validLeapYear)).toBe(true);
 });
