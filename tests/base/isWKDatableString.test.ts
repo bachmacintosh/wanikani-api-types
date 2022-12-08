@@ -27,11 +27,13 @@ it("Returns false on invalid/incomplete date-time strings", () => {
 	const stringWithOnlyDate = "2022-10-31";
 	const stringWithBadYear = "800-10-31T12:00:00.000000Z";
 	const stringWithBadMonth = "2022-13-31T12:00:00.000000Z";
+	const stringWithZeroedMonth = "2022-00-31T12:00:00.000000Z";
 	const stringWithBadLeapDay = "2021-02-29T12:00:00.000000Z";
 	const stringsWithBadDays = [
 		"2022-10-32T12:00:00.000000Z",
 		"2022-09-31T12:00:00.000000Z",
 		"2022-02-30T12:00:00.000000Z",
+		"2022-01-00T12:00:00.000000Z",
 	];
 	const stringWithBadHour = "2022-10-31T25:00:00.000000Z";
 	const stringWithBadMinute = "2022-10-31T12:60:00.000000Z";
@@ -46,6 +48,7 @@ it("Returns false on invalid/incomplete date-time strings", () => {
 	expect(isWKDatableString(stringWithOnlyDate)).toBe(false);
 	expect(isWKDatableString(stringWithBadYear)).toBe(false);
 	expect(isWKDatableString(stringWithBadMonth)).toBe(false);
+	expect(isWKDatableString(stringWithZeroedMonth)).toBe(false);
 	expect(isWKDatableString(stringWithBadLeapDay)).toBe(false);
 	stringsWithBadDays.forEach((month) => {
 		expect(isWKDatableString(month)).toBe(false);

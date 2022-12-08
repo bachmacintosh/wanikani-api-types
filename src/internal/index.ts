@@ -80,7 +80,10 @@ export function isValidDate(year: number, month: number, day: number): boolean {
 		months.october,
 		months.december,
 	];
-	if (month > monthsInYear) {
+	if (month > monthsInYear || month <= 0) {
+		return false;
+	}
+	if (day <= 0) {
 		return false;
 	}
 	if (monthsWithThirtyOneDays.includes(month) && day > thirtyOneDays) {
