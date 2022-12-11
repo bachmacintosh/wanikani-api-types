@@ -25,8 +25,8 @@ const WANIKANI_API_TOKEN = env["WANIKANI_API_TOKEN"];
 Maybe you want a bar/line graph of your review workload for the day...
 
 ```typescript
-import type { WKError, WKSummary } from "@bachmacintosh/wanikani-api-types/dist/v20170710.js";
-import { WK_API_REVISION } from "@bachmacintosh/wanikani-api-types/dist/v20170710.js";
+import type { WKError, WKSummary } from "@bachmacintosh/wanikani-api-types/dist/v20170710";
+import { WK_API_REVISION } from "@bachmacintosh/wanikani-api-types/dist/v20170710";
 
 interface WaniKaniReviewForecast {
   date: Date;
@@ -75,8 +75,8 @@ import type {
   WKSubjectCollection,
   WKSubjectData,
   WKSubjectParameters,
-} from "@bachmacintosh/wanikani-api-types/dist/v20170710.js";
-import { WK_API_REVISION, isWKLevel, stringifyParameters } from "@bachmacintosh/wanikani-api-types/dist/v20170710.js";
+} from "@bachmacintosh/wanikani-api-types/dist/v20170710";
+import { WK_API_REVISION, isWKLevel, stringifyParameters } from "@bachmacintosh/wanikani-api-types/dist/v20170710";
 
 async function getSubjects(level?: number): Promise<WKSubjectData[]> {
   const headers = {
@@ -133,8 +133,8 @@ import type {
   WKSubjectData,
   WKSubjectParameters,
   WKUser,
-} from "@bachmacintosh/wanikani-api-types/dist/v20170710.js";
-import { WK_API_REVISION, stringifyParameters } from "@bachmacintosh/wanikani-api-types/dist/v20170710.js";
+} from "@bachmacintosh/wanikani-api-types/dist/v20170710";
+import { WK_API_REVISION, stringifyParameters } from "@bachmacintosh/wanikani-api-types/dist/v20170710";
 
 interface WaniKaniLesson {
   subject: WKSubjectData;
@@ -268,8 +268,8 @@ import type {
   WKAssignmentPayload,
   WKDatableString,
   WKError,
-} from "@bachmacintosh/wanikani-api-types/dist/v20170710.js";
-import { WK_API_REVISION, isWKDatableString } from "@bachmacintosh/wanikani-api-types/dist/v20170710.js";
+} from "@bachmacintosh/wanikani-api-types/dist/v20170710";
+import { WK_API_REVISION, isWKDatableString } from "@bachmacintosh/wanikani-api-types/dist/v20170710";
 
 async function startAssignment(id: number, started_at?: WKDatableString | Date): Promise<WKAssignment> {
   const url = `https://api.wanikani.com/v2/assignments/${id}/start`;
@@ -309,8 +309,8 @@ import type {
   WKDatableString,
   WKError,
   WKReviewPayload,
-} from "@bachmacintosh/wanikani-api-types/dist/v20170710.js";
-import { WK_API_REVISION, isWKDatableString } from "@bachmacintosh/wanikani-api-types/dist/v20170710.js";
+} from "@bachmacintosh/wanikani-api-types/dist/v20170710";
+import { WK_API_REVISION, isWKDatableString } from "@bachmacintosh/wanikani-api-types/dist/v20170710";
 
 async function createReview(
   id: number,

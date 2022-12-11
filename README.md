@@ -2,17 +2,23 @@
 
 Regularly updated type definitions for the [WaniKani API](https://docs.api.wanikani.com/20170710/)
 
-## ⚠️ We're in Beta!
+## Documentation
 
-Type definitions, type guards, and helper methods are still being reviewed, tested, and finalized.
+Available at https://wanikani-api-types.bachman.dev
 
 ## Package Versioning
 
-Major releases indicate a new version of the WaniKani API, or a [breaking change in TypeScript](https://github.com/microsoft/TypeScript/wiki/Breaking-Changes) that's introduced into the library (we'll try to avoid these as much as possible). Minor releases accommodate new/updated WaniKani API revisions. Patch versions denote bug fixes to the library.
+This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html), with versions formatted as x.y.z.
+
+A new Patch Version z includes backwards-compatible bug fixes, corrections to documentation, and other minute changes.
+
+A new Minor Version y includes new backwards-compatible library features, new backwards-compatible WaniKani API changes (e.g. new revision, new fields on a resource, etc.), widened TypeScript version support, and deprecatiung (but not removing) existing features to be removed in the next major version.
+
+A new Major Version x includes backwards-incompatible changes such as removing previously deprecated items, backwards-incompatible WaniKani API changes (e.g. removing a field on a resource), or a [breaking change in TypeScript](https://github.com/microsoft/TypeScript/wiki/Breaking-Changes) that's introduced into the library (we'll try to avoid these as much as possible).
 
 | Package Version | TypeScript Versions | WaniKani API Version | Latest API Revision |
 | --------------- | ------------------- | -------------------- | ------------------- |
-| 0.x             | 4.x >= 4.5.0        | 2                    | 20170710            |
+| 1.x             | 4.x >= 4.5.0        | 2                    | 20170710            |
 
 ## Usage
 
@@ -96,10 +102,6 @@ import type { WKAssignmentParameters, WKDatableString } from "https://esm.sh/@ba
 import { stringifyParameters } from "https://esm.sh/@bachmacintosh/wanikani-api-types@x.y.z";
 ```
 
-### Documentation
-
-Available at https://wanikani-api-types.bachman.dev
-
 ### Type Definitions
 
 We provide various type definitions to help with sending/receiving type-safe elements to/from the WaniKani API.
@@ -114,7 +116,7 @@ We also export various subtypes that fall underneath these main types, in case t
 
 ### Type Guards
 
-Most of the types defined here are object types with straightforward structure. The exception is the ISO-8601 date-time strings that WaniKani uses in both request payloads and responses, which we've named a `WKDatableString`. We provide a [type guard](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates) to verify if a variable is not only a `string`, but is in the correct ISO-8601 format.
+Most of the types defined here are object types with straightforward structure. Sometimes, however, you may have a string or number that needs to meet specific criteria to be narrowed down to an exact type. So we provide some [type guards](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates) to verify if a variable is of a given type; these will usually begin with `is` in their name. See the documentation for more info.
 
 ### Helper Functions
 
