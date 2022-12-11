@@ -8,7 +8,7 @@ This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html),
 
 A new Patch Version z includes backwards-compatible bug fixes, corrections to documentation, and other minute changes.
 
-A new Minor Version y includes new backwards-compatible library features, new backwards-compatible WaniKani API changes (e.g. new revision, new fields on a resource, etc.), and widened TypeScript version support, and deprecatiung (but not removing) existing features to be removed in the next major version.
+A new Minor Version y includes new backwards-compatible library features, new backwards-compatible WaniKani API changes (e.g. new revision, new fields on a resource, etc.), widened TypeScript version support, and deprecatiung (but not removing) existing features to be removed in the next major version.
 
 A new Major Version x includes backwards-incompatible changes such as removing previously deprecated items, backwards-incompatible WaniKani API changes (e.g. removing a field on a resource), or a [breaking change in TypeScript](https://github.com/microsoft/TypeScript/wiki/Breaking-Changes) that's introduced into the library (we'll try to avoid these as much as possible).
 
