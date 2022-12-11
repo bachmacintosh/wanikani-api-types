@@ -2,6 +2,10 @@
 
 Regularly updated type definitions for the [WaniKani API](https://docs.api.wanikani.com/20170710/)
 
+## Documentation
+
+Available at https://wanikani-api-types.bachman.dev
+
 ## Package Versioning
 
 This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html), with versions formatted as x.y.z.
@@ -97,10 +101,6 @@ Importing from the index module will always provide types, methods, etc. for use
 import type { WKAssignmentParameters, WKDatableString } from "https://esm.sh/@bachmacintosh/wanikani-api-types@x.y.z";
 import { stringifyParameters } from "https://esm.sh/@bachmacintosh/wanikani-api-types@x.y.z";
 ```
-
-### Documentation
-
-Available at https://wanikani-api-types.bachman.dev
 
 ### Type Definitions
 
