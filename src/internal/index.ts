@@ -14,17 +14,9 @@ export type Brand<K, T> = K & { __brand: T };
  *
  * @internal
  */
-
 export type Enumerate<N extends number, Acc extends number[] = []> = Acc["length"] extends N
 	? Acc[number]
 	: Enumerate<N, [...Acc, Acc["length"]]>;
-
-/**
- * A type that makes a given type's properties nullable.
- *
- * @internal
- */
-export type Nullable<T> = { [K in keyof T]: Nullable<T[K]> | null };
 
 /**
  * A range of numbers starting from number F to number T.
