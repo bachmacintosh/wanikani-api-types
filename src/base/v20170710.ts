@@ -19,7 +19,6 @@ import type {
 	WKStudyMaterial,
 	WKStudyMaterialData,
 	WKSubject,
-	WKSubjectData,
 	WKSummaryData,
 	WKUserData,
 	WKVocabulary,
@@ -399,7 +398,6 @@ export interface WKResource {
 		| WKReviewStatisticData
 		| WKSpacedRepetitionSystemData
 		| WKStudyMaterialData
-		| WKSubjectData
 		| WKUserData
 		| WKVocabularyData
 		| WKVoiceActorData;
