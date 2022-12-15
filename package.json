@@ -51,7 +51,7 @@
 		"prettier": "2.8.1",
 		"rimraf": "3.0.2",
 		"ts-jest": "29.0.3",
-		"typedoc": "0.23.21",
+		"typedoc": "0.23.22",
 		"typescript": "4.9.4"
 	},
 	"peerDependencies": {
