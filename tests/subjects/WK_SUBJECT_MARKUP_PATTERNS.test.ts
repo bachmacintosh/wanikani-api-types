@@ -3,12 +3,12 @@ import { WK_SUBJECT_MARKUP_MATCHERS } from "../../src/subjects/v20170710.js";
 
 it("Matches Japanese text highlighting in <ja> tags", () => {
 	const testString = `The romaji "ka" can be written as <ja>か</ja> in hiragana. The romaji "setsu" can be written as <ja>せつ</ja>.`;
-	const matchedJa = [...testString.matchAll(WK_SUBJECT_MARKUP_MATCHERS.ja)];
-	expect(matchedJa).toHaveLength(2);
-	expect(matchedJa[0][0]).toBe("<ja>か</ja>");
-	expect(matchedJa[0].groups?.innerText).toBe("か");
-	expect(matchedJa[1][0]).toBe("<ja>せつ</ja>");
-	expect(matchedJa[1].groups?.innerText).toBe("せつ");
+	const matchedText = [...testString.matchAll(WK_SUBJECT_MARKUP_MATCHERS.ja)];
+	expect(matchedText).toHaveLength(2);
+	expect(matchedText[0][0]).toBe("<ja>か</ja>");
+	expect(matchedText[0].groups?.innerText).toBe("か");
+	expect(matchedText[1][0]).toBe("<ja>せつ</ja>");
+	expect(matchedText[1].groups?.innerText).toBe("せつ");
 });
 
 it("Matches Kanji highlighting in <kanji> tags", () => {
