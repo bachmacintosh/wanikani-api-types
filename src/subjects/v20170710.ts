@@ -454,6 +454,15 @@ export interface WKSubjectData {
 	spaced_repetition_system_id: number;
 }
 
+export const WK_SUBJECT_MARKUP_MATCHERS = {
+	ja: /<ja>(?<innerText>.+?)<\/ja>/gu,
+	kanji: /<kanji>(?<innerText>.+?)<\/kanji>/gu,
+	meaning: /<meaning>(?<innerText>.+?)<\/meaning>/gu,
+	radical: /<radical>(?<innerText>.+?)<\/radical>/gu,
+	reading: /<reading>(?<innerText>.+?)<\/reading>/gu,
+	vocabulary: /<vocabulary>(?<innerText>.+?)<\/vocabulary>/gu,
+} as const;
+
 /**
  * Information pertaining to a subject's meaning.
  *
