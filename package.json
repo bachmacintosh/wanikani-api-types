@@ -1,13 +1,13 @@
 {
 	"name": "@bachmacintosh/wanikani-api-types",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Regularly updated type definitions for the WaniKani API",
 	"keywords": [
 		"wanikani",
 		"wanikani api",
 		"types"
 	],
-	"author": "Collin Bachman <collin@bachman.io>",
+	"author": "Collin Bachman <collin.r68zdn9d@bachman.dev>",
 	"license": "MIT",
 	"homepage": "https://wanikani-api-types.bachman.dev",
 	"type": "module",
