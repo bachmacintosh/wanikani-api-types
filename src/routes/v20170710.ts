@@ -5,23 +5,23 @@ export class WKRoute {
 
 	#body: string | null;
 
-	#headers: Headers;
-
-	#url: string;
+	#headers: WKRouteHeaders;
 
 	#method: "GET" | "POST" | "PUT";
 
+	#url: string;
+
 	public constructor(init: WKRouteInit) {
 		this.#body = null;
-		this.#headers = new Headers({
+		const headers: WKRouteHeaders = {
 			Authorization: `Bearer ${init.apiKey}`,
-		});
+		};
+		if (typeof init.revision !== "undefined") {
+			headers["Wanikani-Revision"] = init.revision;
+		}
+		this.#headers = headers;
 		this.#method = "GET";
 		this.#url = this.#baseUrl;
-
-		if (typeof init.revision !== "undefined") {
-			this.#headers.append("Wanikani-Revision", init.revision);
-		}
 	}
 
 	public get baseUrl(): string {
@@ -32,6 +32,10 @@ export class WKRoute {
 		return this.#body;
 	}
 
+	public get headers(): WKRouteHeaders {
+		return this.#headers;
+	}
+
 	public get method(): string {
 		return this.#method;
 	}
@@ -40,6 +44,12 @@ export class WKRoute {
 		return this.#url;
 	}
 }
+
+export type WKRouteHeaders = HeadersInit & {
+	Authorization: string;
+	"Wanikani-Revision"?: WKApiRevision;
+	"Content-Type"?: "application/json";
+};
 
 export interface WKRouteInit {
 	apiKey: string;
