@@ -1,17 +1,9 @@
-import type {
-	WKApiRevision,
-	WKAssignmentPayload,
-	WKReviewPayload,
-	WKStudyMaterialCreatePayload,
-	WKStudyMaterialUpdatePayload,
-} from "../v20170710.js";
+import type { WKApiRevision } from "../v20170710.js";
 
 export class WKRoute {
 	#baseUrl = "https://api.wanikani.com/v2/";
 
-	#bodyObject?: WKAssignmentPayload | WKReviewPayload | WKStudyMaterialCreatePayload | WKStudyMaterialUpdatePayload;
-
-	#bodyString?: string;
+	#body?: string;
 
 	#headers: WKRouteHeaders;
 
@@ -34,17 +26,8 @@ export class WKRoute {
 		return this.#baseUrl;
 	}
 
-	public get bodyObject():
-		| WKAssignmentPayload
-		| WKReviewPayload
-		| WKStudyMaterialCreatePayload
-		| WKStudyMaterialUpdatePayload
-		| undefined {
-		return this.#bodyObject;
-	}
-
-	public get bodyString(): string | undefined {
-		return this.#bodyString;
+	public get body(): string | undefined {
+		return this.#body;
 	}
 
 	public get headers(): WKRouteHeaders {
