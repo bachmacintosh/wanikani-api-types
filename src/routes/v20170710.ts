@@ -20,14 +20,12 @@ export class WKRoute {
 	#url: string;
 
 	public constructor(init: WKRouteInit) {
-		this.#bodyString = "";
-		const headers: WKRouteHeaders = {
+		this.#headers = {
 			Authorization: `Bearer ${init.apiKey}`,
 		};
 		if (typeof init.revision !== "undefined") {
-			headers["Wanikani-Revision"] = init.revision;
+			this.#headers["Wanikani-Revision"] = init.revision;
 		}
-		this.#headers = headers;
 		this.#method = "GET";
 		this.#url = this.#baseUrl;
 	}
