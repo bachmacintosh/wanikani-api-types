@@ -11,6 +11,7 @@ export {
 	WK_MAX_SRS_STAGES,
 	WK_MIN_LESSON_BATCH_SIZE,
 	WK_MIN_LEVELS,
+	WK_SUBJECT_MARKUP_MATCHERS,
 	isWKDatableString,
 	isWKLessonBatchSizeNumber,
 	isWKLevel,
