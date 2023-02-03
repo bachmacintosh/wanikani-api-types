@@ -463,32 +463,32 @@ export interface WKSubjectData {
  */
 export const WK_SUBJECT_MARKUP_MATCHERS = {
 	/**
-	 * A regular expression literal that matches to Japanese text surrounded by <ja> tags.
+	 * A regular expression literal that matches to Japanese text surrounded by `<ja>` tags.
 	 */
 	ja: /<ja>(?<innerText>.+?)<\/ja>/gu,
 
 	/**
-	 * A regular expression literal that matches to Japanese kanji surrounded by <kanji> tags.
+	 * A regular expression literal that matches to Japanese kanji surrounded by `<kanji>` tags.
 	 */
 	kanji: /<kanji>(?<innerText>.+?)<\/kanji>/gu,
 
 	/**
-	 * A regular expression literal that matches to a subject meaning surrounded by <meaning> tags.
+	 * A regular expression literal that matches to a subject meaning surrounded by `<meaning>` tags.
 	 */
 	meaning: /<meaning>(?<innerText>.+?)<\/meaning>/gu,
 
 	/**
-	 * A regular expression literal that matches to WaniKani Radical names surrounded by <radical> tags.
+	 * A regular expression literal that matches to WaniKani Radical names surrounded by `<radical>` tags.
 	 */
 	radical: /<radical>(?<innerText>.+?)<\/radical>/gu,
 
 	/**
-	 * A regular expression literal that matches to a kanji/vocabulary reading surrounded by <reading> tags.
+	 * A regular expression literal that matches to a kanji/vocabulary reading surrounded by `<reading>` tags.
 	 */
 	reading: /<reading>(?<innerText>.+?)<\/reading>/gu,
 
 	/**
-	 * A regular expression literal that matches to WaniKani Vocabulary surrounded by <vocabulary> tags.
+	 * A regular expression literal that matches to WaniKani Vocabulary surrounded by `<vocabulary>` tags.
 	 */
 	vocabulary: /<vocabulary>(?<innerText>.+?)<\/vocabulary>/gu,
 } as const;
