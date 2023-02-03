@@ -455,6 +455,45 @@ export interface WKSubjectData {
 }
 
 /**
+ * A set of regular expression literals that match to various markup patterns in a Subject's Meaning/Reading Mnemonics
+ * and Hints.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
+ * @category Subjects
+ */
+export const WK_SUBJECT_MARKUP_MATCHERS = {
+	/**
+	 * A regular expression literal that matches to Japanese text surrounded by `<ja>` tags.
+	 */
+	ja: /<ja>(?<innerText>.+?)<\/ja>/gu,
+
+	/**
+	 * A regular expression literal that matches to Japanese kanji surrounded by `<kanji>` tags.
+	 */
+	kanji: /<kanji>(?<innerText>.+?)<\/kanji>/gu,
+
+	/**
+	 * A regular expression literal that matches to a subject meaning surrounded by `<meaning>` tags.
+	 */
+	meaning: /<meaning>(?<innerText>.+?)<\/meaning>/gu,
+
+	/**
+	 * A regular expression literal that matches to WaniKani Radical names surrounded by `<radical>` tags.
+	 */
+	radical: /<radical>(?<innerText>.+?)<\/radical>/gu,
+
+	/**
+	 * A regular expression literal that matches to a kanji/vocabulary reading surrounded by `<reading>` tags.
+	 */
+	reading: /<reading>(?<innerText>.+?)<\/reading>/gu,
+
+	/**
+	 * A regular expression literal that matches to WaniKani Vocabulary surrounded by `<vocabulary>` tags.
+	 */
+	vocabulary: /<vocabulary>(?<innerText>.+?)<\/vocabulary>/gu,
+} as const;
+
+/**
  * Information pertaining to a subject's meaning.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
