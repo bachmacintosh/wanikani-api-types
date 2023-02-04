@@ -1,7 +1,8 @@
-import type { WKApiRevision } from "../v20170710.js";
+import type { WKApiRevision, WKAssignmentParameters } from "../v20170710.js";
+import { stringifyParameters } from "../v20170710.js";
 
 export class WKRoute {
-	#baseUrl = "https://api.wanikani.com/v2/";
+	#baseUrl = "https://api.wanikani.com/v2";
 
 	#body?: string;
 
@@ -40,6 +41,37 @@ export class WKRoute {
 
 	public get url(): string {
 		return this.#url;
+	}
+
+	public assignments(idOrParams?: WKAssignmentParameters | number, action?: "get" | "start"): this {
+		if (typeof idOrParams === "number") {
+			this.#method = "GET";
+			this.#url = `${this.#baseUrl}/assignments/${idOrParams}`;
+			if (action === "start") {
+				this.#method = "PUT";
+				this.#url += "/start";
+			}
+		} else {
+			this.#method = "GET";
+			if (action === "start") {
+				throw new TypeError("Action 'start' is not a valid action for Assignment Collections.");
+			}
+			if (typeof idOrParams === "undefined") {
+				this.#url = `${this.#baseUrl}/assignments`;
+			} else {
+				this.#url = `${this.#baseUrl}/assignments${stringifyParameters(idOrParams)}`;
+			}
+		}
+		this.#toggleContentTypeHeader();
+		return this;
+	}
+
+	#toggleContentTypeHeader(): void {
+		if (this.#method === "POST" || this.#method === "PUT") {
+			this.#headers["Content-Type"] = "application/json";
+		} else {
+			delete this.#headers["Content-Type"];
+		}
 	}
 }
 
