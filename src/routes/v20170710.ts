@@ -1,10 +1,10 @@
-import type { WKApiRevision, WKAssignmentParameters } from "../v20170710.js";
+import type { WKApiRevision, WKAssignmentParameters, WKAssignmentPayload } from "../v20170710.js";
 import { stringifyParameters } from "../v20170710.js";
 
 export class WKRoute {
 	#baseUrl = "https://api.wanikani.com/v2";
 
-	#body?: string;
+	#body: string;
 
 	#headers: WKRouteHeaders;
 
@@ -13,6 +13,7 @@ export class WKRoute {
 	#url: string;
 
 	public constructor(init: WKRouteInit) {
+		this.#body = JSON.stringify({});
 		this.#headers = {
 			Authorization: `Bearer ${init.apiKey}`,
 		};
@@ -27,7 +28,7 @@ export class WKRoute {
 		return this.#baseUrl;
 	}
 
-	public get body(): string | undefined {
+	public get body(): string {
 		return this.#body;
 	}
 
@@ -43,18 +44,29 @@ export class WKRoute {
 		return this.#url;
 	}
 
-	public assignments(idOrParams?: WKAssignmentParameters | number, action?: "get" | "start"): this {
+	public assignments(
+		idOrParams?: WKAssignmentParameters | number,
+		action?: "get" | "start",
+		payload?: WKAssignmentPayload,
+	): this {
+		this.#body = JSON.stringify({});
 		if (typeof idOrParams === "number") {
 			this.#method = "GET";
 			this.#url = `${this.#baseUrl}/assignments/${idOrParams}`;
 			if (action === "start") {
 				this.#method = "PUT";
 				this.#url += "/start";
+				if (typeof payload !== "undefined") {
+					this.#body = JSON.stringify(payload);
+				}
 			}
 		} else {
 			this.#method = "GET";
 			if (action === "start") {
 				throw new TypeError("Action 'start' is not a valid action for Assignment Collections.");
+			}
+			if (typeof payload !== "undefined") {
+				throw new TypeError("Unexpected Assignment Payload when getting an Assignment Collection.");
 			}
 			if (typeof idOrParams === "undefined") {
 				this.#url = `${this.#baseUrl}/assignments`;
@@ -71,6 +83,7 @@ export class WKRoute {
 			this.#headers["Content-Type"] = "application/json";
 		} else {
 			delete this.#headers["Content-Type"];
+			this.#body = JSON.stringify({});
 		}
 	}
 }
