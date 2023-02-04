@@ -74,11 +74,11 @@ export class WKRoute {
 				this.#url = `${this.#baseUrl}/assignments${stringifyParameters(idOrParams)}`;
 			}
 		}
-		this.#toggleContentTypeHeader();
+		this.#toggleRequestContent();
 		return this;
 	}
 
-	#toggleContentTypeHeader(): void {
+	#toggleRequestContent(): void {
 		if (this.#method === "POST" || this.#method === "PUT") {
 			this.#headers["Content-Type"] = "application/json";
 		} else {
