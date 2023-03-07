@@ -4,7 +4,7 @@ import { stringifyParameters } from "../v20170710.js";
 export class WKRoute {
 	#baseUrl = "https://api.wanikani.com/v2";
 
-	#body: string;
+	#body: string | null;
 
 	#headers: WKRouteHeaders;
 
@@ -13,7 +13,7 @@ export class WKRoute {
 	#url: string;
 
 	public constructor(init: WKRouteInit) {
-		this.#body = JSON.stringify({});
+		this.#body = null;
 		this.#headers = {
 			Authorization: `Bearer ${init.apiKey}`,
 		};
@@ -28,7 +28,7 @@ export class WKRoute {
 		return this.#baseUrl;
 	}
 
-	public get body(): string {
+	public get body(): string | null {
 		return this.#body;
 	}
 
@@ -51,16 +51,14 @@ export class WKRoute {
 		action?: "start",
 		payload?: WKAssignmentPayload,
 	): this {
-		this.#body = JSON.stringify({});
+		this.#body = null;
 		if (typeof idOrParams === "number") {
 			this.#method = "GET";
 			this.#url = `${this.#baseUrl}/assignments/${idOrParams}`;
 			if (action === "start") {
 				this.#method = "PUT";
 				this.#url += "/start";
-				if (typeof payload !== "undefined") {
-					this.#body = JSON.stringify(payload);
-				}
+				this.#body = payload ? JSON.stringify(payload) : JSON.stringify({});
 			}
 		} else {
 			this.#method = "GET";
@@ -85,7 +83,7 @@ export class WKRoute {
 			this.#headers["Content-Type"] = "application/json";
 		} else {
 			delete this.#headers["Content-Type"];
-			this.#body = JSON.stringify({});
+			this.#body = null;
 		}
 	}
 }
