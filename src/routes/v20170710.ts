@@ -228,6 +228,14 @@ export class WKRoute {
 		return this;
 	}
 
+	public summary(): this {
+		this.#method = "GET";
+		this.#url = `${this.#baseUrl}/summary`;
+		this.#body = null;
+		this.#toggleRequestContent();
+		return this;
+	}
+
 	#toggleRequestContent(): void {
 		if (this.#method === "POST" || this.#method === "PUT") {
 			this.#headers["Content-Type"] = "application/json";

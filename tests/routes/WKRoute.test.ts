@@ -513,3 +513,20 @@ it("Returns GET request for a Subject", () => {
 	expect(request.headers).toStrictEqual(expectedHeaders);
 	expect(request.body).toBe(expectedBody);
 });
+
+it("Returns GET request for a Summary", () => {
+	const expectedMethod = "GET";
+	const expectedUrl = "https://api.wanikani.com/v2/summary";
+	const expectedHeaders = {
+		Authorization: "Bearer abc",
+		"Wanikani-Revision": "20170710",
+	};
+	const expectedBody = null;
+
+	const request = new WKRoute({ apiKey: "abc", revision: "20170710" }).summary();
+
+	expect(request.method).toBe(expectedMethod);
+	expect(request.url).toBe(expectedUrl);
+	expect(request.headers).toStrictEqual(expectedHeaders);
+	expect(request.body).toBe(expectedBody);
+});
