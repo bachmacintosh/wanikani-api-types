@@ -61,9 +61,10 @@ export class WKRoute {
 		payload?: WKAssignmentPayload,
 	): this {
 		this.#method = "GET";
+		this.#url = `${this.#baseUrl}/assignments`;
 		this.#body = null;
 		if (typeof idOrParams === "number") {
-			this.#url = `${this.#baseUrl}/assignments/${idOrParams}`;
+			this.#url += `/${idOrParams}`;
 			if (action === "start") {
 				this.#method = "PUT";
 				this.#url += "/start";
@@ -76,10 +77,8 @@ export class WKRoute {
 			if (typeof payload !== "undefined") {
 				throw new TypeError("Unexpected Assignment Payload when getting an Assignment Collection.");
 			}
-			if (typeof idOrParams === "undefined") {
-				this.#url = `${this.#baseUrl}/assignments`;
-			} else {
-				this.#url = `${this.#baseUrl}/assignments${stringifyParameters(idOrParams)}`;
+			if (typeof idOrParams !== "undefined") {
+				this.#url += stringifyParameters(idOrParams);
 			}
 		}
 		this.#toggleRequestContent();
@@ -88,13 +87,12 @@ export class WKRoute {
 
 	public levelProgressions(idOrParams?: WKLevelProgressionParameters | number): this {
 		this.#method = "GET";
+		this.#url = `${this.#baseUrl}/level_progressions`;
 		this.#body = null;
 		if (typeof idOrParams === "number") {
-			this.#url = `${this.#baseUrl}/level_progressions/${idOrParams}`;
-		} else if (typeof idOrParams === "undefined") {
-			this.#url = `${this.#baseUrl}/level_progressions`;
-		} else {
-			this.#url = `${this.#baseUrl}/level_progressions${stringifyParameters(idOrParams)}`;
+			this.#url += `/${idOrParams}`;
+		} else if (typeof idOrParams !== "undefined") {
+			this.#url += stringifyParameters(idOrParams);
 		}
 		this.#toggleRequestContent();
 		return this;
@@ -102,13 +100,12 @@ export class WKRoute {
 
 	public resets(idOrParams?: WKResetParameters | number): this {
 		this.#method = "GET";
+		this.#url = `${this.#baseUrl}/resets`;
 		this.#body = null;
 		if (typeof idOrParams === "number") {
-			this.#url = `${this.#baseUrl}/resets/${idOrParams}`;
-		} else if (typeof idOrParams === "undefined") {
-			this.#url = `${this.#baseUrl}/resets`;
-		} else {
-			this.#url = `${this.#baseUrl}/resets${stringifyParameters(idOrParams)}`;
+			this.#url += `/${idOrParams}`;
+		} else if (typeof idOrParams !== "undefined") {
+			this.#url += stringifyParameters(idOrParams);
 		}
 		this.#toggleRequestContent();
 		return this;
@@ -118,26 +115,24 @@ export class WKRoute {
 	public reviews(idOrParams: "create", payload: WKReviewPayload): this;
 	public reviews(idOrParams?: WKReviewParameters | number | "create", payload?: WKReviewPayload): this {
 		this.#method = "GET";
+		this.#url = `${this.#baseUrl}/reviews`;
 		this.#body = null;
 		if (typeof idOrParams === "number") {
 			if (typeof payload !== "undefined") {
 				throw new TypeError("Unexpected Review Payload when getting a Review.");
 			}
-			this.#url = `${this.#baseUrl}/reviews/${idOrParams}`;
+			this.#url += `/${idOrParams}`;
 		} else if (idOrParams === "create") {
 			if (typeof payload === "undefined") {
 				throw new TypeError("Missing Review Payload when creating a Review.");
 			}
 			this.#method = "POST";
-			this.#url = `${this.#baseUrl}/reviews`;
 			this.#body = JSON.stringify(payload);
-		} else if (typeof idOrParams === "undefined") {
-			this.#url = `${this.#baseUrl}/reviews`;
-		} else {
+		} else if (typeof idOrParams !== "undefined") {
 			if (typeof payload !== "undefined") {
 				throw new TypeError("Unexpected Review Payload when getting a Review Collection.");
 			}
-			this.#url = `${this.#baseUrl}/reviews${stringifyParameters(idOrParams)}`;
+			this.#url += stringifyParameters(idOrParams);
 		}
 		this.#toggleRequestContent();
 		return this;
@@ -145,13 +140,12 @@ export class WKRoute {
 
 	public reviewStatistics(idOrParams?: WKReviewStatisticParameters | number): this {
 		this.#method = "GET";
+		this.#url = `${this.#baseUrl}/review_statistics`;
 		this.#body = null;
 		if (typeof idOrParams === "number") {
-			this.#url = `${this.#baseUrl}/review_statistics/${idOrParams}`;
-		} else if (typeof idOrParams === "undefined") {
-			this.#url = `${this.#baseUrl}/review_statistics`;
-		} else {
-			this.#url = `${this.#baseUrl}/review_statistics${stringifyParameters(idOrParams)}`;
+			this.#url += `/${idOrParams}`;
+		} else if (typeof idOrParams !== "undefined") {
+			this.#url += stringifyParameters(idOrParams);
 		}
 		this.#toggleRequestContent();
 		return this;
