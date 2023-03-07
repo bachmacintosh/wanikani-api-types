@@ -3,6 +3,7 @@ import type {
 	WKAssignmentParameters,
 	WKAssignmentPayload,
 	WKLevelProgressionParameters,
+	WKResetParameters,
 } from "../v20170710.js";
 import { stringifyParameters } from "../v20170710.js";
 
@@ -92,6 +93,20 @@ export class WKRoute {
 			this.#url = `${this.#baseUrl}/level_progressions`;
 		} else {
 			this.#url = `${this.#baseUrl}/level_progressions${stringifyParameters(idOrParams)}`;
+		}
+		this.#toggleRequestContent();
+		return this;
+	}
+
+	public resets(idOrParams?: WKResetParameters | number): this {
+		this.#method = "GET";
+		this.#body = null;
+		if (typeof idOrParams === "number") {
+			this.#url = `${this.#baseUrl}/resets/${idOrParams}`;
+		} else if (typeof idOrParams === "undefined") {
+			this.#url = `${this.#baseUrl}/resets`;
+		} else {
+			this.#url = `${this.#baseUrl}/resets${stringifyParameters(idOrParams)}`;
 		}
 		this.#toggleRequestContent();
 		return this;
