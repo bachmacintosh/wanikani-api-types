@@ -1,4 +1,9 @@
-import type { WKApiRevision, WKAssignmentParameters, WKAssignmentPayload } from "../v20170710.js";
+import type {
+	WKApiRevision,
+	WKAssignmentParameters,
+	WKAssignmentPayload,
+	WKLevelProgressionParameters,
+} from "../v20170710.js";
 import { stringifyParameters } from "../v20170710.js";
 
 export class WKRoute {
@@ -73,6 +78,20 @@ export class WKRoute {
 			} else {
 				this.#url = `${this.#baseUrl}/assignments${stringifyParameters(idOrParams)}`;
 			}
+		}
+		this.#toggleRequestContent();
+		return this;
+	}
+
+	public levelProgressions(idOrParams?: WKLevelProgressionParameters | number): this {
+		this.#method = "GET";
+		this.#body = null;
+		if (typeof idOrParams === "number") {
+			this.#url = `${this.#baseUrl}/level_progressions/${idOrParams}`;
+		} else if (typeof idOrParams === "undefined") {
+			this.#url = `${this.#baseUrl}/level_progressions`;
+		} else {
+			this.#url = `${this.#baseUrl}/level_progressions${stringifyParameters(idOrParams)}`;
 		}
 		this.#toggleRequestContent();
 		return this;
