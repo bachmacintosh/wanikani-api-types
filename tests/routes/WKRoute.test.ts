@@ -1,5 +1,6 @@
 import { expect, it } from "@jest/globals";
 import type { WKAssignmentParameters, WKAssignmentPayload } from "../../src/assignments/v20170710";
+import type { WKReviewParameters, WKReviewPayload } from "../../src/reviews/v20170710";
 import type { WKLevelProgressionParameters } from "../../src/level-progressions/v20170710";
 import type { WKResetParameters } from "../../src/resets/v20170710";
 import { WKRoute } from "../../src/routes/v20170710";
@@ -152,6 +153,71 @@ it("Returns GET request for a Reset", () => {
 	const expectedBody = null;
 
 	const request = new WKRoute({ apiKey: "abc", revision: "20170710" }).resets(123);
+
+	expect(request.method).toBe(expectedMethod);
+	expect(request.url).toBe(expectedUrl);
+	expect(request.headers).toStrictEqual(expectedHeaders);
+	expect(request.body).toBe(expectedBody);
+});
+
+it("Returns GET request for a Reset Collection", () => {
+	const expectedMethod = "GET";
+	const expectedUrl = "https://api.wanikani.com/v2/resets?assignment_ids=1,2,3&subject_ids=4,5,6";
+	const expectedHeaders = {
+		Authorization: "Bearer abc",
+		"Wanikani-Revision": "20170710",
+	};
+	const expectedBody = null;
+
+	const params: WKReviewParameters = {
+		assignment_ids: [1, 2, 3],
+		subject_ids: [4, 5, 6],
+	};
+
+	const request = new WKRoute({ apiKey: "abc", revision: "20170710" }).resets(params);
+
+	expect(request.method).toBe(expectedMethod);
+	expect(request.url).toBe(expectedUrl);
+	expect(request.headers).toStrictEqual(expectedHeaders);
+	expect(request.body).toBe(expectedBody);
+});
+
+it("Returns GET request for a Reviews", () => {
+	const expectedMethod = "GET";
+	const expectedUrl = "https://api.wanikani.com/v2/reviews/123";
+	const expectedHeaders = {
+		Authorization: "Bearer abc",
+		"Wanikani-Revision": "20170710",
+	};
+	const expectedBody = null;
+
+	const request = new WKRoute({ apiKey: "abc", revision: "20170710" }).reviews(123);
+
+	expect(request.method).toBe(expectedMethod);
+	expect(request.url).toBe(expectedUrl);
+	expect(request.headers).toStrictEqual(expectedHeaders);
+	expect(request.body).toBe(expectedBody);
+});
+
+it("Returns POST request for creating a Reviews", () => {
+	const expectedMethod = "POST";
+	const expectedUrl = "https://api.wanikani.com/v2/reviews";
+	const expectedHeaders = {
+		Authorization: "Bearer abc",
+		"Wanikani-Revision": "20170710",
+		"Content-Type": "application/json",
+	};
+	const expectedBody = `{"review":{"subject_id":123,"incorrect_meaning_answers":0,"incorrect_reading_answers":0}}`;
+
+	const payload: WKReviewPayload = {
+		review: {
+			subject_id: 123,
+			incorrect_meaning_answers: 0,
+			incorrect_reading_answers: 0,
+		},
+	};
+
+	const request = new WKRoute({ apiKey: "abc", revision: "20170710" }).reviews("create", payload);
 
 	expect(request.method).toBe(expectedMethod);
 	expect(request.url).toBe(expectedUrl);

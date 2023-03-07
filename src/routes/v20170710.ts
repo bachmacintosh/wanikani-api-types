@@ -4,6 +4,8 @@ import type {
 	WKAssignmentPayload,
 	WKLevelProgressionParameters,
 	WKResetParameters,
+	WKReviewParameters,
+	WKReviewPayload,
 } from "../v20170710.js";
 import { stringifyParameters } from "../v20170710.js";
 
@@ -107,6 +109,35 @@ export class WKRoute {
 			this.#url = `${this.#baseUrl}/resets`;
 		} else {
 			this.#url = `${this.#baseUrl}/resets${stringifyParameters(idOrParams)}`;
+		}
+		this.#toggleRequestContent();
+		return this;
+	}
+
+	public reviews(idOrParams?: WKReviewParameters | number): this;
+	public reviews(idOrParams: "create", payload: WKReviewPayload): this;
+	public reviews(idOrParams?: WKReviewParameters | number | "create", payload?: WKReviewPayload): this {
+		this.#method = "GET";
+		this.#body = null;
+		if (typeof idOrParams === "number") {
+			if (typeof payload !== "undefined") {
+				throw new TypeError("Unexpected Review Payload when getting a Review.");
+			}
+			this.#url = `${this.#baseUrl}/reviews/${idOrParams}`;
+		} else if (idOrParams === "create") {
+			if (typeof payload === "undefined") {
+				throw new TypeError("Missing Review Payload when creating a Review.");
+			}
+			this.#method = "POST";
+			this.#url = `${this.#baseUrl}/reviews`;
+			this.#body = JSON.stringify(payload);
+		} else if (typeof idOrParams === "undefined") {
+			this.#url = `${this.#baseUrl}/reviews`;
+		} else {
+			if (typeof payload !== "undefined") {
+				throw new TypeError("Unexpected Review Payload when getting a Review Collection.");
+			}
+			this.#url = `${this.#baseUrl}/reviews${stringifyParameters(idOrParams)}`;
 		}
 		this.#toggleRequestContent();
 		return this;
