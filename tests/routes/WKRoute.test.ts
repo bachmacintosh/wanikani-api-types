@@ -8,7 +8,7 @@ it("Returns GET request for root of WaniKani API on init", () => {
 	const expectedHeaders = {
 		Authorization: "Bearer abc",
 	};
-	const expectedBody = "{}";
+	const expectedBody = null;
 
 	const request = new WKRoute({ apiKey: "abc" });
 
@@ -25,7 +25,7 @@ it("Returns GET request for an Assignment Collection", () => {
 		Authorization: "Bearer abc",
 		"Wanikani-Revision": "20170710",
 	};
-	const expectedBody = "{}";
+	const expectedBody = null;
 
 	const params: WKAssignmentParameters = {
 		unlocked: true,
@@ -47,7 +47,7 @@ it("Returns GET request for an Assignment", () => {
 		Authorization: "Bearer abc",
 		"Wanikani-Revision": "20170710",
 	};
-	const expectedBody = "{}";
+	const expectedBody = null;
 
 	const request = new WKRoute({ apiKey: "abc", revision: "20170710" }).assignments(123);
 
