@@ -24,7 +24,8 @@ it("Returns GET request for root of WaniKani API on init", () => {
 
 it("Returns GET request for an Assignment Collection", () => {
 	const expectedMethod = "GET";
-	const expectedUrl = "https://api.wanikani.com/v2/assignments?unlocked=true&hidden=false";
+	const expectedUrl1 = "https://api.wanikani.com/v2/assignments";
+	const expectedUrl2 = "https://api.wanikani.com/v2/assignments?unlocked=true&hidden=false";
 	const expectedHeaders = {
 		Authorization: "Bearer abc",
 		"Wanikani-Revision": "20170710",
@@ -36,12 +37,18 @@ it("Returns GET request for an Assignment Collection", () => {
 		hidden: false,
 	};
 
-	const request = new WKRoute({ apiKey: "abc", revision: "20170710" }).assignments(params);
+	const request1 = new WKRoute({ apiKey: "abc", revision: "20170710" }).assignments();
+	const request2 = new WKRoute({ apiKey: "abc", revision: "20170710" }).assignments(params);
 
-	expect(request.method).toBe(expectedMethod);
-	expect(request.url).toBe(expectedUrl);
-	expect(request.headers).toStrictEqual(expectedHeaders);
-	expect(request.body).toBe(expectedBody);
+	expect(request1.method).toBe(expectedMethod);
+	expect(request1.url).toBe(expectedUrl1);
+	expect(request1.headers).toStrictEqual(expectedHeaders);
+	expect(request1.body).toBe(expectedBody);
+
+	expect(request2.method).toBe(expectedMethod);
+	expect(request2.url).toBe(expectedUrl2);
+	expect(request2.headers).toStrictEqual(expectedHeaders);
+	expect(request2.body).toBe(expectedBody);
 });
 
 it("Returns GET request for an Assignment", () => {
@@ -85,7 +92,9 @@ it("Returns PUT request for starting an Assignment", () => {
 
 it("Returns GET request for a Level Progression Collection", () => {
 	const expectedMethod = "GET";
-	const expectedUrl = "https://api.wanikani.com/v2/level_progressions?ids=1,2,3&updated_after=2023-03-01T12:00:00.000Z";
+	const expectedUrl1 = "https://api.wanikani.com/v2/level_progressions";
+	const expectedUrl2 =
+		"https://api.wanikani.com/v2/level_progressions?ids=1,2,3&updated_after=2023-03-01T12:00:00.000Z";
 	const expectedHeaders = {
 		Authorization: "Bearer abc",
 		"Wanikani-Revision": "20170710",
@@ -97,12 +106,18 @@ it("Returns GET request for a Level Progression Collection", () => {
 		updated_after: new Date("2023-03-01T12:00:00.000Z"),
 	};
 
-	const request = new WKRoute({ apiKey: "abc", revision: "20170710" }).levelProgressions(params);
+	const request1 = new WKRoute({ apiKey: "abc", revision: "20170710" }).levelProgressions();
+	const request2 = new WKRoute({ apiKey: "abc", revision: "20170710" }).levelProgressions(params);
 
-	expect(request.method).toBe(expectedMethod);
-	expect(request.url).toBe(expectedUrl);
-	expect(request.headers).toStrictEqual(expectedHeaders);
-	expect(request.body).toBe(expectedBody);
+	expect(request1.method).toBe(expectedMethod);
+	expect(request1.url).toBe(expectedUrl1);
+	expect(request1.headers).toStrictEqual(expectedHeaders);
+	expect(request1.body).toBe(expectedBody);
+
+	expect(request2.method).toBe(expectedMethod);
+	expect(request2.url).toBe(expectedUrl2);
+	expect(request2.headers).toStrictEqual(expectedHeaders);
+	expect(request2.body).toBe(expectedBody);
 });
 
 it("Returns GET request for a Level Progression", () => {
@@ -124,7 +139,8 @@ it("Returns GET request for a Level Progression", () => {
 
 it("Returns GET request for a Reset Collection", () => {
 	const expectedMethod = "GET";
-	const expectedUrl = "https://api.wanikani.com/v2/resets?ids=1,2,3&updated_after=2023-03-01T12:00:00.000Z";
+	const expectedUrl1 = "https://api.wanikani.com/v2/resets";
+	const expectedUrl2 = "https://api.wanikani.com/v2/resets?ids=1,2,3&updated_after=2023-03-01T12:00:00.000Z";
 	const expectedHeaders = {
 		Authorization: "Bearer abc",
 		"Wanikani-Revision": "20170710",
@@ -136,12 +152,18 @@ it("Returns GET request for a Reset Collection", () => {
 		updated_after: new Date("2023-03-01T12:00:00.000Z"),
 	};
 
-	const request = new WKRoute({ apiKey: "abc", revision: "20170710" }).resets(params);
+	const request1 = new WKRoute({ apiKey: "abc", revision: "20170710" }).resets();
+	const request2 = new WKRoute({ apiKey: "abc", revision: "20170710" }).resets(params);
 
-	expect(request.method).toBe(expectedMethod);
-	expect(request.url).toBe(expectedUrl);
-	expect(request.headers).toStrictEqual(expectedHeaders);
-	expect(request.body).toBe(expectedBody);
+	expect(request1.method).toBe(expectedMethod);
+	expect(request1.url).toBe(expectedUrl1);
+	expect(request1.headers).toStrictEqual(expectedHeaders);
+	expect(request1.body).toBe(expectedBody);
+
+	expect(request2.method).toBe(expectedMethod);
+	expect(request2.url).toBe(expectedUrl2);
+	expect(request2.headers).toStrictEqual(expectedHeaders);
+	expect(request2.body).toBe(expectedBody);
 });
 
 it("Returns GET request for a Reset", () => {
@@ -163,7 +185,8 @@ it("Returns GET request for a Reset", () => {
 
 it("Returns GET request for a Review Collection", () => {
 	const expectedMethod = "GET";
-	const expectedUrl = "https://api.wanikani.com/v2/reviews?assignment_ids=1,2,3&subject_ids=4,5,6";
+	const expectedUrl1 = "https://api.wanikani.com/v2/reviews";
+	const expectedUrl2 = "https://api.wanikani.com/v2/reviews?assignment_ids=1,2,3&subject_ids=4,5,6";
 	const expectedHeaders = {
 		Authorization: "Bearer abc",
 		"Wanikani-Revision": "20170710",
@@ -175,12 +198,18 @@ it("Returns GET request for a Review Collection", () => {
 		subject_ids: [4, 5, 6],
 	};
 
-	const request = new WKRoute({ apiKey: "abc", revision: "20170710" }).reviews(params);
+	const request1 = new WKRoute({ apiKey: "abc", revision: "20170710" }).reviews();
+	const request2 = new WKRoute({ apiKey: "abc", revision: "20170710" }).reviews(params);
 
-	expect(request.method).toBe(expectedMethod);
-	expect(request.url).toBe(expectedUrl);
-	expect(request.headers).toStrictEqual(expectedHeaders);
-	expect(request.body).toBe(expectedBody);
+	expect(request1.method).toBe(expectedMethod);
+	expect(request1.url).toBe(expectedUrl1);
+	expect(request1.headers).toStrictEqual(expectedHeaders);
+	expect(request1.body).toBe(expectedBody);
+
+	expect(request2.method).toBe(expectedMethod);
+	expect(request2.url).toBe(expectedUrl2);
+	expect(request2.headers).toStrictEqual(expectedHeaders);
+	expect(request2.body).toBe(expectedBody);
 });
 
 it("Returns GET request for a Review", () => {
@@ -228,7 +257,8 @@ it("Returns POST request for creating a Reviews", () => {
 
 it("Returns GET request for a Review Statistic Collection", () => {
 	const expectedMethod = "GET";
-	const expectedUrl = "https://api.wanikani.com/v2/review_statistics?subject_ids=1,2,3&percentages_greater_than=90";
+	const expectedUrl1 = "https://api.wanikani.com/v2/review_statistics";
+	const expectedUrl2 = "https://api.wanikani.com/v2/review_statistics?subject_ids=1,2,3&percentages_greater_than=90";
 	const expectedHeaders = {
 		Authorization: "Bearer abc",
 		"Wanikani-Revision": "20170710",
@@ -240,12 +270,18 @@ it("Returns GET request for a Review Statistic Collection", () => {
 		percentages_greater_than: 90,
 	};
 
-	const request = new WKRoute({ apiKey: "abc", revision: "20170710" }).reviewStatistics(params);
+	const request1 = new WKRoute({ apiKey: "abc", revision: "20170710" }).reviewStatistics();
+	const request2 = new WKRoute({ apiKey: "abc", revision: "20170710" }).reviewStatistics(params);
 
-	expect(request.method).toBe(expectedMethod);
-	expect(request.url).toBe(expectedUrl);
-	expect(request.headers).toStrictEqual(expectedHeaders);
-	expect(request.body).toBe(expectedBody);
+	expect(request1.method).toBe(expectedMethod);
+	expect(request1.url).toBe(expectedUrl1);
+	expect(request1.headers).toStrictEqual(expectedHeaders);
+	expect(request1.body).toBe(expectedBody);
+
+	expect(request2.method).toBe(expectedMethod);
+	expect(request2.url).toBe(expectedUrl2);
+	expect(request2.headers).toStrictEqual(expectedHeaders);
+	expect(request2.body).toBe(expectedBody);
 });
 
 it("Returns GET request for a Review Statistic", () => {
