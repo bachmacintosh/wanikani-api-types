@@ -8,6 +8,9 @@ import type {
 	WKReviewPayload,
 	WKReviewStatisticParameters,
 	WKSpacedRepetitionSystemParameters,
+	WKStudyMaterialCreatePayload,
+	WKStudyMaterialParameters,
+	WKStudyMaterialUpdatePayload,
 } from "../v20170710.js";
 import { stringifyParameters } from "../v20170710.js";
 
@@ -167,6 +170,48 @@ export class WKRoute {
 
 	public srs(idOrParams?: WKSpacedRepetitionSystemParameters | number): this {
 		return this.spacedRepetitionSystems(idOrParams);
+	}
+
+	public studyMaterials(idOrParams?: WKStudyMaterialParameters | number): this;
+	public studyMaterials(
+		idOrParams: number,
+		actionOrCreatePayload: "update",
+		payload: WKStudyMaterialUpdatePayload,
+	): this;
+	public studyMaterials(idOrParams: "create", actionOrCreatePayload: WKStudyMaterialCreatePayload): this;
+	public studyMaterials(
+		idOrParams?: WKStudyMaterialParameters | number | "create",
+		actionOrCreatePayload?: WKStudyMaterialCreatePayload | "update",
+		updatePayload?: WKStudyMaterialUpdatePayload,
+	): this {
+		this.#method = "GET";
+		this.#url = `${this.#baseUrl}/study_materials`;
+		this.#body = null;
+		if (typeof idOrParams === "number") {
+			this.#url += `/${idOrParams}`;
+			if (actionOrCreatePayload === "update") {
+				if (typeof updatePayload === "undefined") {
+					throw new TypeError("Payload required to update Study Materials.");
+				}
+				this.#method = "PUT";
+				this.#body = JSON.stringify(updatePayload);
+			} else if (typeof actionOrCreatePayload !== "undefined") {
+				throw new TypeError("Unexpected payload when updating a Study Material.");
+			}
+		} else if (idOrParams === "create") {
+			this.#method = "POST";
+			if (typeof actionOrCreatePayload === "undefined" || typeof actionOrCreatePayload === "string") {
+				throw new TypeError("Payload required to create Study Materials.");
+			}
+			this.#body = JSON.stringify(actionOrCreatePayload);
+		} else if (typeof idOrParams !== "undefined") {
+			if (typeof actionOrCreatePayload !== "undefined" || typeof updatePayload !== "undefined") {
+				throw new TypeError("Unexpected additional parameters when getting a Study Material Collection.");
+			}
+			this.#url += stringifyParameters(idOrParams);
+		}
+		this.#toggleRequestContent();
+		return this;
 	}
 
 	#toggleRequestContent(): void {

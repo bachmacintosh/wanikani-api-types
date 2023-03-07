@@ -1,6 +1,11 @@
 import { expect, it } from "@jest/globals";
 import type { WKAssignmentParameters, WKAssignmentPayload } from "../../src/assignments/v20170710";
 import type { WKReviewParameters, WKReviewPayload } from "../../src/reviews/v20170710";
+import type {
+	WKStudyMaterialCreatePayload,
+	WKStudyMaterialParameters,
+	WKStudyMaterialUpdatePayload,
+} from "../../src/study-materials/v20170710";
 import type { WKLevelProgressionParameters } from "../../src/level-progressions/v20170710";
 import type { WKResetParameters } from "../../src/resets/v20170710";
 import type { WKReviewStatisticParameters } from "../../src/review-statistics/v20170710";
@@ -365,4 +370,99 @@ it("Returns GET request for a Spaced Repetition System", () => {
 	expect(request2.url).toBe(expectedUrl);
 	expect(request2.headers).toStrictEqual(expectedHeaders);
 	expect(request2.body).toBe(expectedBody);
+});
+
+it("Returns GET request for a Study Material Collection", () => {
+	const expectedMethod = "GET";
+	const expectedUrl1 = "https://api.wanikani.com/v2/study_materials";
+	const expectedUrl2 = "https://api.wanikani.com/v2/study_materials?subject_ids=1,2,3&subject_types=kanji";
+	const expectedHeaders = {
+		Authorization: "Bearer abc",
+		"Wanikani-Revision": "20170710",
+	};
+	const expectedBody = null;
+
+	const params: WKStudyMaterialParameters = {
+		subject_ids: [1, 2, 3],
+		subject_types: ["kanji"],
+	};
+
+	const request1 = new WKRoute({ apiKey: "abc", revision: "20170710" }).studyMaterials();
+	const request2 = new WKRoute({ apiKey: "abc", revision: "20170710" }).studyMaterials(params);
+
+	expect(request1.method).toBe(expectedMethod);
+	expect(request1.url).toBe(expectedUrl1);
+	expect(request1.headers).toStrictEqual(expectedHeaders);
+	expect(request1.body).toBe(expectedBody);
+
+	expect(request2.method).toBe(expectedMethod);
+	expect(request2.url).toBe(expectedUrl2);
+	expect(request2.headers).toStrictEqual(expectedHeaders);
+	expect(request2.body).toBe(expectedBody);
+});
+
+it("Returns GET request for a Study Material", () => {
+	const expectedMethod = "GET";
+	const expectedUrl = "https://api.wanikani.com/v2/study_materials/123";
+	const expectedHeaders = {
+		Authorization: "Bearer abc",
+		"Wanikani-Revision": "20170710",
+	};
+	const expectedBody = null;
+
+	const request = new WKRoute({ apiKey: "abc", revision: "20170710" }).studyMaterials(123);
+
+	expect(request.method).toBe(expectedMethod);
+	expect(request.url).toBe(expectedUrl);
+	expect(request.headers).toStrictEqual(expectedHeaders);
+	expect(request.body).toBe(expectedBody);
+});
+
+it("Returns POST request for creating a Study Material", () => {
+	const expectedMethod = "POST";
+	const expectedUrl = "https://api.wanikani.com/v2/study_materials";
+	const expectedHeaders = {
+		Authorization: "Bearer abc",
+		"Wanikani-Revision": "20170710",
+		"Content-Type": "application/json",
+	};
+	const expectedBody = `{"subject_id":123,"meaning_note":"A note","reading_note":"B note","meaning_synonyms":["one","two","three"]}`;
+
+	const payload: WKStudyMaterialCreatePayload = {
+		subject_id: 123,
+		meaning_note: "A note",
+		reading_note: "B note",
+		meaning_synonyms: ["one", "two", "three"],
+	};
+
+	const request = new WKRoute({ apiKey: "abc", revision: "20170710" }).studyMaterials("create", payload);
+
+	expect(request.method).toBe(expectedMethod);
+	expect(request.url).toBe(expectedUrl);
+	expect(request.headers).toStrictEqual(expectedHeaders);
+	expect(request.body).toBe(expectedBody);
+});
+
+it("Returns PUT request for updating a Study Material", () => {
+	const expectedMethod = "PUT";
+	const expectedUrl = "https://api.wanikani.com/v2/study_materials/123";
+	const expectedHeaders = {
+		Authorization: "Bearer abc",
+		"Wanikani-Revision": "20170710",
+		"Content-Type": "application/json",
+	};
+	const expectedBody = `{"meaning_note":"A note","reading_note":"B note","meaning_synonyms":["one","two","three"]}`;
+
+	const payload: WKStudyMaterialUpdatePayload = {
+		meaning_note: "A note",
+		reading_note: "B note",
+		meaning_synonyms: ["one", "two", "three"],
+	};
+
+	const request = new WKRoute({ apiKey: "abc", revision: "20170710" }).studyMaterials(123, "update", payload);
+
+	expect(request.method).toBe(expectedMethod);
+	expect(request.url).toBe(expectedUrl);
+	expect(request.headers).toStrictEqual(expectedHeaders);
+	expect(request.body).toBe(expectedBody);
 });
