@@ -59,9 +59,9 @@ export class WKRoute {
 		action?: "start",
 		payload?: WKAssignmentPayload,
 	): this {
+		this.#method = "GET";
 		this.#body = null;
 		if (typeof idOrParams === "number") {
-			this.#method = "GET";
 			this.#url = `${this.#baseUrl}/assignments/${idOrParams}`;
 			if (action === "start") {
 				this.#method = "PUT";
@@ -69,7 +69,6 @@ export class WKRoute {
 				this.#body = payload ? JSON.stringify(payload) : JSON.stringify({});
 			}
 		} else {
-			this.#method = "GET";
 			if (action === "start") {
 				throw new TypeError("Action 'start' is not a valid action for Assignment Collections.");
 			}
