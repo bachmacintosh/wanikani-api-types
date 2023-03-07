@@ -7,6 +7,7 @@ import type {
 	WKReviewParameters,
 	WKReviewPayload,
 	WKReviewStatisticParameters,
+	WKSpacedRepetitionSystemParameters,
 } from "../v20170710.js";
 import { stringifyParameters } from "../v20170710.js";
 
@@ -149,6 +150,23 @@ export class WKRoute {
 		}
 		this.#toggleRequestContent();
 		return this;
+	}
+
+	public spacedRepetitionSystems(idOrParams?: WKSpacedRepetitionSystemParameters | number): this {
+		this.#method = "GET";
+		this.#url = `${this.#baseUrl}/spaced_repetition_systems`;
+		this.#body = null;
+		if (typeof idOrParams === "number") {
+			this.#url += `/${idOrParams}`;
+		} else if (typeof idOrParams !== "undefined") {
+			this.#url += stringifyParameters(idOrParams);
+		}
+		this.#toggleRequestContent();
+		return this;
+	}
+
+	public srs(idOrParams?: WKSpacedRepetitionSystemParameters | number): this {
+		return this.spacedRepetitionSystems(idOrParams);
 	}
 
 	#toggleRequestContent(): void {

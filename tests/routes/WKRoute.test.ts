@@ -4,6 +4,7 @@ import type { WKReviewParameters, WKReviewPayload } from "../../src/reviews/v201
 import type { WKLevelProgressionParameters } from "../../src/level-progressions/v20170710";
 import type { WKResetParameters } from "../../src/resets/v20170710";
 import type { WKReviewStatisticParameters } from "../../src/review-statistics/v20170710";
+import type { WKSpacedRepetitionSystemParameters } from "../../src/spaced-repetition-systems/v20170710";
 import { WKRoute } from "../../src/routes/v20170710";
 
 it("Returns GET request for root of WaniKani API on init", () => {
@@ -299,4 +300,69 @@ it("Returns GET request for a Review Statistic", () => {
 	expect(request.url).toBe(expectedUrl);
 	expect(request.headers).toStrictEqual(expectedHeaders);
 	expect(request.body).toBe(expectedBody);
+});
+
+it("Returns GET request for a Spaced Repetition System Collection", () => {
+	const expectedMethod = "GET";
+	const expectedUrl1 = "https://api.wanikani.com/v2/spaced_repetition_systems";
+	const expectedUrl2 =
+		"https://api.wanikani.com/v2/spaced_repetition_systems?ids=1,2,3&updated_after=2023-03-01T12:00:00.000Z";
+	const expectedHeaders = {
+		Authorization: "Bearer abc",
+		"Wanikani-Revision": "20170710",
+	};
+	const expectedBody = null;
+
+	const params: WKSpacedRepetitionSystemParameters = {
+		ids: [1, 2, 3],
+		updated_after: new Date("2023-03-01T12:00:00.000Z"),
+	};
+
+	const request1 = new WKRoute({ apiKey: "abc", revision: "20170710" }).spacedRepetitionSystems();
+	const request2 = new WKRoute({ apiKey: "abc", revision: "20170710" }).spacedRepetitionSystems(params);
+	const request3 = new WKRoute({ apiKey: "abc", revision: "20170710" }).srs();
+	const request4 = new WKRoute({ apiKey: "abc", revision: "20170710" }).srs(params);
+
+	expect(request1.method).toBe(expectedMethod);
+	expect(request1.url).toBe(expectedUrl1);
+	expect(request1.headers).toStrictEqual(expectedHeaders);
+	expect(request1.body).toBe(expectedBody);
+
+	expect(request2.method).toBe(expectedMethod);
+	expect(request2.url).toBe(expectedUrl2);
+	expect(request2.headers).toStrictEqual(expectedHeaders);
+	expect(request2.body).toBe(expectedBody);
+
+	expect(request3.method).toBe(expectedMethod);
+	expect(request3.url).toBe(expectedUrl1);
+	expect(request3.headers).toStrictEqual(expectedHeaders);
+	expect(request3.body).toBe(expectedBody);
+
+	expect(request4.method).toBe(expectedMethod);
+	expect(request4.url).toBe(expectedUrl2);
+	expect(request4.headers).toStrictEqual(expectedHeaders);
+	expect(request4.body).toBe(expectedBody);
+});
+
+it("Returns GET request for a Spaced Repetition System", () => {
+	const expectedMethod = "GET";
+	const expectedUrl = "https://api.wanikani.com/v2/spaced_repetition_systems/123";
+	const expectedHeaders = {
+		Authorization: "Bearer abc",
+		"Wanikani-Revision": "20170710",
+	};
+	const expectedBody = null;
+
+	const request1 = new WKRoute({ apiKey: "abc", revision: "20170710" }).spacedRepetitionSystems(123);
+	const request2 = new WKRoute({ apiKey: "abc", revision: "20170710" }).srs(123);
+
+	expect(request1.method).toBe(expectedMethod);
+	expect(request1.url).toBe(expectedUrl);
+	expect(request1.headers).toStrictEqual(expectedHeaders);
+	expect(request1.body).toBe(expectedBody);
+
+	expect(request2.method).toBe(expectedMethod);
+	expect(request2.url).toBe(expectedUrl);
+	expect(request2.headers).toStrictEqual(expectedHeaders);
+	expect(request2.body).toBe(expectedBody);
 });
