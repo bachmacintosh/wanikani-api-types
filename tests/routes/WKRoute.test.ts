@@ -160,9 +160,9 @@ it("Returns GET request for a Reset", () => {
 	expect(request.body).toBe(expectedBody);
 });
 
-it("Returns GET request for a Reset Collection", () => {
+it("Returns GET request for a Review Collection", () => {
 	const expectedMethod = "GET";
-	const expectedUrl = "https://api.wanikani.com/v2/resets?assignment_ids=1,2,3&subject_ids=4,5,6";
+	const expectedUrl = "https://api.wanikani.com/v2/reviews?assignment_ids=1,2,3&subject_ids=4,5,6";
 	const expectedHeaders = {
 		Authorization: "Bearer abc",
 		"Wanikani-Revision": "20170710",
@@ -174,7 +174,7 @@ it("Returns GET request for a Reset Collection", () => {
 		subject_ids: [4, 5, 6],
 	};
 
-	const request = new WKRoute({ apiKey: "abc", revision: "20170710" }).resets(params);
+	const request = new WKRoute({ apiKey: "abc", revision: "20170710" }).reviews(params);
 
 	expect(request.method).toBe(expectedMethod);
 	expect(request.url).toBe(expectedUrl);
@@ -182,7 +182,7 @@ it("Returns GET request for a Reset Collection", () => {
 	expect(request.body).toBe(expectedBody);
 });
 
-it("Returns GET request for a Reviews", () => {
+it("Returns GET request for a Review", () => {
 	const expectedMethod = "GET";
 	const expectedUrl = "https://api.wanikani.com/v2/reviews/123";
 	const expectedHeaders = {
