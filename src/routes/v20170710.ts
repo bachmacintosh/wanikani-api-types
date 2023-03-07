@@ -44,9 +44,11 @@ export class WKRoute {
 		return this.#url;
 	}
 
+	public assignments(idOrParams?: WKAssignmentParameters | number): this;
+	public assignments(idOrParams: number, action: "start", payload?: WKAssignmentPayload): this;
 	public assignments(
 		idOrParams?: WKAssignmentParameters | number,
-		action?: "get" | "start",
+		action?: "start",
 		payload?: WKAssignmentPayload,
 	): this {
 		this.#body = JSON.stringify({});
