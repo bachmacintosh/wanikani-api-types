@@ -3,6 +3,7 @@ import type { WKAssignmentParameters, WKAssignmentPayload } from "../../src/assi
 import type { WKReviewParameters, WKReviewPayload } from "../../src/reviews/v20170710";
 import type { WKLevelProgressionParameters } from "../../src/level-progressions/v20170710";
 import type { WKResetParameters } from "../../src/resets/v20170710";
+import type { WKReviewStatisticParameters } from "../../src/review-statistics/v20170710";
 import { WKRoute } from "../../src/routes/v20170710";
 
 it("Returns GET request for root of WaniKani API on init", () => {
@@ -218,6 +219,45 @@ it("Returns POST request for creating a Reviews", () => {
 	};
 
 	const request = new WKRoute({ apiKey: "abc", revision: "20170710" }).reviews("create", payload);
+
+	expect(request.method).toBe(expectedMethod);
+	expect(request.url).toBe(expectedUrl);
+	expect(request.headers).toStrictEqual(expectedHeaders);
+	expect(request.body).toBe(expectedBody);
+});
+
+it("Returns GET request for a Review Statistic Collection", () => {
+	const expectedMethod = "GET";
+	const expectedUrl = "https://api.wanikani.com/v2/review_statistics?subject_ids=1,2,3&percentages_greater_than=90";
+	const expectedHeaders = {
+		Authorization: "Bearer abc",
+		"Wanikani-Revision": "20170710",
+	};
+	const expectedBody = null;
+
+	const params: WKReviewStatisticParameters = {
+		subject_ids: [1, 2, 3],
+		percentages_greater_than: 90,
+	};
+
+	const request = new WKRoute({ apiKey: "abc", revision: "20170710" }).reviewStatistics(params);
+
+	expect(request.method).toBe(expectedMethod);
+	expect(request.url).toBe(expectedUrl);
+	expect(request.headers).toStrictEqual(expectedHeaders);
+	expect(request.body).toBe(expectedBody);
+});
+
+it("Returns GET request for a Review Statistic", () => {
+	const expectedMethod = "GET";
+	const expectedUrl = "https://api.wanikani.com/v2/review_statistics/123";
+	const expectedHeaders = {
+		Authorization: "Bearer abc",
+		"Wanikani-Revision": "20170710",
+	};
+	const expectedBody = null;
+
+	const request = new WKRoute({ apiKey: "abc", revision: "20170710" }).reviewStatistics(123);
 
 	expect(request.method).toBe(expectedMethod);
 	expect(request.url).toBe(expectedUrl);
