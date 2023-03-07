@@ -10,6 +10,7 @@ import type { WKLevelProgressionParameters } from "../../src/level-progressions/
 import type { WKResetParameters } from "../../src/resets/v20170710";
 import type { WKReviewStatisticParameters } from "../../src/review-statistics/v20170710";
 import type { WKSpacedRepetitionSystemParameters } from "../../src/spaced-repetition-systems/v20170710";
+import type { WKSubjectParameters } from "../../src/subjects/v20170710";
 import { WKRoute } from "../../src/routes/v20170710";
 
 it("Returns GET request for root of WaniKani API on init", () => {
@@ -460,6 +461,52 @@ it("Returns PUT request for updating a Study Material", () => {
 	};
 
 	const request = new WKRoute({ apiKey: "abc", revision: "20170710" }).studyMaterials(123, "update", payload);
+
+	expect(request.method).toBe(expectedMethod);
+	expect(request.url).toBe(expectedUrl);
+	expect(request.headers).toStrictEqual(expectedHeaders);
+	expect(request.body).toBe(expectedBody);
+});
+
+it("Returns GET request for a Subject Collection", () => {
+	const expectedMethod = "GET";
+	const expectedUrl1 = "https://api.wanikani.com/v2/subjects";
+	const expectedUrl2 = "https://api.wanikani.com/v2/subjects?types=radical,kanji&levels=1,2,3";
+	const expectedHeaders = {
+		Authorization: "Bearer abc",
+		"Wanikani-Revision": "20170710",
+	};
+	const expectedBody = null;
+
+	const params: WKSubjectParameters = {
+		types: ["radical", "kanji"],
+		levels: [1, 2, 3],
+	};
+
+	const request1 = new WKRoute({ apiKey: "abc", revision: "20170710" }).subjects();
+	const request2 = new WKRoute({ apiKey: "abc", revision: "20170710" }).subjects(params);
+
+	expect(request1.method).toBe(expectedMethod);
+	expect(request1.url).toBe(expectedUrl1);
+	expect(request1.headers).toStrictEqual(expectedHeaders);
+	expect(request1.body).toBe(expectedBody);
+
+	expect(request2.method).toBe(expectedMethod);
+	expect(request2.url).toBe(expectedUrl2);
+	expect(request2.headers).toStrictEqual(expectedHeaders);
+	expect(request2.body).toBe(expectedBody);
+});
+
+it("Returns GET request for a Subject", () => {
+	const expectedMethod = "GET";
+	const expectedUrl = "https://api.wanikani.com/v2/subjects/123";
+	const expectedHeaders = {
+		Authorization: "Bearer abc",
+		"Wanikani-Revision": "20170710",
+	};
+	const expectedBody = null;
+
+	const request = new WKRoute({ apiKey: "abc", revision: "20170710" }).subjects(123);
 
 	expect(request.method).toBe(expectedMethod);
 	expect(request.url).toBe(expectedUrl);

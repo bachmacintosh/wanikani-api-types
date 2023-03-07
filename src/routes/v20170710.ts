@@ -11,6 +11,7 @@ import type {
 	WKStudyMaterialCreatePayload,
 	WKStudyMaterialParameters,
 	WKStudyMaterialUpdatePayload,
+	WKSubjectParameters,
 } from "../v20170710.js";
 import { stringifyParameters } from "../v20170710.js";
 
@@ -208,6 +209,19 @@ export class WKRoute {
 			if (typeof actionOrCreatePayload !== "undefined" || typeof updatePayload !== "undefined") {
 				throw new TypeError("Unexpected additional parameters when getting a Study Material Collection.");
 			}
+			this.#url += stringifyParameters(idOrParams);
+		}
+		this.#toggleRequestContent();
+		return this;
+	}
+
+	public subjects(idOrParams?: WKSubjectParameters | number): this {
+		this.#method = "GET";
+		this.#url = `${this.#baseUrl}/subjects`;
+		this.#body = null;
+		if (typeof idOrParams === "number") {
+			this.#url += `/${idOrParams}`;
+		} else if (typeof idOrParams !== "undefined") {
 			this.#url += stringifyParameters(idOrParams);
 		}
 		this.#toggleRequestContent();
