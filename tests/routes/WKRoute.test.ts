@@ -11,6 +11,7 @@ import type { WKResetParameters } from "../../src/resets/v20170710";
 import type { WKReviewStatisticParameters } from "../../src/review-statistics/v20170710";
 import type { WKSpacedRepetitionSystemParameters } from "../../src/spaced-repetition-systems/v20170710";
 import type { WKSubjectParameters } from "../../src/subjects/v20170710";
+import type { WKUserPreferencesPayload } from "../../src/user/v20170710";
 import { WKRoute } from "../../src/routes/v20170710";
 
 it("Returns GET request for root of WaniKani API on init", () => {
@@ -524,6 +525,51 @@ it("Returns GET request for a Summary", () => {
 	const expectedBody = null;
 
 	const request = new WKRoute({ apiKey: "abc", revision: "20170710" }).summary();
+
+	expect(request.method).toBe(expectedMethod);
+	expect(request.url).toBe(expectedUrl);
+	expect(request.headers).toStrictEqual(expectedHeaders);
+	expect(request.body).toBe(expectedBody);
+});
+
+it("Returns GET request for a User", () => {
+	const expectedMethod = "GET";
+	const expectedUrl = "https://api.wanikani.com/v2/user";
+	const expectedHeaders = {
+		Authorization: "Bearer abc",
+		"Wanikani-Revision": "20170710",
+	};
+	const expectedBody = null;
+
+	const request = new WKRoute({ apiKey: "abc", revision: "20170710" }).user("get");
+
+	expect(request.method).toBe(expectedMethod);
+	expect(request.url).toBe(expectedUrl);
+	expect(request.headers).toStrictEqual(expectedHeaders);
+	expect(request.body).toBe(expectedBody);
+});
+
+it("Returns PUT request for updating a User", () => {
+	const expectedMethod = "PUT";
+	const expectedUrl = "https://api.wanikani.com/v2/user";
+	const expectedHeaders = {
+		Authorization: "Bearer abc",
+		"Wanikani-Revision": "20170710",
+		"Content-Type": "application/json",
+	};
+	const expectedBody = `{"user":{"preferences":{"default_voice_actor_id":1,"lessons_autoplay_audio":true,"lessons_batch_size":10}}}`;
+
+	const payload: WKUserPreferencesPayload = {
+		user: {
+			preferences: {
+				default_voice_actor_id: 1,
+				lessons_autoplay_audio: true,
+				lessons_batch_size: 10,
+			},
+		},
+	};
+
+	const request = new WKRoute({ apiKey: "abc", revision: "20170710" }).user("update", payload);
 
 	expect(request.method).toBe(expectedMethod);
 	expect(request.url).toBe(expectedUrl);

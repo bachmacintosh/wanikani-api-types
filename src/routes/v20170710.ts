@@ -12,6 +12,7 @@ import type {
 	WKStudyMaterialParameters,
 	WKStudyMaterialUpdatePayload,
 	WKSubjectParameters,
+	WKUserPreferencesPayload,
 } from "../v20170710.js";
 import { stringifyParameters } from "../v20170710.js";
 
@@ -231,6 +232,23 @@ export class WKRoute {
 		this.#method = "GET";
 		this.#url = `${this.#baseUrl}/summary`;
 		this.#body = null;
+		this.#toggleRequestContent();
+		return this;
+	}
+
+	public user(action: "get"): this;
+	public user(action: "update", payload: WKUserPreferencesPayload): this;
+	public user(action: "get" | "update", payload?: WKUserPreferencesPayload): this {
+		this.#method = "GET";
+		this.#url = `${this.#baseUrl}/user`;
+		this.#body = null;
+		if (action === "update") {
+			if (typeof payload === "undefined") {
+				throw new TypeError("Payload required to update User.");
+			}
+			this.#method = "PUT";
+			this.#body = JSON.stringify(payload);
+		}
 		this.#toggleRequestContent();
 		return this;
 	}
