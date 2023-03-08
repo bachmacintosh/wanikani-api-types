@@ -59,7 +59,7 @@ export class WKRoute {
 	}
 
 	public assignments(idOrParams?: WKAssignmentParameters | number): this;
-	public assignments(idOrParams: number, action: "start", payload?: WKAssignmentPayload): this;
+	public assignments(id: number, action: "start", payload?: WKAssignmentPayload): this;
 	public assignments(
 		idOrParams?: WKAssignmentParameters | number,
 		action?: "start",
@@ -117,7 +117,7 @@ export class WKRoute {
 	}
 
 	public reviews(idOrParams?: WKReviewParameters | number): this;
-	public reviews(idOrParams: "create", payload: WKReviewPayload): this;
+	public reviews(action: "create", payload: WKReviewPayload): this;
 	public reviews(idOrParams?: WKReviewParameters | number | "create", payload?: WKReviewPayload): this {
 		this.#method = "GET";
 		this.#url = `${this.#baseUrl}/reviews`;
@@ -174,22 +174,18 @@ export class WKRoute {
 	}
 
 	public studyMaterials(idOrParams?: WKStudyMaterialParameters | number): this;
+	public studyMaterials(id: number, action: "update", payload: WKStudyMaterialUpdatePayload): this;
+	public studyMaterials(action: "create", payload: WKStudyMaterialCreatePayload): this;
 	public studyMaterials(
-		idOrParams: number,
-		actionOrCreatePayload: "update",
-		payload: WKStudyMaterialUpdatePayload,
-	): this;
-	public studyMaterials(idOrParams: "create", actionOrCreatePayload: WKStudyMaterialCreatePayload): this;
-	public studyMaterials(
-		idOrParams?: WKStudyMaterialParameters | number | "create",
+		idOrParamsOrCreate?: WKStudyMaterialParameters | number | "create",
 		actionOrCreatePayload?: WKStudyMaterialCreatePayload | "update",
 		updatePayload?: WKStudyMaterialUpdatePayload,
 	): this {
 		this.#method = "GET";
 		this.#url = `${this.#baseUrl}/study_materials`;
 		this.#body = null;
-		if (typeof idOrParams === "number") {
-			this.#url += `/${idOrParams}`;
+		if (typeof idOrParamsOrCreate === "number") {
+			this.#url += `/${idOrParamsOrCreate}`;
 			if (actionOrCreatePayload === "update") {
 				if (typeof updatePayload === "undefined") {
 					throw new TypeError("Payload required to update Study Materials.");
@@ -199,17 +195,17 @@ export class WKRoute {
 			} else if (typeof actionOrCreatePayload !== "undefined") {
 				throw new TypeError("Unexpected payload when updating a Study Material.");
 			}
-		} else if (idOrParams === "create") {
+		} else if (idOrParamsOrCreate === "create") {
 			this.#method = "POST";
 			if (typeof actionOrCreatePayload === "undefined" || typeof actionOrCreatePayload === "string") {
 				throw new TypeError("Payload required to create Study Materials.");
 			}
 			this.#body = JSON.stringify(actionOrCreatePayload);
-		} else if (typeof idOrParams !== "undefined") {
+		} else if (typeof idOrParamsOrCreate !== "undefined") {
 			if (typeof actionOrCreatePayload !== "undefined" || typeof updatePayload !== "undefined") {
 				throw new TypeError("Unexpected additional parameters when getting a Study Material Collection.");
 			}
-			this.#url += stringifyParameters(idOrParams);
+			this.#url += stringifyParameters(idOrParamsOrCreate);
 		}
 		this.#toggleRequestContent();
 		return this;
