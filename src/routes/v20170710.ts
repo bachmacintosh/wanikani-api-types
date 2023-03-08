@@ -13,6 +13,7 @@ import type {
 	WKStudyMaterialUpdatePayload,
 	WKSubjectParameters,
 	WKUserPreferencesPayload,
+	WKVoiceActorParameters,
 } from "../v20170710.js";
 import { stringifyParameters } from "../v20170710.js";
 
@@ -248,6 +249,19 @@ export class WKRoute {
 			}
 			this.#method = "PUT";
 			this.#body = JSON.stringify(payload);
+		}
+		this.#toggleRequestContent();
+		return this;
+	}
+
+	public voiceActors(idOrParams?: WKVoiceActorParameters | number): this {
+		this.#method = "GET";
+		this.#url = `${this.#baseUrl}/voice_actors`;
+		this.#body = null;
+		if (typeof idOrParams === "number") {
+			this.#url += `/${idOrParams}`;
+		} else if (typeof idOrParams !== "undefined") {
+			this.#url += stringifyParameters(idOrParams);
 		}
 		this.#toggleRequestContent();
 		return this;
