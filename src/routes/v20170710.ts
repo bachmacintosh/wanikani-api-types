@@ -60,31 +60,30 @@ export class WKRoute {
 		return this.#url;
 	}
 
-	public assignments(idOrParams?: WKAssignmentParameters | number): this;
-	public assignments(id: number, action: "start", payload?: WKAssignmentPayload): this;
+	public assignments(action: "get", idOrParams?: WKAssignmentParameters | number): this;
+	public assignments(action: "start", id: number, payload?: WKAssignmentPayload): this;
 	public assignments(
+		action: "get" | "start",
 		idOrParams?: WKAssignmentParameters | number,
-		action?: "start",
 		payload?: WKAssignmentPayload,
 	): this {
 		this.#method = "GET";
 		this.#url = `${this.#baseUrl}/assignments`;
 		this.#body = null;
-		if (typeof idOrParams === "number") {
-			this.#url += `/${idOrParams}`;
-			if (action === "start") {
-				this.#method = "PUT";
-				this.#url += "/start";
-				this.#body = payload ? JSON.stringify(payload) : JSON.stringify({});
+		if (action === "start") {
+			if (typeof idOrParams !== "number") {
+				throw new TypeError("Assignment ID required to start an Assignment.");
 			}
+			this.#method = "PUT";
+			this.#url += `/${idOrParams}/start`;
+			this.#body = payload ? JSON.stringify(payload) : JSON.stringify({});
 		} else {
-			if (action === "start") {
-				throw new TypeError("Action 'start' is not a valid action for Assignment Collections.");
-			}
 			if (typeof payload !== "undefined") {
-				throw new TypeError("Unexpected Assignment Payload when getting an Assignment Collection.");
+				throw new TypeError("Unexpected Assignment Payload when getting Assignment(s).");
 			}
-			if (typeof idOrParams !== "undefined") {
+			if (typeof idOrParams === "number") {
+				this.#url += `/${idOrParams}`;
+			} else if (typeof idOrParams !== "undefined") {
 				this.#url += stringifyParameters(idOrParams);
 			}
 		}
@@ -118,28 +117,28 @@ export class WKRoute {
 		return this;
 	}
 
-	public reviews(idOrParams?: WKReviewParameters | number): this;
+	public reviews(action: "get", idOrParams?: WKReviewParameters | number): this;
 	public reviews(action: "create", payload: WKReviewPayload): this;
-	public reviews(idOrParams?: WKReviewParameters | number | "create", payload?: WKReviewPayload): this {
+	public reviews(action: "create" | "get", idOrParamsOrPayload?: WKReviewParameters | WKReviewPayload | number): this {
 		this.#method = "GET";
 		this.#url = `${this.#baseUrl}/reviews`;
 		this.#body = null;
-		if (typeof idOrParams === "number") {
-			if (typeof payload !== "undefined") {
-				throw new TypeError("Unexpected Review Payload when getting a Review.");
+		if (action === "create") {
+			if (typeof idOrParamsOrPayload === "undefined") {
+				throw new TypeError("Payload required to create a Review.");
 			}
-			this.#url += `/${idOrParams}`;
-		} else if (idOrParams === "create") {
-			if (typeof payload === "undefined") {
-				throw new TypeError("Missing Review Payload when creating a Review.");
+			if (typeof idOrParamsOrPayload === "number") {
+				throw new TypeError("Unexpected Review ID when creating a new Review.");
+			}
+			if (!Object.keys(idOrParamsOrPayload).includes("review")) {
+				throw new TypeError("Invalid Review Payload when creating a Review.");
 			}
 			this.#method = "POST";
-			this.#body = JSON.stringify(payload);
-		} else if (typeof idOrParams !== "undefined") {
-			if (typeof payload !== "undefined") {
-				throw new TypeError("Unexpected Review Payload when getting a Review Collection.");
-			}
-			this.#url += stringifyParameters(idOrParams);
+			this.#body = JSON.stringify(idOrParamsOrPayload);
+		} else if (typeof idOrParamsOrPayload === "number") {
+			this.#url += `/${idOrParamsOrPayload}`;
+		} else if (typeof idOrParamsOrPayload !== "undefined") {
+			this.#url += stringifyParameters(idOrParamsOrPayload as WKReviewParameters);
 		}
 		this.#toggleRequestContent();
 		return this;
@@ -175,42 +174,48 @@ export class WKRoute {
 		return this.spacedRepetitionSystems(idOrParams);
 	}
 
-	public studyMaterials(idOrParams?: WKStudyMaterialParameters | number): this;
-	public studyMaterials(id: number, action: "update", payload: WKStudyMaterialUpdatePayload): this;
 	public studyMaterials(action: "create", payload: WKStudyMaterialCreatePayload): this;
+	public studyMaterials(action: "get", idOrParams?: WKStudyMaterialParameters | number): this;
+	public studyMaterials(action: "update", id: number, payload: WKStudyMaterialUpdatePayload): this;
 	public studyMaterials(
-		idOrParamsOrCreate?: WKStudyMaterialParameters | number | "create",
-		actionOrCreatePayload?: WKStudyMaterialCreatePayload | "update",
+		action: "create" | "get" | "update",
+		idOrParamsOrCreatePayload?: WKStudyMaterialCreatePayload | WKStudyMaterialParameters | number,
 		updatePayload?: WKStudyMaterialUpdatePayload,
 	): this {
 		this.#method = "GET";
 		this.#url = `${this.#baseUrl}/study_materials`;
 		this.#body = null;
-		if (typeof idOrParamsOrCreate === "number") {
-			this.#url += `/${idOrParamsOrCreate}`;
-			if (actionOrCreatePayload === "update") {
-				if (typeof updatePayload === "undefined") {
-					throw new TypeError("Payload required to update Study Materials.");
-				}
-				this.#method = "PUT";
-				this.#body = JSON.stringify(updatePayload);
-			} else if (typeof actionOrCreatePayload !== "undefined") {
-				throw new TypeError("Unexpected payload when updating a Study Material.");
+		if (action === "create") {
+			if (typeof idOrParamsOrCreatePayload === "undefined") {
+				throw new TypeError("Study Material Create Payload required to create a Study Material.");
 			}
-		} else if (idOrParamsOrCreate === "create") {
-			if (typeof actionOrCreatePayload === "undefined" || typeof actionOrCreatePayload === "string") {
-				throw new TypeError("Payload required to create Study Materials.");
+			if (typeof idOrParamsOrCreatePayload === "number") {
+				throw new TypeError(
+					"Expected Study Material Create Payload, got Study Material ID when creating a Study Material ",
+				);
+			}
+			if (!Object.keys(idOrParamsOrCreatePayload).includes("subject_id")) {
+				throw new TypeError("Invalid Study Material Create Payload when creating a Study Material.");
 			}
 			if (typeof updatePayload !== "undefined") {
-				throw new TypeError("Unexpected additional payload when creating Study Material.");
+				throw new TypeError("Unexpected Study Material Update Payload when creating a Study Material.");
 			}
 			this.#method = "POST";
-			this.#body = JSON.stringify(actionOrCreatePayload);
-		} else if (typeof idOrParamsOrCreate !== "undefined") {
-			if (typeof actionOrCreatePayload !== "undefined" || typeof updatePayload !== "undefined") {
-				throw new TypeError("Unexpected additional parameters when getting a Study Material Collection.");
+			this.#body = JSON.stringify(idOrParamsOrCreatePayload);
+		} else if (action === "update") {
+			if (typeof idOrParamsOrCreatePayload !== "number") {
+				throw new TypeError("Study Material ID required to update a Study Material.");
 			}
-			this.#url += stringifyParameters(idOrParamsOrCreate);
+			if (typeof updatePayload === "undefined") {
+				throw new TypeError("Study Material Update Payload required to update a Study Material.");
+			}
+			this.#method = "PUT";
+			this.#url += `/${idOrParamsOrCreatePayload}`;
+			this.#body = JSON.stringify(updatePayload);
+		} else if (typeof idOrParamsOrCreatePayload === "number") {
+			this.#url += `/${idOrParamsOrCreatePayload}`;
+		} else if (typeof idOrParamsOrCreatePayload !== "undefined") {
+			this.#url += stringifyParameters(idOrParamsOrCreatePayload as WKStudyMaterialParameters);
 		}
 		this.#toggleRequestContent();
 		return this;

@@ -46,8 +46,8 @@ it("Returns GET request for an Assignment Collection", () => {
 		hidden: false,
 	};
 
-	const request1 = new WKRoute({ apiKey: "abc", revision: "20170710" }).assignments();
-	const request2 = new WKRoute({ apiKey: "abc", revision: "20170710" }).assignments(params);
+	const request1 = new WKRoute({ apiKey: "abc", revision: "20170710" }).assignments("get");
+	const request2 = new WKRoute({ apiKey: "abc", revision: "20170710" }).assignments("get", params);
 
 	expect(request1.method).toBe(expectedMethod);
 	expect(request1.url).toBe(expectedUrl1);
@@ -69,7 +69,7 @@ it("Returns GET request for an Assignment", () => {
 	};
 	const expectedBody = null;
 
-	const request = new WKRoute({ apiKey: "abc", revision: "20170710" }).assignments(123);
+	const request = new WKRoute({ apiKey: "abc", revision: "20170710" }).assignments("get", 123);
 
 	expect(request.method).toBe(expectedMethod);
 	expect(request.url).toBe(expectedUrl);
@@ -91,7 +91,7 @@ it("Returns PUT request for starting an Assignment", () => {
 		started_at: new Date("2023-02-04T15:30:00.000Z"),
 	};
 
-	const request = new WKRoute({ apiKey: "abc", revision: "20170710" }).assignments(123, "start", payload);
+	const request = new WKRoute({ apiKey: "abc", revision: "20170710" }).assignments("start", 123, payload);
 
 	expect(request.method).toBe(expectedMethod);
 	expect(request.url).toBe(expectedUrl);
@@ -207,8 +207,8 @@ it("Returns GET request for a Review Collection", () => {
 		subject_ids: [4, 5, 6],
 	};
 
-	const request1 = new WKRoute({ apiKey: "abc", revision: "20170710" }).reviews();
-	const request2 = new WKRoute({ apiKey: "abc", revision: "20170710" }).reviews(params);
+	const request1 = new WKRoute({ apiKey: "abc", revision: "20170710" }).reviews("get");
+	const request2 = new WKRoute({ apiKey: "abc", revision: "20170710" }).reviews("get", params);
 
 	expect(request1.method).toBe(expectedMethod);
 	expect(request1.url).toBe(expectedUrl1);
@@ -230,7 +230,7 @@ it("Returns GET request for a Review", () => {
 	};
 	const expectedBody = null;
 
-	const request = new WKRoute({ apiKey: "abc", revision: "20170710" }).reviews(123);
+	const request = new WKRoute({ apiKey: "abc", revision: "20170710" }).reviews("get", 123);
 
 	expect(request.method).toBe(expectedMethod);
 	expect(request.url).toBe(expectedUrl);
@@ -390,8 +390,8 @@ it("Returns GET request for a Study Material Collection", () => {
 		subject_types: ["kanji"],
 	};
 
-	const request1 = new WKRoute({ apiKey: "abc", revision: "20170710" }).studyMaterials();
-	const request2 = new WKRoute({ apiKey: "abc", revision: "20170710" }).studyMaterials(params);
+	const request1 = new WKRoute({ apiKey: "abc", revision: "20170710" }).studyMaterials("get");
+	const request2 = new WKRoute({ apiKey: "abc", revision: "20170710" }).studyMaterials("get", params);
 
 	expect(request1.method).toBe(expectedMethod);
 	expect(request1.url).toBe(expectedUrl1);
@@ -413,7 +413,7 @@ it("Returns GET request for a Study Material", () => {
 	};
 	const expectedBody = null;
 
-	const request = new WKRoute({ apiKey: "abc", revision: "20170710" }).studyMaterials(123);
+	const request = new WKRoute({ apiKey: "abc", revision: "20170710" }).studyMaterials("get", 123);
 
 	expect(request.method).toBe(expectedMethod);
 	expect(request.url).toBe(expectedUrl);
@@ -462,7 +462,7 @@ it("Returns PUT request for updating a Study Material", () => {
 		meaning_synonyms: ["one", "two", "three"],
 	};
 
-	const request = new WKRoute({ apiKey: "abc", revision: "20170710" }).studyMaterials(123, "update", payload);
+	const request = new WKRoute({ apiKey: "abc", revision: "20170710" }).studyMaterials("update", 123, payload);
 
 	expect(request.method).toBe(expectedMethod);
 	expect(request.url).toBe(expectedUrl);
