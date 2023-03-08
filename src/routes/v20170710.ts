@@ -196,10 +196,13 @@ export class WKRoute {
 				throw new TypeError("Unexpected payload when updating a Study Material.");
 			}
 		} else if (idOrParamsOrCreate === "create") {
-			this.#method = "POST";
 			if (typeof actionOrCreatePayload === "undefined" || typeof actionOrCreatePayload === "string") {
 				throw new TypeError("Payload required to create Study Materials.");
 			}
+			if (typeof updatePayload !== "undefined") {
+				throw new TypeError("Unexpected additional payload when creating Study Material.");
+			}
+			this.#method = "POST";
 			this.#body = JSON.stringify(actionOrCreatePayload);
 		} else if (typeof idOrParamsOrCreate !== "undefined") {
 			if (typeof actionOrCreatePayload !== "undefined" || typeof updatePayload !== "undefined") {
