@@ -2,29 +2,38 @@ import type { Brand, Range } from "../internal/index.js";
 import type {
 	WKAssignment,
 	WKAssignmentData,
+	WKAssignmentParameters,
 	WKKanji,
 	WKKanjiData,
 	WKLevelProgression,
 	WKLevelProgressionData,
+	WKLevelProgressionParameters,
 	WKRadical,
 	WKRadicalData,
 	WKReset,
 	WKResetData,
+	WKResetParameters,
 	WKReview,
 	WKReviewData,
+	WKReviewParameters,
 	WKReviewStatistic,
 	WKReviewStatisticData,
+	WKReviewStatisticParameters,
 	WKSpacedRepetitionSystem,
 	WKSpacedRepetitionSystemData,
+	WKSpacedRepetitionSystemParameters,
 	WKStudyMaterial,
 	WKStudyMaterialData,
+	WKStudyMaterialParameters,
 	WKSubject,
+	WKSubjectParameters,
 	WKSummaryData,
 	WKUserData,
 	WKVocabulary,
 	WKVocabularyData,
 	WKVoiceActor,
 	WKVoiceActorData,
+	WKVoiceActorParameters,
 } from "../v20170710.js";
 import { isValidDate } from "../internal/index.js";
 
@@ -154,6 +163,18 @@ export interface WKCollectionParameters {
 	 * Only resources updated after this time are returned.
 	 */
 	updated_after?: Date | WKDatableString;
+}
+
+export interface WKCollectionParametersMap {
+	Assignment: WKAssignmentParameters;
+	"Level Progression": WKLevelProgressionParameters;
+	Reset: WKResetParameters;
+	Review: WKReviewParameters;
+	"Review Statistic": WKReviewStatisticParameters;
+	"Spaced Repetition System": WKSpacedRepetitionSystemParameters;
+	"Study Material": WKStudyMaterialParameters;
+	Subject: WKSubjectParameters;
+	"Voice Actor": WKVoiceActorParameters;
 }
 
 /**
@@ -631,4 +652,111 @@ export function stringifyParameters<T extends WKCollectionParameters>(params: T)
 		firstItem = false;
 	}
 	return queryString;
+}
+
+export function validateParameters<T extends keyof WKCollectionParametersMap>(
+	type: T,
+	params: WKCollectionParametersMap[T],
+): void {
+	/* Start by making dummy parameters with all properties requireed; this ensures we're checking all fields, and that
+	   if we update types, this function will get updated, too. */
+	const assignmentParams: Required<WKAssignmentParameters> = {
+		available_after: new Date(),
+		available_before: new Date(),
+		burned: true,
+		hidden: true,
+		ids: [1],
+		immediately_available_for_lessons: true,
+		immediately_available_for_review: true,
+		in_review: true,
+		levels: [1],
+		page_after_id: 1,
+		page_before_id: 1,
+		srs_stages: [1],
+		started: true,
+		subject_ids: [1],
+		subject_types: ["kanji"],
+		unlocked: true,
+		updated_after: new Date(),
+	};
+	const levelProgressionParams: Required<WKLevelProgressionParameters> = {
+		ids: [1],
+		page_after_id: 1,
+		page_before_id: 1,
+		updated_after: new Date(),
+	};
+	const resetParams: Required<WKResetParameters> = {
+		ids: [1],
+		page_after_id: 1,
+		page_before_id: 1,
+		updated_after: new Date(),
+	};
+	const reviewParams: Required<WKReviewParameters> = {
+		assignment_ids: [1],
+		ids: [1],
+		page_after_id: 1,
+		page_before_id: 1,
+		subject_ids: [1],
+		updated_after: new Date(),
+	};
+	const reviewStatisticParams: Required<WKReviewStatisticParameters> = {
+		hidden: true,
+		ids: [1],
+		page_after_id: 1,
+		page_before_id: 1,
+		percentages_greater_than: 1,
+		percentages_less_than: 1,
+		subject_ids: [1],
+		subject_types: ["kanji"],
+		updated_after: new Date(),
+	};
+	const srsParams: Required<WKSpacedRepetitionSystemParameters> = {
+		ids: [1],
+		page_after_id: 1,
+		page_before_id: 1,
+		updated_after: new Date(),
+	};
+	const studyMaterialParams: Required<WKStudyMaterialParameters> = {
+		hidden: true,
+		ids: [1],
+		page_after_id: 1,
+		page_before_id: 1,
+		subject_ids: [1],
+		subject_types: ["kanji"],
+		updated_after: new Date(),
+	};
+	const subjectParams: Required<WKSubjectParameters> = {
+		hidden: true,
+		ids: [1],
+		levels: [1],
+		page_after_id: 1,
+		page_before_id: 1,
+		slugs: [""],
+		types: ["kanji"],
+		updated_after: new Date(),
+	};
+	const voiceActorParams: Required<WKVoiceActorParameters> = {
+		ids: [1],
+		page_after_id: 1,
+		page_before_id: 1,
+		updated_after: new Date(),
+	};
+
+	const validKeys: WKCollectionParametersMap = {
+		Assignment: assignmentParams,
+		"Level Progression": levelProgressionParams,
+		Reset: resetParams,
+		Review: reviewParams,
+		"Review Statistic": reviewStatisticParams,
+		"Spaced Repetition System": srsParams,
+		"Study Material": studyMaterialParams,
+		Subject: subjectParams,
+		"Voice Actor": voiceActorParams,
+	};
+
+	Object.keys(params).forEach((key) => {
+		if (!(key in validKeys[type])) {
+			throw new TypeError(`Parameter "${key}" is not valid for ${type} Collections.`);
+		}
+	});
 }
