@@ -17,16 +17,10 @@ import type {
 } from "../v20170710.js";
 import { stringifyParameters } from "../v20170710.js";
 
-export interface WKRequest {
-	baseUrl: "https://api.wanikani.com/v2";
-	body?: string;
-	headers: WKRouteHeaders;
-	method: "GET" | "POST" | "PUT";
-	url: string;
-}
+const baseUrl = "https://api.wanikani.com/v2";
 
 export class WKRoute {
-	#baseUrl = "https://api.wanikani.com/v2";
+	#baseUrl = baseUrl;
 
 	#body: string | null;
 
