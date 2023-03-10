@@ -165,15 +165,48 @@ export interface WKCollectionParameters {
 	updated_after?: Date | WKDatableString;
 }
 
+/**
+ * A map between WaniKani API Collection names and their respective types.
+ *
+ * @category Base
+ * @category Parameters
+ */
 export interface WKCollectionParametersMap {
+	/**
+	 * Parameters for Assignment Collections.
+	 */
 	Assignment: WKAssignmentParameters;
+	/**
+	 * Parameters for Level Progression Collections.
+	 */
 	"Level Progression": WKLevelProgressionParameters;
+	/**
+	 * Parameters for Reset Collections.
+	 */
 	Reset: WKResetParameters;
+	/**
+	 * Parameters for Review Collections.
+	 */
 	Review: WKReviewParameters;
+	/**
+	 * Parameters for Review Statistic Collections.
+	 */
 	"Review Statistic": WKReviewStatisticParameters;
+	/**
+	 * Parameters for Spaced Repetition System (SRS) Collections.
+	 */
 	"Spaced Repetition System": WKSpacedRepetitionSystemParameters;
+	/**
+	 * Parameters for Study Material Collections.
+	 */
 	"Study Material": WKStudyMaterialParameters;
+	/**
+	 * Parameters for Subject Collections.
+	 */
 	Subject: WKSubjectParameters;
+	/**
+	 * Parameters for Voice Actor Collections.
+	 */
 	"Voice Actor": WKVoiceActorParameters;
 }
 
@@ -657,8 +690,10 @@ export function stringifyParameters<T extends WKCollectionParameters>(params: T)
 /**
  * Perform runtime validation of Collection Parameters.
  *
- * @param type The type of parameters to validate
- * @param params The {@link WKCollectionParameters} object to validate
+ * @param type The type of parameters to validate.
+ * @param params The {@link WKCollectionParameters} object to validate.
+ * @throws A `TypeError` if parameter validation fails.
+ * @category Base
  */
 export function validateParameters<T extends keyof WKCollectionParametersMap>(
 	type: T,
