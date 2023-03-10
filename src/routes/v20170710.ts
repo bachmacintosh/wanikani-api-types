@@ -17,10 +17,8 @@ import type {
 } from "../v20170710.js";
 import { stringifyParameters } from "../v20170710.js";
 
-const baseUrl = "https://api.wanikani.com/v2";
-
 export class WKRoute {
-	#baseUrl = baseUrl;
+	#baseUrl = "https://api.wanikani.com/v2";
 
 	#body: string | null;
 
