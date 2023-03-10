@@ -654,6 +654,12 @@ export function stringifyParameters<T extends WKCollectionParameters>(params: T)
 	return queryString;
 }
 
+/**
+ * Perform runtime validation of Collection Parameters.
+ *
+ * @param type The type of parameters to validate
+ * @param params The {@link WKCollectionParameters} object to validate
+ */
 export function validateParameters<T extends keyof WKCollectionParametersMap>(
 	type: T,
 	params: WKCollectionParametersMap[T],
@@ -742,6 +748,7 @@ export function validateParameters<T extends keyof WKCollectionParametersMap>(
 		updated_after: new Date(),
 	};
 
+	/* Map Collection names to their types. */
 	const validKeys: WKCollectionParametersMap = {
 		Assignment: assignmentParams,
 		"Level Progression": levelProgressionParams,
@@ -754,6 +761,7 @@ export function validateParameters<T extends keyof WKCollectionParametersMap>(
 		"Voice Actor": voiceActorParams,
 	};
 
+	/* If we find a key in the object that isn't in the type, throw an error. */
 	Object.keys(params).forEach((key) => {
 		if (!(key in validKeys[type])) {
 			throw new TypeError(`Parameter "${key}" is not valid for ${type} Collections.`);
