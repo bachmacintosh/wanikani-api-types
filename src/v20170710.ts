@@ -13,6 +13,7 @@ export {
 	isWKSrsStageNumber,
 	isWKSrsStageNumberArray,
 	stringifyParameters,
+	validateParameters,
 } from "./base/v20170710.js";
 
 export { WK_SUBJECT_MARKUP_MATCHERS } from "./subjects/v20170710.js";
@@ -29,6 +30,7 @@ export type {
 	WKApiRevision,
 	WKCollection,
 	WKCollectionParameters,
+	WKCollectionParametersMap,
 	WKDatableString,
 	WKError,
 	WKLessonBatchSizeNumber,
