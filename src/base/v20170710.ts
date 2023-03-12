@@ -33,6 +33,7 @@ import type {
 	WKSubjectParameters,
 	WKSummaryData,
 	WKUserData,
+	WKUserPreferences,
 	WKUserPreferencesPayload,
 	WKVocabulary,
 	WKVocabularyData,
@@ -824,6 +825,99 @@ export function validateParameters<T extends keyof WKCollectionParametersMap>(
 	Object.keys(params).forEach((key) => {
 		if (!(key in validKeys[type])) {
 			throw new TypeError(`Parameter "${key}" is not valid for ${type} Collections.`);
+		}
+	});
+}
+
+/**
+ * Perform runtime validation of Payloads.
+ * @param type The URI for the given payload, i.e. a type of `POST` or `PUT` request.
+ * @param payload The payload object to be validated.
+ * @category Base
+ * @category Payloads
+ */
+export function validatePayloads<T extends keyof WKPayloadMap>(type: T, payload: WKPayloadMap[T]): void {
+	/* Let's try not to end up here! */
+	function throwTypeError(key: string, payloadType: T): never {
+		throw new TypeError(`Key ${key} is not valid for a payload sent to ${payloadType}`);
+	}
+
+	/* Create required dummy parameters */
+	const assignmentStartPayload: Required<WKAssignmentPayload> = {
+		started_at: new Date(),
+	};
+	const reviewCreatePayloadAssignment: Required<WKReviewPayload> = {
+		review: {
+			assignment_id: 1,
+			incorrect_meaning_answers: 0,
+			incorrect_reading_answers: 0,
+		},
+	};
+	const reviewCreatePayloadSubject: Required<WKReviewPayload> = {
+		review: {
+			subject_id: 1,
+			incorrect_meaning_answers: 0,
+			incorrect_reading_answers: 0,
+		},
+	};
+	const studyMaterialCreatePayload: Required<WKStudyMaterialCreatePayload> = {
+		subject_id: 1,
+		meaning_synonyms: ["one"],
+		meaning_note: "one",
+		reading_note: "one",
+	};
+	const studyMaterialUpdatePayload: Required<WKStudyMaterialUpdatePayload> = {
+		meaning_synonyms: ["one"],
+		meaning_note: "one",
+		reading_note: "one",
+	};
+	const preferences: Required<WKUserPreferences> = {
+		default_voice_actor_id: 1,
+		extra_study_autoplay_audio: true,
+		lessons_autoplay_audio: true,
+		lessons_batch_size: 3,
+		lessons_presentation_order: "ascending_level_then_subject",
+		reviews_autoplay_audio: true,
+		reviews_display_srs_indicator: true,
+		reviews_presentation_order: "shuffled",
+	};
+	const userPreferencesPayload: Required<WKUserPreferencesPayload> = {
+		user: {
+			preferences,
+		},
+	};
+
+	/* Valid-key sets, used depending on type of payload being validated */
+	const validKeysExceptReviews: Omit<WKPayloadMap, "POST /reviews"> = {
+		"PUT /assignments/<id>/start": assignmentStartPayload,
+		"POST /study_materials": studyMaterialCreatePayload,
+		"PUT /study_materials/<id>": studyMaterialUpdatePayload,
+		"PUT /user": userPreferencesPayload,
+	};
+	const validKeysReviewAssignment: Pick<WKPayloadMap, "POST /reviews"> = {
+		"POST /reviews": reviewCreatePayloadAssignment,
+	};
+	const validKeysReviewSubject: Pick<WKPayloadMap, "POST /reviews"> = {
+		"POST /reviews": reviewCreatePayloadSubject,
+	};
+
+	/* Check for unexpected keys, throw if we find one */
+	Object.keys(payload).forEach((key) => {
+		if (type === "POST /reviews") {
+			if (!(key in validKeysReviewAssignment["POST /reviews"]) && !(key in validKeysReviewSubject["POST /reviews"])) {
+				throwTypeError(key, type);
+			}
+		} else if (type === "POST /study_materials" && !(key in validKeysExceptReviews["POST /study_materials"])) {
+			throwTypeError(key, type);
+		} else if (
+			type === "PUT /assignments/<id>/start" &&
+			!(key in validKeysExceptReviews["PUT /assignments/<id>/start"])
+		) {
+			throwTypeError(key, type);
+		} else if (type === "PUT /study_materials/<id>" && !(key in validKeysExceptReviews["PUT /study_materials/<id>"])) {
+			throwTypeError(key, type);
+		} else if (type === "PUT /user" && !(key in validKeysExceptReviews["PUT /user"])) {
+			throwTypeError(key, type);
 		}
 	});
 }
