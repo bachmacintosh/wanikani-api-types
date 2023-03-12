@@ -833,6 +833,7 @@ export function validateParameters<T extends keyof WKCollectionParametersMap>(
  * Perform runtime validation of Payloads.
  * @param type The URI for the given payload, i.e. a type of `POST` or `PUT` request.
  * @param payload The payload object to be validated.
+ * @throws A `TypeError` if payload validation fails.
  * @category Base
  * @category Payloads
  */
