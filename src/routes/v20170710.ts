@@ -15,20 +15,64 @@ import type {
 	WKUserPreferencesPayload,
 	WKVoiceActorParameters,
 } from "../v20170710.js";
-import { stringifyParameters } from "../v20170710.js";
+import { stringifyParameters, validateParameters, validatePayloads } from "../v20170710.js";
+
+const baseUrl = "https://api.wanikani.com/v2";
+
+export interface WKRequest {
+	baseUrl: string;
+	body: string | null;
+	headers: WKRouteHeaders;
+	method: "GET" | "POST" | "PUT";
+	url: string;
+}
 
 export class WKRoute {
+	#assignments = {
+		get: (idOrParams: WKAssignmentParameters | number): WKRequest => {
+			const request: WKRequest = {
+				baseUrl,
+				body: null,
+				headers: this.#headers,
+				method: "GET",
+				url: `${baseUrl}/assignments`,
+			};
+			if (typeof idOrParams === "number") {
+				request.url += `/${idOrParams}`;
+			} else {
+				validateParameters("Assignment", idOrParams);
+				request.url += stringifyParameters(idOrParams);
+			}
+			return request;
+		},
+		start: (id: number, payload: WKAssignmentPayload): WKRequest => {
+			validatePayloads("PUT /assignments/<id>/start", payload);
+			const request: WKRequest = {
+				baseUrl,
+				body: JSON.stringify(payload),
+				headers: this.#headers,
+				method: "PUT",
+				url: `${baseUrl}/assignments/${id}/start`,
+			};
+			request.headers["Content-Type"] = "application/json";
+			return request;
+		},
+	};
+
+	#headers: WKRouteHeaders;
+
 	#baseUrl = "https://api.wanikani.com/v2";
 
 	#body: string | null;
-
-	#headers: WKRouteHeaders;
 
 	#method: "GET" | "POST" | "PUT";
 
 	#url: string;
 
 	public constructor(init: WKRouteInit) {
+		this.#headers = {
+			Authorization: `Bearer ${init.apiKey}`,
+		};
 		this.#body = null;
 		this.#headers = {
 			Authorization: `Bearer ${init.apiKey}`,
@@ -38,6 +82,10 @@ export class WKRoute {
 		}
 		this.#method = "GET";
 		this.#url = this.#baseUrl;
+	}
+
+	public get assignments(): WKAssignmentRoutes {
+		return this.#assignments;
 	}
 
 	public get baseUrl(): string {
@@ -58,37 +106,6 @@ export class WKRoute {
 
 	public get url(): string {
 		return this.#url;
-	}
-
-	public assignments(action: "get", idOrParams?: WKAssignmentParameters | number): this;
-	public assignments(action: "start", id: number, payload?: WKAssignmentPayload): this;
-	public assignments(
-		action: "get" | "start",
-		idOrParams?: WKAssignmentParameters | number,
-		payload?: WKAssignmentPayload,
-	): this {
-		this.#method = "GET";
-		this.#url = `${this.#baseUrl}/assignments`;
-		this.#body = null;
-		if (action === "start") {
-			if (typeof idOrParams !== "number") {
-				throw new TypeError("Assignment ID required to start an Assignment.");
-			}
-			this.#method = "PUT";
-			this.#url += `/${idOrParams}/start`;
-			this.#body = payload ? JSON.stringify(payload) : JSON.stringify({});
-		} else {
-			if (typeof payload !== "undefined") {
-				throw new TypeError("Unexpected Assignment Payload when getting Assignment(s).");
-			}
-			if (typeof idOrParams === "number") {
-				this.#url += `/${idOrParams}`;
-			} else if (typeof idOrParams !== "undefined") {
-				this.#url += stringifyParameters(idOrParams);
-			}
-		}
-		this.#toggleRequestContent();
-		return this;
 	}
 
 	public levelProgressions(idOrParams?: WKLevelProgressionParameters | number): this {
@@ -291,4 +308,9 @@ export type WKRouteHeaders = HeadersInit & {
 export interface WKRouteInit {
 	apiKey: string;
 	revision?: WKApiRevision;
+}
+
+export interface WKAssignmentRoutes {
+	get: (idOrParams: WKAssignmentParameters | number) => WKRequest;
+	start: (id: number, payload: WKAssignmentPayload) => WKRequest;
 }
