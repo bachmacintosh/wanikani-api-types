@@ -20,7 +20,7 @@ export {
 	isWKSrsStageNumberArray,
 	stringifyParameters,
 	validateParameters,
-	validatePayloads,
+	validatePayload,
 } from "./v20170710.js";
 
 export type {
