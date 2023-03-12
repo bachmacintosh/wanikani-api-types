@@ -41,6 +41,7 @@ export type {
 	WKMaxSrsStages,
 	WKMinLessonBatchSize,
 	WKMinLevels,
+	WKPayloadMap,
 	WKReport,
 	WKResource,
 	WKResourceType,

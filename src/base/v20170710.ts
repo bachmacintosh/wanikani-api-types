@@ -3,6 +3,7 @@ import type {
 	WKAssignment,
 	WKAssignmentData,
 	WKAssignmentParameters,
+	WKAssignmentPayload,
 	WKKanji,
 	WKKanjiData,
 	WKLevelProgression,
@@ -16,6 +17,7 @@ import type {
 	WKReview,
 	WKReviewData,
 	WKReviewParameters,
+	WKReviewPayload,
 	WKReviewStatistic,
 	WKReviewStatisticData,
 	WKReviewStatisticParameters,
@@ -23,12 +25,15 @@ import type {
 	WKSpacedRepetitionSystemData,
 	WKSpacedRepetitionSystemParameters,
 	WKStudyMaterial,
+	WKStudyMaterialCreatePayload,
 	WKStudyMaterialData,
 	WKStudyMaterialParameters,
+	WKStudyMaterialUpdatePayload,
 	WKSubject,
 	WKSubjectParameters,
 	WKSummaryData,
 	WKUserData,
+	WKUserPreferencesPayload,
 	WKVocabulary,
 	WKVocabularyData,
 	WKVoiceActor,
@@ -368,6 +373,25 @@ export type WKMinLevels = 3;
  * @category Base
  */
 export const WK_MIN_LEVELS: WKMinLevels = 3;
+
+/**
+ * Map PUT and POST requests to the WaniKani API, to their respective Payload types.
+ *
+ * @category Base
+ * @category Payloads
+ */
+export interface WKPayloadMap {
+	/** Payload to start an Assignment. */
+	"PUT /assignments/<id>/start": WKAssignmentPayload;
+	/** Payload to create a Review. */
+	"POST /reviews": WKReviewPayload;
+	/** Payload to create a new Study Material. */
+	"POST /study_materials": WKStudyMaterialCreatePayload;
+	/** Payload to update an existing Study Material. */
+	"PUT /study_materials/<id>": WKStudyMaterialUpdatePayload;
+	/** Payload to update the User's Preferences. */
+	"PUT /user": WKUserPreferencesPayload;
+}
 
 /**
  * The common properties across all Reports from the WaniKani API

@@ -51,6 +51,7 @@ export type {
 	WKMaxSrsStages,
 	WKMinLessonBatchSize,
 	WKMinLevels,
+	WKPayloadMap,
 	WKRadical,
 	WKRadicalCharacterImage,
 	WKRadicalCharacterImagePngMetadata,
