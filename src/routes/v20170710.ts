@@ -28,7 +28,7 @@ export interface WKRequest {
 }
 
 export class WKRoute {
-	#assignments = {
+	#assignments: WKAssignmentRoutes = {
 		get: (idOrParams: WKAssignmentParameters | number): WKRequest => {
 			const request: WKRequest = {
 				baseUrl,
