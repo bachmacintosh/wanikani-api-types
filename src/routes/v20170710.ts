@@ -15,7 +15,7 @@ import type {
 	WKUserPreferencesPayload,
 	WKVoiceActorParameters,
 } from "../v20170710.js";
-import { stringifyParameters, validateParameters, validatePayloads } from "../v20170710.js";
+import { stringifyParameters, validateParameters, validatePayload } from "../v20170710.js";
 
 const baseUrl = "https://api.wanikani.com/v2";
 
@@ -46,7 +46,7 @@ export class WKRoute {
 			return request;
 		},
 		start: (id: number, payload: WKAssignmentPayload): WKRequest => {
-			validatePayloads("PUT /assignments/<id>/start", payload);
+			validatePayload("PUT /assignments/<id>/start", payload);
 			const request: WKRequest = {
 				baseUrl,
 				body: JSON.stringify(payload),
