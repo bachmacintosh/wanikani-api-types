@@ -839,7 +839,7 @@ export function validateParameters<T extends keyof WKCollectionParametersMap>(
 export function validatePayloads<T extends keyof WKPayloadMap>(type: T, payload: WKPayloadMap[T]): void {
 	/* Let's try not to end up here! */
 	function throwTypeError(key: string, payloadType: T): never {
-		throw new TypeError(`Key ${key} is not valid for a payload sent to ${payloadType}`);
+		throw new TypeError(`Key "${key}" is not valid for a payload sent to ${payloadType} .`);
 	}
 
 	/* Create required dummy parameters */
