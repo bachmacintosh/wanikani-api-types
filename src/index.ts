@@ -19,6 +19,8 @@ export {
 	isWKSrsStageNumber,
 	isWKSrsStageNumberArray,
 	stringifyParameters,
+	validateParameters,
+	validatePayloads,
 } from "./v20170710.js";
 
 export type {
@@ -30,6 +32,7 @@ export type {
 	WKAssignmentPayload,
 	WKCollection,
 	WKCollectionParameters,
+	WKCollectionParametersMap,
 	WKCreatedReview,
 	WKDatableString,
 	WKError,
@@ -49,6 +52,7 @@ export type {
 	WKMaxSrsStages,
 	WKMinLessonBatchSize,
 	WKMinLevels,
+	WKPayloadMap,
 	WKRadical,
 	WKRadicalCharacterImage,
 	WKRadicalCharacterImagePngMetadata,

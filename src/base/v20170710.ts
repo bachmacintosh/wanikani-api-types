@@ -2,29 +2,44 @@ import type { Brand, Range } from "../internal/index.js";
 import type {
 	WKAssignment,
 	WKAssignmentData,
+	WKAssignmentParameters,
+	WKAssignmentPayload,
 	WKKanji,
 	WKKanjiData,
 	WKLevelProgression,
 	WKLevelProgressionData,
+	WKLevelProgressionParameters,
 	WKRadical,
 	WKRadicalData,
 	WKReset,
 	WKResetData,
+	WKResetParameters,
 	WKReview,
 	WKReviewData,
+	WKReviewParameters,
+	WKReviewPayload,
 	WKReviewStatistic,
 	WKReviewStatisticData,
+	WKReviewStatisticParameters,
 	WKSpacedRepetitionSystem,
 	WKSpacedRepetitionSystemData,
+	WKSpacedRepetitionSystemParameters,
 	WKStudyMaterial,
+	WKStudyMaterialCreatePayload,
 	WKStudyMaterialData,
+	WKStudyMaterialParameters,
+	WKStudyMaterialUpdatePayload,
 	WKSubject,
+	WKSubjectParameters,
 	WKSummaryData,
 	WKUserData,
+	WKUserPreferences,
+	WKUserPreferencesPayload,
 	WKVocabulary,
 	WKVocabularyData,
 	WKVoiceActor,
 	WKVoiceActorData,
+	WKVoiceActorParameters,
 } from "../v20170710.js";
 import { isValidDate } from "../internal/index.js";
 
@@ -154,6 +169,51 @@ export interface WKCollectionParameters {
 	 * Only resources updated after this time are returned.
 	 */
 	updated_after?: Date | WKDatableString;
+}
+
+/**
+ * A map between WaniKani API Collection names and their respective types.
+ *
+ * @category Base
+ * @category Parameters
+ */
+export interface WKCollectionParametersMap {
+	/**
+	 * Parameters for Assignment Collections.
+	 */
+	Assignment: WKAssignmentParameters;
+	/**
+	 * Parameters for Level Progression Collections.
+	 */
+	"Level Progression": WKLevelProgressionParameters;
+	/**
+	 * Parameters for Reset Collections.
+	 */
+	Reset: WKResetParameters;
+	/**
+	 * Parameters for Review Collections.
+	 */
+	Review: WKReviewParameters;
+	/**
+	 * Parameters for Review Statistic Collections.
+	 */
+	"Review Statistic": WKReviewStatisticParameters;
+	/**
+	 * Parameters for Spaced Repetition System (SRS) Collections.
+	 */
+	"Spaced Repetition System": WKSpacedRepetitionSystemParameters;
+	/**
+	 * Parameters for Study Material Collections.
+	 */
+	"Study Material": WKStudyMaterialParameters;
+	/**
+	 * Parameters for Subject Collections.
+	 */
+	Subject: WKSubjectParameters;
+	/**
+	 * Parameters for Voice Actor Collections.
+	 */
+	"Voice Actor": WKVoiceActorParameters;
 }
 
 /**
@@ -314,6 +374,25 @@ export type WKMinLevels = 3;
  * @category Base
  */
 export const WK_MIN_LEVELS: WKMinLevels = 3;
+
+/**
+ * Map PUT and POST requests to the WaniKani API, to their respective Payload types.
+ *
+ * @category Base
+ * @category Payloads
+ */
+export interface WKPayloadMap {
+	/** Payload to start an Assignment. */
+	"PUT /assignments/<id>/start": WKAssignmentPayload;
+	/** Payload to create a Review. */
+	"POST /reviews": WKReviewPayload;
+	/** Payload to create a new Study Material. */
+	"POST /study_materials": WKStudyMaterialCreatePayload;
+	/** Payload to update an existing Study Material. */
+	"PUT /study_materials/<id>": WKStudyMaterialUpdatePayload;
+	/** Payload to update the User's Preferences. */
+	"PUT /user": WKUserPreferencesPayload;
+}
 
 /**
  * The common properties across all Reports from the WaniKani API
@@ -631,4 +710,215 @@ export function stringifyParameters<T extends WKCollectionParameters>(params: T)
 		firstItem = false;
 	}
 	return queryString;
+}
+
+/**
+ * Perform runtime validation of Collection Parameters.
+ *
+ * @param type The type of parameters to validate.
+ * @param params The {@link WKCollectionParameters} object to validate.
+ * @throws A `TypeError` if parameter validation fails.
+ * @category Base
+ */
+export function validateParameters<T extends keyof WKCollectionParametersMap>(
+	type: T,
+	params: WKCollectionParametersMap[T],
+): void {
+	/* Start by making dummy parameters with all properties requireed; this ensures we're checking all fields, and that
+	   if we update types, this function will get updated, too. */
+	const assignmentParams: Required<WKAssignmentParameters> = {
+		available_after: new Date(),
+		available_before: new Date(),
+		burned: true,
+		hidden: true,
+		ids: [1],
+		immediately_available_for_lessons: true,
+		immediately_available_for_review: true,
+		in_review: true,
+		levels: [1],
+		page_after_id: 1,
+		page_before_id: 1,
+		srs_stages: [1],
+		started: true,
+		subject_ids: [1],
+		subject_types: ["kanji"],
+		unlocked: true,
+		updated_after: new Date(),
+	};
+	const levelProgressionParams: Required<WKLevelProgressionParameters> = {
+		ids: [1],
+		page_after_id: 1,
+		page_before_id: 1,
+		updated_after: new Date(),
+	};
+	const resetParams: Required<WKResetParameters> = {
+		ids: [1],
+		page_after_id: 1,
+		page_before_id: 1,
+		updated_after: new Date(),
+	};
+	const reviewParams: Required<WKReviewParameters> = {
+		assignment_ids: [1],
+		ids: [1],
+		page_after_id: 1,
+		page_before_id: 1,
+		subject_ids: [1],
+		updated_after: new Date(),
+	};
+	const reviewStatisticParams: Required<WKReviewStatisticParameters> = {
+		hidden: true,
+		ids: [1],
+		page_after_id: 1,
+		page_before_id: 1,
+		percentages_greater_than: 1,
+		percentages_less_than: 1,
+		subject_ids: [1],
+		subject_types: ["kanji"],
+		updated_after: new Date(),
+	};
+	const srsParams: Required<WKSpacedRepetitionSystemParameters> = {
+		ids: [1],
+		page_after_id: 1,
+		page_before_id: 1,
+		updated_after: new Date(),
+	};
+	const studyMaterialParams: Required<WKStudyMaterialParameters> = {
+		hidden: true,
+		ids: [1],
+		page_after_id: 1,
+		page_before_id: 1,
+		subject_ids: [1],
+		subject_types: ["kanji"],
+		updated_after: new Date(),
+	};
+	const subjectParams: Required<WKSubjectParameters> = {
+		hidden: true,
+		ids: [1],
+		levels: [1],
+		page_after_id: 1,
+		page_before_id: 1,
+		slugs: [""],
+		types: ["kanji"],
+		updated_after: new Date(),
+	};
+	const voiceActorParams: Required<WKVoiceActorParameters> = {
+		ids: [1],
+		page_after_id: 1,
+		page_before_id: 1,
+		updated_after: new Date(),
+	};
+
+	/* Map Collection names to their types. */
+	const validKeys: WKCollectionParametersMap = {
+		Assignment: assignmentParams,
+		"Level Progression": levelProgressionParams,
+		Reset: resetParams,
+		Review: reviewParams,
+		"Review Statistic": reviewStatisticParams,
+		"Spaced Repetition System": srsParams,
+		"Study Material": studyMaterialParams,
+		Subject: subjectParams,
+		"Voice Actor": voiceActorParams,
+	};
+
+	/* If we find a key in the object that isn't in the type, throw an error. */
+	Object.keys(params).forEach((key) => {
+		if (!(key in validKeys[type])) {
+			throw new TypeError(`Parameter "${key}" is not valid for ${type} Collections.`);
+		}
+	});
+}
+
+/**
+ * Perform runtime validation of Payloads.
+ * @param type The URI for the given payload, i.e. a type of `POST` or `PUT` request.
+ * @param payload The payload object to be validated.
+ * @throws A `TypeError` if payload validation fails.
+ * @category Base
+ * @category Payloads
+ */
+export function validatePayloads<T extends keyof WKPayloadMap>(type: T, payload: WKPayloadMap[T]): void {
+	/* Let's try not to end up here! */
+	function throwTypeError(key: string, payloadType: T): never {
+		throw new TypeError(`Key "${key}" is not valid for a payload sent to ${payloadType} .`);
+	}
+
+	/* Create required dummy parameters */
+	const assignmentStartPayload: Required<WKAssignmentPayload> = {
+		started_at: new Date(),
+	};
+	const reviewCreatePayloadAssignment: Required<WKReviewPayload> = {
+		review: {
+			assignment_id: 1,
+			incorrect_meaning_answers: 0,
+			incorrect_reading_answers: 0,
+		},
+	};
+	const reviewCreatePayloadSubject: Required<WKReviewPayload> = {
+		review: {
+			subject_id: 1,
+			incorrect_meaning_answers: 0,
+			incorrect_reading_answers: 0,
+		},
+	};
+	const studyMaterialCreatePayload: Required<WKStudyMaterialCreatePayload> = {
+		subject_id: 1,
+		meaning_synonyms: ["one"],
+		meaning_note: "one",
+		reading_note: "one",
+	};
+	const studyMaterialUpdatePayload: Required<WKStudyMaterialUpdatePayload> = {
+		meaning_synonyms: ["one"],
+		meaning_note: "one",
+		reading_note: "one",
+	};
+	const preferences: Required<WKUserPreferences> = {
+		default_voice_actor_id: 1,
+		extra_study_autoplay_audio: true,
+		lessons_autoplay_audio: true,
+		lessons_batch_size: 3,
+		lessons_presentation_order: "ascending_level_then_subject",
+		reviews_autoplay_audio: true,
+		reviews_display_srs_indicator: true,
+		reviews_presentation_order: "shuffled",
+	};
+	const userPreferencesPayload: Required<WKUserPreferencesPayload> = {
+		user: {
+			preferences,
+		},
+	};
+
+	/* Valid-key sets, used depending on type of payload being validated */
+	const validKeysExceptReviews: Omit<WKPayloadMap, "POST /reviews"> = {
+		"PUT /assignments/<id>/start": assignmentStartPayload,
+		"POST /study_materials": studyMaterialCreatePayload,
+		"PUT /study_materials/<id>": studyMaterialUpdatePayload,
+		"PUT /user": userPreferencesPayload,
+	};
+	const validKeysReviewAssignment: Pick<WKPayloadMap, "POST /reviews"> = {
+		"POST /reviews": reviewCreatePayloadAssignment,
+	};
+	const validKeysReviewSubject: Pick<WKPayloadMap, "POST /reviews"> = {
+		"POST /reviews": reviewCreatePayloadSubject,
+	};
+
+	/* Check for unexpected keys, throw if we find one */
+	Object.keys(payload).forEach((key) => {
+		if (type === "POST /reviews") {
+			if (!(key in validKeysReviewAssignment["POST /reviews"]) && !(key in validKeysReviewSubject["POST /reviews"])) {
+				throwTypeError(key, type);
+			}
+		} else if (type === "POST /study_materials" && !(key in validKeysExceptReviews["POST /study_materials"])) {
+			throwTypeError(key, type);
+		} else if (
+			type === "PUT /assignments/<id>/start" &&
+			!(key in validKeysExceptReviews["PUT /assignments/<id>/start"])
+		) {
+			throwTypeError(key, type);
+		} else if (type === "PUT /study_materials/<id>" && !(key in validKeysExceptReviews["PUT /study_materials/<id>"])) {
+			throwTypeError(key, type);
+		} else if (type === "PUT /user" && !(key in validKeysExceptReviews["PUT /user"])) {
+			throwTypeError(key, type);
+		}
+	});
 }
