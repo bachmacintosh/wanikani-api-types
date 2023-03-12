@@ -33,7 +33,10 @@ export class WKRoute {
 			const request: WKRequest = {
 				baseUrl,
 				body: null,
-				headers: this.#headers,
+				headers: {
+					Authorization: this.#headers.Authorization,
+					"Wanikani-Revision": this.#headers["Wanikani-Revision"],
+				},
 				method: "GET",
 				url: `${baseUrl}/assignments`,
 			};
@@ -72,11 +75,9 @@ export class WKRoute {
 	public constructor(init: WKRouteInit) {
 		this.#headers = {
 			Authorization: `Bearer ${init.apiKey}`,
+			"Wanikani-Revision": init.revision ?? "20170710",
 		};
 		this.#body = null;
-		this.#headers = {
-			Authorization: `Bearer ${init.apiKey}`,
-		};
 		if (typeof init.revision !== "undefined") {
 			this.#headers["Wanikani-Revision"] = init.revision;
 		}
@@ -301,7 +302,7 @@ export class WKRoute {
 
 export type WKRouteHeaders = HeadersInit & {
 	Authorization: string;
-	"Wanikani-Revision"?: WKApiRevision;
+	"Wanikani-Revision": WKApiRevision;
 	"Content-Type"?: "application/json";
 };
 
