@@ -3,7 +3,7 @@ import type { WKStudyMaterialCreatePayload, WKStudyMaterialUpdatePayload } from 
 import type { WKUserPreferences, WKUserPreferencesPayload } from "../../src/user/v20170710";
 import type { WKAssignmentPayload } from "../../src/assignments/v20170710";
 import type { WKReviewPayload } from "../../src/reviews/v20170710";
-import { validatePayloads } from "../../src/base/v20170710";
+import { validatePayload } from "../../src/base/v20170710";
 
 const assignmentStartPayload: Required<WKAssignmentPayload> = {
 	started_at: new Date(),
@@ -50,44 +50,44 @@ const userPreferencesPayload: Required<WKUserPreferencesPayload> = {
 };
 
 it("Successfully validates Assignment Start Payloads", () => {
-	expect(validatePayloads("PUT /assignments/<id>/start", assignmentStartPayload)).toBe(undefined);
+	expect(validatePayload("PUT /assignments/<id>/start", assignmentStartPayload)).toBe(undefined);
 });
 
 it("Successfully validates Review Create Payloads", () => {
-	expect(validatePayloads("POST /reviews", reviewCreatePayloadAssignment)).toBe(undefined);
-	expect(validatePayloads("POST /reviews", reviewCreatePayloadSubject)).toBe(undefined);
+	expect(validatePayload("POST /reviews", reviewCreatePayloadAssignment)).toBe(undefined);
+	expect(validatePayload("POST /reviews", reviewCreatePayloadSubject)).toBe(undefined);
 });
 
 it("Successfully validates Study Material Create Payloads", () => {
-	expect(validatePayloads("POST /study_materials", studyMaterialCreatePayload)).toBe(undefined);
+	expect(validatePayload("POST /study_materials", studyMaterialCreatePayload)).toBe(undefined);
 });
 
 it("Successfully validates Study Material Update Payloads", () => {
-	expect(validatePayloads("PUT /study_materials/<id>", studyMaterialUpdatePayload)).toBe(undefined);
+	expect(validatePayload("PUT /study_materials/<id>", studyMaterialUpdatePayload)).toBe(undefined);
 });
 
 it("Successfully validates User Preferences Update Payloads", () => {
-	expect(validatePayloads("PUT /user", userPreferencesPayload)).toBe(undefined);
+	expect(validatePayload("PUT /user", userPreferencesPayload)).toBe(undefined);
 });
 
 it("Throws errors on bad payloads", () => {
 	/// @ts-expect-error
-	expect(() => validatePayloads("POST /reviews", assignmentStartPayload)).toThrow(
+	expect(() => validatePayload("POST /reviews", assignmentStartPayload)).toThrow(
 		/Key "(?<name>\w+?)" is not valid for a payload sent to POST \/reviews \./u,
 	);
 	/// @ts-expect-error
-	expect(() => validatePayloads("POST /study_materials", assignmentStartPayload)).toThrow(
+	expect(() => validatePayload("POST /study_materials", assignmentStartPayload)).toThrow(
 		/Key "(?<name>\w+?)" is not valid for a payload sent to POST \/study_materials \./u,
 	);
 	/// @ts-expect-error
-	expect(() => validatePayloads("PUT /assignments/<id>/start", reviewCreatePayloadAssignment)).toThrow(
+	expect(() => validatePayload("PUT /assignments/<id>/start", reviewCreatePayloadAssignment)).toThrow(
 		/Key "(?<name>\w+?)" is not valid for a payload sent to PUT \/assignments\/<id>\/start \./u,
 	);
-	expect(() => validatePayloads("PUT /study_materials/<id>", studyMaterialCreatePayload)).toThrow(
+	expect(() => validatePayload("PUT /study_materials/<id>", studyMaterialCreatePayload)).toThrow(
 		/Key "(?<name>\w+?)" is not valid for a payload sent to PUT \/study_materials\/<id> \./u,
 	);
 	/// @ts-expect-error
-	expect(() => validatePayloads("PUT /user", assignmentStartPayload)).toThrow(
+	expect(() => validatePayload("PUT /user", assignmentStartPayload)).toThrow(
 		/Key "(?<name>\w+?)" is not valid for a payload sent to PUT \/user \./u,
 	);
 });
