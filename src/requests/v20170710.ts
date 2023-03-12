@@ -22,13 +22,13 @@ const baseUrl = "https://api.wanikani.com/v2";
 export interface WKRequest {
 	baseUrl: string;
 	body: string | null;
-	headers: WKRouteHeaders;
+	headers: WKRequestHeaders;
 	method: "GET" | "POST" | "PUT";
 	url: string;
 }
 
-export class WKRoute {
-	#assignments: WKAssignmentRoutes = {
+export class WKRequestFactory {
+	#assignments: WKAssignmentRequests = {
 		get: (idOrParams: WKAssignmentParameters | number): WKRequest => {
 			const request: WKRequest = {
 				baseUrl,
@@ -62,7 +62,7 @@ export class WKRoute {
 		},
 	};
 
-	#headers: WKRouteHeaders;
+	#headers: WKRequestHeaders;
 
 	#baseUrl = "https://api.wanikani.com/v2";
 
@@ -72,7 +72,7 @@ export class WKRoute {
 
 	#url: string;
 
-	public constructor(init: WKRouteInit) {
+	public constructor(init: WKRequestFactoryInit) {
 		this.#headers = {
 			Authorization: `Bearer ${init.apiKey}`,
 			"Wanikani-Revision": init.revision ?? "20170710",
@@ -85,7 +85,7 @@ export class WKRoute {
 		this.#url = this.#baseUrl;
 	}
 
-	public get assignments(): WKAssignmentRoutes {
+	public get assignments(): WKAssignmentRequests {
 		return this.#assignments;
 	}
 
@@ -97,7 +97,7 @@ export class WKRoute {
 		return this.#body;
 	}
 
-	public get headers(): WKRouteHeaders {
+	public get headers(): WKRequestHeaders {
 		return this.#headers;
 	}
 
@@ -300,18 +300,18 @@ export class WKRoute {
 	}
 }
 
-export type WKRouteHeaders = HeadersInit & {
+export type WKRequestHeaders = HeadersInit & {
 	Authorization: string;
 	"Wanikani-Revision": WKApiRevision;
 	"Content-Type"?: "application/json";
 };
 
-export interface WKRouteInit {
+export interface WKRequestFactoryInit {
 	apiKey: string;
 	revision?: WKApiRevision;
 }
 
-export interface WKAssignmentRoutes {
+export interface WKAssignmentRequests {
 	get: (idOrParams: WKAssignmentParameters | number) => WKRequest;
 	start: (id: number, payload: WKAssignmentPayload) => WKRequest;
 }
