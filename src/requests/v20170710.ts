@@ -312,7 +312,7 @@ export interface WKRequestGetOptions {
 }
 
 export interface WKRequestHeaders {
-	Authorization: string;
+	Authorization: `Bearer ${string}`;
 	"Wanikani-Revision": WKApiRevision;
 	Accept?: "application/json";
 	"Content-Type"?: "application/json";
