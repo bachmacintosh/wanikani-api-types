@@ -300,14 +300,16 @@ export class WKRequestFactory {
 	}
 }
 
-export type WKRequestHeaders = HeadersInit & {
+export interface WKRequestHeaders {
+	[customHeaders: string]: string;
+	Accept?: "application/json";
 	Authorization: string;
 	"Wanikani-Revision": WKApiRevision;
 	"Content-Type"?: "application/json";
 	"If-Modified-Since"?: string;
 	"If-None-Match"?: string;
 	"User-Agent"?: string;
-};
+}
 
 export interface WKRequestFactoryInit {
 	apiKey: string;
