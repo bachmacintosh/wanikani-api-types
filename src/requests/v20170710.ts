@@ -314,6 +314,7 @@ export interface WKRequestHeaders {
 export interface WKRequestFactoryInit {
 	apiKey: string;
 	revision?: WKApiRevision;
+	userAgent?: string;
 }
 
 export interface WKAssignmentRequests {
