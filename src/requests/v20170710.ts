@@ -300,6 +300,12 @@ export class WKRequestFactory {
 	}
 }
 
+export interface WKRequestFactoryInit {
+	apiKey: string;
+	revision?: WKApiRevision;
+	userAgent?: string;
+}
+
 export interface WKRequestHeaders {
 	Authorization: string;
 	"Wanikani-Revision": WKApiRevision;
@@ -309,12 +315,6 @@ export interface WKRequestHeaders {
 	"If-None-Match"?: string;
 	"User-Agent"?: string;
 	[customHeaders: string]: string;
-}
-
-export interface WKRequestFactoryInit {
-	apiKey: string;
-	revision?: WKApiRevision;
-	userAgent?: string;
 }
 
 export interface WKAssignmentRequests {
