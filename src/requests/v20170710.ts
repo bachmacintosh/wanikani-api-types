@@ -304,6 +304,9 @@ export type WKRequestHeaders = HeadersInit & {
 	Authorization: string;
 	"Wanikani-Revision": WKApiRevision;
 	"Content-Type"?: "application/json";
+	"If-Modified-Since"?: string;
+	"If-None-Match"?: string;
+	"User-Agent"?: string;
 };
 
 export interface WKRequestFactoryInit {
