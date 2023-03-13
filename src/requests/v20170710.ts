@@ -321,3 +321,47 @@ export interface WKAssignmentRequests {
 	get: (idOrParams: WKAssignmentParameters | number) => WKRequest;
 	start: (id: number, payload: WKAssignmentPayload) => WKRequest;
 }
+
+export interface WKLevelProgressionRequests {
+	get: (idOrParams: WKLevelProgressionParameters | number) => WKRequest;
+}
+
+export interface WKResetRequests {
+	get: (idOrParams: WKLevelProgressionParameters | number) => WKRequest;
+}
+
+export interface WKReviewRequests {
+	get: (idOrParams: WKReviewParameters | number) => WKRequest;
+	create: (payload: WKReviewPayload) => WKRequest;
+}
+
+export interface WKReviewStatisticRequests {
+	get: (idOrParams: WKReviewStatisticParameters | number) => WKRequest;
+}
+
+export interface WKSpacedRepetitionSystemRequests {
+	get: (idOrParams: WKSpacedRepetitionSystemParameters | number) => WKRequest;
+}
+
+export interface WKStudyMaterialRequests {
+	create: (payload: WKStudyMaterialCreatePayload) => WKRequest;
+	get: (idOrParams: WKStudyMaterialParameters | number) => WKRequest;
+	update: (id: number, payload: WKStudyMaterialUpdatePayload) => WKRequest;
+}
+
+export interface WKSubjectRequests {
+	get: (idOrParams: WKSubjectParameters | number) => WKRequest;
+}
+
+export interface WKSummaryRequests {
+	get: () => WKRequest;
+}
+
+export interface WKUserRequests {
+	get: () => WKRequest;
+	updatePreferences: (payload: WKUserPreferencesPayload) => WKRequest;
+}
+
+export interface WKVoiceActorRequests {
+	get: (idOrParams: WKVoiceActorParameters | number) => WKRequest;
+}
