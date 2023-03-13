@@ -301,14 +301,14 @@ export class WKRequestFactory {
 }
 
 export interface WKRequestHeaders {
-	[customHeaders: string]: string;
-	Accept?: "application/json";
 	Authorization: string;
 	"Wanikani-Revision": WKApiRevision;
+	Accept?: "application/json";
 	"Content-Type"?: "application/json";
 	"If-Modified-Since"?: string;
 	"If-None-Match"?: string;
 	"User-Agent"?: string;
+	[customHeaders: string]: string;
 }
 
 export interface WKRequestFactoryInit {
