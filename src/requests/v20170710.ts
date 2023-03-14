@@ -29,7 +29,7 @@ export interface WKRequest {
 
 export class WKRequestFactory {
 	#assignments: WKAssignmentRequests = {
-		get: (idOrParams: WKAssignmentParameters | number): WKRequest => {
+		get: (idOrParams?: WKAssignmentParameters | number): WKRequest => {
 			const headers = { ...this.#getHeaders };
 			const request: WKRequest = {
 				baseUrl,
@@ -40,7 +40,7 @@ export class WKRequestFactory {
 			};
 			if (typeof idOrParams === "number") {
 				request.url += `/${idOrParams}`;
-			} else {
+			} else if (typeof idOrParams !== "undefined") {
 				validateParameters("Assignment", idOrParams);
 				request.url += stringifyParameters(idOrParams);
 			}
@@ -63,7 +63,7 @@ export class WKRequestFactory {
 	#getHeaders: WKRequestHeaders;
 
 	#levelProgressions: WKLevelProgressionRequests = {
-		get: (idOrParams: WKLevelProgressionParameters | number): WKRequest => {
+		get: (idOrParams?: WKLevelProgressionParameters | number): WKRequest => {
 			const headers = { ...this.#getHeaders };
 			const request: WKRequest = {
 				baseUrl,
@@ -335,39 +335,39 @@ export interface WKRequestHeaders {
 }
 
 export interface WKAssignmentRequests {
-	get: (idOrParams: WKAssignmentParameters | number, options?: WKRequestGetOptions) => WKRequest;
+	get: (idOrParams?: WKAssignmentParameters | number, options?: WKRequestGetOptions) => WKRequest;
 	start: (id: number, payload: WKAssignmentPayload) => WKRequest;
 }
 
 export interface WKLevelProgressionRequests {
-	get: (idOrParams: WKLevelProgressionParameters | number, options?: WKRequestGetOptions) => WKRequest;
+	get: (idOrParams?: WKLevelProgressionParameters | number, options?: WKRequestGetOptions) => WKRequest;
 }
 
 export interface WKResetRequests {
-	get: (idOrParams: WKLevelProgressionParameters | number, options?: WKRequestGetOptions) => WKRequest;
+	get: (idOrParams?: WKLevelProgressionParameters | number, options?: WKRequestGetOptions) => WKRequest;
 }
 
 export interface WKReviewRequests {
-	get: (idOrParams: WKReviewParameters | number, options?: WKRequestGetOptions) => WKRequest;
+	get: (idOrParams?: WKReviewParameters | number, options?: WKRequestGetOptions) => WKRequest;
 	create: (payload: WKReviewPayload) => WKRequest;
 }
 
 export interface WKReviewStatisticRequests {
-	get: (idOrParams: WKReviewStatisticParameters | number, options?: WKRequestGetOptions) => WKRequest;
+	get: (idOrParams?: WKReviewStatisticParameters | number, options?: WKRequestGetOptions) => WKRequest;
 }
 
 export interface WKSpacedRepetitionSystemRequests {
-	get: (idOrParams: WKSpacedRepetitionSystemParameters | number, options?: WKRequestGetOptions) => WKRequest;
+	get: (idOrParams?: WKSpacedRepetitionSystemParameters | number, options?: WKRequestGetOptions) => WKRequest;
 }
 
 export interface WKStudyMaterialRequests {
 	create: (payload: WKStudyMaterialCreatePayload) => WKRequest;
-	get: (idOrParams: WKStudyMaterialParameters | number, options?: WKRequestGetOptions) => WKRequest;
+	get: (idOrParams?: WKStudyMaterialParameters | number, options?: WKRequestGetOptions) => WKRequest;
 	update: (id: number, payload: WKStudyMaterialUpdatePayload) => WKRequest;
 }
 
 export interface WKSubjectRequests {
-	get: (idOrParams: WKSubjectParameters | number, options?: WKRequestGetOptions) => WKRequest;
+	get: (idOrParams?: WKSubjectParameters | number, options?: WKRequestGetOptions) => WKRequest;
 }
 
 export interface WKSummaryRequests {
@@ -380,5 +380,5 @@ export interface WKUserRequests {
 }
 
 export interface WKVoiceActorRequests {
-	get: (idOrParams: WKVoiceActorParameters | number, options?: WKRequestGetOptions) => WKRequest;
+	get: (idOrParams?: WKVoiceActorParameters | number, options?: WKRequestGetOptions) => WKRequest;
 }
