@@ -63,6 +63,7 @@ export type {
 	WKRadicalCollection,
 	WKRadicalData,
 	WKReport,
+	WKRequest,
 	WKRequestFactoryInit,
 	WKRequestGetOptions,
 	WKRequestHeaders,
