@@ -58,10 +58,10 @@ export class WKRequestFactory {
 		get: (idOrParams?: WKAssignmentParameters | number, options?: WKRequestGetOptions): WKRequest => {
 			const headers = { ...this.#getHeaders };
 			if (typeof options !== "undefined") {
-				if (options.ifModifiedSince) {
+				if (typeof options.ifModifiedSince !== "undefined") {
 					headers["If-Modified-Since"] = options.ifModifiedSince;
 				}
-				if (options.ifNoneMatch) {
+				if (typeof options.ifNoneMatch !== "undefined") {
 					headers["If-None-Match"] = options.ifNoneMatch;
 				}
 			}
@@ -120,10 +120,10 @@ export class WKRequestFactory {
 		get: (idOrParams?: WKLevelProgressionParameters | number, options?: WKRequestGetOptions): WKRequest => {
 			const headers = { ...this.#getHeaders };
 			if (typeof options !== "undefined") {
-				if (options.ifModifiedSince) {
+				if (typeof options.ifModifiedSince !== "undefined") {
 					headers["If-Modified-Since"] = options.ifModifiedSince;
 				}
-				if (options.ifNoneMatch) {
+				if (typeof options.ifNoneMatch !== "undefined") {
 					headers["If-None-Match"] = options.ifNoneMatch;
 				}
 			}
@@ -162,10 +162,10 @@ export class WKRequestFactory {
 		get: (idOrParams?: WKResetParameters | number, options?: WKRequestGetOptions): WKRequest => {
 			const headers = { ...this.#getHeaders };
 			if (typeof options !== "undefined") {
-				if (options.ifModifiedSince) {
+				if (typeof options.ifModifiedSince !== "undefined") {
 					headers["If-Modified-Since"] = options.ifModifiedSince;
 				}
-				if (options.ifNoneMatch) {
+				if (typeof options.ifNoneMatch !== "undefined") {
 					headers["If-None-Match"] = options.ifNoneMatch;
 				}
 			}
@@ -199,10 +199,10 @@ export class WKRequestFactory {
 		get: (idOrParams?: WKReviewParameters | number, options?: WKRequestGetOptions): WKRequest => {
 			const headers = { ...this.#getHeaders };
 			if (typeof options !== "undefined") {
-				if (options.ifModifiedSince) {
+				if (typeof options.ifModifiedSince !== "undefined") {
 					headers["If-Modified-Since"] = options.ifModifiedSince;
 				}
-				if (options.ifNoneMatch) {
+				if (typeof options.ifNoneMatch !== "undefined") {
 					headers["If-None-Match"] = options.ifNoneMatch;
 				}
 			}
@@ -255,10 +255,10 @@ export class WKRequestFactory {
 		get: (idOrParams?: WKReviewStatisticParameters | number, options?: WKRequestGetOptions): WKRequest => {
 			const headers = { ...this.#getHeaders };
 			if (typeof options !== "undefined") {
-				if (options.ifModifiedSince) {
+				if (typeof options.ifModifiedSince !== "undefined") {
 					headers["If-Modified-Since"] = options.ifModifiedSince;
 				}
-				if (options.ifNoneMatch) {
+				if (typeof options.ifNoneMatch !== "undefined") {
 					headers["If-None-Match"] = options.ifNoneMatch;
 				}
 			}
@@ -293,10 +293,10 @@ export class WKRequestFactory {
 		get: (idOrParams?: WKSpacedRepetitionSystemParameters | number, options?: WKRequestGetOptions): WKRequest => {
 			const headers = { ...this.#getHeaders };
 			if (typeof options !== "undefined") {
-				if (options.ifModifiedSince) {
+				if (typeof options.ifModifiedSince !== "undefined") {
 					headers["If-Modified-Since"] = options.ifModifiedSince;
 				}
-				if (options.ifNoneMatch) {
+				if (typeof options.ifNoneMatch !== "undefined") {
 					headers["If-None-Match"] = options.ifNoneMatch;
 				}
 			}
@@ -331,10 +331,10 @@ export class WKRequestFactory {
 		get: (idOrParams?: WKStudyMaterialParameters | number, options?: WKRequestGetOptions): WKRequest => {
 			const headers = { ...this.#getHeaders };
 			if (typeof options !== "undefined") {
-				if (options.ifModifiedSince) {
+				if (typeof options.ifModifiedSince !== "undefined") {
 					headers["If-Modified-Since"] = options.ifModifiedSince;
 				}
-				if (options.ifNoneMatch) {
+				if (typeof options.ifNoneMatch !== "undefined") {
 					headers["If-None-Match"] = options.ifNoneMatch;
 				}
 			}
@@ -405,10 +405,10 @@ export class WKRequestFactory {
 		get: (idOrParams?: WKSubjectParameters | number, options?: WKRequestGetOptions): WKRequest => {
 			const headers = { ...this.#getHeaders };
 			if (typeof options !== "undefined") {
-				if (options.ifModifiedSince) {
+				if (typeof options.ifModifiedSince !== "undefined") {
 					headers["If-Modified-Since"] = options.ifModifiedSince;
 				}
-				if (options.ifNoneMatch) {
+				if (typeof options.ifNoneMatch !== "undefined") {
 					headers["If-None-Match"] = options.ifNoneMatch;
 				}
 			}
@@ -442,10 +442,10 @@ export class WKRequestFactory {
 		get: (options?: WKRequestGetOptions): WKRequest => {
 			const headers = { ...this.#getHeaders };
 			if (typeof options !== "undefined") {
-				if (options.ifModifiedSince) {
+				if (typeof options.ifModifiedSince !== "undefined") {
 					headers["If-Modified-Since"] = options.ifModifiedSince;
 				}
-				if (options.ifNoneMatch) {
+				if (typeof options.ifNoneMatch !== "undefined") {
 					headers["If-None-Match"] = options.ifNoneMatch;
 				}
 			}
@@ -473,10 +473,10 @@ export class WKRequestFactory {
 		get: (options?: WKRequestGetOptions): WKRequest => {
 			const headers = { ...this.#getHeaders };
 			if (typeof options !== "undefined") {
-				if (options.ifModifiedSince) {
+				if (typeof options.ifModifiedSince !== "undefined") {
 					headers["If-Modified-Since"] = options.ifModifiedSince;
 				}
-				if (options.ifNoneMatch) {
+				if (typeof options.ifNoneMatch !== "undefined") {
 					headers["If-None-Match"] = options.ifNoneMatch;
 				}
 			}
@@ -523,10 +523,10 @@ export class WKRequestFactory {
 		get: (idOrParams?: WKVoiceActorParameters | number, options?: WKRequestGetOptions): WKRequest => {
 			const headers = { ...this.#getHeaders };
 			if (typeof options !== "undefined") {
-				if (options.ifModifiedSince) {
+				if (typeof options.ifModifiedSince !== "undefined") {
 					headers["If-Modified-Since"] = options.ifModifiedSince;
 				}
-				if (options.ifNoneMatch) {
+				if (typeof options.ifNoneMatch !== "undefined") {
 					headers["If-None-Match"] = options.ifNoneMatch;
 				}
 			}
@@ -671,9 +671,11 @@ export interface WKRequestFactoryInit {
  */
 export interface WKRequestGetOptions {
 	/** Adds an `If-Modified-Since` header to the request. */
-	ifModifiedSince: string;
+	ifModifiedSince?: string;
 	/** Adds an `If-None-Match` header to the request. */
-	ifNoneMatch: string;
+	ifNoneMatch?: string;
+	/** Custom headers to add to this request only. */
+	customHeaders?: Record<string, string>;
 }
 
 /**
