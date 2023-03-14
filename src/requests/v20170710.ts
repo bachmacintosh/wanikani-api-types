@@ -34,8 +34,8 @@ export class WKRequestFactory {
 				baseUrl,
 				body: null,
 				headers: {
-					Authorization: this.#headers.Authorization,
-					"Wanikani-Revision": this.#headers["Wanikani-Revision"],
+					Authorization: this.#getHeaders.Authorization,
+					"Wanikani-Revision": this.#getHeaders["Wanikani-Revision"],
 				},
 				method: "GET",
 				url: `${baseUrl}/assignments`,
@@ -53,7 +53,7 @@ export class WKRequestFactory {
 			const request: WKRequest = {
 				baseUrl,
 				body: JSON.stringify(payload),
-				headers: this.#headers,
+				headers: this.#getHeaders,
 				method: "PUT",
 				url: `${baseUrl}/assignments/${id}/start`,
 			};
@@ -62,7 +62,9 @@ export class WKRequestFactory {
 		},
 	};
 
-	#headers: WKRequestHeaders;
+	#getHeaders: WKRequestHeaders;
+
+	#postPutHeaders: WKRequestHeaders;
 
 	#baseUrl = "https://api.wanikani.com/v2";
 
@@ -73,14 +75,16 @@ export class WKRequestFactory {
 	#url: string;
 
 	public constructor(init: WKRequestFactoryInit) {
-		this.#headers = {
+		this.#getHeaders = {
 			Authorization: `Bearer ${init.apiKey}`,
 			"Wanikani-Revision": init.revision ?? "20170710",
 		};
 		this.#body = null;
 		if (typeof init.revision !== "undefined") {
-			this.#headers["Wanikani-Revision"] = init.revision;
+			this.#getHeaders["Wanikani-Revision"] = init.revision;
 		}
+		this.#postPutHeaders = { ...this.#getHeaders };
+		this.#postPutHeaders["Content-Type"] = "application/json";
 		this.#method = "GET";
 		this.#url = this.#baseUrl;
 	}
@@ -98,7 +102,7 @@ export class WKRequestFactory {
 	}
 
 	public get headers(): WKRequestHeaders {
-		return this.#headers;
+		return this.#getHeaders;
 	}
 
 	public get method(): string {
@@ -292,9 +296,9 @@ export class WKRequestFactory {
 
 	#toggleRequestContent(): void {
 		if (this.#method === "POST" || this.#method === "PUT") {
-			this.#headers["Content-Type"] = "application/json";
+			this.#getHeaders["Content-Type"] = "application/json";
 		} else {
-			delete this.#headers["Content-Type"];
+			delete this.#getHeaders["Content-Type"];
 			this.#body = null;
 		}
 	}
