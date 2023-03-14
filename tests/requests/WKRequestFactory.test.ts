@@ -15,11 +15,22 @@ import type { WKUserPreferencesPayload } from "../../src/user/v20170710";
 import type { WKVoiceActorParameters } from "../../src/voice-actors/v20170710";
 import { WKRequestFactory } from "../../src/requests/v20170710";
 
+const options = {
+	ifModifiedSince: "Tue, 14 Mar 2023, 12:00:00 GMT",
+	ifNoneMatch: `W/"70abc5970f2ab8cd34adcfad015ffde6"`,
+};
+
 it("Returns GET request for an Assignment Collection", () => {
 	const expectedMethod = "GET";
 	const expectedUrl1 = "https://api.wanikani.com/v2/assignments";
 	const expectedUrl2 = "https://api.wanikani.com/v2/assignments?unlocked=true&hidden=false";
-	const expectedHeaders = {
+	const expectedHeaders1 = {
+		Authorization: "Bearer abc",
+		"Wanikani-Revision": "20170710",
+		"If-Modified-Since": "Tue, 14 Mar 2023, 12:00:00 GMT",
+		"If-None-Match": `W/"70abc5970f2ab8cd34adcfad015ffde6"`,
+	};
+	const expectedHeaders2 = {
 		Authorization: "Bearer abc",
 		"Wanikani-Revision": "20170710",
 	};
@@ -30,17 +41,17 @@ it("Returns GET request for an Assignment Collection", () => {
 		hidden: false,
 	};
 
-	const request1 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).assignments.get();
+	const request1 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).assignments.get({}, options);
 	const request2 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).assignments.get(params);
 
 	expect(request1.method).toBe(expectedMethod);
 	expect(request1.url).toBe(expectedUrl1);
-	expect(request1.headers).toStrictEqual(expectedHeaders);
+	expect(request1.headers).toStrictEqual(expectedHeaders1);
 	expect(request1.body).toBe(expectedBody);
 
 	expect(request2.method).toBe(expectedMethod);
 	expect(request2.url).toBe(expectedUrl2);
-	expect(request2.headers).toStrictEqual(expectedHeaders);
+	expect(request2.headers).toStrictEqual(expectedHeaders2);
 	expect(request2.body).toBe(expectedBody);
 });
 
@@ -88,7 +99,13 @@ it("Returns GET request for a Level Progression Collection", () => {
 	const expectedUrl1 = "https://api.wanikani.com/v2/level_progressions";
 	const expectedUrl2 =
 		"https://api.wanikani.com/v2/level_progressions?ids=1,2,3&updated_after=2023-03-01T12:00:00.000Z";
-	const expectedHeaders = {
+	const expectedHeaders1 = {
+		Authorization: "Bearer abc",
+		"Wanikani-Revision": "20170710",
+		"If-Modified-Since": "Tue, 14 Mar 2023, 12:00:00 GMT",
+		"If-None-Match": `W/"70abc5970f2ab8cd34adcfad015ffde6"`,
+	};
+	const expectedHeaders2 = {
 		Authorization: "Bearer abc",
 		"Wanikani-Revision": "20170710",
 	};
@@ -99,17 +116,17 @@ it("Returns GET request for a Level Progression Collection", () => {
 		updated_after: new Date("2023-03-01T12:00:00.000Z"),
 	};
 
-	const request1 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).levelProgressions.get();
+	const request1 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).levelProgressions.get({}, options);
 	const request2 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).levelProgressions.get(params);
 
 	expect(request1.method).toBe(expectedMethod);
 	expect(request1.url).toBe(expectedUrl1);
-	expect(request1.headers).toStrictEqual(expectedHeaders);
+	expect(request1.headers).toStrictEqual(expectedHeaders1);
 	expect(request1.body).toBe(expectedBody);
 
 	expect(request2.method).toBe(expectedMethod);
 	expect(request2.url).toBe(expectedUrl2);
-	expect(request2.headers).toStrictEqual(expectedHeaders);
+	expect(request2.headers).toStrictEqual(expectedHeaders2);
 	expect(request2.body).toBe(expectedBody);
 });
 
@@ -134,7 +151,13 @@ it("Returns GET request for a Reset Collection", () => {
 	const expectedMethod = "GET";
 	const expectedUrl1 = "https://api.wanikani.com/v2/resets";
 	const expectedUrl2 = "https://api.wanikani.com/v2/resets?ids=1,2,3&updated_after=2023-03-01T12:00:00.000Z";
-	const expectedHeaders = {
+	const expectedHeaders1 = {
+		Authorization: "Bearer abc",
+		"Wanikani-Revision": "20170710",
+		"If-Modified-Since": "Tue, 14 Mar 2023, 12:00:00 GMT",
+		"If-None-Match": `W/"70abc5970f2ab8cd34adcfad015ffde6"`,
+	};
+	const expectedHeaders2 = {
 		Authorization: "Bearer abc",
 		"Wanikani-Revision": "20170710",
 	};
@@ -145,17 +168,17 @@ it("Returns GET request for a Reset Collection", () => {
 		updated_after: new Date("2023-03-01T12:00:00.000Z"),
 	};
 
-	const request1 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).resets.get();
+	const request1 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).resets.get({}, options);
 	const request2 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).resets.get(params);
 
 	expect(request1.method).toBe(expectedMethod);
 	expect(request1.url).toBe(expectedUrl1);
-	expect(request1.headers).toStrictEqual(expectedHeaders);
+	expect(request1.headers).toStrictEqual(expectedHeaders1);
 	expect(request1.body).toBe(expectedBody);
 
 	expect(request2.method).toBe(expectedMethod);
 	expect(request2.url).toBe(expectedUrl2);
-	expect(request2.headers).toStrictEqual(expectedHeaders);
+	expect(request2.headers).toStrictEqual(expectedHeaders2);
 	expect(request2.body).toBe(expectedBody);
 });
 
@@ -180,7 +203,13 @@ it("Returns GET request for a Review Collection", () => {
 	const expectedMethod = "GET";
 	const expectedUrl1 = "https://api.wanikani.com/v2/reviews";
 	const expectedUrl2 = "https://api.wanikani.com/v2/reviews?assignment_ids=1,2,3&subject_ids=4,5,6";
-	const expectedHeaders = {
+	const expectedHeaders1 = {
+		Authorization: "Bearer abc",
+		"Wanikani-Revision": "20170710",
+		"If-Modified-Since": "Tue, 14 Mar 2023, 12:00:00 GMT",
+		"If-None-Match": `W/"70abc5970f2ab8cd34adcfad015ffde6"`,
+	};
+	const expectedHeaders2 = {
 		Authorization: "Bearer abc",
 		"Wanikani-Revision": "20170710",
 	};
@@ -191,17 +220,17 @@ it("Returns GET request for a Review Collection", () => {
 		subject_ids: [4, 5, 6],
 	};
 
-	const request1 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).reviews.get();
+	const request1 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).reviews.get({}, options);
 	const request2 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).reviews.get(params);
 
 	expect(request1.method).toBe(expectedMethod);
 	expect(request1.url).toBe(expectedUrl1);
-	expect(request1.headers).toStrictEqual(expectedHeaders);
+	expect(request1.headers).toStrictEqual(expectedHeaders1);
 	expect(request1.body).toBe(expectedBody);
 
 	expect(request2.method).toBe(expectedMethod);
 	expect(request2.url).toBe(expectedUrl2);
-	expect(request2.headers).toStrictEqual(expectedHeaders);
+	expect(request2.headers).toStrictEqual(expectedHeaders2);
 	expect(request2.body).toBe(expectedBody);
 });
 
@@ -252,7 +281,13 @@ it("Returns GET request for a Review Statistic Collection", () => {
 	const expectedMethod = "GET";
 	const expectedUrl1 = "https://api.wanikani.com/v2/review_statistics";
 	const expectedUrl2 = "https://api.wanikani.com/v2/review_statistics?subject_ids=1,2,3&percentages_greater_than=90";
-	const expectedHeaders = {
+	const expectedHeaders1 = {
+		Authorization: "Bearer abc",
+		"Wanikani-Revision": "20170710",
+		"If-Modified-Since": "Tue, 14 Mar 2023, 12:00:00 GMT",
+		"If-None-Match": `W/"70abc5970f2ab8cd34adcfad015ffde6"`,
+	};
+	const expectedHeaders2 = {
 		Authorization: "Bearer abc",
 		"Wanikani-Revision": "20170710",
 	};
@@ -263,17 +298,17 @@ it("Returns GET request for a Review Statistic Collection", () => {
 		percentages_greater_than: 90,
 	};
 
-	const request1 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).reviewStatistics.get();
+	const request1 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).reviewStatistics.get({}, options);
 	const request2 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).reviewStatistics.get(params);
 
 	expect(request1.method).toBe(expectedMethod);
 	expect(request1.url).toBe(expectedUrl1);
-	expect(request1.headers).toStrictEqual(expectedHeaders);
+	expect(request1.headers).toStrictEqual(expectedHeaders1);
 	expect(request1.body).toBe(expectedBody);
 
 	expect(request2.method).toBe(expectedMethod);
 	expect(request2.url).toBe(expectedUrl2);
-	expect(request2.headers).toStrictEqual(expectedHeaders);
+	expect(request2.headers).toStrictEqual(expectedHeaders2);
 	expect(request2.body).toBe(expectedBody);
 });
 
@@ -299,7 +334,13 @@ it("Returns GET request for a Spaced Repetition System Collection", () => {
 	const expectedUrl1 = "https://api.wanikani.com/v2/spaced_repetition_systems";
 	const expectedUrl2 =
 		"https://api.wanikani.com/v2/spaced_repetition_systems?ids=1,2,3&updated_after=2023-03-01T12:00:00.000Z";
-	const expectedHeaders = {
+	const expectedHeaders1 = {
+		Authorization: "Bearer abc",
+		"Wanikani-Revision": "20170710",
+		"If-Modified-Since": "Tue, 14 Mar 2023, 12:00:00 GMT",
+		"If-None-Match": `W/"70abc5970f2ab8cd34adcfad015ffde6"`,
+	};
+	const expectedHeaders2 = {
 		Authorization: "Bearer abc",
 		"Wanikani-Revision": "20170710",
 	};
@@ -310,29 +351,32 @@ it("Returns GET request for a Spaced Repetition System Collection", () => {
 		updated_after: new Date("2023-03-01T12:00:00.000Z"),
 	};
 
-	const request1 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).spacedRepetitionSystems.get();
+	const request1 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).spacedRepetitionSystems.get(
+		{},
+		options,
+	);
 	const request2 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).spacedRepetitionSystems.get(params);
-	const request3 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).srs.get();
+	const request3 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).srs.get({}, options);
 	const request4 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).srs.get(params);
 
 	expect(request1.method).toBe(expectedMethod);
 	expect(request1.url).toBe(expectedUrl1);
-	expect(request1.headers).toStrictEqual(expectedHeaders);
+	expect(request1.headers).toStrictEqual(expectedHeaders1);
 	expect(request1.body).toBe(expectedBody);
 
 	expect(request2.method).toBe(expectedMethod);
 	expect(request2.url).toBe(expectedUrl2);
-	expect(request2.headers).toStrictEqual(expectedHeaders);
+	expect(request2.headers).toStrictEqual(expectedHeaders2);
 	expect(request2.body).toBe(expectedBody);
 
 	expect(request3.method).toBe(expectedMethod);
 	expect(request3.url).toBe(expectedUrl1);
-	expect(request3.headers).toStrictEqual(expectedHeaders);
+	expect(request3.headers).toStrictEqual(expectedHeaders1);
 	expect(request3.body).toBe(expectedBody);
 
 	expect(request4.method).toBe(expectedMethod);
 	expect(request4.url).toBe(expectedUrl2);
-	expect(request4.headers).toStrictEqual(expectedHeaders);
+	expect(request4.headers).toStrictEqual(expectedHeaders2);
 	expect(request4.body).toBe(expectedBody);
 });
 
@@ -363,7 +407,13 @@ it("Returns GET request for a Study Material Collection", () => {
 	const expectedMethod = "GET";
 	const expectedUrl1 = "https://api.wanikani.com/v2/study_materials";
 	const expectedUrl2 = "https://api.wanikani.com/v2/study_materials?subject_ids=1,2,3&subject_types=kanji";
-	const expectedHeaders = {
+	const expectedHeaders1 = {
+		Authorization: "Bearer abc",
+		"Wanikani-Revision": "20170710",
+		"If-Modified-Since": "Tue, 14 Mar 2023, 12:00:00 GMT",
+		"If-None-Match": `W/"70abc5970f2ab8cd34adcfad015ffde6"`,
+	};
+	const expectedHeaders2 = {
 		Authorization: "Bearer abc",
 		"Wanikani-Revision": "20170710",
 	};
@@ -374,17 +424,17 @@ it("Returns GET request for a Study Material Collection", () => {
 		subject_types: ["kanji"],
 	};
 
-	const request1 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).studyMaterials.get();
+	const request1 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).studyMaterials.get({}, options);
 	const request2 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).studyMaterials.get(params);
 
 	expect(request1.method).toBe(expectedMethod);
 	expect(request1.url).toBe(expectedUrl1);
-	expect(request1.headers).toStrictEqual(expectedHeaders);
+	expect(request1.headers).toStrictEqual(expectedHeaders1);
 	expect(request1.body).toBe(expectedBody);
 
 	expect(request2.method).toBe(expectedMethod);
 	expect(request2.url).toBe(expectedUrl2);
-	expect(request2.headers).toStrictEqual(expectedHeaders);
+	expect(request2.headers).toStrictEqual(expectedHeaders2);
 	expect(request2.body).toBe(expectedBody);
 });
 
@@ -458,7 +508,13 @@ it("Returns GET request for a Subject Collection", () => {
 	const expectedMethod = "GET";
 	const expectedUrl1 = "https://api.wanikani.com/v2/subjects";
 	const expectedUrl2 = "https://api.wanikani.com/v2/subjects?types=radical,kanji&levels=1,2,3";
-	const expectedHeaders = {
+	const expectedHeaders1 = {
+		Authorization: "Bearer abc",
+		"Wanikani-Revision": "20170710",
+		"If-Modified-Since": "Tue, 14 Mar 2023, 12:00:00 GMT",
+		"If-None-Match": `W/"70abc5970f2ab8cd34adcfad015ffde6"`,
+	};
+	const expectedHeaders2 = {
 		Authorization: "Bearer abc",
 		"Wanikani-Revision": "20170710",
 	};
@@ -469,17 +525,17 @@ it("Returns GET request for a Subject Collection", () => {
 		levels: [1, 2, 3],
 	};
 
-	const request1 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).subjects.get();
+	const request1 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).subjects.get({}, options);
 	const request2 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).subjects.get(params);
 
 	expect(request1.method).toBe(expectedMethod);
 	expect(request1.url).toBe(expectedUrl1);
-	expect(request1.headers).toStrictEqual(expectedHeaders);
+	expect(request1.headers).toStrictEqual(expectedHeaders1);
 	expect(request1.body).toBe(expectedBody);
 
 	expect(request2.method).toBe(expectedMethod);
 	expect(request2.url).toBe(expectedUrl2);
-	expect(request2.headers).toStrictEqual(expectedHeaders);
+	expect(request2.headers).toStrictEqual(expectedHeaders2);
 	expect(request2.body).toBe(expectedBody);
 });
 
@@ -523,10 +579,12 @@ it("Returns GET request for a User", () => {
 	const expectedHeaders = {
 		Authorization: "Bearer abc",
 		"Wanikani-Revision": "20170710",
+		"If-Modified-Since": "Tue, 14 Mar 2023, 12:00:00 GMT",
+		"If-None-Match": `W/"70abc5970f2ab8cd34adcfad015ffde6"`,
 	};
 	const expectedBody = null;
 
-	const request = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).user.get();
+	const request = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).user.get(options);
 
 	expect(request.method).toBe(expectedMethod);
 	expect(request.url).toBe(expectedUrl);
@@ -566,7 +624,13 @@ it("Returns GET request for a Voice Actor Collection", () => {
 	const expectedMethod = "GET";
 	const expectedUrl1 = "https://api.wanikani.com/v2/voice_actors";
 	const expectedUrl2 = "https://api.wanikani.com/v2/voice_actors?ids=1,2,3&updated_after=2023-03-01T12:00:00.000Z";
-	const expectedHeaders = {
+	const expectedHeaders1 = {
+		Authorization: "Bearer abc",
+		"Wanikani-Revision": "20170710",
+		"If-Modified-Since": "Tue, 14 Mar 2023, 12:00:00 GMT",
+		"If-None-Match": `W/"70abc5970f2ab8cd34adcfad015ffde6"`,
+	};
+	const expectedHeaders2 = {
 		Authorization: "Bearer abc",
 		"Wanikani-Revision": "20170710",
 	};
@@ -577,17 +641,17 @@ it("Returns GET request for a Voice Actor Collection", () => {
 		updated_after: new Date("2023-03-01T12:00:00.000Z"),
 	};
 
-	const request1 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).voiceActors.get();
+	const request1 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).voiceActors.get({}, options);
 	const request2 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).voiceActors.get(params);
 
 	expect(request1.method).toBe(expectedMethod);
 	expect(request1.url).toBe(expectedUrl1);
-	expect(request1.headers).toStrictEqual(expectedHeaders);
+	expect(request1.headers).toStrictEqual(expectedHeaders1);
 	expect(request1.body).toBe(expectedBody);
 
 	expect(request2.method).toBe(expectedMethod);
 	expect(request2.url).toBe(expectedUrl2);
-	expect(request2.headers).toStrictEqual(expectedHeaders);
+	expect(request2.headers).toStrictEqual(expectedHeaders2);
 	expect(request2.body).toBe(expectedBody);
 });
 
