@@ -749,6 +749,8 @@ export class WKRequestFactory {
 
 /**
  * Initialization options for a {@link WKRequestFactory}.
+ *
+ * @category Requests
  */
 export interface WKRequestFactoryInit {
 	/** The WaniKani API Token to use in the requests. */
@@ -763,6 +765,8 @@ export interface WKRequestFactoryInit {
 
 /**
  * Options for making GET Requests to the WaniKani API.
+ *
+ * @category Requests
  */
 export interface WKRequestGetOptions {
 	/** Adds an `If-Modified-Since` header to the request. */
@@ -775,6 +779,8 @@ export interface WKRequestGetOptions {
 
 /**
  * Generally expected HTTP headers when making requests to the WaniKani API.
+ *
+ * @category Requests
  */
 export interface WKRequestHeaders {
 	/** HTTP Authorization header, using a Bearer Token. */
@@ -796,6 +802,8 @@ export interface WKRequestHeaders {
 
 /**
  * Options for making POST and PUT Requests to the WaniKani API.
+ *
+ * @category Requests
  */
 export interface WKRequestPostPutOptions {
 	/** Custom headers to add to this request only. */
@@ -846,8 +854,8 @@ export interface WKLevelProgressionRequests {
 /**
  * Types of Reset Requests available in the Wanikani API.
  *
- * @category Resets
  * @category Requests
+ * @category Resets
  */
 export interface WKResetRequests {
 	/**
@@ -862,8 +870,8 @@ export interface WKResetRequests {
 /**
  * Types of Review Requests available in the Wanikani API.
  *
- * @category Reviews
  * @category Requests
+ * @category Reviews
  */
 export interface WKReviewRequests {
 	/**
@@ -885,8 +893,8 @@ export interface WKReviewRequests {
 /**
  * Types of Review Statistic Requests available in the Wanikani API.
  *
- * @category Review Statistics
  * @category Requests
+ * @category Review Statistics
  */
 export interface WKReviewStatisticRequests {
 	/**
@@ -901,6 +909,9 @@ export interface WKReviewStatisticRequests {
 
 /**
  * Types of Spaced Repetition System (SRS) Requests available in the Wanikani API.
+ *
+ * @category Requests
+ * @category Spaced Repetition Systems
  */
 export interface WKSpacedRepetitionSystemRequests {
 	/**
@@ -915,6 +926,9 @@ export interface WKSpacedRepetitionSystemRequests {
 
 /**
  * Types of Study Material Requests available in the Wanikani API.
+ *
+ * @category Requests
+ * @category Study Materials
  */
 export interface WKStudyMaterialRequests {
 	/**
@@ -944,6 +958,9 @@ export interface WKStudyMaterialRequests {
 
 /**
  * Types of Subject Requests available in the Wanikani API.
+ *
+ * @category Requests
+ * @category Subjects
  */
 export interface WKSubjectRequests {
 	/**
@@ -957,6 +974,9 @@ export interface WKSubjectRequests {
 
 /**
  * Types of Summary Requests available in the Wanikani API.
+ *
+ * @category Requests
+ * @category Summary
  */
 export interface WKSummaryRequests {
 	/**
@@ -970,6 +990,9 @@ export interface WKSummaryRequests {
 
 /**
  * Types of User Requests available in the Wanikani API.
+ *
+ * @category Requests
+ * @category User
  */
 export interface WKUserRequests {
 	/**
@@ -991,6 +1014,9 @@ export interface WKUserRequests {
 
 /**
  * Types of Voice Actor Requests available in the Wanikani API.
+ *
+ * @category Requests
+ * @category Voice Actors
  */
 export interface WKVoiceActorRequests {
 	/**
