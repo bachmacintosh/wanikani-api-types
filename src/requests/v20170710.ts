@@ -64,6 +64,11 @@ export class WKRequestFactory {
 				if (typeof options.ifNoneMatch !== "undefined") {
 					headers["If-None-Match"] = options.ifNoneMatch;
 				}
+				if (typeof options.customHeaders !== "undefined") {
+					for (const [key, value] of Object.entries(options.customHeaders)) {
+						headers[key] = value;
+					}
+				}
 			}
 			const request: WKRequest = {
 				baseUrl,
@@ -126,6 +131,11 @@ export class WKRequestFactory {
 				if (typeof options.ifNoneMatch !== "undefined") {
 					headers["If-None-Match"] = options.ifNoneMatch;
 				}
+				if (typeof options.customHeaders !== "undefined") {
+					for (const [key, value] of Object.entries(options.customHeaders)) {
+						headers[key] = value;
+					}
+				}
 			}
 			const request: WKRequest = {
 				baseUrl,
@@ -168,6 +178,11 @@ export class WKRequestFactory {
 				if (typeof options.ifNoneMatch !== "undefined") {
 					headers["If-None-Match"] = options.ifNoneMatch;
 				}
+				if (typeof options.customHeaders !== "undefined") {
+					for (const [key, value] of Object.entries(options.customHeaders)) {
+						headers[key] = value;
+					}
+				}
 			}
 			const request: WKRequest = {
 				baseUrl,
@@ -204,6 +219,11 @@ export class WKRequestFactory {
 				}
 				if (typeof options.ifNoneMatch !== "undefined") {
 					headers["If-None-Match"] = options.ifNoneMatch;
+				}
+				if (typeof options.customHeaders !== "undefined") {
+					for (const [key, value] of Object.entries(options.customHeaders)) {
+						headers[key] = value;
+					}
 				}
 			}
 			const request: WKRequest = {
@@ -261,6 +281,11 @@ export class WKRequestFactory {
 				if (typeof options.ifNoneMatch !== "undefined") {
 					headers["If-None-Match"] = options.ifNoneMatch;
 				}
+				if (typeof options.customHeaders !== "undefined") {
+					for (const [key, value] of Object.entries(options.customHeaders)) {
+						headers[key] = value;
+					}
+				}
 			}
 			const request: WKRequest = {
 				baseUrl,
@@ -299,6 +324,11 @@ export class WKRequestFactory {
 				if (typeof options.ifNoneMatch !== "undefined") {
 					headers["If-None-Match"] = options.ifNoneMatch;
 				}
+				if (typeof options.customHeaders !== "undefined") {
+					for (const [key, value] of Object.entries(options.customHeaders)) {
+						headers[key] = value;
+					}
+				}
 			}
 			const request: WKRequest = {
 				baseUrl,
@@ -336,6 +366,11 @@ export class WKRequestFactory {
 				}
 				if (typeof options.ifNoneMatch !== "undefined") {
 					headers["If-None-Match"] = options.ifNoneMatch;
+				}
+				if (typeof options.customHeaders !== "undefined") {
+					for (const [key, value] of Object.entries(options.customHeaders)) {
+						headers[key] = value;
+					}
 				}
 			}
 			const request: WKRequest = {
@@ -411,6 +446,11 @@ export class WKRequestFactory {
 				if (typeof options.ifNoneMatch !== "undefined") {
 					headers["If-None-Match"] = options.ifNoneMatch;
 				}
+				if (typeof options.customHeaders !== "undefined") {
+					for (const [key, value] of Object.entries(options.customHeaders)) {
+						headers[key] = value;
+					}
+				}
 			}
 			const request: WKRequest = {
 				baseUrl,
@@ -448,6 +488,11 @@ export class WKRequestFactory {
 				if (typeof options.ifNoneMatch !== "undefined") {
 					headers["If-None-Match"] = options.ifNoneMatch;
 				}
+				if (typeof options.customHeaders !== "undefined") {
+					for (const [key, value] of Object.entries(options.customHeaders)) {
+						headers[key] = value;
+					}
+				}
 			}
 			const request: WKRequest = {
 				baseUrl,
@@ -478,6 +523,11 @@ export class WKRequestFactory {
 				}
 				if (typeof options.ifNoneMatch !== "undefined") {
 					headers["If-None-Match"] = options.ifNoneMatch;
+				}
+				if (typeof options.customHeaders !== "undefined") {
+					for (const [key, value] of Object.entries(options.customHeaders)) {
+						headers[key] = value;
+					}
 				}
 			}
 			const request: WKRequest = {
@@ -528,6 +578,11 @@ export class WKRequestFactory {
 				}
 				if (typeof options.ifNoneMatch !== "undefined") {
 					headers["If-None-Match"] = options.ifNoneMatch;
+				}
+				if (typeof options.customHeaders !== "undefined") {
+					for (const [key, value] of Object.entries(options.customHeaders)) {
+						headers[key] = value;
+					}
 				}
 			}
 			const request: WKRequest = {
