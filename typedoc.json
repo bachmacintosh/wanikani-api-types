@@ -9,7 +9,7 @@
 	"categorizeByGroup": false,
 	"categoryOrder": ["Base", "Collections", "Data", "Parameters", "Payloads", "Reports", "Requests", "Resources", "*"],
 	"sort": ["required-first", "alphabetical"],
-	"visibilityFilters": {},
+	"visibilityFilters": { "private": false },
 	"treatWarningsAsErrors": true,
 	"requiredToBeDocumented": [
 		"Enum",
