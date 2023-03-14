@@ -29,8 +29,16 @@ export interface WKRequest {
 
 export class WKRequestFactory {
 	#assignments: WKAssignmentRequests = {
-		get: (idOrParams?: WKAssignmentParameters | number): WKRequest => {
+		get: (idOrParams?: WKAssignmentParameters | number, options?: WKRequestGetOptions): WKRequest => {
 			const headers = { ...this.#getHeaders };
+			if (typeof options !== "undefined") {
+				if (options.ifModifiedSince) {
+					headers["If-Modified-Since"] = options.ifModifiedSince;
+				}
+				if (options.ifNoneMatch) {
+					headers["If-None-Match"] = options.ifNoneMatch;
+				}
+			}
 			const request: WKRequest = {
 				baseUrl,
 				body: null,
@@ -63,8 +71,16 @@ export class WKRequestFactory {
 	#getHeaders: WKRequestHeaders;
 
 	#levelProgressions: WKLevelProgressionRequests = {
-		get: (idOrParams?: WKLevelProgressionParameters | number): WKRequest => {
+		get: (idOrParams?: WKLevelProgressionParameters | number, options?: WKRequestGetOptions): WKRequest => {
 			const headers = { ...this.#getHeaders };
+			if (typeof options !== "undefined") {
+				if (options.ifModifiedSince) {
+					headers["If-Modified-Since"] = options.ifModifiedSince;
+				}
+				if (options.ifNoneMatch) {
+					headers["If-None-Match"] = options.ifNoneMatch;
+				}
+			}
 			const request: WKRequest = {
 				baseUrl,
 				body: null,
@@ -84,8 +100,16 @@ export class WKRequestFactory {
 	#postPutHeaders: WKRequestHeaders;
 
 	#resets: WKResetRequests = {
-		get: (idOrParams?: WKResetParameters | number): WKRequest => {
+		get: (idOrParams?: WKResetParameters | number, options?: WKRequestGetOptions): WKRequest => {
 			const headers = { ...this.#getHeaders };
+			if (typeof options !== "undefined") {
+				if (options.ifModifiedSince) {
+					headers["If-Modified-Since"] = options.ifModifiedSince;
+				}
+				if (options.ifNoneMatch) {
+					headers["If-None-Match"] = options.ifNoneMatch;
+				}
+			}
 			const request: WKRequest = {
 				baseUrl,
 				body: null,
