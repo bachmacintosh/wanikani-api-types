@@ -83,6 +83,26 @@ export class WKRequestFactory {
 
 	#postPutHeaders: WKRequestHeaders;
 
+	#resets: WKResetRequests = {
+		get: (idOrParams?: WKResetParameters | number): WKRequest => {
+			const headers = { ...this.#getHeaders };
+			const request: WKRequest = {
+				baseUrl,
+				body: null,
+				headers,
+				method: "GET",
+				url: `${baseUrl}/resets`,
+			};
+			if (typeof idOrParams === "number") {
+				request.url += `/${idOrParams}`;
+			} else if (typeof idOrParams !== "undefined") {
+				validateParameters("Reset", idOrParams);
+				request.url += stringifyParameters(idOrParams);
+			}
+			return request;
+		},
+	};
+
 	#baseUrl = "https://api.wanikani.com/v2";
 
 	#body: string | null;
@@ -110,20 +130,16 @@ export class WKRequestFactory {
 		return this.#assignments;
 	}
 
-	public get baseUrl(): string {
-		return this.#baseUrl;
+	public get levelProgressions(): WKLevelProgressionRequests {
+		return this.#levelProgressions;
+	}
+
+	public get resets(): WKResetRequests {
+		return this.#resets;
 	}
 
 	public get body(): string | null {
 		return this.#body;
-	}
-
-	public get headers(): WKRequestHeaders {
-		return this.#getHeaders;
-	}
-
-	public get levelProgressions(): WKLevelProgressionRequests {
-		return this.#levelProgressions;
 	}
 
 	public get method(): string {
@@ -132,19 +148,6 @@ export class WKRequestFactory {
 
 	public get url(): string {
 		return this.#url;
-	}
-
-	public resets(idOrParams?: WKResetParameters | number): this {
-		this.#method = "GET";
-		this.#url = `${this.#baseUrl}/resets`;
-		this.#body = null;
-		if (typeof idOrParams === "number") {
-			this.#url += `/${idOrParams}`;
-		} else if (typeof idOrParams !== "undefined") {
-			this.#url += stringifyParameters(idOrParams);
-		}
-		this.#toggleRequestContent();
-		return this;
 	}
 
 	public reviews(action: "get", idOrParams?: WKReviewParameters | number): this;
@@ -344,7 +347,7 @@ export interface WKLevelProgressionRequests {
 }
 
 export interface WKResetRequests {
-	get: (idOrParams?: WKLevelProgressionParameters | number, options?: WKRequestGetOptions) => WKRequest;
+	get: (idOrParams?: WKResetParameters | number, options?: WKRequestGetOptions) => WKRequest;
 }
 
 export interface WKReviewRequests {
