@@ -56,12 +56,30 @@ export class WKRequestFactory {
 				method: "PUT",
 				url: `${baseUrl}/assignments/${id}/start`,
 			};
-			request.headers["Content-Type"] = "application/json";
 			return request;
 		},
 	};
 
 	#getHeaders: WKRequestHeaders;
+
+	#levelProgressions: WKLevelProgressionRequests = {
+		get: (idOrParams: WKLevelProgressionParameters | number): WKRequest => {
+			const headers = { ...this.#getHeaders };
+			const request: WKRequest = {
+				baseUrl,
+				body: null,
+				headers,
+				method: "GET",
+				url: `${baseUrl}/level_progressions`,
+			};
+			if (typeof idOrParams === "number") {
+				request.url += `/${idOrParams}`;
+			} else if (typeof idOrParams !== "undefined") {
+				request.url += stringifyParameters(idOrParams);
+			}
+			return request;
+		},
+	};
 
 	#postPutHeaders: WKRequestHeaders;
 
@@ -104,25 +122,16 @@ export class WKRequestFactory {
 		return this.#getHeaders;
 	}
 
+	public get levelProgressions(): WKLevelProgressionRequests {
+		return this.#levelProgressions;
+	}
+
 	public get method(): string {
 		return this.#method;
 	}
 
 	public get url(): string {
 		return this.#url;
-	}
-
-	public levelProgressions(idOrParams?: WKLevelProgressionParameters | number): this {
-		this.#method = "GET";
-		this.#url = `${this.#baseUrl}/level_progressions`;
-		this.#body = null;
-		if (typeof idOrParams === "number") {
-			this.#url += `/${idOrParams}`;
-		} else if (typeof idOrParams !== "undefined") {
-			this.#url += stringifyParameters(idOrParams);
-		}
-		this.#toggleRequestContent();
-		return this;
 	}
 
 	public resets(idOrParams?: WKResetParameters | number): this {
