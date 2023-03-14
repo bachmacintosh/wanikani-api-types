@@ -30,13 +30,11 @@ export interface WKRequest {
 export class WKRequestFactory {
 	#assignments: WKAssignmentRequests = {
 		get: (idOrParams: WKAssignmentParameters | number): WKRequest => {
+			const headers = { ...this.#getHeaders };
 			const request: WKRequest = {
 				baseUrl,
 				body: null,
-				headers: {
-					Authorization: this.#getHeaders.Authorization,
-					"Wanikani-Revision": this.#getHeaders["Wanikani-Revision"],
-				},
+				headers,
 				method: "GET",
 				url: `${baseUrl}/assignments`,
 			};
@@ -50,10 +48,11 @@ export class WKRequestFactory {
 		},
 		start: (id: number, payload: WKAssignmentPayload): WKRequest => {
 			validatePayload("PUT /assignments/<id>/start", payload);
+			const headers = { ...this.#postPutHeaders };
 			const request: WKRequest = {
 				baseUrl,
 				body: JSON.stringify(payload),
-				headers: this.#getHeaders,
+				headers,
 				method: "PUT",
 				url: `${baseUrl}/assignments/${id}/start`,
 			};
