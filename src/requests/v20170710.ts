@@ -91,6 +91,7 @@ export class WKRequestFactory {
 			if (typeof idOrParams === "number") {
 				request.url += `/${idOrParams}`;
 			} else if (typeof idOrParams !== "undefined") {
+				validateParameters("Level Progression", idOrParams);
 				request.url += stringifyParameters(idOrParams);
 			}
 			return request;
@@ -127,27 +128,276 @@ export class WKRequestFactory {
 		},
 	};
 
-	#baseUrl = "https://api.wanikani.com/v2";
+	#reviews: WKReviewRequests = {
+		get: (idOrParams?: WKReviewParameters | number, options?: WKRequestGetOptions): WKRequest => {
+			const headers = { ...this.#getHeaders };
+			if (typeof options !== "undefined") {
+				if (options.ifModifiedSince) {
+					headers["If-Modified-Since"] = options.ifModifiedSince;
+				}
+				if (options.ifNoneMatch) {
+					headers["If-None-Match"] = options.ifNoneMatch;
+				}
+			}
+			const request: WKRequest = {
+				baseUrl,
+				body: null,
+				headers,
+				method: "GET",
+				url: `${baseUrl}/reviews`,
+			};
+			if (typeof idOrParams === "number") {
+				request.url += `/${idOrParams}`;
+			} else if (typeof idOrParams !== "undefined") {
+				validateParameters("Review", idOrParams);
+				request.url += stringifyParameters(idOrParams);
+			}
+			return request;
+		},
+		create: (payload: WKReviewPayload): WKRequest => {
+			validatePayload("POST /reviews", payload);
+			const headers = { ...this.#postPutHeaders };
+			const request: WKRequest = {
+				baseUrl,
+				body: JSON.stringify(payload),
+				headers,
+				method: "POST",
+				url: `${baseUrl}/reviews`,
+			};
+			return request;
+		},
+	};
 
-	#body: string | null;
+	#reviewStatistics: WKReviewStatisticRequests = {
+		get: (idOrParams?: WKReviewStatisticParameters | number, options?: WKRequestGetOptions): WKRequest => {
+			const headers = { ...this.#getHeaders };
+			if (typeof options !== "undefined") {
+				if (options.ifModifiedSince) {
+					headers["If-Modified-Since"] = options.ifModifiedSince;
+				}
+				if (options.ifNoneMatch) {
+					headers["If-None-Match"] = options.ifNoneMatch;
+				}
+			}
+			const request: WKRequest = {
+				baseUrl,
+				body: null,
+				headers,
+				method: "GET",
+				url: `${baseUrl}/review_statistics`,
+			};
+			if (typeof idOrParams === "number") {
+				request.url += `/${idOrParams}`;
+			} else if (typeof idOrParams !== "undefined") {
+				validateParameters("Review Statistic", idOrParams);
+				request.url += stringifyParameters(idOrParams);
+			}
+			return request;
+		},
+	};
 
-	#method: "GET" | "POST" | "PUT";
+	#spacedRepetitionSystems: WKSpacedRepetitionSystemRequests = {
+		get: (idOrParams?: WKSpacedRepetitionSystemParameters | number, options?: WKRequestGetOptions): WKRequest => {
+			const headers = { ...this.#getHeaders };
+			if (typeof options !== "undefined") {
+				if (options.ifModifiedSince) {
+					headers["If-Modified-Since"] = options.ifModifiedSince;
+				}
+				if (options.ifNoneMatch) {
+					headers["If-None-Match"] = options.ifNoneMatch;
+				}
+			}
+			const request: WKRequest = {
+				baseUrl,
+				body: null,
+				headers,
+				method: "GET",
+				url: `${baseUrl}/spaced_repetition_systems`,
+			};
+			if (typeof idOrParams === "number") {
+				request.url += `/${idOrParams}`;
+			} else if (typeof idOrParams !== "undefined") {
+				validateParameters("Spaced Repetition System", idOrParams);
+				request.url += stringifyParameters(idOrParams);
+			}
+			return request;
+		},
+	};
 
-	#url: string;
+	#studyMaterials: WKStudyMaterialRequests = {
+		get: (idOrParams?: WKStudyMaterialParameters | number, options?: WKRequestGetOptions): WKRequest => {
+			const headers = { ...this.#getHeaders };
+			if (typeof options !== "undefined") {
+				if (options.ifModifiedSince) {
+					headers["If-Modified-Since"] = options.ifModifiedSince;
+				}
+				if (options.ifNoneMatch) {
+					headers["If-None-Match"] = options.ifNoneMatch;
+				}
+			}
+			const request: WKRequest = {
+				baseUrl,
+				body: null,
+				headers,
+				method: "GET",
+				url: `${baseUrl}/study_materials`,
+			};
+			if (typeof idOrParams === "number") {
+				request.url += `/${idOrParams}`;
+			} else if (typeof idOrParams !== "undefined") {
+				validateParameters("Study Material", idOrParams);
+				request.url += stringifyParameters(idOrParams);
+			}
+			return request;
+		},
+		create: (payload: WKStudyMaterialCreatePayload): WKRequest => {
+			validatePayload("POST /study_materials", payload);
+			const headers = { ...this.#postPutHeaders };
+			const request: WKRequest = {
+				baseUrl,
+				body: JSON.stringify(payload),
+				headers,
+				method: "POST",
+				url: `${baseUrl}/study_materials`,
+			};
+			return request;
+		},
+		update: (id: number, payload: WKStudyMaterialUpdatePayload): WKRequest => {
+			validatePayload("PUT /study_materials/<id>", payload);
+			const headers = { ...this.#postPutHeaders };
+			const request: WKRequest = {
+				baseUrl,
+				body: JSON.stringify(payload),
+				headers,
+				method: "PUT",
+				url: `${baseUrl}/study_materials/${id}`,
+			};
+			return request;
+		},
+	};
+
+	#subjects: WKSubjectRequests = {
+		get: (idOrParams?: WKSubjectParameters | number, options?: WKRequestGetOptions): WKRequest => {
+			const headers = { ...this.#getHeaders };
+			if (typeof options !== "undefined") {
+				if (options.ifModifiedSince) {
+					headers["If-Modified-Since"] = options.ifModifiedSince;
+				}
+				if (options.ifNoneMatch) {
+					headers["If-None-Match"] = options.ifNoneMatch;
+				}
+			}
+			const request: WKRequest = {
+				baseUrl,
+				body: null,
+				headers,
+				method: "GET",
+				url: `${baseUrl}/subjects`,
+			};
+			if (typeof idOrParams === "number") {
+				request.url += `/${idOrParams}`;
+			} else if (typeof idOrParams !== "undefined") {
+				validateParameters("Subject", idOrParams);
+				request.url += stringifyParameters(idOrParams);
+			}
+			return request;
+		},
+	};
+
+	#summary: WKSummaryRequests = {
+		get: (options?: WKRequestGetOptions): WKRequest => {
+			const headers = { ...this.#getHeaders };
+			if (typeof options !== "undefined") {
+				if (options.ifModifiedSince) {
+					headers["If-Modified-Since"] = options.ifModifiedSince;
+				}
+				if (options.ifNoneMatch) {
+					headers["If-None-Match"] = options.ifNoneMatch;
+				}
+			}
+			const request: WKRequest = {
+				baseUrl,
+				body: null,
+				headers,
+				method: "GET",
+				url: `${baseUrl}/summary`,
+			};
+			return request;
+		},
+	};
+
+	#user: WKUserRequests = {
+		get: (options?: WKRequestGetOptions): WKRequest => {
+			const headers = { ...this.#getHeaders };
+			if (typeof options !== "undefined") {
+				if (options.ifModifiedSince) {
+					headers["If-Modified-Since"] = options.ifModifiedSince;
+				}
+				if (options.ifNoneMatch) {
+					headers["If-None-Match"] = options.ifNoneMatch;
+				}
+			}
+			const request: WKRequest = {
+				baseUrl,
+				body: null,
+				headers,
+				method: "GET",
+				url: `${baseUrl}/user`,
+			};
+			return request;
+		},
+		updatePreferences: (payload: WKUserPreferencesPayload): WKRequest => {
+			validatePayload("PUT /user", payload);
+			const headers = { ...this.#postPutHeaders };
+			const request: WKRequest = {
+				baseUrl,
+				body: JSON.stringify(payload),
+				headers,
+				method: "PUT",
+				url: `${baseUrl}/user`,
+			};
+			return request;
+		},
+	};
+
+	#voiceActors: WKVoiceActorRequests = {
+		get: (idOrParams?: WKVoiceActorParameters | number, options?: WKRequestGetOptions): WKRequest => {
+			const headers = { ...this.#getHeaders };
+			if (typeof options !== "undefined") {
+				if (options.ifModifiedSince) {
+					headers["If-Modified-Since"] = options.ifModifiedSince;
+				}
+				if (options.ifNoneMatch) {
+					headers["If-None-Match"] = options.ifNoneMatch;
+				}
+			}
+			const request: WKRequest = {
+				baseUrl,
+				body: null,
+				headers,
+				method: "GET",
+				url: `${baseUrl}/voice_actors`,
+			};
+			if (typeof idOrParams === "number") {
+				request.url += `/${idOrParams}`;
+			} else if (typeof idOrParams !== "undefined") {
+				validateParameters("Voice Actor", idOrParams);
+				request.url += stringifyParameters(idOrParams);
+			}
+			return request;
+		},
+	};
 
 	public constructor(init: WKRequestFactoryInit) {
 		this.#getHeaders = {
 			Authorization: `Bearer ${init.apiKey}`,
 			"Wanikani-Revision": init.revision ?? "20170710",
 		};
-		this.#body = null;
 		if (typeof init.revision !== "undefined") {
 			this.#getHeaders["Wanikani-Revision"] = init.revision;
 		}
 		this.#postPutHeaders = { ...this.#getHeaders };
 		this.#postPutHeaders["Content-Type"] = "application/json";
-		this.#method = "GET";
-		this.#url = this.#baseUrl;
 	}
 
 	public get assignments(): WKAssignmentRequests {
@@ -162,180 +412,40 @@ export class WKRequestFactory {
 		return this.#resets;
 	}
 
-	public get body(): string | null {
-		return this.#body;
+	public get reviews(): WKReviewRequests {
+		return this.#reviews;
 	}
 
-	public get method(): string {
-		return this.#method;
+	public get reviewStatistics(): WKReviewStatisticRequests {
+		return this.#reviewStatistics;
 	}
 
-	public get url(): string {
-		return this.#url;
+	public get spacedRepetitionSystems(): WKSpacedRepetitionSystemRequests {
+		return this.#spacedRepetitionSystems;
 	}
 
-	public reviews(action: "get", idOrParams?: WKReviewParameters | number): this;
-	public reviews(action: "create", payload: WKReviewPayload): this;
-	public reviews(action: "create" | "get", idOrParamsOrPayload?: WKReviewParameters | WKReviewPayload | number): this {
-		this.#method = "GET";
-		this.#url = `${this.#baseUrl}/reviews`;
-		this.#body = null;
-		if (action === "create") {
-			if (typeof idOrParamsOrPayload === "undefined") {
-				throw new TypeError("Payload required to create a Review.");
-			}
-			if (typeof idOrParamsOrPayload === "number") {
-				throw new TypeError("Unexpected Review ID when creating a new Review.");
-			}
-			if (!Object.keys(idOrParamsOrPayload).includes("review")) {
-				throw new TypeError("Invalid Review Payload when creating a Review.");
-			}
-			this.#method = "POST";
-			this.#body = JSON.stringify(idOrParamsOrPayload);
-		} else if (typeof idOrParamsOrPayload === "number") {
-			this.#url += `/${idOrParamsOrPayload}`;
-		} else if (typeof idOrParamsOrPayload !== "undefined") {
-			this.#url += stringifyParameters(idOrParamsOrPayload as WKReviewParameters);
-		}
-		this.#toggleRequestContent();
-		return this;
+	public get srs(): WKSpacedRepetitionSystemRequests {
+		return this.#spacedRepetitionSystems;
 	}
 
-	public reviewStatistics(idOrParams?: WKReviewStatisticParameters | number): this {
-		this.#method = "GET";
-		this.#url = `${this.#baseUrl}/review_statistics`;
-		this.#body = null;
-		if (typeof idOrParams === "number") {
-			this.#url += `/${idOrParams}`;
-		} else if (typeof idOrParams !== "undefined") {
-			this.#url += stringifyParameters(idOrParams);
-		}
-		this.#toggleRequestContent();
-		return this;
+	public get studyMaterials(): WKStudyMaterialRequests {
+		return this.#studyMaterials;
 	}
 
-	public spacedRepetitionSystems(idOrParams?: WKSpacedRepetitionSystemParameters | number): this {
-		this.#method = "GET";
-		this.#url = `${this.#baseUrl}/spaced_repetition_systems`;
-		this.#body = null;
-		if (typeof idOrParams === "number") {
-			this.#url += `/${idOrParams}`;
-		} else if (typeof idOrParams !== "undefined") {
-			this.#url += stringifyParameters(idOrParams);
-		}
-		this.#toggleRequestContent();
-		return this;
+	public get subjects(): WKSubjectRequests {
+		return this.#subjects;
 	}
 
-	public srs(idOrParams?: WKSpacedRepetitionSystemParameters | number): this {
-		return this.spacedRepetitionSystems(idOrParams);
+	public get summary(): WKSummaryRequests {
+		return this.#summary;
 	}
 
-	public studyMaterials(action: "create", payload: WKStudyMaterialCreatePayload): this;
-	public studyMaterials(action: "get", idOrParams?: WKStudyMaterialParameters | number): this;
-	public studyMaterials(action: "update", id: number, payload: WKStudyMaterialUpdatePayload): this;
-	public studyMaterials(
-		action: "create" | "get" | "update",
-		idOrParamsOrCreatePayload?: WKStudyMaterialCreatePayload | WKStudyMaterialParameters | number,
-		updatePayload?: WKStudyMaterialUpdatePayload,
-	): this {
-		this.#method = "GET";
-		this.#url = `${this.#baseUrl}/study_materials`;
-		this.#body = null;
-		if (action === "create") {
-			if (typeof idOrParamsOrCreatePayload === "undefined") {
-				throw new TypeError("Study Material Create Payload required to create a Study Material.");
-			}
-			if (typeof idOrParamsOrCreatePayload === "number") {
-				throw new TypeError(
-					"Expected Study Material Create Payload, got Study Material ID when creating a Study Material ",
-				);
-			}
-			if (!Object.keys(idOrParamsOrCreatePayload).includes("subject_id")) {
-				throw new TypeError("Invalid Study Material Create Payload when creating a Study Material.");
-			}
-			if (typeof updatePayload !== "undefined") {
-				throw new TypeError("Unexpected Study Material Update Payload when creating a Study Material.");
-			}
-			this.#method = "POST";
-			this.#body = JSON.stringify(idOrParamsOrCreatePayload);
-		} else if (action === "update") {
-			if (typeof idOrParamsOrCreatePayload !== "number") {
-				throw new TypeError("Study Material ID required to update a Study Material.");
-			}
-			if (typeof updatePayload === "undefined") {
-				throw new TypeError("Study Material Update Payload required to update a Study Material.");
-			}
-			this.#method = "PUT";
-			this.#url += `/${idOrParamsOrCreatePayload}`;
-			this.#body = JSON.stringify(updatePayload);
-		} else if (typeof idOrParamsOrCreatePayload === "number") {
-			this.#url += `/${idOrParamsOrCreatePayload}`;
-		} else if (typeof idOrParamsOrCreatePayload !== "undefined") {
-			this.#url += stringifyParameters(idOrParamsOrCreatePayload as WKStudyMaterialParameters);
-		}
-		this.#toggleRequestContent();
-		return this;
+	public get user(): WKUserRequests {
+		return this.#user;
 	}
 
-	public subjects(idOrParams?: WKSubjectParameters | number): this {
-		this.#method = "GET";
-		this.#url = `${this.#baseUrl}/subjects`;
-		this.#body = null;
-		if (typeof idOrParams === "number") {
-			this.#url += `/${idOrParams}`;
-		} else if (typeof idOrParams !== "undefined") {
-			this.#url += stringifyParameters(idOrParams);
-		}
-		this.#toggleRequestContent();
-		return this;
-	}
-
-	public summary(): this {
-		this.#method = "GET";
-		this.#url = `${this.#baseUrl}/summary`;
-		this.#body = null;
-		this.#toggleRequestContent();
-		return this;
-	}
-
-	public user(action: "get"): this;
-	public user(action: "update", payload: WKUserPreferencesPayload): this;
-	public user(action: "get" | "update", payload?: WKUserPreferencesPayload): this {
-		this.#method = "GET";
-		this.#url = `${this.#baseUrl}/user`;
-		this.#body = null;
-		if (action === "update") {
-			if (typeof payload === "undefined") {
-				throw new TypeError("Payload required to update User.");
-			}
-			this.#method = "PUT";
-			this.#body = JSON.stringify(payload);
-		}
-		this.#toggleRequestContent();
-		return this;
-	}
-
-	public voiceActors(idOrParams?: WKVoiceActorParameters | number): this {
-		this.#method = "GET";
-		this.#url = `${this.#baseUrl}/voice_actors`;
-		this.#body = null;
-		if (typeof idOrParams === "number") {
-			this.#url += `/${idOrParams}`;
-		} else if (typeof idOrParams !== "undefined") {
-			this.#url += stringifyParameters(idOrParams);
-		}
-		this.#toggleRequestContent();
-		return this;
-	}
-
-	#toggleRequestContent(): void {
-		if (this.#method === "POST" || this.#method === "PUT") {
-			this.#getHeaders["Content-Type"] = "application/json";
-		} else {
-			delete this.#getHeaders["Content-Type"];
-			this.#body = null;
-		}
+	public get voiceActors(): WKVoiceActorRequests {
+		return this.#voiceActors;
 	}
 }
 
