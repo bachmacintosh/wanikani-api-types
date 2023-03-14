@@ -67,6 +67,7 @@ export type {
 	WKRequestFactoryInit,
 	WKRequestGetOptions,
 	WKRequestHeaders,
+	WKRequestPostPutOptions,
 	WKResetRequests,
 	WKReviewRequests,
 	WKReviewStatisticRequests,
