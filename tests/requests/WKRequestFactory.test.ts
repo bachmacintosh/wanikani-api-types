@@ -20,6 +20,8 @@ const options = {
 	ifNoneMatch: `W/"70abc5970f2ab8cd34adcfad015ffde6"`,
 };
 
+const wanikani = new WKRequestFactory({ apiKey: "abc", revision: "20170710" });
+
 it("Returns GET request for an Assignment Collection", () => {
 	const expectedMethod = "GET";
 	const expectedUrl1 = "https://api.wanikani.com/v2/assignments";
@@ -41,8 +43,8 @@ it("Returns GET request for an Assignment Collection", () => {
 		hidden: false,
 	};
 
-	const request1 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).assignments.get({}, options);
-	const request2 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).assignments.get(params);
+	const request1 = wanikani.assignments.get({}, options);
+	const request2 = wanikani.assignments.get(params);
 
 	expect(request1.method).toBe(expectedMethod);
 	expect(request1.url).toBe(expectedUrl1);
@@ -64,7 +66,7 @@ it("Returns GET request for an Assignment", () => {
 	};
 	const expectedBody = null;
 
-	const request = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).assignments.get(123);
+	const request = wanikani.assignments.get(123);
 
 	expect(request.method).toBe(expectedMethod);
 	expect(request.url).toBe(expectedUrl);
@@ -86,7 +88,7 @@ it("Returns PUT request for starting an Assignment", () => {
 		started_at: new Date("2023-02-04T15:30:00.000Z"),
 	};
 
-	const request = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).assignments.start(123, payload);
+	const request = wanikani.assignments.start(123, payload);
 
 	expect(request.method).toBe(expectedMethod);
 	expect(request.url).toBe(expectedUrl);
@@ -116,8 +118,8 @@ it("Returns GET request for a Level Progression Collection", () => {
 		updated_after: new Date("2023-03-01T12:00:00.000Z"),
 	};
 
-	const request1 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).levelProgressions.get({}, options);
-	const request2 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).levelProgressions.get(params);
+	const request1 = wanikani.levelProgressions.get({}, options);
+	const request2 = wanikani.levelProgressions.get(params);
 
 	expect(request1.method).toBe(expectedMethod);
 	expect(request1.url).toBe(expectedUrl1);
@@ -139,7 +141,7 @@ it("Returns GET request for a Level Progression", () => {
 	};
 	const expectedBody = null;
 
-	const request = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).levelProgressions.get(123);
+	const request = wanikani.levelProgressions.get(123);
 
 	expect(request.method).toBe(expectedMethod);
 	expect(request.url).toBe(expectedUrl);
@@ -168,8 +170,8 @@ it("Returns GET request for a Reset Collection", () => {
 		updated_after: new Date("2023-03-01T12:00:00.000Z"),
 	};
 
-	const request1 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).resets.get({}, options);
-	const request2 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).resets.get(params);
+	const request1 = wanikani.resets.get({}, options);
+	const request2 = wanikani.resets.get(params);
 
 	expect(request1.method).toBe(expectedMethod);
 	expect(request1.url).toBe(expectedUrl1);
@@ -191,7 +193,7 @@ it("Returns GET request for a Reset", () => {
 	};
 	const expectedBody = null;
 
-	const request = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).resets.get(123);
+	const request = wanikani.resets.get(123);
 
 	expect(request.method).toBe(expectedMethod);
 	expect(request.url).toBe(expectedUrl);
@@ -220,8 +222,8 @@ it("Returns GET request for a Review Collection", () => {
 		subject_ids: [4, 5, 6],
 	};
 
-	const request1 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).reviews.get({}, options);
-	const request2 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).reviews.get(params);
+	const request1 = wanikani.reviews.get({}, options);
+	const request2 = wanikani.reviews.get(params);
 
 	expect(request1.method).toBe(expectedMethod);
 	expect(request1.url).toBe(expectedUrl1);
@@ -243,7 +245,7 @@ it("Returns GET request for a Review", () => {
 	};
 	const expectedBody = null;
 
-	const request = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).reviews.get(123);
+	const request = wanikani.reviews.get(123);
 
 	expect(request.method).toBe(expectedMethod);
 	expect(request.url).toBe(expectedUrl);
@@ -269,7 +271,7 @@ it("Returns POST request for creating a Reviews", () => {
 		},
 	};
 
-	const request = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).reviews.create(payload);
+	const request = wanikani.reviews.create(payload);
 
 	expect(request.method).toBe(expectedMethod);
 	expect(request.url).toBe(expectedUrl);
@@ -298,8 +300,8 @@ it("Returns GET request for a Review Statistic Collection", () => {
 		percentages_greater_than: 90,
 	};
 
-	const request1 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).reviewStatistics.get({}, options);
-	const request2 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).reviewStatistics.get(params);
+	const request1 = wanikani.reviewStatistics.get({}, options);
+	const request2 = wanikani.reviewStatistics.get(params);
 
 	expect(request1.method).toBe(expectedMethod);
 	expect(request1.url).toBe(expectedUrl1);
@@ -321,7 +323,7 @@ it("Returns GET request for a Review Statistic", () => {
 	};
 	const expectedBody = null;
 
-	const request = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).reviewStatistics.get(123);
+	const request = wanikani.reviewStatistics.get(123);
 
 	expect(request.method).toBe(expectedMethod);
 	expect(request.url).toBe(expectedUrl);
@@ -351,13 +353,10 @@ it("Returns GET request for a Spaced Repetition System Collection", () => {
 		updated_after: new Date("2023-03-01T12:00:00.000Z"),
 	};
 
-	const request1 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).spacedRepetitionSystems.get(
-		{},
-		options,
-	);
-	const request2 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).spacedRepetitionSystems.get(params);
-	const request3 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).srs.get({}, options);
-	const request4 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).srs.get(params);
+	const request1 = wanikani.spacedRepetitionSystems.get({}, options);
+	const request2 = wanikani.spacedRepetitionSystems.get(params);
+	const request3 = wanikani.srs.get({}, options);
+	const request4 = wanikani.srs.get(params);
 
 	expect(request1.method).toBe(expectedMethod);
 	expect(request1.url).toBe(expectedUrl1);
@@ -389,8 +388,8 @@ it("Returns GET request for a Spaced Repetition System", () => {
 	};
 	const expectedBody = null;
 
-	const request1 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).spacedRepetitionSystems.get(123);
-	const request2 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).srs.get(123);
+	const request1 = wanikani.spacedRepetitionSystems.get(123);
+	const request2 = wanikani.srs.get(123);
 
 	expect(request1.method).toBe(expectedMethod);
 	expect(request1.url).toBe(expectedUrl);
@@ -424,8 +423,8 @@ it("Returns GET request for a Study Material Collection", () => {
 		subject_types: ["kanji"],
 	};
 
-	const request1 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).studyMaterials.get({}, options);
-	const request2 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).studyMaterials.get(params);
+	const request1 = wanikani.studyMaterials.get({}, options);
+	const request2 = wanikani.studyMaterials.get(params);
 
 	expect(request1.method).toBe(expectedMethod);
 	expect(request1.url).toBe(expectedUrl1);
@@ -447,7 +446,7 @@ it("Returns GET request for a Study Material", () => {
 	};
 	const expectedBody = null;
 
-	const request = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).studyMaterials.get(123);
+	const request = wanikani.studyMaterials.get(123);
 
 	expect(request.method).toBe(expectedMethod);
 	expect(request.url).toBe(expectedUrl);
@@ -472,7 +471,7 @@ it("Returns POST request for creating a Study Material", () => {
 		meaning_synonyms: ["one", "two", "three"],
 	};
 
-	const request = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).studyMaterials.create(payload);
+	const request = wanikani.studyMaterials.create(payload);
 
 	expect(request.method).toBe(expectedMethod);
 	expect(request.url).toBe(expectedUrl);
@@ -496,7 +495,7 @@ it("Returns PUT request for updating a Study Material", () => {
 		meaning_synonyms: ["one", "two", "three"],
 	};
 
-	const request = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).studyMaterials.update(123, payload);
+	const request = wanikani.studyMaterials.update(123, payload);
 
 	expect(request.method).toBe(expectedMethod);
 	expect(request.url).toBe(expectedUrl);
@@ -525,8 +524,8 @@ it("Returns GET request for a Subject Collection", () => {
 		levels: [1, 2, 3],
 	};
 
-	const request1 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).subjects.get({}, options);
-	const request2 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).subjects.get(params);
+	const request1 = wanikani.subjects.get({}, options);
+	const request2 = wanikani.subjects.get(params);
 
 	expect(request1.method).toBe(expectedMethod);
 	expect(request1.url).toBe(expectedUrl1);
@@ -548,7 +547,7 @@ it("Returns GET request for a Subject", () => {
 	};
 	const expectedBody = null;
 
-	const request = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).subjects.get(123);
+	const request = wanikani.subjects.get(123);
 
 	expect(request.method).toBe(expectedMethod);
 	expect(request.url).toBe(expectedUrl);
@@ -565,7 +564,7 @@ it("Returns GET request for a Summary", () => {
 	};
 	const expectedBody = null;
 
-	const request = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).summary.get();
+	const request = wanikani.summary.get();
 
 	expect(request.method).toBe(expectedMethod);
 	expect(request.url).toBe(expectedUrl);
@@ -584,7 +583,7 @@ it("Returns GET request for a User", () => {
 	};
 	const expectedBody = null;
 
-	const request = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).user.get(options);
+	const request = wanikani.user.get(options);
 
 	expect(request.method).toBe(expectedMethod);
 	expect(request.url).toBe(expectedUrl);
@@ -612,7 +611,7 @@ it("Returns PUT request for updating a User", () => {
 		},
 	};
 
-	const request = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).user.updatePreferences(payload);
+	const request = wanikani.user.updatePreferences(payload);
 
 	expect(request.method).toBe(expectedMethod);
 	expect(request.url).toBe(expectedUrl);
@@ -641,8 +640,8 @@ it("Returns GET request for a Voice Actor Collection", () => {
 		updated_after: new Date("2023-03-01T12:00:00.000Z"),
 	};
 
-	const request1 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).voiceActors.get({}, options);
-	const request2 = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).voiceActors.get(params);
+	const request1 = wanikani.voiceActors.get({}, options);
+	const request2 = wanikani.voiceActors.get(params);
 
 	expect(request1.method).toBe(expectedMethod);
 	expect(request1.url).toBe(expectedUrl1);
@@ -664,7 +663,7 @@ it("Returns GET request for a Voice Actor", () => {
 	};
 	const expectedBody = null;
 
-	const request = new WKRequestFactory({ apiKey: "abc", revision: "20170710" }).voiceActors.get(123);
+	const request = wanikani.voiceActors.get(123);
 
 	expect(request.method).toBe(expectedMethod);
 	expect(request.url).toBe(expectedUrl);
