@@ -90,11 +90,19 @@ export class WKRequestFactory {
 		 * Start an Assignment (i.e. move from Lessons to Reviews) via the WaniKani API.
 		 * @param id The Assignment ID to start.
 		 * @param payload The payload to send when starting the Assignment.
+		 * @param options Options for making PUT requests to the API.
 		 * @returns A request to start an Assignment in WaniKani, usable in any HTTP API/library.
 		 */
-		start: (id: number, payload: WKAssignmentPayload): WKRequest => {
+		start: (id: number, payload: WKAssignmentPayload, options?: WKRequestPostPutOptions): WKRequest => {
 			validatePayload("PUT /assignments/<id>/start", payload);
 			const headers = { ...this.#postPutHeaders };
+			if (typeof options !== "undefined") {
+				if (typeof options.customHeaders !== "undefined") {
+					for (const [key, value] of Object.entries(options.customHeaders)) {
+						headers[key] = value;
+					}
+				}
+			}
 			const request: WKRequest = {
 				baseUrl,
 				body: JSON.stringify(payload),
@@ -245,11 +253,19 @@ export class WKRequestFactory {
 		/**
 		 * Create a new Review via the WaniKani API.
 		 * @param payload The payload to send when creating the Review.
+		 * @param options Options for making POST requests to the API.
 		 * @returns A Create Review Request usabile in any HTTP API/library.
 		 */
-		create: (payload: WKReviewPayload): WKRequest => {
+		create: (payload: WKReviewPayload, options?: WKRequestPostPutOptions): WKRequest => {
 			validatePayload("POST /reviews", payload);
 			const headers = { ...this.#postPutHeaders };
+			if (typeof options !== "undefined") {
+				if (typeof options.customHeaders !== "undefined") {
+					for (const [key, value] of Object.entries(options.customHeaders)) {
+						headers[key] = value;
+					}
+				}
+			}
 			const request: WKRequest = {
 				baseUrl,
 				body: JSON.stringify(payload),
@@ -392,11 +408,19 @@ export class WKRequestFactory {
 		/**
 		 * Create a new Study Material for a given Subject via the WaniKani API.
 		 * @param payload The payload to send when creating the new Study Material.
+		 * @param options Options for making POST requests to the API.
 		 * @returns A Create Study Material Request usabile in any HTTP API/library.
 		 */
-		create: (payload: WKStudyMaterialCreatePayload): WKRequest => {
+		create: (payload: WKStudyMaterialCreatePayload, options?: WKRequestPostPutOptions): WKRequest => {
 			validatePayload("POST /study_materials", payload);
 			const headers = { ...this.#postPutHeaders };
+			if (typeof options !== "undefined") {
+				if (typeof options.customHeaders !== "undefined") {
+					for (const [key, value] of Object.entries(options.customHeaders)) {
+						headers[key] = value;
+					}
+				}
+			}
 			const request: WKRequest = {
 				baseUrl,
 				body: JSON.stringify(payload),
@@ -411,11 +435,19 @@ export class WKRequestFactory {
 		 * Update a Study Material for a given Subject.
 		 * @param id The Study Material ID to update.
 		 * @param payload The payload to send when updating the Study Material.
+		 * @param options Options for making PUT requests to the API.
 		 * @returns An Update Study Material Request usabile in any HTTP API/library.
 		 */
-		update: (id: number, payload: WKStudyMaterialUpdatePayload): WKRequest => {
+		update: (id: number, payload: WKStudyMaterialUpdatePayload, options?: WKRequestPostPutOptions): WKRequest => {
 			validatePayload("PUT /study_materials/<id>", payload);
 			const headers = { ...this.#postPutHeaders };
+			if (typeof options !== "undefined") {
+				if (typeof options.customHeaders !== "undefined") {
+					for (const [key, value] of Object.entries(options.customHeaders)) {
+						headers[key] = value;
+					}
+				}
+			}
 			const request: WKRequest = {
 				baseUrl,
 				body: JSON.stringify(payload),
@@ -544,11 +576,19 @@ export class WKRequestFactory {
 		 * Update a User's Preferences via the WaniKani API.
 		 *
 		 * @param payload The payload containing changed Preferences to send for the update.
+		 * @param options Options for making PUT requests to the API.
 		 * @returns An Update User Preferences Request usabile in any HTTP API/library.
 		 */
-		updatePreferences: (payload: WKUserPreferencesPayload): WKRequest => {
+		updatePreferences: (payload: WKUserPreferencesPayload, options?: WKRequestPostPutOptions): WKRequest => {
 			validatePayload("PUT /user", payload);
 			const headers = { ...this.#postPutHeaders };
+			if (typeof options !== "undefined") {
+				if (typeof options.customHeaders !== "undefined") {
+					for (const [key, value] of Object.entries(options.customHeaders)) {
+						headers[key] = value;
+					}
+				}
+			}
 			const request: WKRequest = {
 				baseUrl,
 				body: JSON.stringify(payload),
@@ -752,6 +792,14 @@ export interface WKRequestHeaders {
 	/** A User Agent to better identify who is making the request to the WaniKani API. */
 	"User-Agent"?: string;
 	[customHeaders: string]: string;
+}
+
+/**
+ * Options for making POST and PUT Requests to the WaniKani API.
+ */
+export interface WKRequestPostPutOptions {
+	/** Custom headers to add to this request only. */
+	customHeaders?: Record<string, string>;
 }
 
 /**
