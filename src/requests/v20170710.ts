@@ -829,9 +829,10 @@ export interface WKAssignmentRequests {
 	 * Start an Assignment (i.e. move from Lessons to Reviews) via the WaniKani API.
 	 * @param id The Assignment ID to start.
 	 * @param payload The payload to send when starting the Assignment.
+	 * @param options Options for making PUT requests to the API.
 	 * @returns A request to start an Assignment in WaniKani, usable in any HTTP API/library.
 	 */
-	start: (id: number, payload: WKAssignmentPayload) => WKRequest;
+	start: (id: number, payload: WKAssignmentPayload, options?: WKRequestPostPutOptions) => WKRequest;
 }
 
 /**
@@ -885,9 +886,10 @@ export interface WKReviewRequests {
 	/**
 	 * Create a new Review via the WaniKani API.
 	 * @param payload The payload to send when creating the Review.
+	 * @param options Options for making POST requests to the API.
 	 * @returns A Create Review Request usabile in any HTTP API/library.
 	 */
-	create: (payload: WKReviewPayload) => WKRequest;
+	create: (payload: WKReviewPayload, options?: WKRequestPostPutOptions) => WKRequest;
 }
 
 /**
@@ -943,17 +945,19 @@ export interface WKStudyMaterialRequests {
 	/**
 	 * Create a new Study Material for a given Subject via the WaniKani API.
 	 * @param payload The payload to send when creating the new Study Material.
+	 * @param options Options for making POST requests to the API.
 	 * @returns A Create Study Material Request usabile in any HTTP API/library.
 	 */
-	create: (payload: WKStudyMaterialCreatePayload) => WKRequest;
+	create: (payload: WKStudyMaterialCreatePayload, options?: WKRequestPostPutOptions) => WKRequest;
 
 	/**
 	 * Update a Study Material for a given Subject.
 	 * @param id The Study Material ID to update.
 	 * @param payload The payload to send when updating the Study Material.
+	 * @param options Options for making PUT requests to the API.
 	 * @returns An Update Study Material Request usabile in any HTTP API/library.
 	 */
-	update: (id: number, payload: WKStudyMaterialUpdatePayload) => WKRequest;
+	update: (id: number, payload: WKStudyMaterialUpdatePayload, options?: WKRequestPostPutOptions) => WKRequest;
 }
 
 /**
@@ -1007,9 +1011,10 @@ export interface WKUserRequests {
 	 * Update a User's Preferences via the WaniKani API.
 	 *
 	 * @param payload The payload containing changed Preferences to send for the update.
+	 * @param options Options for making PUT requests to the API.
 	 * @returns An Update User Preferences Request usabile in any HTTP API/library.
 	 */
-	updatePreferences: (payload: WKUserPreferencesPayload) => WKRequest;
+	updatePreferences: (payload: WKUserPreferencesPayload, options?: WKRequestPostPutOptions) => WKRequest;
 }
 
 /**
