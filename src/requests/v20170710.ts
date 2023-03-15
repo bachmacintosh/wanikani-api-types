@@ -27,7 +27,7 @@ const baseUrl = "https://api.wanikani.com/v2";
  */
 export interface WKRequest {
 	/** The base URL of the WaniKani API. */
-	baseUrl: string;
+	baseUrl: typeof baseUrl;
 	/** The request body, either a `string` for POST and PUT requests, or `null` for GET requests. */
 	body: string | null;
 	/** The request headers, including both standard and user-set headers. */
