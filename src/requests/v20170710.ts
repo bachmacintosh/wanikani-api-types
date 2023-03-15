@@ -20,7 +20,7 @@ import { stringifyParameters, validateParameters, validatePayload } from "../v20
 const baseUrl = "https://api.wanikani.com/v2";
 
 /**
- * An object containing all information needed to make a request to the WaniKani API using any HTTP API/library.
+ * An object containing all information needed to make a request to the WaniKani API using any HTTP API/Library.
  *
  * @see {@link WKRequestFactory}
  * @category Requests
@@ -28,7 +28,7 @@ const baseUrl = "https://api.wanikani.com/v2";
 export interface WKRequest {
 	/** The base URL of the WaniKani API. */
 	baseUrl: string;
-	/** The request body, either a string for POST and PUT requests, or `null` for GET requests. */
+	/** The request body, either a `string` for POST and PUT requests, or `null` for GET requests. */
 	body: string | null;
 	/** The request headers, including both standard and user-set headers. */
 	headers: WKRequestHeaders;
@@ -40,20 +40,20 @@ export interface WKRequest {
 
 /**
  * A factory for preparing requests to the WaniKani API, where the returned {@link WKRequest} can be used in any HTTP
- * API/library to make the request.
+ * API/Library to make the request.
  *
  * @category Requests
  */
 export class WKRequestFactory {
 	/**
-	 * Types of Assignment Requests available in the Wanikani API.
+	 * Types of Assignment Requests available in the WaniKani API.
 	 */
 	#assignments: WKAssignmentRequests = {
 		/**
 		 * Get an Assignment or Assignment Collection from the WaniKani API.
 		 * @param idOrParams The Assignment ID for individual Assignments, or parameters for Assignment Collections.
 		 * @param options Options for making GET requests to the API.
-		 * @returns An Assignment Request usabile in any HTTP API/library.
+		 * @returns An Assignment Request usabile in any HTTP API/Library.
 		 */
 		get: (idOrParams?: WKAssignmentParameters | number, options?: WKRequestGetOptions): WKRequest => {
 			const headers = { ...this.#getHeaders };
@@ -91,7 +91,7 @@ export class WKRequestFactory {
 		 * @param id The Assignment ID to start.
 		 * @param payload The payload to send when starting the Assignment.
 		 * @param options Options for making PUT requests to the API.
-		 * @returns A request to start an Assignment in WaniKani, usable in any HTTP API/library.
+		 * @returns A request to start an Assignment in WaniKani, usable in any HTTP API/Library.
 		 */
 		start: (id: number, payload: WKAssignmentPayload, options?: WKRequestPostPutOptions): WKRequest => {
 			validatePayload("PUT /assignments/<id>/start", payload);
@@ -120,15 +120,15 @@ export class WKRequestFactory {
 	#getHeaders: WKRequestHeaders;
 
 	/**
-	 * Types of Level Progression Requests available in the Wanikani API.
+	 * Types of Level Progression Requests available in the WaniKani API.
 	 */
 	#levelProgressions: WKLevelProgressionRequests = {
 		/**
 		 * Get a Level Progression or Level Progression Collection from the WaniKani API.
 		 * @param idOrParams The Level Progression ID for individual Level Progressions, or parameters for Level
-		 * Progression  Collections.
+		 * Progression Collections.
 		 * @param options Options for making GET requests to the API.
-		 * @returns A Level Progression Request usabile in any HTTP API/library.
+		 * @returns A Level Progression Request usabile in any HTTP API/Library.
 		 */
 		get: (idOrParams?: WKLevelProgressionParameters | number, options?: WKRequestGetOptions): WKRequest => {
 			const headers = { ...this.#getHeaders };
@@ -168,14 +168,14 @@ export class WKRequestFactory {
 	#postPutHeaders: WKRequestHeaders;
 
 	/**
-	 * Types of Reset Requests available in the Wanikani API.
+	 * Types of Reset Requests available in the WaniKani API.
 	 */
 	#resets: WKResetRequests = {
 		/**
 		 * Get a Reset or Reset Collection from the WaniKani API.
 		 * @param idOrParams The Reset ID for individual Resets, or parameters for Reset Collections.
 		 * @param options Options for making GET requests to the API.
-		 * @returns A Reset Request usabile in any HTTP API/library.
+		 * @returns A Reset Request usabile in any HTTP API/Library.
 		 */
 		get: (idOrParams?: WKResetParameters | number, options?: WKRequestGetOptions): WKRequest => {
 			const headers = { ...this.#getHeaders };
@@ -210,14 +210,14 @@ export class WKRequestFactory {
 	};
 
 	/**
-	 * Types of Review Requests available in the Wanikani API.
+	 * Types of Review Requests available in the WaniKani API.
 	 */
 	#reviews: WKReviewRequests = {
 		/**
 		 * Get a Review or Review Collection from the WaniKani API.
-		 * @param idOrParams The Review ID for individual Review, or parameters for Review Collections.
+		 * @param idOrParams The Review ID for individual Reviews, or parameters for Review Collections.
 		 * @param options Options for making GET requests to the API.
-		 * @returns A Review Request usabile in any HTTP API/library.
+		 * @returns A Review Request usabile in any HTTP API/Library.
 		 */
 		get: (idOrParams?: WKReviewParameters | number, options?: WKRequestGetOptions): WKRequest => {
 			const headers = { ...this.#getHeaders };
@@ -254,7 +254,7 @@ export class WKRequestFactory {
 		 * Create a new Review via the WaniKani API.
 		 * @param payload The payload to send when creating the Review.
 		 * @param options Options for making POST requests to the API.
-		 * @returns A Create Review Request usabile in any HTTP API/library.
+		 * @returns A Create Review Request usabile in any HTTP API/Library.
 		 */
 		create: (payload: WKReviewPayload, options?: WKRequestPostPutOptions): WKRequest => {
 			validatePayload("POST /reviews", payload);
@@ -278,15 +278,15 @@ export class WKRequestFactory {
 	};
 
 	/**
-	 * Types of Review Statistic Requests available in the Wanikani API.
+	 * Types of Review Statistic Requests available in the WaniKani API.
 	 */
 	#reviewStatistics: WKReviewStatisticRequests = {
 		/**
 		 * Get a Review Statistic or Review Statistic Collection from the WaniKani API.
-		 * @param idOrParams The Review Statistic ID for individual Review Statistics , or parameters for Review Statistic
+		 * @param idOrParams The Review Statistic ID for individual Review Statistics, or parameters for Review Statistic
 		 * Collections.
 		 * @param options Options for making GET requests to the API.
-		 * @returns A Review Statistic Request usabile in any HTTP API/library.
+		 * @returns A Review Statistic Request usabile in any HTTP API/Library.
 		 */
 		get: (idOrParams?: WKReviewStatisticParameters | number, options?: WKRequestGetOptions): WKRequest => {
 			const headers = { ...this.#getHeaders };
@@ -321,7 +321,7 @@ export class WKRequestFactory {
 	};
 
 	/**
-	 * Types of Spaced Repetition System (SRS) Requests available in the Wanikani API.
+	 * Types of Spaced Repetition System (SRS) Requests available in the WaniKani API.
 	 */
 	#spacedRepetitionSystems: WKSpacedRepetitionSystemRequests = {
 		/**
@@ -329,7 +329,7 @@ export class WKRequestFactory {
 		 * @param idOrParams The Spaced Repetition System (SRS) ID for individual Spaced Repetition System (SRS), or
 		 * parameters for Spaced Repetition System (SRS) Collections.
 		 * @param options Options for making GET requests to the API.
-		 * @returns A Spaced Repetition System (SRS) Request usabile in any HTTP API/library.
+		 * @returns A Spaced Repetition System (SRS) Request usabile in any HTTP API/Library.
 		 */
 		get: (idOrParams?: WKSpacedRepetitionSystemParameters | number, options?: WKRequestGetOptions): WKRequest => {
 			const headers = { ...this.#getHeaders };
@@ -364,7 +364,7 @@ export class WKRequestFactory {
 	};
 
 	/**
-	 * Types of Study Material Requests available in the Wanikani API.
+	 * Types of Study Material Requests available in the WaniKani API.
 	 */
 	#studyMaterials: WKStudyMaterialRequests = {
 		/**
@@ -372,7 +372,7 @@ export class WKRequestFactory {
 		 * @param idOrParams The Study Material ID for individual Study Materials, or parameters for Study Material
 		 * Collections.
 		 * @param options Options for making GET requests to the API.
-		 * @returns A Study Material Request usabile in any HTTP API/library.
+		 * @returns A Study Material Request usabile in any HTTP API/Library.
 		 */
 		get: (idOrParams?: WKStudyMaterialParameters | number, options?: WKRequestGetOptions): WKRequest => {
 			const headers = { ...this.#getHeaders };
@@ -409,7 +409,7 @@ export class WKRequestFactory {
 		 * Create a new Study Material for a given Subject via the WaniKani API.
 		 * @param payload The payload to send when creating the new Study Material.
 		 * @param options Options for making POST requests to the API.
-		 * @returns A Create Study Material Request usabile in any HTTP API/library.
+		 * @returns A Create Study Material Request usabile in any HTTP API/Library.
 		 */
 		create: (payload: WKStudyMaterialCreatePayload, options?: WKRequestPostPutOptions): WKRequest => {
 			validatePayload("POST /study_materials", payload);
@@ -436,7 +436,7 @@ export class WKRequestFactory {
 		 * @param id The Study Material ID to update.
 		 * @param payload The payload to send when updating the Study Material.
 		 * @param options Options for making PUT requests to the API.
-		 * @returns An Update Study Material Request usabile in any HTTP API/library.
+		 * @returns An Update Study Material Request usabile in any HTTP API/Library.
 		 */
 		update: (id: number, payload: WKStudyMaterialUpdatePayload, options?: WKRequestPostPutOptions): WKRequest => {
 			validatePayload("PUT /study_materials/<id>", payload);
@@ -460,14 +460,14 @@ export class WKRequestFactory {
 	};
 
 	/**
-	 * Types of Subject Requests available in the Wanikani API.
+	 * Types of Subject Requests available in the WaniKani API.
 	 */
 	#subjects: WKSubjectRequests = {
 		/**
 		 * Get a Subject or Subject Collection from the WaniKani API.
 		 * @param idOrParams The Subject ID for individual Subjects, or parameters for Subject Collections.
 		 * @param options Options for making GET requests to the API.
-		 * @returns A Subject Request usabile in any HTTP API/library.
+		 * @returns A Subject Request usabile in any HTTP API/Library.
 		 */
 		get: (idOrParams?: WKSubjectParameters | number, options?: WKRequestGetOptions): WKRequest => {
 			const headers = { ...this.#getHeaders };
@@ -502,14 +502,14 @@ export class WKRequestFactory {
 	};
 
 	/**
-	 * Types of Summary Requests available in the Wanikani API.
+	 * Types of Summary Requests available in the WaniKani API.
 	 */
 	#summary: WKSummaryRequests = {
 		/**
 		 * Get a summary of available and upcoming lessons/reviews from the WaniKani API.
 		 *
 		 * @param options Options for making GET requests to the API.
-		 * @returns A Summary Request usabile in any HTTP API/library.
+		 * @returns A Summary Request usabile in any HTTP API/Library.
 		 */
 		get: (options?: WKRequestGetOptions): WKRequest => {
 			const headers = { ...this.#getHeaders };
@@ -538,14 +538,14 @@ export class WKRequestFactory {
 	};
 
 	/**
-	 * Types of User Requests available in the Wanikani API.
+	 * Types of User Requests available in the WaniKani API.
 	 */
 	#user: WKUserRequests = {
 		/**
 		 * Get a user's information from the WaniKani API.
 		 *
 		 * @param options Options for making GET requests to the API.
-		 * @returns A User Request usabile in any HTTP API/library.
+		 * @returns A User Request usabile in any HTTP API/Library.
 		 */
 		get: (options?: WKRequestGetOptions): WKRequest => {
 			const headers = { ...this.#getHeaders };
@@ -577,7 +577,7 @@ export class WKRequestFactory {
 		 *
 		 * @param payload The payload containing changed Preferences to send for the update.
 		 * @param options Options for making PUT requests to the API.
-		 * @returns An Update User Preferences Request usabile in any HTTP API/library.
+		 * @returns An Update User Preferences Request usabile in any HTTP API/Library.
 		 */
 		updatePreferences: (payload: WKUserPreferencesPayload, options?: WKRequestPostPutOptions): WKRequest => {
 			validatePayload("PUT /user", payload);
@@ -601,14 +601,14 @@ export class WKRequestFactory {
 	};
 
 	/**
-	 * Types of Voice Actor Requests available in the Wanikani API.
+	 * Types of Voice Actor Requests available in the WaniKani API.
 	 */
 	#voiceActors: WKVoiceActorRequests = {
 		/**
 		 * Get a Voice Actor or Voice Actor Collection from the WaniKani API.
 		 * @param idOrParams The Voice Actor ID for individual Voice Actors, or parameters for Voice Actor Collections.
 		 * @param options Options for making GET requests to the API.
-		 * @returns A Voice Actor Request usabile in any HTTP API/library.
+		 * @returns A Voice Actor Request usabile in any HTTP API/Library.
 		 */
 		get: (idOrParams?: WKVoiceActorParameters | number, options?: WKRequestGetOptions): WKRequest => {
 			const headers = { ...this.#getHeaders };
@@ -647,9 +647,6 @@ export class WKRequestFactory {
 			Authorization: `Bearer ${init.apiToken}`,
 			"Wanikani-Revision": init.revision ?? "20170710",
 		};
-		if (typeof init.revision !== "undefined") {
-			this.#getHeaders["Wanikani-Revision"] = init.revision;
-		}
 		if (typeof init.userAgent !== "undefined") {
 			this.#getHeaders["User-Agent"] = init.userAgent;
 		}
@@ -811,7 +808,7 @@ export interface WKRequestPostPutOptions {
 }
 
 /**
- * Types of Assignment Requests available in the Wanikani API.
+ * Types of Assignment Requests available in the WaniKani API.
  *
  * @category Assignments
  * @category Requests
@@ -821,7 +818,7 @@ export interface WKAssignmentRequests {
 	 * Get an Assignment or Assignment Collection from the WaniKani API.
 	 * @param idOrParams The Assignment ID for individual Assignments, or parameters for Assignment Collections.
 	 * @param options Options for making GET requests to the API.
-	 * @returns An Assignment Request usabile in any HTTP API/library.
+	 * @returns An Assignment Request usabile in any HTTP API/Library.
 	 */
 	get: (idOrParams?: WKAssignmentParameters | number, options?: WKRequestGetOptions) => WKRequest;
 
@@ -830,13 +827,13 @@ export interface WKAssignmentRequests {
 	 * @param id The Assignment ID to start.
 	 * @param payload The payload to send when starting the Assignment.
 	 * @param options Options for making PUT requests to the API.
-	 * @returns A request to start an Assignment in WaniKani, usable in any HTTP API/library.
+	 * @returns A request to start an Assignment in WaniKani, usable in any HTTP API/Library.
 	 */
 	start: (id: number, payload: WKAssignmentPayload, options?: WKRequestPostPutOptions) => WKRequest;
 }
 
 /**
- * Types of Level Progression Requests available in the Wanikani API.
+ * Types of Level Progression Requests available in the WaniKani API.
  *
  * @category Level Progressions
  * @category Requests
@@ -847,13 +844,13 @@ export interface WKLevelProgressionRequests {
 	 * @param idOrParams The Level Progression ID for individual Level Progressions, or parameters for Level
 	 * Progression  Collections.
 	 * @param options Options for making GET requests to the API.
-	 * @returns A Level Progression Request usabile in any HTTP API/library.
+	 * @returns A Level Progression Request usabile in any HTTP API/Library.
 	 */
 	get: (idOrParams?: WKLevelProgressionParameters | number, options?: WKRequestGetOptions) => WKRequest;
 }
 
 /**
- * Types of Reset Requests available in the Wanikani API.
+ * Types of Reset Requests available in the WaniKani API.
  *
  * @category Requests
  * @category Resets
@@ -863,13 +860,13 @@ export interface WKResetRequests {
 	 * Get a Reset or Reset Collection from the WaniKani API.
 	 * @param idOrParams The Reset ID for individual Resets, or parameters for Reset Collections.
 	 * @param options Options for making GET requests to the API.
-	 * @returns A Reset Request usabile in any HTTP API/library.
+	 * @returns A Reset Request usabile in any HTTP API/Library.
 	 */
 	get: (idOrParams?: WKResetParameters | number, options?: WKRequestGetOptions) => WKRequest;
 }
 
 /**
- * Types of Review Requests available in the Wanikani API.
+ * Types of Review Requests available in the WaniKani API.
  *
  * @category Requests
  * @category Reviews
@@ -879,7 +876,7 @@ export interface WKReviewRequests {
 	 * Get a Review or Review Collection from the WaniKani API.
 	 * @param idOrParams The Review ID for individual Review, or parameters for Review Collections.
 	 * @param options Options for making GET requests to the API.
-	 * @returns A Review Request usabile in any HTTP API/library.
+	 * @returns A Review Request usabile in any HTTP API/Library.
 	 */
 	get: (idOrParams?: WKReviewParameters | number, options?: WKRequestGetOptions) => WKRequest;
 
@@ -887,13 +884,13 @@ export interface WKReviewRequests {
 	 * Create a new Review via the WaniKani API.
 	 * @param payload The payload to send when creating the Review.
 	 * @param options Options for making POST requests to the API.
-	 * @returns A Create Review Request usabile in any HTTP API/library.
+	 * @returns A Create Review Request usabile in any HTTP API/Library.
 	 */
 	create: (payload: WKReviewPayload, options?: WKRequestPostPutOptions) => WKRequest;
 }
 
 /**
- * Types of Review Statistic Requests available in the Wanikani API.
+ * Types of Review Statistic Requests available in the WaniKani API.
  *
  * @category Requests
  * @category Review Statistics
@@ -904,13 +901,13 @@ export interface WKReviewStatisticRequests {
 	 * @param idOrParams The Review Statistic ID for individual Review Statistics , or parameters for Review Statistic
 	 * Collections.
 	 * @param options Options for making GET requests to the API.
-	 * @returns A Review Statistic Request usabile in any HTTP API/library.
+	 * @returns A Review Statistic Request usabile in any HTTP API/Library.
 	 */
 	get: (idOrParams?: WKReviewStatisticParameters | number, options?: WKRequestGetOptions) => WKRequest;
 }
 
 /**
- * Types of Spaced Repetition System (SRS) Requests available in the Wanikani API.
+ * Types of Spaced Repetition System (SRS) Requests available in the WaniKani API.
  *
  * @category Requests
  * @category Spaced Repetition Systems
@@ -921,13 +918,13 @@ export interface WKSpacedRepetitionSystemRequests {
 	 * @param idOrParams The Spaced Repetition System (SRS) ID for individual Spaced Repetition System (SRS), or
 	 * parameters for Spaced Repetition System (SRS) Collections.
 	 * @param options Options for making GET requests to the API.
-	 * @returns A Spaced Repetition System (SRS) Request usabile in any HTTP API/library.
+	 * @returns A Spaced Repetition System (SRS) Request usabile in any HTTP API/Library.
 	 */
 	get: (idOrParams?: WKSpacedRepetitionSystemParameters | number, options?: WKRequestGetOptions) => WKRequest;
 }
 
 /**
- * Types of Study Material Requests available in the Wanikani API.
+ * Types of Study Material Requests available in the WaniKani API.
  *
  * @category Requests
  * @category Study Materials
@@ -938,7 +935,7 @@ export interface WKStudyMaterialRequests {
 	 * @param idOrParams The Study Material ID for individual Study Materials, or parameters for Study Material
 	 * Collections.
 	 * @param options Options for making GET requests to the API.
-	 * @returns A Study Material Request usabile in any HTTP API/library.
+	 * @returns A Study Material Request usabile in any HTTP API/Library.
 	 */
 	get: (idOrParams?: WKStudyMaterialParameters | number, options?: WKRequestGetOptions) => WKRequest;
 
@@ -946,7 +943,7 @@ export interface WKStudyMaterialRequests {
 	 * Create a new Study Material for a given Subject via the WaniKani API.
 	 * @param payload The payload to send when creating the new Study Material.
 	 * @param options Options for making POST requests to the API.
-	 * @returns A Create Study Material Request usabile in any HTTP API/library.
+	 * @returns A Create Study Material Request usabile in any HTTP API/Library.
 	 */
 	create: (payload: WKStudyMaterialCreatePayload, options?: WKRequestPostPutOptions) => WKRequest;
 
@@ -955,13 +952,13 @@ export interface WKStudyMaterialRequests {
 	 * @param id The Study Material ID to update.
 	 * @param payload The payload to send when updating the Study Material.
 	 * @param options Options for making PUT requests to the API.
-	 * @returns An Update Study Material Request usabile in any HTTP API/library.
+	 * @returns An Update Study Material Request usabile in any HTTP API/Library.
 	 */
 	update: (id: number, payload: WKStudyMaterialUpdatePayload, options?: WKRequestPostPutOptions) => WKRequest;
 }
 
 /**
- * Types of Subject Requests available in the Wanikani API.
+ * Types of Subject Requests available in the WaniKani API.
  *
  * @category Requests
  * @category Subjects
@@ -971,13 +968,13 @@ export interface WKSubjectRequests {
 	 * Get a Subject or Subject Collection from the WaniKani API.
 	 * @param idOrParams The Subject ID for individual Subjects, or parameters for Subject Collections.
 	 * @param options Options for making GET requests to the API.
-	 * @returns A Subject Request usabile in any HTTP API/library.
+	 * @returns A Subject Request usabile in any HTTP API/Library.
 	 */
 	get: (idOrParams?: WKSubjectParameters | number, options?: WKRequestGetOptions) => WKRequest;
 }
 
 /**
- * Types of Summary Requests available in the Wanikani API.
+ * Types of Summary Requests available in the WaniKani API.
  *
  * @category Requests
  * @category Summary
@@ -987,13 +984,13 @@ export interface WKSummaryRequests {
 	 * Get a summary of available and upcoming lessons/reviews from the WaniKani API.
 	 *
 	 * @param options Options for making GET requests to the API.
-	 * @returns A Summary Request usabile in any HTTP API/library.
+	 * @returns A Summary Request usabile in any HTTP API/Library.
 	 */
 	get: (options?: WKRequestGetOptions) => WKRequest;
 }
 
 /**
- * Types of User Requests available in the Wanikani API.
+ * Types of User Requests available in the WaniKani API.
  *
  * @category Requests
  * @category User
@@ -1003,7 +1000,7 @@ export interface WKUserRequests {
 	 * Get a user's information from the WaniKani API.
 	 *
 	 * @param options Options for making GET requests to the API.
-	 * @returns A User Request usabile in any HTTP API/library.
+	 * @returns A User Request usabile in any HTTP API/Library.
 	 */
 	get: (options?: WKRequestGetOptions) => WKRequest;
 
@@ -1012,13 +1009,13 @@ export interface WKUserRequests {
 	 *
 	 * @param payload The payload containing changed Preferences to send for the update.
 	 * @param options Options for making PUT requests to the API.
-	 * @returns An Update User Preferences Request usabile in any HTTP API/library.
+	 * @returns An Update User Preferences Request usabile in any HTTP API/Library.
 	 */
 	updatePreferences: (payload: WKUserPreferencesPayload, options?: WKRequestPostPutOptions) => WKRequest;
 }
 
 /**
- * Types of Voice Actor Requests available in the Wanikani API.
+ * Types of Voice Actor Requests available in the WaniKani API.
  *
  * @category Requests
  * @category Voice Actors
@@ -1028,7 +1025,7 @@ export interface WKVoiceActorRequests {
 	 * Get a Voice Actor or Voice Actor Collection from the WaniKani API.
 	 * @param idOrParams The Voice Actor ID for individual Voice Actors, or parameters for Voice Actor Collections.
 	 * @param options Options for making GET requests to the API.
-	 * @returns A Voice Actor Request usabile in any HTTP API/library.
+	 * @returns A Voice Actor Request usabile in any HTTP API/Library.
 	 */
 	get: (idOrParams?: WKVoiceActorParameters | number, options?: WKRequestGetOptions) => WKRequest;
 }
