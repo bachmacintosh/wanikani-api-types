@@ -20,7 +20,7 @@ const options = {
 	ifNoneMatch: `W/"70abc5970f2ab8cd34adcfad015ffde6"`,
 };
 
-const wanikani = new WKRequestFactory({ apiKey: "abc", revision: "20170710" });
+const wanikani = new WKRequestFactory({ apiToken: "abc", revision: "20170710" });
 
 it("Returns GET request for an Assignment Collection", () => {
 	const expectedMethod = "GET";
