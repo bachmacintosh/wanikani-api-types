@@ -653,9 +653,6 @@ export class WKRequestFactory {
 			Authorization: `Bearer ${init.apiToken}`,
 			"Wanikani-Revision": init.revision ?? "20170710",
 		};
-		if (typeof init.userAgent !== "undefined") {
-			this.#initHeaders["User-Agent"] = init.userAgent;
-		}
 		this.#getHeaders = { ...this.#initHeaders };
 		this.#postPutHeaders = { ...this.#initHeaders };
 		if (typeof init.customHeaders !== "undefined") {
@@ -794,8 +791,6 @@ export interface WKRequestFactoryInit {
 	 * Revision.
 	 */
 	revision?: WKApiRevision;
-	/** A custom User Agent header to use in the requests. */
-	userAgent?: string;
 	/** Any additional headers to be added to all requests. */
 	customHeaders?: Record<string, string>;
 }
