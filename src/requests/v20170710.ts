@@ -648,6 +648,10 @@ export class WKRequestFactory {
 		},
 	};
 
+	/**
+	 *
+	 * @param init Initialization options for the factory.
+	 */
 	public constructor(init: WKRequestFactoryInit) {
 		this.#initHeaders = {
 			Authorization: `Bearer ${init.apiToken}`,
@@ -657,6 +661,13 @@ export class WKRequestFactory {
 		this.#postPutHeaders = { ...this.#initHeaders };
 		if (typeof init.customHeaders !== "undefined") {
 			for (const [key, value] of Object.entries(init.customHeaders)) {
+				if (key === "Authorization") {
+					throw new TypeError("WaniKani API Token should be set via setApiToken() method.");
+				} else if (key === "Wanikani-Revision") {
+					throw new TypeError("WaniKani API Revision should be set via setApiRevision() method.");
+				} else if ((key === "Accept" || key === "Content-Type") && value !== "application/json") {
+					throw new TypeError(`The "${key}" header must be set to "application/json" .`);
+				}
 				this.#getHeaders[key] = value;
 				this.#postPutHeaders[key] = value;
 			}
@@ -755,6 +766,13 @@ export class WKRequestFactory {
 	 */
 	public addCustomHeaders(headers: Record<string, string>): this {
 		for (const [key, value] of Object.entries(headers)) {
+			if (key === "Authorization") {
+				throw new TypeError("WaniKani API Token should be set via setApiToken() method.");
+			} else if (key === "Wanikani-Revision") {
+				throw new TypeError("WaniKani API Revision should be set via setApiRevision() method.");
+			} else if ((key === "Accept" || key === "Content-Type") && value !== "application/json") {
+				throw new TypeError(`The "${key}" header must be set to "application/json" .`);
+			}
 			this.#getHeaders[key] = value;
 			this.#postPutHeaders[key] = value;
 		}
@@ -762,8 +780,32 @@ export class WKRequestFactory {
 	}
 
 	/**
+	 * Sets a new WaniKani API Revision to use in requests returned by the factory.
+	 * @param revision The WaniKani API Revision to use.
+	 * @returns The factory, with the newly set WaniKani API Revision.
+	 */
+	public setApiRevision(revision: WKApiRevision): this {
+		this.#initHeaders["Wanikani-Revision"] = revision;
+		this.#getHeaders["Wanikani-Revision"] = revision;
+		this.#postPutHeaders["Wanikani-Revision"] = revision;
+		return this;
+	}
+
+	/**
+	 * Sets a new WaniKani API Token to use in requests returned by the factory.
+	 * @param token The new WaniKani API Token to use.
+	 * @returns The factory, with the newly set WaniKani API Token.
+	 */
+	public setApiToken(token: string): this {
+		this.#initHeaders.Authorization = `Bearer ${token}`;
+		this.#getHeaders.Authorization = `Bearer ${token}`;
+		this.#postPutHeaders.Authorization = `Bearer ${token}`;
+		return this;
+	}
+
+	/**
 	 * Sets the custom headers for all requests gerated by the factor to those passed to this function, removing any
-	 * previously set custom headers, and keeping API Revision and User Agent settings.
+	 * previously set custom headers, and keeping API Revision and Token settings.
 	 * @param headers An object containing HTTP headers and their values.
 	 * @returns The factory, with the only custom headers being those passed to this function.
 	 */
@@ -771,6 +813,13 @@ export class WKRequestFactory {
 		this.#getHeaders = { ...this.#initHeaders };
 		this.#postPutHeaders = { ...this.#initHeaders };
 		for (const [key, value] of Object.entries(headers)) {
+			if (key === "Authorization") {
+				throw new TypeError("WaniKani API Token should be set via setApiToken() method.");
+			} else if (key === "Wanikani-Revision") {
+				throw new TypeError("WaniKani API Revision should be set via setApiRevision() method.");
+			} else if ((key === "Accept" || key === "Content-Type") && value !== "application/json") {
+				throw new TypeError(`The "${key}" header must be set to "application/json" .`);
+			}
 			this.#getHeaders[key] = value;
 			this.#postPutHeaders[key] = value;
 		}
