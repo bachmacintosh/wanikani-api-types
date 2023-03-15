@@ -26,6 +26,8 @@ jobs:
         run: npm run lint
       - name: Run Unit Tests
         run: npm test
+      - name: Upload Coverage Reports to Codecov
+        uses: codecov/codecov-action@v3
       - name: Build Documentation
         run: npm run build:docs
       - name: Install TypeScript 4.5
