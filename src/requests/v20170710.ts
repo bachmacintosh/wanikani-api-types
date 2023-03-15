@@ -28,7 +28,7 @@ const baseUrl = "https://api.wanikani.com/v2";
 export interface WKRequest {
 	/** The base URL of the WaniKani API. */
 	baseUrl: typeof baseUrl;
-	/** The request body, either a `string` for POST and PUT requests, or `null` for GET requests. */
+	/** The request body, either `null` for GET requests, or a `string` for POST and PUT requests. */
 	body: string | null;
 	/** The request headers, including both standard and user-set headers. */
 	headers: WKRequestHeaders;
@@ -752,7 +752,9 @@ export class WKRequestFactory {
 export interface WKRequestFactoryInit {
 	/** The WaniKani API Token to use in the requests. */
 	apiToken: string;
-	/** The WaniKani API Revision to use in the requests. */
+	/** The WaniKani API Revision to use in the requests; if not set, the factory will default to the current API
+	 * Revision.
+	 */
 	revision?: WKApiRevision;
 	/** A custom User Agent header to use in the requests. */
 	userAgent?: string;
@@ -782,7 +784,7 @@ export interface WKRequestGetOptions {
 export interface WKRequestHeaders {
 	/** HTTP Authorization header, using a Bearer Token. */
 	Authorization: `Bearer ${string}`;
-	/** The WaniKani API Revision */
+	/** The WaniKani API Revision. */
 	"Wanikani-Revision": WKApiRevision;
 	/** The client should accept JSON as that is how the WaniKani API's response bodies are formatted. */
 	Accept?: "application/json";
