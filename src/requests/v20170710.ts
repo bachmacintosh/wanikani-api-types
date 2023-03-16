@@ -26,8 +26,6 @@ const baseUrl = "https://api.wanikani.com/v2";
  * @category Requests
  */
 export interface WKRequest {
-	/** The base URL of the WaniKani API. */
-	baseUrl: typeof baseUrl;
 	/** The request body, either `null` for GET requests, or a `string` for POST and PUT requests. */
 	body: string | null;
 	/** The request headers, including both standard and user-set headers. */
@@ -39,8 +37,8 @@ export interface WKRequest {
 }
 
 /**
- * A factory for preparing requests to the WaniKani API, where the returned {@link WKRequest} can be used in any HTTP
- * API/Library to make the request.
+ * A factory for preparing requests to the WaniKani API, with methods that return a {@link WKRequest} that can be used
+ * in any HTTP API/Library to make the request.
  *
  * @category Requests
  */
@@ -53,7 +51,7 @@ export class WKRequestFactory {
 		 * Get an Assignment or Assignment Collection from the WaniKani API.
 		 * @param idOrParams The Assignment ID for individual Assignments, or parameters for Assignment Collections.
 		 * @param options Options for making GET requests to the API.
-		 * @returns An Assignment Request usabile in any HTTP API/Library.
+		 * @returns A Get Assignment(s) Request usabile in any HTTP API/Library.
 		 */
 		get: (idOrParams?: WKAssignmentParameters | number, options?: WKRequestGetOptions): WKRequest => {
 			const headers = { ...this.#getHeaders };
@@ -72,7 +70,6 @@ export class WKRequestFactory {
 				}
 			}
 			const request: WKRequest = {
-				baseUrl,
 				body: null,
 				headers,
 				method: "GET",
@@ -92,7 +89,7 @@ export class WKRequestFactory {
 		 * @param id The Assignment ID to start.
 		 * @param payload The payload to send when starting the Assignment.
 		 * @param options Options for making PUT requests to the API.
-		 * @returns A request to start an Assignment in WaniKani, usable in any HTTP API/Library.
+		 * @returns A Start Assignment Request usable in any HTTP API/Library.
 		 */
 		start: (id: number, payload: WKAssignmentPayload, options?: WKRequestPostPutOptions): WKRequest => {
 			validatePayload("PUT /assignments/<id>/start", payload);
@@ -106,7 +103,6 @@ export class WKRequestFactory {
 				}
 			}
 			const request: WKRequest = {
-				baseUrl,
 				body: JSON.stringify(payload),
 				headers,
 				method: "PUT",
@@ -155,7 +151,6 @@ export class WKRequestFactory {
 				}
 			}
 			const request: WKRequest = {
-				baseUrl,
 				body: null,
 				headers,
 				method: "GET",
@@ -203,7 +198,6 @@ export class WKRequestFactory {
 				}
 			}
 			const request: WKRequest = {
-				baseUrl,
 				body: null,
 				headers,
 				method: "GET",
@@ -246,7 +240,6 @@ export class WKRequestFactory {
 				}
 			}
 			const request: WKRequest = {
-				baseUrl,
 				body: null,
 				headers,
 				method: "GET",
@@ -279,7 +272,6 @@ export class WKRequestFactory {
 				}
 			}
 			const request: WKRequest = {
-				baseUrl,
 				body: JSON.stringify(payload),
 				headers,
 				method: "POST",
@@ -317,7 +309,6 @@ export class WKRequestFactory {
 				}
 			}
 			const request: WKRequest = {
-				baseUrl,
 				body: null,
 				headers,
 				method: "GET",
@@ -361,7 +352,6 @@ export class WKRequestFactory {
 				}
 			}
 			const request: WKRequest = {
-				baseUrl,
 				body: null,
 				headers,
 				method: "GET",
@@ -405,7 +395,6 @@ export class WKRequestFactory {
 				}
 			}
 			const request: WKRequest = {
-				baseUrl,
 				body: null,
 				headers,
 				method: "GET",
@@ -438,7 +427,6 @@ export class WKRequestFactory {
 				}
 			}
 			const request: WKRequest = {
-				baseUrl,
 				body: JSON.stringify(payload),
 				headers,
 				method: "POST",
@@ -466,7 +454,6 @@ export class WKRequestFactory {
 				}
 			}
 			const request: WKRequest = {
-				baseUrl,
 				body: JSON.stringify(payload),
 				headers,
 				method: "PUT",
@@ -503,7 +490,6 @@ export class WKRequestFactory {
 				}
 			}
 			const request: WKRequest = {
-				baseUrl,
 				body: null,
 				headers,
 				method: "GET",
@@ -546,7 +532,6 @@ export class WKRequestFactory {
 				}
 			}
 			const request: WKRequest = {
-				baseUrl,
 				body: null,
 				headers,
 				method: "GET",
@@ -583,7 +568,6 @@ export class WKRequestFactory {
 				}
 			}
 			const request: WKRequest = {
-				baseUrl,
 				body: null,
 				headers,
 				method: "GET",
@@ -611,7 +595,6 @@ export class WKRequestFactory {
 				}
 			}
 			const request: WKRequest = {
-				baseUrl,
 				body: JSON.stringify(payload),
 				headers,
 				method: "PUT",
@@ -648,7 +631,6 @@ export class WKRequestFactory {
 				}
 			}
 			const request: WKRequest = {
-				baseUrl,
 				body: null,
 				headers,
 				method: "GET",
