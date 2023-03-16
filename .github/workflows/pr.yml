@@ -33,23 +33,23 @@ jobs:
       - name: Install TypeScript 4.5
         run: 'npm install --no-save typescript@"~4.5"'
       - name: Build Library on TypeScript 4.5
-        run: npm run build
+        run: npm run build:ts4
       - name: Install TypeScript 4.6
         run: 'npm install --no-save typescript@"~4.6"'
       - name: Build Library on TypeScript 4.6
-        run: npm run build
+        run: npm run build:ts4
       - name: Install TypeScript 4.7
         run: 'npm install --no-save typescript@"~4.7"'
       - name: Build Library on TypeScript 4.7
-        run: npm run build
+        run: npm run build:ts4
       - name: Install TypeScript 4.8
         run: 'npm install --no-save typescript@"~4.8"'
       - name: Build Library on TypeScript 4.8
-        run: npm run build
+        run: npm run build:ts4
       - name: Install TypeScript 4.9
         run: 'npm install --no-save typescript@"~4.9"'
       - name: Build Library on TypeScript 4.9
-        run: npm run build
+        run: npm run build:ts4
       - name: Install TypeScript 5.0
         run: 'npm install --no-save typescript@"~5.0"'
       - name: Build Library on TypeScript 5.0
