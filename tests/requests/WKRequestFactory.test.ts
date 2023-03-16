@@ -15,9 +15,18 @@ import type { WKUserPreferencesPayload } from "../../src/user/v20170710";
 import type { WKVoiceActorParameters } from "../../src/voice-actors/v20170710";
 import { WKRequestFactory } from "../../src/requests/v20170710";
 
-const options = {
+const getOptions = {
 	ifModifiedSince: "Tue, 14 Mar 2023, 12:00:00 GMT",
 	ifNoneMatch: `W/"70abc5970f2ab8cd34adcfad015ffde6"`,
+	customHeaders: {
+		"X-Forwarded-For": "192.168.1.1",
+	},
+};
+
+const putPostOptions = {
+	customHeaders: {
+		"X-Forwarded-For": "192.168.1.1",
+	},
 };
 
 const wanikani = new WKRequestFactory({ apiToken: "abc", revision: "20170710" });
@@ -31,6 +40,7 @@ it("Returns GET request for an Assignment Collection", () => {
 		"Wanikani-Revision": "20170710",
 		"If-Modified-Since": "Tue, 14 Mar 2023, 12:00:00 GMT",
 		"If-None-Match": `W/"70abc5970f2ab8cd34adcfad015ffde6"`,
+		"X-Forwarded-For": "192.168.1.1",
 	};
 	const expectedHeaders2 = {
 		Authorization: "Bearer abc",
@@ -43,7 +53,7 @@ it("Returns GET request for an Assignment Collection", () => {
 		hidden: false,
 	};
 
-	const request1 = wanikani.assignments.get({}, options);
+	const request1 = wanikani.assignments.get({}, getOptions);
 	const request2 = wanikani.assignments.get(params);
 
 	expect(request1.method).toBe(expectedMethod);
@@ -81,6 +91,7 @@ it("Returns PUT request for starting an Assignment", () => {
 		Authorization: "Bearer abc",
 		"Wanikani-Revision": "20170710",
 		"Content-Type": "application/json",
+		"X-Forwarded-For": "192.168.1.1",
 	};
 	const expectedBody = `{"started_at":"2023-02-04T15:30:00.000Z"}`;
 
@@ -88,7 +99,7 @@ it("Returns PUT request for starting an Assignment", () => {
 		started_at: new Date("2023-02-04T15:30:00.000Z"),
 	};
 
-	const request = wanikani.assignments.start(123, payload);
+	const request = wanikani.assignments.start(123, payload, putPostOptions);
 
 	expect(request.method).toBe(expectedMethod);
 	expect(request.url).toBe(expectedUrl);
@@ -106,6 +117,7 @@ it("Returns GET request for a Level Progression Collection", () => {
 		"Wanikani-Revision": "20170710",
 		"If-Modified-Since": "Tue, 14 Mar 2023, 12:00:00 GMT",
 		"If-None-Match": `W/"70abc5970f2ab8cd34adcfad015ffde6"`,
+		"X-Forwarded-For": "192.168.1.1",
 	};
 	const expectedHeaders2 = {
 		Authorization: "Bearer abc",
@@ -118,7 +130,7 @@ it("Returns GET request for a Level Progression Collection", () => {
 		updated_after: new Date("2023-03-01T12:00:00.000Z"),
 	};
 
-	const request1 = wanikani.levelProgressions.get({}, options);
+	const request1 = wanikani.levelProgressions.get({}, getOptions);
 	const request2 = wanikani.levelProgressions.get(params);
 
 	expect(request1.method).toBe(expectedMethod);
@@ -158,6 +170,7 @@ it("Returns GET request for a Reset Collection", () => {
 		"Wanikani-Revision": "20170710",
 		"If-Modified-Since": "Tue, 14 Mar 2023, 12:00:00 GMT",
 		"If-None-Match": `W/"70abc5970f2ab8cd34adcfad015ffde6"`,
+		"X-Forwarded-For": "192.168.1.1",
 	};
 	const expectedHeaders2 = {
 		Authorization: "Bearer abc",
@@ -170,7 +183,7 @@ it("Returns GET request for a Reset Collection", () => {
 		updated_after: new Date("2023-03-01T12:00:00.000Z"),
 	};
 
-	const request1 = wanikani.resets.get({}, options);
+	const request1 = wanikani.resets.get({}, getOptions);
 	const request2 = wanikani.resets.get(params);
 
 	expect(request1.method).toBe(expectedMethod);
@@ -210,6 +223,7 @@ it("Returns GET request for a Review Collection", () => {
 		"Wanikani-Revision": "20170710",
 		"If-Modified-Since": "Tue, 14 Mar 2023, 12:00:00 GMT",
 		"If-None-Match": `W/"70abc5970f2ab8cd34adcfad015ffde6"`,
+		"X-Forwarded-For": "192.168.1.1",
 	};
 	const expectedHeaders2 = {
 		Authorization: "Bearer abc",
@@ -222,7 +236,7 @@ it("Returns GET request for a Review Collection", () => {
 		subject_ids: [4, 5, 6],
 	};
 
-	const request1 = wanikani.reviews.get({}, options);
+	const request1 = wanikani.reviews.get({}, getOptions);
 	const request2 = wanikani.reviews.get(params);
 
 	expect(request1.method).toBe(expectedMethod);
@@ -260,6 +274,7 @@ it("Returns POST request for creating a Reviews", () => {
 		Authorization: "Bearer abc",
 		"Wanikani-Revision": "20170710",
 		"Content-Type": "application/json",
+		"X-Forwarded-For": "192.168.1.1",
 	};
 	const expectedBody = `{"review":{"subject_id":123,"incorrect_meaning_answers":0,"incorrect_reading_answers":0}}`;
 
@@ -271,7 +286,7 @@ it("Returns POST request for creating a Reviews", () => {
 		},
 	};
 
-	const request = wanikani.reviews.create(payload);
+	const request = wanikani.reviews.create(payload, putPostOptions);
 
 	expect(request.method).toBe(expectedMethod);
 	expect(request.url).toBe(expectedUrl);
@@ -288,6 +303,7 @@ it("Returns GET request for a Review Statistic Collection", () => {
 		"Wanikani-Revision": "20170710",
 		"If-Modified-Since": "Tue, 14 Mar 2023, 12:00:00 GMT",
 		"If-None-Match": `W/"70abc5970f2ab8cd34adcfad015ffde6"`,
+		"X-Forwarded-For": "192.168.1.1",
 	};
 	const expectedHeaders2 = {
 		Authorization: "Bearer abc",
@@ -300,7 +316,7 @@ it("Returns GET request for a Review Statistic Collection", () => {
 		percentages_greater_than: 90,
 	};
 
-	const request1 = wanikani.reviewStatistics.get({}, options);
+	const request1 = wanikani.reviewStatistics.get({}, getOptions);
 	const request2 = wanikani.reviewStatistics.get(params);
 
 	expect(request1.method).toBe(expectedMethod);
@@ -341,6 +357,7 @@ it("Returns GET request for a Spaced Repetition System Collection", () => {
 		"Wanikani-Revision": "20170710",
 		"If-Modified-Since": "Tue, 14 Mar 2023, 12:00:00 GMT",
 		"If-None-Match": `W/"70abc5970f2ab8cd34adcfad015ffde6"`,
+		"X-Forwarded-For": "192.168.1.1",
 	};
 	const expectedHeaders2 = {
 		Authorization: "Bearer abc",
@@ -353,9 +370,9 @@ it("Returns GET request for a Spaced Repetition System Collection", () => {
 		updated_after: new Date("2023-03-01T12:00:00.000Z"),
 	};
 
-	const request1 = wanikani.spacedRepetitionSystems.get({}, options);
+	const request1 = wanikani.spacedRepetitionSystems.get({}, getOptions);
 	const request2 = wanikani.spacedRepetitionSystems.get(params);
-	const request3 = wanikani.srs.get({}, options);
+	const request3 = wanikani.srs.get({}, getOptions);
 	const request4 = wanikani.srs.get(params);
 
 	expect(request1.method).toBe(expectedMethod);
@@ -411,6 +428,7 @@ it("Returns GET request for a Study Material Collection", () => {
 		"Wanikani-Revision": "20170710",
 		"If-Modified-Since": "Tue, 14 Mar 2023, 12:00:00 GMT",
 		"If-None-Match": `W/"70abc5970f2ab8cd34adcfad015ffde6"`,
+		"X-Forwarded-For": "192.168.1.1",
 	};
 	const expectedHeaders2 = {
 		Authorization: "Bearer abc",
@@ -423,7 +441,7 @@ it("Returns GET request for a Study Material Collection", () => {
 		subject_types: ["kanji"],
 	};
 
-	const request1 = wanikani.studyMaterials.get({}, options);
+	const request1 = wanikani.studyMaterials.get({}, getOptions);
 	const request2 = wanikani.studyMaterials.get(params);
 
 	expect(request1.method).toBe(expectedMethod);
@@ -461,6 +479,7 @@ it("Returns POST request for creating a Study Material", () => {
 		Authorization: "Bearer abc",
 		"Wanikani-Revision": "20170710",
 		"Content-Type": "application/json",
+		"X-Forwarded-For": "192.168.1.1",
 	};
 	const expectedBody = `{"subject_id":123,"meaning_note":"A note","reading_note":"B note","meaning_synonyms":["one","two","three"]}`;
 
@@ -471,7 +490,7 @@ it("Returns POST request for creating a Study Material", () => {
 		meaning_synonyms: ["one", "two", "three"],
 	};
 
-	const request = wanikani.studyMaterials.create(payload);
+	const request = wanikani.studyMaterials.create(payload, putPostOptions);
 
 	expect(request.method).toBe(expectedMethod);
 	expect(request.url).toBe(expectedUrl);
@@ -486,6 +505,7 @@ it("Returns PUT request for updating a Study Material", () => {
 		Authorization: "Bearer abc",
 		"Wanikani-Revision": "20170710",
 		"Content-Type": "application/json",
+		"X-Forwarded-For": "192.168.1.1",
 	};
 	const expectedBody = `{"meaning_note":"A note","reading_note":"B note","meaning_synonyms":["one","two","three"]}`;
 
@@ -495,7 +515,7 @@ it("Returns PUT request for updating a Study Material", () => {
 		meaning_synonyms: ["one", "two", "three"],
 	};
 
-	const request = wanikani.studyMaterials.update(123, payload);
+	const request = wanikani.studyMaterials.update(123, payload, putPostOptions);
 
 	expect(request.method).toBe(expectedMethod);
 	expect(request.url).toBe(expectedUrl);
@@ -512,6 +532,7 @@ it("Returns GET request for a Subject Collection", () => {
 		"Wanikani-Revision": "20170710",
 		"If-Modified-Since": "Tue, 14 Mar 2023, 12:00:00 GMT",
 		"If-None-Match": `W/"70abc5970f2ab8cd34adcfad015ffde6"`,
+		"X-Forwarded-For": "192.168.1.1",
 	};
 	const expectedHeaders2 = {
 		Authorization: "Bearer abc",
@@ -524,7 +545,7 @@ it("Returns GET request for a Subject Collection", () => {
 		levels: [1, 2, 3],
 	};
 
-	const request1 = wanikani.subjects.get({}, options);
+	const request1 = wanikani.subjects.get({}, getOptions);
 	const request2 = wanikani.subjects.get(params);
 
 	expect(request1.method).toBe(expectedMethod);
@@ -561,10 +582,13 @@ it("Returns GET request for a Summary", () => {
 	const expectedHeaders = {
 		Authorization: "Bearer abc",
 		"Wanikani-Revision": "20170710",
+		"If-Modified-Since": "Tue, 14 Mar 2023, 12:00:00 GMT",
+		"If-None-Match": `W/"70abc5970f2ab8cd34adcfad015ffde6"`,
+		"X-Forwarded-For": "192.168.1.1",
 	};
 	const expectedBody = null;
 
-	const request = wanikani.summary.get();
+	const request = wanikani.summary.get(getOptions);
 
 	expect(request.method).toBe(expectedMethod);
 	expect(request.url).toBe(expectedUrl);
@@ -580,10 +604,11 @@ it("Returns GET request for a User", () => {
 		"Wanikani-Revision": "20170710",
 		"If-Modified-Since": "Tue, 14 Mar 2023, 12:00:00 GMT",
 		"If-None-Match": `W/"70abc5970f2ab8cd34adcfad015ffde6"`,
+		"X-Forwarded-For": "192.168.1.1",
 	};
 	const expectedBody = null;
 
-	const request = wanikani.user.get(options);
+	const request = wanikani.user.get(getOptions);
 
 	expect(request.method).toBe(expectedMethod);
 	expect(request.url).toBe(expectedUrl);
@@ -598,6 +623,7 @@ it("Returns PUT request for updating a User", () => {
 		Authorization: "Bearer abc",
 		"Wanikani-Revision": "20170710",
 		"Content-Type": "application/json",
+		"X-Forwarded-For": "192.168.1.1",
 	};
 	const expectedBody = `{"user":{"preferences":{"default_voice_actor_id":1,"lessons_autoplay_audio":true,"lessons_batch_size":10}}}`;
 
@@ -611,7 +637,7 @@ it("Returns PUT request for updating a User", () => {
 		},
 	};
 
-	const request = wanikani.user.updatePreferences(payload);
+	const request = wanikani.user.updatePreferences(payload, putPostOptions);
 
 	expect(request.method).toBe(expectedMethod);
 	expect(request.url).toBe(expectedUrl);
@@ -628,6 +654,7 @@ it("Returns GET request for a Voice Actor Collection", () => {
 		"Wanikani-Revision": "20170710",
 		"If-Modified-Since": "Tue, 14 Mar 2023, 12:00:00 GMT",
 		"If-None-Match": `W/"70abc5970f2ab8cd34adcfad015ffde6"`,
+		"X-Forwarded-For": "192.168.1.1",
 	};
 	const expectedHeaders2 = {
 		Authorization: "Bearer abc",
@@ -640,7 +667,7 @@ it("Returns GET request for a Voice Actor Collection", () => {
 		updated_after: new Date("2023-03-01T12:00:00.000Z"),
 	};
 
-	const request1 = wanikani.voiceActors.get({}, options);
+	const request1 = wanikani.voiceActors.get({}, getOptions);
 	const request2 = wanikani.voiceActors.get(params);
 
 	expect(request1.method).toBe(expectedMethod);
@@ -669,4 +696,66 @@ it("Returns GET request for a Voice Actor", () => {
 	expect(request.url).toBe(expectedUrl);
 	expect(request.headers).toStrictEqual(expectedHeaders);
 	expect(request.body).toBe(expectedBody);
+});
+
+it("Changes API Token using setApiToken()", () => {
+	const expectedHeaders = {
+		Authorization: "Bearer def",
+		"Wanikani-Revision": "20170710",
+	};
+
+	const factory = new WKRequestFactory({ apiToken: "abc" });
+	const request = factory.setApiToken("def").assignments.get(123);
+	expect(request.headers).toStrictEqual(expectedHeaders);
+});
+
+it("Adds any new headers to requests using addCustomHeaders()", () => {
+	const customHeaders1 = {
+		"X-Forwarded-For": "192.168.1.1",
+	};
+	const customHeaders2 = {
+		"X-Proxy-Token": "def",
+	};
+	const expectedHeaders = {
+		Authorization: "Bearer abc",
+		"Wanikani-Revision": "20170710",
+		"X-Forwarded-For": "192.168.1.1",
+		"X-Proxy-Token": "def",
+	};
+	const factory = new WKRequestFactory({ apiToken: "abc", customHeaders: customHeaders1 });
+	const request = factory.addCustomHeaders(customHeaders2).assignments.get(123);
+	expect(request.headers).toStrictEqual(expectedHeaders);
+});
+
+it("Replaces custom headers only with setCustomHeaders()", () => {
+	const customHeaders1 = {
+		"X-Forwarded-For": "192.168.1.1",
+	};
+	const customHeaders2 = {
+		"X-Proxy-Token": "def",
+	};
+	const expectedHeaders = {
+		Authorization: "Bearer abc",
+		"Wanikani-Revision": "20170710",
+		"X-Proxy-Token": "def",
+	};
+	const factory = new WKRequestFactory({ apiToken: "abc", customHeaders: customHeaders1 });
+	const request = factory.setCustomHeaders(customHeaders2).assignments.get(123);
+	expect(request.headers).toStrictEqual(expectedHeaders);
+});
+
+it("Throws when trying to set type-checked headers", () => {
+	const factory = new WKRequestFactory({ apiToken: "abc" });
+	expect(() => factory.addCustomHeaders({ Authorization: "Cheese" })).toThrow(
+		"WaniKani API Token should be set via setApiToken() method.",
+	);
+	expect(() => factory.addCustomHeaders({ "Wanikani-Revision": "Cheese" })).toThrow(
+		"WaniKani API Revision should be set via setApiRevision() method.",
+	);
+	expect(() => factory.addCustomHeaders({ Accept: "Cheese" })).toThrow(
+		`The "Accept" header must be set to "application/json`,
+	);
+	expect(() => factory.addCustomHeaders({ "Content-Type": "Cheese" })).toThrow(
+		`The "Content-Type" header must be set to "application/json`,
+	);
 });
