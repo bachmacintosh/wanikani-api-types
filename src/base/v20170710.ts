@@ -679,7 +679,7 @@ export function isWKSrsStageNumberArray(
  */
 export function stringifyParameters<T extends WKCollectionParameters>(params: T): string {
 	if (typeof params !== "object") {
-		throw new TypeError();
+		throw new TypeError("Parameters must be expressed as an object.");
 	}
 	if (Object.keys(params).length === 0) {
 		return "";
