@@ -17,6 +17,8 @@ export {
 	validatePayload,
 } from "./base/v20170710.js";
 
+export { WKRequestFactory } from "./requests/v20170710.js";
+
 export { WK_SUBJECT_MARKUP_MATCHERS } from "./subjects/v20170710.js";
 
 export type {
@@ -57,6 +59,25 @@ export type {
 	WKLevelProgressionData,
 	WKLevelProgressionParameters,
 } from "./level-progressions/v20170710.js";
+
+export type {
+	WKAssignmentRequests,
+	WKLevelProgressionRequests,
+	WKRequest,
+	WKRequestFactoryInit,
+	WKRequestGetOptions,
+	WKRequestHeaders,
+	WKRequestPostPutOptions,
+	WKResetRequests,
+	WKReviewRequests,
+	WKReviewStatisticRequests,
+	WKSpacedRepetitionSystemRequests,
+	WKStudyMaterialRequests,
+	WKSubjectRequests,
+	WKSummaryRequests,
+	WKUserRequests,
+	WKVoiceActorRequests,
+} from "./requests/v20170710.js";
 
 export type { WKReset, WKResetCollection, WKResetData, WKResetParameters } from "./resets/v20170710.js";
 

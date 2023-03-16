@@ -675,11 +675,12 @@ export function isWKSrsStageNumberArray(
  *
  * @param params -- An object containing the query string parameters to parse.
  * @returns A query string of all the parameters, which can be added to a base URL.
+ * @throws A `TypeError` if a non-object is passed to the function.
  * @category Base
  */
 export function stringifyParameters<T extends WKCollectionParameters>(params: T): string {
 	if (typeof params !== "object") {
-		throw new TypeError();
+		throw new TypeError("Parameters must be expressed as an object.");
 	}
 	if (Object.keys(params).length === 0) {
 		return "";
