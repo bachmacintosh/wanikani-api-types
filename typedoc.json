@@ -1,5 +1,6 @@
 {
 	"$schema": "https://typedoc.org/schema.json",
+	"tsconfig": "./tsconfig.ts4.json",
 	"entryPoints": ["./src/v20170710.ts", "./src/index.ts"],
 	"out": "docs",
 	"plugin": ["@bachmacintosh/typedoc-theme"],
