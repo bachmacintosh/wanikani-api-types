@@ -9,6 +9,7 @@ module.exports = {
 			"ts-jest",
 			{
 				useESM: true,
+				tsconfig: "./tsconfig.ts4.json",
 			},
 		],
 	},
