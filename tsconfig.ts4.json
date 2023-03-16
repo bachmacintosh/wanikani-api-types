@@ -10,7 +10,8 @@
 		"declaration": true,
 		"removeComments": false,
 		"target": "ES2020",
-		"verbatimModuleSyntax": true,
+		"importsNotUsedAsValues": "error",
+		"isolatedModules": true,
 		"exactOptionalPropertyTypes": true
 	},
 	"include": ["src/**/*.ts", "src/internal/docs/MethodsTheme.cts"],

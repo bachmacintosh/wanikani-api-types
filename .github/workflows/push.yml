@@ -25,4 +25,4 @@ jobs:
       - name: Build Documentation
         run: npm run build:docs
       - name: Build Library
-        run: npm run build
+        run: npm run build:ts4

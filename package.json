@@ -28,6 +28,7 @@
 	},
 	"scripts": {
 		"build": "rimraf dist && tsc",
+		"build:ts4": "rimraf dist && tsc -p ./tsconfig.ts4.json",
 		"build:docs": "typedoc",
 		"lint": "eslint . && prettier --check .",
 		"lint:fix": "eslint --fix . && prettier --write .",
