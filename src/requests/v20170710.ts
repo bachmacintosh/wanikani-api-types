@@ -66,6 +66,7 @@ export class WKRequestFactory {
 				}
 				if (typeof options.customHeaders !== "undefined") {
 					for (const [key, value] of Object.entries(options.customHeaders)) {
+						WKRequestFactory.validateHeader(key, value);
 						headers[key] = value;
 					}
 				}
@@ -99,6 +100,7 @@ export class WKRequestFactory {
 			if (typeof options !== "undefined") {
 				if (typeof options.customHeaders !== "undefined") {
 					for (const [key, value] of Object.entries(options.customHeaders)) {
+						WKRequestFactory.validateHeader(key, value);
 						headers[key] = value;
 					}
 				}
@@ -147,6 +149,7 @@ export class WKRequestFactory {
 				}
 				if (typeof options.customHeaders !== "undefined") {
 					for (const [key, value] of Object.entries(options.customHeaders)) {
+						WKRequestFactory.validateHeader(key, value);
 						headers[key] = value;
 					}
 				}
@@ -194,6 +197,7 @@ export class WKRequestFactory {
 				}
 				if (typeof options.customHeaders !== "undefined") {
 					for (const [key, value] of Object.entries(options.customHeaders)) {
+						WKRequestFactory.validateHeader(key, value);
 						headers[key] = value;
 					}
 				}
@@ -236,6 +240,7 @@ export class WKRequestFactory {
 				}
 				if (typeof options.customHeaders !== "undefined") {
 					for (const [key, value] of Object.entries(options.customHeaders)) {
+						WKRequestFactory.validateHeader(key, value);
 						headers[key] = value;
 					}
 				}
@@ -268,6 +273,7 @@ export class WKRequestFactory {
 			if (typeof options !== "undefined") {
 				if (typeof options.customHeaders !== "undefined") {
 					for (const [key, value] of Object.entries(options.customHeaders)) {
+						WKRequestFactory.validateHeader(key, value);
 						headers[key] = value;
 					}
 				}
@@ -305,6 +311,7 @@ export class WKRequestFactory {
 				}
 				if (typeof options.customHeaders !== "undefined") {
 					for (const [key, value] of Object.entries(options.customHeaders)) {
+						WKRequestFactory.validateHeader(key, value);
 						headers[key] = value;
 					}
 				}
@@ -348,6 +355,7 @@ export class WKRequestFactory {
 				}
 				if (typeof options.customHeaders !== "undefined") {
 					for (const [key, value] of Object.entries(options.customHeaders)) {
+						WKRequestFactory.validateHeader(key, value);
 						headers[key] = value;
 					}
 				}
@@ -391,6 +399,7 @@ export class WKRequestFactory {
 				}
 				if (typeof options.customHeaders !== "undefined") {
 					for (const [key, value] of Object.entries(options.customHeaders)) {
+						WKRequestFactory.validateHeader(key, value);
 						headers[key] = value;
 					}
 				}
@@ -423,6 +432,7 @@ export class WKRequestFactory {
 			if (typeof options !== "undefined") {
 				if (typeof options.customHeaders !== "undefined") {
 					for (const [key, value] of Object.entries(options.customHeaders)) {
+						WKRequestFactory.validateHeader(key, value);
 						headers[key] = value;
 					}
 				}
@@ -450,6 +460,7 @@ export class WKRequestFactory {
 			if (typeof options !== "undefined") {
 				if (typeof options.customHeaders !== "undefined") {
 					for (const [key, value] of Object.entries(options.customHeaders)) {
+						WKRequestFactory.validateHeader(key, value);
 						headers[key] = value;
 					}
 				}
@@ -486,6 +497,7 @@ export class WKRequestFactory {
 				}
 				if (typeof options.customHeaders !== "undefined") {
 					for (const [key, value] of Object.entries(options.customHeaders)) {
+						WKRequestFactory.validateHeader(key, value);
 						headers[key] = value;
 					}
 				}
@@ -528,6 +540,7 @@ export class WKRequestFactory {
 				}
 				if (typeof options.customHeaders !== "undefined") {
 					for (const [key, value] of Object.entries(options.customHeaders)) {
+						WKRequestFactory.validateHeader(key, value);
 						headers[key] = value;
 					}
 				}
@@ -564,6 +577,7 @@ export class WKRequestFactory {
 				}
 				if (typeof options.customHeaders !== "undefined") {
 					for (const [key, value] of Object.entries(options.customHeaders)) {
+						WKRequestFactory.validateHeader(key, value);
 						headers[key] = value;
 					}
 				}
@@ -591,6 +605,7 @@ export class WKRequestFactory {
 			if (typeof options !== "undefined") {
 				if (typeof options.customHeaders !== "undefined") {
 					for (const [key, value] of Object.entries(options.customHeaders)) {
+						WKRequestFactory.validateHeader(key, value);
 						headers[key] = value;
 					}
 				}
@@ -627,6 +642,7 @@ export class WKRequestFactory {
 				}
 				if (typeof options.customHeaders !== "undefined") {
 					for (const [key, value] of Object.entries(options.customHeaders)) {
+						WKRequestFactory.validateHeader(key, value);
 						headers[key] = value;
 					}
 				}
@@ -757,6 +773,16 @@ export class WKRequestFactory {
 	 */
 	public get voiceActors(): WKVoiceActorRequests {
 		return this.#voiceActors;
+	}
+
+	public static validateHeader(key: string, value: string): void {
+		if (key === "Authorization") {
+			throw new TypeError("WaniKani API Token should be set via setApiToken() method.");
+		} else if (key === "Wanikani-Revision") {
+			throw new TypeError("WaniKani API Revision should be set via setApiRevision() method.");
+		} else if ((key === "Accept" || key === "Content-Type") && value !== "application/json") {
+			throw new TypeError(`The "${key}" header must be set to "application/json" .`);
+		}
 	}
 
 	/**
