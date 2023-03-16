@@ -677,13 +677,7 @@ export class WKRequestFactory {
 		this.#postPutHeaders = { ...this.#initHeaders };
 		if (typeof init.customHeaders !== "undefined") {
 			for (const [key, value] of Object.entries(init.customHeaders)) {
-				if (key === "Authorization") {
-					throw new TypeError("WaniKani API Token should be set via setApiToken() method.");
-				} else if (key === "Wanikani-Revision") {
-					throw new TypeError("WaniKani API Revision should be set via setApiRevision() method.");
-				} else if ((key === "Accept" || key === "Content-Type") && value !== "application/json") {
-					throw new TypeError(`The "${key}" header must be set to "application/json" .`);
-				}
+				WKRequestFactory.validateHeader(key, value);
 				this.#getHeaders[key] = value;
 				this.#postPutHeaders[key] = value;
 			}
@@ -792,13 +786,7 @@ export class WKRequestFactory {
 	 */
 	public addCustomHeaders(headers: Record<string, string>): this {
 		for (const [key, value] of Object.entries(headers)) {
-			if (key === "Authorization") {
-				throw new TypeError("WaniKani API Token should be set via setApiToken() method.");
-			} else if (key === "Wanikani-Revision") {
-				throw new TypeError("WaniKani API Revision should be set via setApiRevision() method.");
-			} else if ((key === "Accept" || key === "Content-Type") && value !== "application/json") {
-				throw new TypeError(`The "${key}" header must be set to "application/json" .`);
-			}
+			WKRequestFactory.validateHeader(key, value);
 			this.#getHeaders[key] = value;
 			this.#postPutHeaders[key] = value;
 		}
@@ -839,13 +827,7 @@ export class WKRequestFactory {
 		this.#getHeaders = { ...this.#initHeaders };
 		this.#postPutHeaders = { ...this.#initHeaders };
 		for (const [key, value] of Object.entries(headers)) {
-			if (key === "Authorization") {
-				throw new TypeError("WaniKani API Token should be set via setApiToken() method.");
-			} else if (key === "Wanikani-Revision") {
-				throw new TypeError("WaniKani API Revision should be set via setApiRevision() method.");
-			} else if ((key === "Accept" || key === "Content-Type") && value !== "application/json") {
-				throw new TypeError(`The "${key}" header must be set to "application/json" .`);
-			}
+			WKRequestFactory.validateHeader(key, value);
 			this.#getHeaders[key] = value;
 			this.#postPutHeaders[key] = value;
 		}
