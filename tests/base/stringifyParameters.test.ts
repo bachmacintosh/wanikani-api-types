@@ -46,3 +46,9 @@ it("Properly stringifies dates", () => {
 	const expectedString = "?available_after=2022-10-31T12:00:00.000Z&available_before=2021-10-31T12:00:00.000Z";
 	expect(stringifyParameters(params)).toBe(expectedString);
 });
+
+it("Throws an error when passed a non-object", () => {
+	const notAnObject = "not an object";
+	/// @ts-expect-error
+	expect(() => stringifyParameters(notAnObject)).toThrow("Parameters must be expressed as an object.");
+});
