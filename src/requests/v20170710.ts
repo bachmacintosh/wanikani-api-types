@@ -769,6 +769,12 @@ export class WKRequestFactory {
 		return this.#voiceActors;
 	}
 
+	/**
+	 * Validates custom-set headers to make sure type checking isn't circumvented.
+	 * @param key The header key, e.g. `Accpet` or `X-Forwarded-For`
+	 * @param value The header value, e.g. `application/json` or `192.168.1.1`
+	 * @throws A `TypeError` if there is an attempt to improperly set type-checked headers.
+	 */
 	public static validateHeader(key: string, value: string): void {
 		if (key === "Authorization") {
 			throw new TypeError("WaniKani API Token should be set via setApiToken() method.");
