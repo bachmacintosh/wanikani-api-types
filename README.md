@@ -1,5 +1,8 @@
 # @bachmacintosh/wanikani-api-types
 
+[![Tests (Main)](https://github.com/bachmacintosh/wanikani-api-types/actions/workflows/push.yml/badge.svg)](https://github.com/bachmacintosh/wanikani-api-types/actions/workflows/push.yml)
+[![codecov](https://codecov.io/gh/bachmacintosh/wanikani-api-types/branch/main/graph/badge.svg?token=CCVBE1UM9M)](https://codecov.io/gh/bachmacintosh/wanikani-api-types)
+
 Regularly updated type definitions for the [WaniKani API](https://docs.api.wanikani.com/20170710/)
 
 ## Documentation
