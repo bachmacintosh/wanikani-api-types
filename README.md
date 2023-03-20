@@ -28,7 +28,7 @@ A new Major Version x includes backwards-incompatible changes such as removing p
 ### Install with NPM
 
 ```shell
-npm install --save-dev @bachmacintosh/wanikani-api-types
+npm install @bachmacintosh/wanikani-api-types
 ```
 
 Then, import using one of two methods.
