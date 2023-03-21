@@ -30,6 +30,8 @@ A new Major Version x includes backwards-incompatible changes such as removing p
 <details>
 <summary>Click/Tap to Show Instructions</summary>
 
+Run the following command pertaining to your package manager:
+
 ```shell
 npm install @bachmacintosh/wanikani-api-types
 ```
