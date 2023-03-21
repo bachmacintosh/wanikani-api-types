@@ -163,7 +163,7 @@ There are also multiple helper functions that can assist with formatting and/or 
 
 ### Markup Matchers
 
-When working with WaniKani's Subjects, you may want to stylize/highlight the markup that's inside the reading/meaning mnemonics and hints. We provide some Regex Literals that can be used to extract one or more of these sorts of markup.
+When working with WaniKani's Subjects, you may want to stylize/highlight the markup that's inside the reading/meaning mnemonics and hints. We provide some Regex Literals that can be used to extract one or more of these sorts of markup in `WK_SUBJECT_MARKUP_MATCHERS`.
 
 ### Examples
 
