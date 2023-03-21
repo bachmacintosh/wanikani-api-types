@@ -1,5 +1,8 @@
 # @bachmacintosh/wanikani-api-types
 
+[![Tests (Main)](https://github.com/bachmacintosh/wanikani-api-types/actions/workflows/push.yml/badge.svg)](https://github.com/bachmacintosh/wanikani-api-types/actions/workflows/push.yml)
+[![codecov](https://codecov.io/gh/bachmacintosh/wanikani-api-types/branch/main/graph/badge.svg?token=CCVBE1UM9M)](https://codecov.io/gh/bachmacintosh/wanikani-api-types)
+
 Regularly updated type definitions for the [WaniKani API](https://docs.api.wanikani.com/20170710/)
 
 ## Documentation
@@ -10,7 +13,7 @@ Available at https://wanikani-api-types.bachman.dev
 
 This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html), with versions formatted as x.y.z.
 
-A new Patch Version z includes backwards-compatible bug fixes, corrections to documentation, and other minute changes.
+A new Patch Version z includes backwards-compatible bug fixes, corrections to documentation, and other relatively insignificant changes.
 
 A new Minor Version y includes new backwards-compatible library features, new backwards-compatible WaniKani API changes (e.g. new revision, new fields on a resource, etc.), widened TypeScript version support, and deprecatiung (but not removing) existing features to be removed in the next major version.
 
@@ -18,14 +21,27 @@ A new Major Version x includes backwards-incompatible changes such as removing p
 
 | Package Version | TypeScript Versions | WaniKani API Version | Latest API Revision |
 | --------------- | ------------------- | -------------------- | ------------------- |
-| 1.x             | 4.x >= 4.5.0        | 2                    | 20170710            |
+| 1.x             | 4.5-4.9, 5.0        | 2                    | 20170710            |
 
-## Usage
+## Install
 
-### Install with NPM
+### NPM / Yarn / pnpm
+
+<details>
+<summary>Click/Tap to Show Instructions</summary>
+
+Run the following command pertaining to your package manager:
 
 ```shell
-npm install --save-dev @bachmacintosh/wanikani-api-types
+npm install @bachmacintosh/wanikani-api-types
+```
+
+```shell
+yarn add @bachmacintosh/wanikani-api-types
+```
+
+```shell
+pnpm install @bachmacintosh/wanikani-api-types
 ```
 
 Then, import using one of two methods.
@@ -48,9 +64,14 @@ import type { WKAssignmentParameters, WKDatableString } from "@bachmacintosh/wan
 import { stringifyParameters } from "@bachmacintosh/wanikani-api-types";
 ```
 
+</details>
+
 ### Deno via NPM Specifier
 
-Deno version 1.28 and up can import the library using an [npm specifier](https://deno.land/manual@v1.28.1/node/npm_specifiers).
+<details>
+<summary>Click/Tap to Show Instructions</summary>
+
+Deno version 1.28 and up can import the library using an [npm specifier](https://deno.land/manual@v1.31.3/node/npm_specifiers).
 
 **Be sure to replace `x.y.z` with your desired version number.**
 
@@ -75,7 +96,13 @@ import type { WKAssignmentParameters, WKDatableString } from "npm:@bachmacintosh
 import { stringifyParameters } from "npm:@bachmacintosh/wanikani-api-types@x.y.z";
 ```
 
+</details>
+
 ### Other Environments
+
+<details>
+
+<summary>Click/Tap to Show Instructions</summary>
 
 You can import the modules directly with `esm.sh`.
 
@@ -102,6 +129,10 @@ import type { WKAssignmentParameters, WKDatableString } from "https://esm.sh/@ba
 import { stringifyParameters } from "https://esm.sh/@bachmacintosh/wanikani-api-types@x.y.z";
 ```
 
+</details>
+
+## Usage
+
 ### Type Definitions
 
 We provide various type definitions to help with sending/receiving type-safe elements to/from the WaniKani API.
@@ -116,17 +147,29 @@ We also export various subtypes that fall underneath these main types, in case t
 
 ### Type Guards
 
-Most of the types defined here are object types with straightforward structure. Sometimes, however, you may have a string or number that needs to meet specific criteria to be narrowed down to an exact type. So we provide some [type guards](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates) to verify if a variable is of a given type; these will usually begin with `is` in their name. See the documentation for more info.
+Most of the types defined here are object types with straightforward structure. Sometimes, however, you may have a string or number that needs to meet specific criteria to be narrowed down to an exact type. So we provide some [type guards](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates) to verify if a variable is of a given type; these will usually begin with `is` in their name (e.g. `isWKDatableString`). See the documentation for more info.
+
+## Request Factory
+
+We provide a special class, `WKRequestFactory`, that returns Request objects with all the information you need to make a request to the WaniKani API. That means the request's method (`GET`, `POST`, `PUT`), the URL (with parameters for Collections or an ID for individual Resources), headers (Authorization, conditional headers, etc.), and a body if you are sending data. You can use these objects in your preferred HTTP API/Library such as the Fetch API, Axios, Needle, Node's `https` Module, etc.
 
 ### Helper Functions
 
-We provide a helper function, `stringifyParameters`, that accepts any of the Parameter object types as an argument, and will return a query string to append to a WaniKani API endpoint; so long as the correct resource's parameters are stringified and appended, the request should be valid.
+There are also multiple helper functions that can assist with formatting and/or validating data sent to the WaniKani API, outside of and in addition to the Request Factory.
+
+- `stringifyParameters` converts a Parameters object (e.g. `WKAssignmentParameters`) into a URL query string to use when filtering a Collection
+- `validateParameters` does runtime validation on a Parameters object, allowing for more strict validation than TypeScript's type narrowing behavior (i.e. not allowing widening to `WKCollectionParameters`); it's a good function for those who must be absolutely sure their parameters are of the exact type.
+- `validatePayload` does runtime validation of Payload objects; while most TypeScript and editor-assisted projects likely won't need this function, it can be useful for pure JavaScript applications.
 
 ### Examples
 
 See [EXAMPLES.md](https://github.com/bachmacintosh/wanikani-api-types/blob/main/EXAMPLES.md) for examples using this library.
 
-## Contributing
+## Need Help? Want to Contribute?
+
+Please note that this package is community-developed and is NOT officially supported by Tofugu LLC or its staff.
+
+That said, if you have any questions or encounter any problems with this package, please feel free to open an Issue.
 
 We welcome any contributions to help improve this library. Please see the following documents:
 
