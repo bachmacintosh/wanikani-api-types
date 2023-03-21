@@ -25,10 +25,21 @@ A new Major Version x includes backwards-incompatible changes such as removing p
 
 ## Install
 
-### NPM
+### NPM/Yarn/pnpm
+
+<details>
+<summary>Click/Tap to Show Instructions</summary>
 
 ```shell
 npm install @bachmacintosh/wanikani-api-types
+```
+
+```shell
+yarn add @bachmacintosh/wanikani-api-types
+```
+
+```shell
+pnpm install @bachmacintosh/wanikani-api-types
 ```
 
 Then, import using one of two methods.
@@ -51,7 +62,12 @@ import type { WKAssignmentParameters, WKDatableString } from "@bachmacintosh/wan
 import { stringifyParameters } from "@bachmacintosh/wanikani-api-types";
 ```
 
+</details>
+
 ### Deno via NPM Specifier
+
+<details>
+<summary>Click/Tap to Show Instructions</summary>
 
 Deno version 1.28 and up can import the library using an [npm specifier](https://deno.land/manual@v1.28.1/node/npm_specifiers).
 
@@ -78,7 +94,13 @@ import type { WKAssignmentParameters, WKDatableString } from "npm:@bachmacintosh
 import { stringifyParameters } from "npm:@bachmacintosh/wanikani-api-types@x.y.z";
 ```
 
+</details>
+
 ### Other Environments
+
+<details>
+
+<summary>Click/Tap to Show Instructions</summary>
 
 You can import the modules directly with `esm.sh`.
 
@@ -104,6 +126,8 @@ Importing from the index module will always provide types, methods, etc. for use
 import type { WKAssignmentParameters, WKDatableString } from "https://esm.sh/@bachmacintosh/wanikani-api-types@x.y.z";
 import { stringifyParameters } from "https://esm.sh/@bachmacintosh/wanikani-api-types@x.y.z";
 ```
+
+</details>
 
 ## Usage
 
