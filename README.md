@@ -71,7 +71,7 @@ import { stringifyParameters } from "@bachmacintosh/wanikani-api-types";
 <details>
 <summary>Click/Tap to Show Instructions</summary>
 
-Deno version 1.28 and up can import the library using an [npm specifier](https://deno.land/manual@v1.28.1/node/npm_specifiers).
+Deno version 1.28 and up can import the library using an [npm specifier](https://deno.land/manual@v1.31.3/node/npm_specifiers).
 
 **Be sure to replace `x.y.z` with your desired version number.**
 
