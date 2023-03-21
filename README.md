@@ -25,7 +25,7 @@ A new Major Version x includes backwards-incompatible changes such as removing p
 
 ## Install
 
-### NPM/Yarn/pnpm
+### NPM / Yarn / pnpm
 
 <details>
 <summary>Click/Tap to Show Instructions</summary>
