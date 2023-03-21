@@ -161,6 +161,10 @@ There are also multiple helper functions that can assist with formatting and/or 
 - `validateParameters` does runtime validation on a Parameters object, allowing for more strict validation than TypeScript's type narrowing behavior (i.e. not allowing widening to `WKCollectionParameters`); it's a good function for those who must be absolutely sure their parameters are of the exact type.
 - `validatePayload` does runtime validation of Payload objects; while most TypeScript and editor-assisted projects likely won't need this function, it can be useful for pure JavaScript applications.
 
+### Markup Matchers
+
+When working with WaniKani's Subjects, you may want to stylize/highlight the markup that's inside the reading/meaning mnemonics and hints. We provide some Regex Literals that can be used to extract one or more of these sorts of markup.
+
 ### Examples
 
 See [EXAMPLES.md](https://github.com/bachmacintosh/wanikani-api-types/blob/main/EXAMPLES.md) for examples using this library.
