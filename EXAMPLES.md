@@ -26,7 +26,7 @@ Maybe you want a bar/line graph of your review workload for the day...
 
 ```typescript
 import type { WKError, WKSummary } from "@bachmacintosh/wanikani-api-types/dist/v20170710";
-import { WK_API_REVISION } from "@bachmacintosh/wanikani-api-types/dist/v20170710";
+import { WKRequestFactory, WK_API_REVISION } from "@bachmacintosh/wanikani-api-types/dist/v20170710";
 
 interface WaniKaniReviewForecast {
   date: Date;
@@ -34,12 +34,9 @@ interface WaniKaniReviewForecast {
 }
 
 async function reviewForecast(): Promise<WaniKaniReviewForecast[]> {
-  const headers = {
-    Authorization: `Bearer ${WANIKANI_API_TOKEN}`,
-    "Wanikani-Revision": WK_API_REVISION,
-  };
-  const url = "https://api.wanikani.com/v2/summary";
-  const init = { headers };
+  const request = new WKRequestFactory({ apiToken: WANIKANI_API_TOKEN, revision: WK_API_REVISION }).summary.get();
+  const { method, url, headers } = request;
+  const init = { method, headers };
   const response = await fetch(url, init);
   if (response.ok) {
     const summary = (await response.json()) as WKSummary;
@@ -76,17 +73,11 @@ import type {
   WKSubjectData,
   WKSubjectParameters,
 } from "@bachmacintosh/wanikani-api-types/dist/v20170710";
-import { WK_API_REVISION, isWKLevel, stringifyParameters } from "@bachmacintosh/wanikani-api-types/dist/v20170710";
+import { WKRequestFactory, WK_API_REVISION, isWKLevel } from "@bachmacintosh/wanikani-api-types/dist/v20170710";
 
 async function getSubjects(level?: number): Promise<WKSubjectData[]> {
-  const headers = {
-    Authorization: `Bearer ${WANIKANI_API_TOKEN}`,
-    "Wanikani-Revision": WK_API_REVISION,
-  };
-  const init = { headers };
-
   if (typeof level !== "undefined" && !isWKLevel(level)) {
-    throw new Error("Invalid WaniKani Level! It must be a whole number between 1 and 60");
+    throw new TypeError("Invalid WaniKani Level! It must be a whole number between 1 and 60");
   }
   const params: WKSubjectParameters = {
     hidden: false,
@@ -94,7 +85,12 @@ async function getSubjects(level?: number): Promise<WKSubjectData[]> {
   if (typeof level !== "undefined") {
     params.levels = [level];
   }
-  let url = `https://api.wanikani.com/v2/subjects${stringifyParameters(params)}`;
+  const request = new WKRequestFactory({ apiToken: WANIKANI_API_TOKEN, revision: WK_API_REVISION }).subjects.get(
+    params,
+  );
+  const { headers, method } = request;
+  let { url } = request;
+  const init = { headers, method };
   let response = await fetch(url, init);
   let subjects = (await response.json()) as WKSubjectCollection | WKError;
   const subjectData: WKSubjectData[] = [];
@@ -134,7 +130,11 @@ import type {
   WKSubjectParameters,
   WKUser,
 } from "@bachmacintosh/wanikani-api-types/dist/v20170710";
-import { WK_API_REVISION, stringifyParameters } from "@bachmacintosh/wanikani-api-types/dist/v20170710";
+import {
+  WKRequestFactory,
+  WK_API_REVISION,
+  stringifyParameters,
+} from "@bachmacintosh/wanikani-api-types/dist/v20170710";
 
 interface WaniKaniLesson {
   subject: WKSubjectData;
@@ -144,13 +144,11 @@ interface WaniKaniLesson {
 type WaniKaniLessonLevels = Partial<Record<WKLevel, WaniKaniLesson[]>>;
 
 async function getLessons(): Promise<WaniKaniLesson[]> {
-  const headers = {
-    Authorization: `Bearer ${WANIKANI_API_TOKEN}`,
-    "Wanikani-Revision": WK_API_REVISION,
-  };
+  const wk = new WKRequestFactory({ apiToken: WANIKANI_API_TOKEN, revision: WK_API_REVISION });
+  const userRequest = wk.user.get();
+  const { method, headers } = userRequest;
+  let { url } = userRequest;
   const init = { headers };
-
-  let url = "https://api.wanikani.com/v2/user";
   let response = await fetch(url, init);
   const user = (await response.json()) as WKError | WKUser;
   if (typeof user.data === "undefined") {
@@ -163,7 +161,9 @@ async function getLessons(): Promise<WaniKaniLesson[]> {
     immediately_available_for_lessons: true,
   };
 
-  url = `https://api.wanikani.com/v2/assignments${stringifyParameters(assignmentParams)}`;
+  const assignmentRequest = wk.assignments.get(assignmentParams);
+
+  url = assignmentRequest.url;
   response = await fetch(url, init);
   let assignments = (await response.json()) as WKAssignmentCollection | WKError;
   if (typeof assignments.data === "undefined" || typeof assignments.pages === "undefined") {
@@ -179,7 +179,7 @@ async function getLessons(): Promise<WaniKaniLesson[]> {
     const subjectParams: WKSubjectParameters = {
       ids,
     };
-    url = `https://api.wanikani.com/v2/subjects${stringifyParameters(subjectParams)}`;
+    url = wk.subjects.get(subjectParams);
     response = await fetch(url, init);
     const subjects = (await response.json()) as WKSubjectCollection | WKError;
     if (typeof subjects.data === "undefined") {
@@ -192,9 +192,6 @@ async function getLessons(): Promise<WaniKaniLesson[]> {
           [assignments.data[i], assignments.data[j]] = [assignments.data[j], assignments.data[i]];
         }
         assignments.data.forEach((assignment) => {
-          if (typeof subjects.data === "undefined") {
-            throw new Error(subjects.error);
-          }
           const subject = subjects.data.find((subject) => {
             return subject.id === assignment.data.subject_id;
           });
@@ -209,9 +206,6 @@ async function getLessons(): Promise<WaniKaniLesson[]> {
       } else {
         const levels: WaniKaniLessonLevels = {};
         assignments.data.forEach((assignment) => {
-          if (typeof subjects.data === "undefined") {
-            throw new Error(subjects.error);
-          }
           const subject = subjects.data.find((subject) => {
             return subject.id === assignment.data.subject_id;
           });
@@ -269,24 +263,24 @@ import type {
   WKDatableString,
   WKError,
 } from "@bachmacintosh/wanikani-api-types/dist/v20170710";
-import { WK_API_REVISION, isWKDatableString } from "@bachmacintosh/wanikani-api-types/dist/v20170710";
+import { WKRequestFactory, WK_API_REVISION, isWKDatableString } from "@bachmacintosh/wanikani-api-types/dist/v20170710";
 
 async function startAssignment(id: number, started_at?: WKDatableString | Date): Promise<WKAssignment> {
-  const url = `https://api.wanikani.com/v2/assignments/${id}/start`;
-  const headers = {
-    Authorization: `Bearer ${WANIKANI_API_TOKEN}`,
-    "Wanikani-Revision": WK_API_REVISION,
-  };
   let payload: WKAssignmentPayload = {};
   if (typeof started_at !== "undefined" && (isWKDatableString(started_at) || started_at instanceof Date)) {
     payload = {
       started_at,
     };
   }
+  const request = new WKRequestFactory({ apiToken: WANIKANI_API_TOKEN, revision: WK_API_REVISION }).assignments.start(
+    id,
+    payload,
+  );
+  const { method, url, headers, body } = request;
   const init: RequestInit = {
+    method,
     headers,
-    method: "PUT",
-    body: JSON.stringify(payload),
+    body,
   };
   const response = await fetch(url, init);
   if (response.ok) {
@@ -310,7 +304,7 @@ import type {
   WKError,
   WKReviewPayload,
 } from "@bachmacintosh/wanikani-api-types/dist/v20170710";
-import { WK_API_REVISION, isWKDatableString } from "@bachmacintosh/wanikani-api-types/dist/v20170710";
+import { WKRequestFactory, WK_API_REVISION, isWKDatableString } from "@bachmacintosh/wanikani-api-types/dist/v20170710";
 
 async function createReview(
   id: number,
@@ -319,12 +313,9 @@ async function createReview(
   idType: "assignment" | "subject" = "assignment",
   created_at?: WKDatableString | Date,
 ): Promise<WKCreatedReview> {
-  const headers = {
-    Authorization: `Bearer ${WANIKANI_API_TOKEN}`,
-    "Wanikani-Revision": WK_API_REVISION,
-  };
-  const url = "https://api.wanikani.com/v2/reviews/";
-  const created = 201;
+  // HTTP Status Code 201 - Accepted
+  const accepted = 201;
+
   let payload: WKReviewPayload = {
     review: {
       assignment_id: id,
@@ -344,13 +335,19 @@ async function createReview(
   if (typeof created_at !== "undefined" && (isWKDatableString(created_at) || created_at instanceof Date)) {
     payload.review.created_at = created_at;
   }
+
+  const request = new WKRequestFactory({ apiToken: WANIKANI_API_TOKEN, revision: WK_API_REVISION }).reviews.create(
+    payload,
+  );
+
+  const { method, url, headers, body } = request;
   const init: RequestInit = {
+    method,
     headers,
-    method: "POST",
-    body: JSON.stringify(payload),
+    body,
   };
   const response = await fetch(url, init);
-  if (response.status === created) {
+  if (response.status === accepted) {
     const createdReview = (await response.json()) as WKCreatedReview;
     return createdReview;
   } else {
