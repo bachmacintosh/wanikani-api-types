@@ -6,17 +6,21 @@ Keep in mind these are very simple examples, and you might want to make addition
 
 ## Set Your WaniKani API Key in The Environment
 
-These examples assume you have a `.env` file in your project.
+These examples all assume you've set an environment variable, `WANIKANI_API_TOKEN`, for API authorization. Add the following code before using these examples pertaining to your JavaScript runtime.
 
 ```typescript
 /* NodeJS: */
+
+// npm install dotenv
 import * as dotenv from "dotenv";
 dotenv.config();
 const WANIKANI_API_TOKEN = process.env("WANIKANI_API_TOKEN");
 
-/* Deno: */
-import { config } from "https://deno.land/std@0.163.0/dotenv/mod.ts";
-const env = await config();
+/* Deno:
+   See here for which version to use on the import for your version of Deno: https://raw.githubusercontent.com/denoland/dotland/main/versions.json
+*/
+import { load } from "https://deno.land/std@0.180.0/dotenv/mod.ts";
+const env = await load();
 const WANIKANI_API_TOKEN = env["WANIKANI_API_TOKEN"];
 ```
 
@@ -130,11 +134,7 @@ import type {
   WKSubjectParameters,
   WKUser,
 } from "@bachmacintosh/wanikani-api-types/dist/v20170710";
-import {
-  WKRequestFactory,
-  WK_API_REVISION,
-  stringifyParameters,
-} from "@bachmacintosh/wanikani-api-types/dist/v20170710";
+import { WKRequestFactory, WK_API_REVISION } from "@bachmacintosh/wanikani-api-types/dist/v20170710";
 
 interface WaniKaniLesson {
   subject: WKSubjectData;
