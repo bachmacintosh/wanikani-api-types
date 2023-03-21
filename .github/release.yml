@@ -15,12 +15,12 @@ changelog:
     - title: 📓 Documentation Updates
       labels:
         - documentation
-    - title: 🔄 Dependency Updates
-      labels:
-        - dependencies
     - title: ☑️ TypeScript Changes
       labels:
         - typescript
+    - title: 🔄 Dependency Updates
+      labels:
+        - dependencies
     - title: Other Changes
       labels:
         - "*"
