@@ -23,9 +23,9 @@ A new Major Version x includes backwards-incompatible changes such as removing p
 | --------------- | ------------------- | -------------------- | ------------------- |
 | 1.x             | 4.x >= 4.5, 5.0     | 2                    | 20170710            |
 
-## Usage
+# Install
 
-### Install with NPM
+### NPM
 
 ```shell
 npm install @bachmacintosh/wanikani-api-types
@@ -104,6 +104,8 @@ Importing from the index module will always provide types, methods, etc. for use
 import type { WKAssignmentParameters, WKDatableString } from "https://esm.sh/@bachmacintosh/wanikani-api-types@x.y.z";
 import { stringifyParameters } from "https://esm.sh/@bachmacintosh/wanikani-api-types@x.y.z";
 ```
+
+## Usage
 
 ### Type Definitions
 
