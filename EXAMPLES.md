@@ -17,7 +17,8 @@ dotenv.config();
 const WANIKANI_API_TOKEN = process.env("WANIKANI_API_TOKEN");
 
 /* Deno:
-   See here for which version to use on the import for your version of Deno: https://raw.githubusercontent.com/denoland/dotland/main/versions.json
+   See here for which version to use on the import for your version of Deno:
+   https://raw.githubusercontent.com/denoland/dotland/main/versions.json
 */
 import { load } from "https://deno.land/std@0.180.0/dotenv/mod.ts";
 const env = await load();
