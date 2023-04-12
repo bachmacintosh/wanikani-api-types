@@ -42,7 +42,7 @@
 		"url": "https://github.com/bachmacintosh/wanikani-api-types"
 	},
 	"devDependencies": {
-		"@bachmacintosh/typedoc-theme": "0.1.2",
+		"@bachmacintosh/typedoc-theme": "0.2.0",
 		"@jest/globals": "29.5.0",
 		"@typescript-eslint/eslint-plugin": "5.57.1",
 		"@typescript-eslint/parser": "5.57.1",
