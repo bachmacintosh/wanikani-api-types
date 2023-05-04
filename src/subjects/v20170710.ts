@@ -8,9 +8,192 @@ import type {
 } from "../v20170710.js";
 
 /**
- * The exact structure of a subject depends on the subject type. The available subject types are `radical`, `kanji`, and
- * `vocabulary`. Note that any attributes called out for the specific subject type behaves differently than the common
- * attribute of the same name.
+ * The exact structure of a subject depends on the subject type. The available subject types are `kana_vocabulary`,
+ * `kanji`, `radical`, and `vocabulary`. Note that any attributes called out for the specific subject type behaves
+ * differently than the common attribute of the same name.
+ *
+ * This type asserts the subject type is a kana-only vocabulary subject, and provides better type assertions requiring
+ * less type checking in code.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
+ * @category Resources
+ * @category Subjects
+ */
+export interface WKKanaVocabulary extends WKResource {
+	/**
+	 * A unique number identifying the vocabulary.
+	 */
+	id: number;
+
+	/**
+	 * The kind of object returned.
+	 */
+	object: "kana_vocabulary";
+
+	/**
+	 * Data for the returned vocabulary.
+	 */
+	data: WKKanaVocabularyData;
+}
+
+/**
+ * A collection of kana-only vocabulary subjects returned from the WaniKani API.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#get-all-subjects}
+ * @category Collections
+ * @category Subjects
+ */
+export interface WKKanaVocabularyCollection extends WKCollection {
+	/**
+	 * An array of returned vocabulary subjects.
+	 */
+	data: WKKanaVocabulary[];
+}
+
+/**
+ * Japanese context sentences for kana-only vocabulary, with a corresponding English translation.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
+ * @category Subjects
+ */
+export interface WKKanaVocabularyContextSentence {
+	/**
+	 * English translation of the sentence.
+	 */
+	en: string;
+
+	/**
+	 * Japanese context sentence.
+	 */
+	ja: string;
+}
+
+/**
+ * Data returned only for kana-only vocabulary subjects.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
+ * @category Data
+ * @category Subjects
+ */
+export interface WKKanaVocabularyData extends WKSubjectData {
+	/**
+	 * The UTF-8 characters for the subject, including kanji and hiragana.
+	 */
+	characters: string;
+
+	/**
+	 * A collection of context sentences.
+	 */
+	context_sentences: WKKanaVocabularyContextSentence[];
+
+	/**
+	 * Parts of speech.
+	 */
+	parts_of_speech: string[];
+
+	/**
+	 * A collection of pronunciation audio.
+	 */
+	pronunciation_audios: WKKanaVocabularyPronunciationAudio[];
+
+	/**
+	 * Kana-only Vocabulary subjects will never have an `amalgamation_subject_ids` property defined.
+	 */
+	amalgamation_subject_ids?: never;
+
+	/**
+	 * Kana-only Vocabulary subjects will never have a `component_subject_ids` property defined.
+	 */
+	component_subject_ids?: never;
+
+	/**
+	 * Kana-only Vocabulary subjects will never have a `character_images` property defined.
+	 */
+	character_images?: never;
+
+	/**
+	 * Kana-only Vocabulary subjects will never have a `meaning_hint` property defined.
+	 */
+	meaning_hint?: never;
+
+	/**
+	 * Kana-only Vocabulary subjects will never have a `reading_hint` property defined.
+	 */
+	reading_hint?: never;
+
+	/**
+	 * Kana-only Vocabulary subjects will never have a `reading_mnemonic` property defined.
+	 */
+	reading_mnemonic?: never;
+
+	/**
+	 * Kana-only Vocabulary subjects will never have a `readings` property defined.
+	 */
+	readings?: never;
+
+	/**
+	 * Kana-only Vocabulary subjects will never have a `visually_similar_subject_ids` property defined.
+	 */
+	visually_similar_subject_ids?: never;
+}
+
+/**
+ * Information pertaining to pronunciation audio for a kana-only vocabulary subject.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
+ * @category Subjects
+ */
+export interface WKKanaVocabularyPronunciationAudio {
+	/**
+	 * The location of the audio.
+	 */
+	url: string;
+
+	/**
+	 * The content type of the audio. Currently the API delivers `audio/mpeg`, `audio/ogg`, and `audio/webm`.
+	 */
+	content_type: "audio/mpeg" | "audio/ogg" | "audio/webm";
+
+	/**
+	 * Details about the pronunciation audio.
+	 */
+	metadata: {
+		/**
+		 * The gender of the voice actor.
+		 */
+		gender: "female" | "male";
+
+		/**
+		 * A unique ID shared between same source pronunciation audio.
+		 */
+		source_id: number;
+
+		/**
+		 * Vocabulary being pronounced in kana.
+		 */
+		pronunciation: string;
+
+		/**
+		 * A unique ID belonging to the voice actor.
+		 */
+		voice_actor_id: number;
+
+		/**
+		 * Humanized name of the voice actor.
+		 */
+		voice_actor_name: string;
+
+		/**
+		 * Description of the voice.
+		 */
+		voice_description: string;
+	};
+}
+
+/**
+ * The exact structure of a subject depends on the subject type. The available subject types are `kana_vocabulary`,
+ * `kanji`, `radical`, and `vocabulary`. Note that any attributes called out for the specific subject type behaves
+ * differently than the common attribute of the same name.
  *
  * This type asserts the subject type is a kanji, and provides better type assertions requiring less type checking in
  * code.
@@ -149,9 +332,9 @@ export interface WKKanjiReading {
 }
 
 /**
- * The exact structure of a subject depends on the subject type. The available subject types are `radical`, `kanji`, and
- * `vocabulary`. Note that any attributes called out for the specific subject type behaves differently than the common
- * attribute of the same name.
+ * The exact structure of a subject depends on the subject type. The available subject types are `kana_vocabulary`,
+ * `kanji`, `radical`, and `vocabulary`. Note that any attributes called out for the specific subject type behaves
+ * differently than the common attribute of the same name.
  *
  * This type asserts the subject type is a radical, and provides better type assertions requiring less type checking in
  * code.
@@ -335,9 +518,9 @@ export interface WKRadicalData extends WKSubjectData {
 }
 
 /**
- * The exact structure of a subject depends on the subject type. The available subject types are `radical`, `kanji`, and
- * `vocabulary`. Note that any attributes called out for the specific subject type behaves differently than the common
- * attribute of the same name.
+ * The exact structure of a subject depends on the subject type. The available subject types are `kana_vocabulary`,
+ * `kanji`, `radical`, and `vocabulary`. Note that any attributes called out for the specific subject type behaves
+ * differently than the common attribute of the same name.
  *
  * This type is for mixed or unknown subject types, and some items will require type checking in code.
  *
@@ -345,7 +528,7 @@ export interface WKRadicalData extends WKSubjectData {
  * @category Resources
  * @category Subjects
  */
-export type WKSubject = WKKanji | WKRadical | WKVocabulary;
+export type WKSubject = WKKanaVocabulary | WKKanji | WKRadical | WKVocabulary;
 
 /**
  * A subject's auxilliary meanings.
@@ -547,9 +730,9 @@ export interface WKSubjectParameters extends WKCollectionParameters {
 }
 
 /**
- * The exact structure of a subject depends on the subject type. The available subject types are `radical`, `kanji`, and
- * `vocabulary`. Note that any attributes called out for the specific subject type behaves differently than the common
- * attribute of the same name.
+ * The exact structure of a subject depends on the subject type. The available subject types are `kana_vocabulary`,
+ * `kanji`, `radical`, and `vocabulary`. Note that any attributes called out for the specific subject type behaves
+ * differently than the common attribute of the same name.
  *
  * This type asserts the subject type is a vocabulary subject, and provides better type assertions requiring less type
  * checking in code.
@@ -678,7 +861,7 @@ export interface WKVocabularyData extends WKSubjectData {
 }
 
 /**
- * Information pertaining to pronunciation audio for a subject.
+ * Information pertaining to pronunciation audio for a vocabulary subject.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects

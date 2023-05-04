@@ -118,6 +118,11 @@ export type {
 } from "./study-materials/v20170710.js";
 
 export type {
+	WKKanaVocabulary,
+	WKKanaVocabularyCollection,
+	WKKanaVocabularyContextSentence,
+	WKKanaVocabularyData,
+	WKKanaVocabularyPronunciationAudio,
 	WKKanji,
 	WKKanjiCollection,
 	WKKanjiData,

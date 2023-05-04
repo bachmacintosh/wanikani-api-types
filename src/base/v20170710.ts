@@ -4,6 +4,8 @@ import type {
 	WKAssignmentData,
 	WKAssignmentParameters,
 	WKAssignmentPayload,
+	WKKanaVocabulary,
+	WKKanaVocabularyData,
 	WKKanji,
 	WKKanjiData,
 	WKLevelProgression,
@@ -115,6 +117,7 @@ export interface WKCollection {
 	 */
 	data:
 		| WKAssignment[]
+		| WKKanaVocabulary[]
 		| WKKanji[]
 		| WKLevelProgression[]
 		| WKRadical[]
@@ -469,6 +472,7 @@ export interface WKResource {
 	 */
 	data:
 		| WKAssignmentData
+		| WKKanaVocabularyData
 		| WKKanjiData
 		| WKLevelProgressionData
 		| WKRadicalData
@@ -532,7 +536,7 @@ export type WKSubjectTuple = [WKSubjectType, ...WKSubjectType[]];
  * @category Base
  * @category Subjects
  */
-export type WKSubjectType = "kanji" | "radical" | "vocabulary";
+export type WKSubjectType = "kana_vocabulary" | "kanji" | "radical" | "vocabulary";
 
 /**
  * A type guard to determine if a given item is a valid {@link WKDatableString}.
