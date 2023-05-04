@@ -51,24 +51,6 @@ export interface WKKanaVocabularyCollection extends WKCollection {
 }
 
 /**
- * Japanese context sentences for kana-only vocabulary, with a corresponding English translation.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
- * @category Subjects
- */
-export interface WKKanaVocabularyContextSentence {
-	/**
-	 * English translation of the sentence.
-	 */
-	en: string;
-
-	/**
-	 * Japanese context sentence.
-	 */
-	ja: string;
-}
-
-/**
  * Data returned only for kana-only vocabulary subjects.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
@@ -84,7 +66,7 @@ export interface WKKanaVocabularyData extends WKSubjectData {
 	/**
 	 * A collection of context sentences.
 	 */
-	context_sentences: WKKanaVocabularyContextSentence[];
+	context_sentences: WKVocabularyContextSentence[];
 
 	/**
 	 * Parts of speech.
@@ -94,7 +76,7 @@ export interface WKKanaVocabularyData extends WKSubjectData {
 	/**
 	 * A collection of pronunciation audio.
 	 */
-	pronunciation_audios: WKKanaVocabularyPronunciationAudio[];
+	pronunciation_audios: WKVocabularyPronunciationAudio[];
 
 	/**
 	 * Kana-only Vocabulary subjects will never have an `amalgamation_subject_ids` property defined.
@@ -135,59 +117,6 @@ export interface WKKanaVocabularyData extends WKSubjectData {
 	 * Kana-only Vocabulary subjects will never have a `visually_similar_subject_ids` property defined.
 	 */
 	visually_similar_subject_ids?: never;
-}
-
-/**
- * Information pertaining to pronunciation audio for a kana-only vocabulary subject.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
- * @category Subjects
- */
-export interface WKKanaVocabularyPronunciationAudio {
-	/**
-	 * The location of the audio.
-	 */
-	url: string;
-
-	/**
-	 * The content type of the audio. Currently the API delivers `audio/mpeg`, `audio/ogg`, and `audio/webm`.
-	 */
-	content_type: "audio/mpeg" | "audio/ogg" | "audio/webm";
-
-	/**
-	 * Details about the pronunciation audio.
-	 */
-	metadata: {
-		/**
-		 * The gender of the voice actor.
-		 */
-		gender: "female" | "male";
-
-		/**
-		 * A unique ID shared between same source pronunciation audio.
-		 */
-		source_id: number;
-
-		/**
-		 * Vocabulary being pronounced in kana.
-		 */
-		pronunciation: string;
-
-		/**
-		 * A unique ID belonging to the voice actor.
-		 */
-		voice_actor_id: number;
-
-		/**
-		 * Humanized name of the voice actor.
-		 */
-		voice_actor_name: string;
-
-		/**
-		 * Description of the voice.
-		 */
-		voice_description: string;
-	};
 }
 
 /**
