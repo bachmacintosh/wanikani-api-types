@@ -120,9 +120,7 @@ export type {
 export type {
 	WKKanaVocabulary,
 	WKKanaVocabularyCollection,
-	WKKanaVocabularyContextSentence,
 	WKKanaVocabularyData,
-	WKKanaVocabularyPronunciationAudio,
 	WKKanji,
 	WKKanjiCollection,
 	WKKanjiData,
