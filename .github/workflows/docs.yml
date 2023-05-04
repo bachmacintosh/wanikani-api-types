@@ -1,13 +1,10 @@
 name: Tests (Main)
-on:
-  release:
-    types: [published]
+on: workflow_dispatch
 jobs:
   test:
-    name: "Publish Release"
+    name: "Rebuild and Deploy Docs"
     runs-on: ubuntu-latest
     permissions:
-      id-token: write
       contents: read
       deployments: write
     steps:
@@ -20,8 +17,6 @@ jobs:
         with:
           node-version-file: ".nvmrc"
           registry-url: "https://registry.npmjs.org"
-      - name: Install Latest NPM Version
-        run: npm install -g npm@latest
       - name: Install Dependencies
         run: npm ci
       - name: Lint Code
@@ -32,10 +27,6 @@ jobs:
         run: npm run build:docs
       - name: Build Library
         run: npm run build
-      - name: Publish Library
-        run: npm publish --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish Documentation
         uses: cloudflare/pages-action@v1
         with:
