@@ -1,0 +1,35 @@
+name: Tests (Main)
+on: workflow_dispatch
+jobs:
+  test:
+    name: "Rebuild and Deploy Docs"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.release.tag_name }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+          registry-url: "https://registry.npmjs.org"
+      - name: Install Dependencies
+        run: npm ci
+      - name: Lint Code
+        run: npm run lint
+      - name: Run Unit Tests
+        run: npm test
+      - name: Build Documentation
+        run: npm run build:docs
+      - name: Build Library
+        run: npm run build
+      - name: Publish Documentation
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: bachmacintosh-wanikani-api-types
+          directory: "./docs"
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
