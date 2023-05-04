@@ -8,6 +8,9 @@
 	"includeVersion": true,
 	"categorizeByGroup": false,
 	"categoryOrder": ["Base", "Collections", "Data", "Parameters", "Payloads", "Reports", "Requests", "Resources", "*"],
+	"navigation": {
+		"includeCategories": true
+	},
 	"sort": ["required-first", "alphabetical"],
 	"visibilityFilters": { "private": false },
 	"treatWarningsAsErrors": true,
