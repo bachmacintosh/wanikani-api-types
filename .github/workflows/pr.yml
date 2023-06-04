@@ -54,3 +54,7 @@ jobs:
         run: 'npm install --no-save typescript@"~5.0"'
       - name: Build Library on TypeScript 5.0
         run: npm run build
+      - name: Install TypeScript 5.1
+        run: 'npm install --no-save typescript@"~5.1"'
+      - name: Build Library on TypeScript 5.1
+        run: npm run build
