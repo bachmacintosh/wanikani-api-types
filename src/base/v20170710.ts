@@ -1,47 +1,47 @@
 import type { Brand, Range } from "../internal/index.js";
 import type {
-	WKAssignment,
-	WKAssignmentData,
-	WKAssignmentParameters,
-	WKAssignmentPayload,
-	WKKanaVocabulary,
-	WKKanaVocabularyData,
-	WKKanji,
-	WKKanjiData,
-	WKLevelProgression,
-	WKLevelProgressionData,
-	WKLevelProgressionParameters,
-	WKRadical,
-	WKRadicalData,
-	WKReset,
-	WKResetData,
-	WKResetParameters,
-	WKReview,
-	WKReviewData,
-	WKReviewParameters,
-	WKReviewPayload,
-	WKReviewStatistic,
-	WKReviewStatisticData,
-	WKReviewStatisticParameters,
-	WKSpacedRepetitionSystem,
-	WKSpacedRepetitionSystemData,
-	WKSpacedRepetitionSystemParameters,
-	WKStudyMaterial,
-	WKStudyMaterialCreatePayload,
-	WKStudyMaterialData,
-	WKStudyMaterialParameters,
-	WKStudyMaterialUpdatePayload,
-	WKSubject,
-	WKSubjectParameters,
-	WKSummaryData,
-	WKUserData,
-	WKUserPreferences,
-	WKUserPreferencesPayload,
-	WKVocabulary,
-	WKVocabularyData,
-	WKVoiceActor,
-	WKVoiceActorData,
-	WKVoiceActorParameters,
+  WKAssignment,
+  WKAssignmentData,
+  WKAssignmentParameters,
+  WKAssignmentPayload,
+  WKKanaVocabulary,
+  WKKanaVocabularyData,
+  WKKanji,
+  WKKanjiData,
+  WKLevelProgression,
+  WKLevelProgressionData,
+  WKLevelProgressionParameters,
+  WKRadical,
+  WKRadicalData,
+  WKReset,
+  WKResetData,
+  WKResetParameters,
+  WKReview,
+  WKReviewData,
+  WKReviewParameters,
+  WKReviewPayload,
+  WKReviewStatistic,
+  WKReviewStatisticData,
+  WKReviewStatisticParameters,
+  WKSpacedRepetitionSystem,
+  WKSpacedRepetitionSystemData,
+  WKSpacedRepetitionSystemParameters,
+  WKStudyMaterial,
+  WKStudyMaterialCreatePayload,
+  WKStudyMaterialData,
+  WKStudyMaterialParameters,
+  WKStudyMaterialUpdatePayload,
+  WKSubject,
+  WKSubjectParameters,
+  WKSummaryData,
+  WKUserData,
+  WKUserPreferences,
+  WKUserPreferencesPayload,
+  WKVocabulary,
+  WKVocabularyData,
+  WKVoiceActor,
+  WKVoiceActorData,
+  WKVoiceActorParameters,
 } from "../v20170710.js";
 import { isValidDate } from "../internal/index.js";
 
@@ -70,75 +70,75 @@ export const WK_API_REVISION: WKApiRevision = "20170710";
  * @category Collections
  */
 export interface WKCollection {
-	/**
-	 * The kind of object returned.
-	 */
-	object: "collection";
+  /**
+   * The kind of object returned.
+   */
+  object: "collection";
 
-	/**
-	 * The URL of the request. For collections, that will contain all the filters and options you've passed to the API.
-	 */
-	url: string;
+  /**
+   * The URL of the request. For collections, that will contain all the filters and options you've passed to the API.
+   */
+  url: string;
 
-	/**
-	 * Pagination Info for the collection.
-	 */
-	pages: {
-		/**
-		 * The URL of the next page of results. If there are no more results, the value is `null`.
-		 */
-		next_url: string | null;
+  /**
+   * Pagination Info for the collection.
+   */
+  pages: {
+    /**
+     * The URL of the next page of results. If there are no more results, the value is `null`.
+     */
+    next_url: string | null;
 
-		/**
-		 * The URL of the previous page of results. If there are no results at all or no previous page to go to, the value
-		 * is `null`.
-		 */
-		previous_url: string | null;
+    /**
+     * The URL of the previous page of results. If there are no results at all or no previous page to go to, the value
+     * is `null`.
+     */
+    previous_url: string | null;
 
-		/**
-		 * Maximum number of items delivered per page for this collection.
-		 */
-		per_page: number;
-	};
+    /**
+     * Maximum number of items delivered per page for this collection.
+     */
+    per_page: number;
+  };
 
-	/**
-	 * The total number of items in the collection.
-	 */
-	total_count: number;
+  /**
+   * The total number of items in the collection.
+   */
+  total_count: number;
 
-	/**
-	 * For collections, this is the timestamp of the most recently updated resource in the specified scope and is not
-	 * limited by pagination. If no items were returned for the specified scope, then this will be `null`.
-	 */
-	data_updated_at: WKDatableString | null;
+  /**
+   * For collections, this is the timestamp of the most recently updated resource in the specified scope and is not
+   * limited by pagination. If no items were returned for the specified scope, then this will be `null`.
+   */
+  data_updated_at: WKDatableString | null;
 
-	/**
-	 * The resource's data, dependent on the collection's resource type.
-	 */
-	data:
-		| WKAssignment[]
-		| WKKanaVocabulary[]
-		| WKKanji[]
-		| WKLevelProgression[]
-		| WKRadical[]
-		| WKReset[]
-		| WKReview[]
-		| WKReviewStatistic[]
-		| WKSpacedRepetitionSystem[]
-		| WKStudyMaterial[]
-		| WKSubject[]
-		| WKVocabulary[]
-		| WKVoiceActor[];
+  /**
+   * The resource's data, dependent on the collection's resource type.
+   */
+  data:
+    | WKAssignment[]
+    | WKKanaVocabulary[]
+    | WKKanji[]
+    | WKLevelProgression[]
+    | WKRadical[]
+    | WKReset[]
+    | WKReview[]
+    | WKReviewStatistic[]
+    | WKSpacedRepetitionSystem[]
+    | WKStudyMaterial[]
+    | WKSubject[]
+    | WKVocabulary[]
+    | WKVoiceActor[];
 
-	/**
-	 * A collection will never have a `code` property.
-	 */
-	code?: never;
+  /**
+   * A collection will never have a `code` property.
+   */
+  code?: never;
 
-	/**
-	 * A collection will never have an `error` property.
-	 */
-	error?: never;
+  /**
+   * A collection will never have an `error` property.
+   */
+  error?: never;
 }
 
 /**
@@ -149,29 +149,29 @@ export interface WKCollection {
  * @category Parameters
  */
 export interface WKCollectionParameters {
-	/**
-	 * Only resources where `data.id` matches one of the array values are returned.
-	 */
-	ids?: number[];
+  /**
+   * Only resources where `data.id` matches one of the array values are returned.
+   */
+  ids?: number[];
 
-	/**
-	 * Get a collection's next page containing `pages.per_page` resources after the given ID.
-	 *
-	 * This will take precedence over `page_before_id` if both are specified.
-	 */
-	page_after_id?: number;
+  /**
+   * Get a collection's next page containing `pages.per_page` resources after the given ID.
+   *
+   * This will take precedence over `page_before_id` if both are specified.
+   */
+  page_after_id?: number;
 
-	/**
-	 * Get a collection's previous page containing `pages.per_page` resources before the given ID.
-	 *
-	 * The `page_after_id` parameter takes precedence over this if it is specified alongside this parameter.
-	 */
-	page_before_id?: number;
+  /**
+   * Get a collection's previous page containing `pages.per_page` resources before the given ID.
+   *
+   * The `page_after_id` parameter takes precedence over this if it is specified alongside this parameter.
+   */
+  page_before_id?: number;
 
-	/**
-	 * Only resources updated after this time are returned.
-	 */
-	updated_after?: Date | WKDatableString;
+  /**
+   * Only resources updated after this time are returned.
+   */
+  updated_after?: Date | WKDatableString;
 }
 
 /**
@@ -181,42 +181,42 @@ export interface WKCollectionParameters {
  * @category Parameters
  */
 export interface WKCollectionParametersMap {
-	/**
-	 * Parameters for Assignment Collections.
-	 */
-	Assignment: WKAssignmentParameters;
-	/**
-	 * Parameters for Level Progression Collections.
-	 */
-	"Level Progression": WKLevelProgressionParameters;
-	/**
-	 * Parameters for Reset Collections.
-	 */
-	Reset: WKResetParameters;
-	/**
-	 * Parameters for Review Collections.
-	 */
-	Review: WKReviewParameters;
-	/**
-	 * Parameters for Review Statistic Collections.
-	 */
-	"Review Statistic": WKReviewStatisticParameters;
-	/**
-	 * Parameters for Spaced Repetition System (SRS) Collections.
-	 */
-	"Spaced Repetition System": WKSpacedRepetitionSystemParameters;
-	/**
-	 * Parameters for Study Material Collections.
-	 */
-	"Study Material": WKStudyMaterialParameters;
-	/**
-	 * Parameters for Subject Collections.
-	 */
-	Subject: WKSubjectParameters;
-	/**
-	 * Parameters for Voice Actor Collections.
-	 */
-	"Voice Actor": WKVoiceActorParameters;
+  /**
+   * Parameters for Assignment Collections.
+   */
+  Assignment: WKAssignmentParameters;
+  /**
+   * Parameters for Level Progression Collections.
+   */
+  "Level Progression": WKLevelProgressionParameters;
+  /**
+   * Parameters for Reset Collections.
+   */
+  Reset: WKResetParameters;
+  /**
+   * Parameters for Review Collections.
+   */
+  Review: WKReviewParameters;
+  /**
+   * Parameters for Review Statistic Collections.
+   */
+  "Review Statistic": WKReviewStatisticParameters;
+  /**
+   * Parameters for Spaced Repetition System (SRS) Collections.
+   */
+  "Spaced Repetition System": WKSpacedRepetitionSystemParameters;
+  /**
+   * Parameters for Study Material Collections.
+   */
+  "Study Material": WKStudyMaterialParameters;
+  /**
+   * Parameters for Subject Collections.
+   */
+  Subject: WKSubjectParameters;
+  /**
+   * Parameters for Voice Actor Collections.
+   */
+  "Voice Actor": WKVoiceActorParameters;
 }
 
 /**
@@ -233,50 +233,50 @@ export type WKDatableString = Brand<string, "WKDatableString">;
  * @category Base
  */
 export interface WKError {
-	/**
-	 * A message string that describes the error.
-	 */
-	error: string;
+  /**
+   * A message string that describes the error.
+   */
+  error: string;
 
-	/**
-	 * An HTTP status code indicating the type of error.
-	 */
-	code: number;
+  /**
+   * An HTTP status code indicating the type of error.
+   */
+  code: number;
 
-	/**
-	 * An error will never include a `data` property.
-	 */
-	data?: never;
+  /**
+   * An error will never include a `data` property.
+   */
+  data?: never;
 
-	/**
-	 * An error will never include a `data_updated_at` property.
-	 */
-	data_updated_at?: never;
+  /**
+   * An error will never include a `data_updated_at` property.
+   */
+  data_updated_at?: never;
 
-	/**
-	 * An error will never include an `id` property.
-	 */
-	id?: never;
+  /**
+   * An error will never include an `id` property.
+   */
+  id?: never;
 
-	/**
-	 * An error will never include an `object` property.
-	 */
-	object?: never;
+  /**
+   * An error will never include an `object` property.
+   */
+  object?: never;
 
-	/**
-	 * An error will never include a `pages` property.
-	 */
-	pages?: never;
+  /**
+   * An error will never include a `pages` property.
+   */
+  pages?: never;
 
-	/**
-	 * An error will never include a `total_count` property.
-	 */
-	total_count?: never;
+  /**
+   * An error will never include a `total_count` property.
+   */
+  total_count?: never;
 
-	/**
-	 * An error will never include a `url` property.
-	 */
-	url?: never;
+  /**
+   * An error will never include a `url` property.
+   */
+  url?: never;
 }
 
 /**
@@ -385,16 +385,16 @@ export const WK_MIN_LEVELS: WKMinLevels = 3;
  * @category Payloads
  */
 export interface WKPayloadMap {
-	/** Payload to start an Assignment. */
-	"PUT /assignments/<id>/start": WKAssignmentPayload;
-	/** Payload to create a Review. */
-	"POST /reviews": WKReviewPayload;
-	/** Payload to create a new Study Material. */
-	"POST /study_materials": WKStudyMaterialCreatePayload;
-	/** Payload to update an existing Study Material. */
-	"PUT /study_materials/<id>": WKStudyMaterialUpdatePayload;
-	/** Payload to update the User's Preferences. */
-	"PUT /user": WKUserPreferencesPayload;
+  /** Payload to start an Assignment. */
+  "PUT /assignments/<id>/start": WKAssignmentPayload;
+  /** Payload to create a Review. */
+  "POST /reviews": WKReviewPayload;
+  /** Payload to create a new Study Material. */
+  "POST /study_materials": WKStudyMaterialCreatePayload;
+  /** Payload to update an existing Study Material. */
+  "PUT /study_materials/<id>": WKStudyMaterialUpdatePayload;
+  /** Payload to update the User's Preferences. */
+  "PUT /user": WKUserPreferencesPayload;
 }
 
 /**
@@ -406,35 +406,35 @@ export interface WKPayloadMap {
  * @category Reports
  */
 export interface WKReport {
-	/**
-	 * The kind of object returned.
-	 */
-	object: "report";
+  /**
+   * The kind of object returned.
+   */
+  object: "report";
 
-	/**
-	 * The URL of the requested report.
-	 */
-	url: string;
+  /**
+   * The URL of the requested report.
+   */
+  url: string;
 
-	/**
-	 * The last time the report was updated.
-	 */
-	data_updated_at: WKDatableString;
+  /**
+   * The last time the report was updated.
+   */
+  data_updated_at: WKDatableString;
 
-	/**
-	 * The report's data, dependent on the particular report.
-	 */
-	data: WKSummaryData;
+  /**
+   * The report's data, dependent on the particular report.
+   */
+  data: WKSummaryData;
 
-	/**
-	 * A report will never have a `code` property.
-	 */
-	code?: never;
+  /**
+   * A report will never have a `code` property.
+   */
+  code?: never;
 
-	/**
-	 * A report will never have an `error` property.
-	 */
-	error?: never;
+  /**
+   * A report will never have an `error` property.
+   */
+  error?: never;
 }
 
 /**
@@ -446,54 +446,54 @@ export interface WKReport {
  * @category Resources
  */
 export interface WKResource {
-	/**
-	 * A unique identifying number present on all Resources except a User
-	 * resource, where it is present the `data` object.
-	 */
-	id?: number;
+  /**
+   * A unique identifying number present on all Resources except a User
+   * resource, where it is present the `data` object.
+   */
+  id?: number;
 
-	/**
-	 * The kind of object returned.
-	 */
-	object: WKResourceType | WKSubjectType;
+  /**
+   * The kind of object returned.
+   */
+  object: WKResourceType | WKSubjectType;
 
-	/**
-	 * The URL of the requested resource.
-	 */
-	url: string;
+  /**
+   * The URL of the requested resource.
+   */
+  url: string;
 
-	/**
-	 * For a resource, this is the last time that particular resource was updated.
-	 */
-	data_updated_at: WKDatableString;
+  /**
+   * For a resource, this is the last time that particular resource was updated.
+   */
+  data_updated_at: WKDatableString;
 
-	/**
-	 * The resource's data, dependent on the particular type of resource.
-	 */
-	data:
-		| WKAssignmentData
-		| WKKanaVocabularyData
-		| WKKanjiData
-		| WKLevelProgressionData
-		| WKRadicalData
-		| WKResetData
-		| WKReviewData
-		| WKReviewStatisticData
-		| WKSpacedRepetitionSystemData
-		| WKStudyMaterialData
-		| WKUserData
-		| WKVocabularyData
-		| WKVoiceActorData;
+  /**
+   * The resource's data, dependent on the particular type of resource.
+   */
+  data:
+    | WKAssignmentData
+    | WKKanaVocabularyData
+    | WKKanjiData
+    | WKLevelProgressionData
+    | WKRadicalData
+    | WKResetData
+    | WKReviewData
+    | WKReviewStatisticData
+    | WKSpacedRepetitionSystemData
+    | WKStudyMaterialData
+    | WKUserData
+    | WKVocabularyData
+    | WKVoiceActorData;
 
-	/**
-	 * A resource will never have a `code` property.
-	 */
-	code?: never;
+  /**
+   * A resource will never have a `code` property.
+   */
+  code?: never;
 
-	/**
-	 * A resource will never have an `error` property.
-	 */
-	error?: never;
+  /**
+   * A resource will never have an `error` property.
+   */
+  error?: never;
 }
 
 /**
@@ -503,15 +503,15 @@ export interface WKResource {
  * @category Base
  */
 export type WKResourceType =
-	| "assignment"
-	| "level_progression"
-	| "reset"
-	| "review_statistic"
-	| "review"
-	| "spaced_repetition_system"
-	| "study_material"
-	| "user"
-	| "voice_actor";
+  | "assignment"
+  | "level_progression"
+  | "reset"
+  | "review_statistic"
+  | "review"
+  | "spaced_repetition_system"
+  | "study_material"
+  | "user"
+  | "voice_actor";
 
 /**
  * A valid WaniKani Spaced Repetition System (SRS) Stage Number, based on the known SRS' on WaniKani and its API.
@@ -546,39 +546,39 @@ export type WKSubjectType = "kana_vocabulary" | "kanji" | "radical" | "vocabular
  * @category Base
  */
 export function isWKDatableString(possibleWKDatableString: unknown): possibleWKDatableString is WKDatableString {
-	const twentyFourHours = 24;
+  const twentyFourHours = 24;
 
-	const datePattern =
-		/(?<year>\d{4})-(?<month>[01]\d)-(?<day>[0-3]\d)T(?<hour>[0-2]\d):(?<minute>[0-5]\d):(?<second>[0-5]\d)\.(?<microsecond>\d{1,6})(?<offset>[+-][0-2]\d:[0-5]\d|Z)/u;
-	if (typeof possibleWKDatableString === "string") {
-		const matches = datePattern.exec(possibleWKDatableString);
-		if (matches === null || typeof matches.groups === "undefined") {
-			return false;
-		}
-		const yearNumber = parseInt(matches.groups.year, 10);
-		const monthNumber = parseInt(matches.groups.month, 10);
-		const dayNumber = parseInt(matches.groups.day, 10);
-		const hourNumber = parseInt(matches.groups.hour, 10);
-		if (!isValidDate(yearNumber, monthNumber, dayNumber)) {
-			return false;
-		}
-		if (hourNumber >= twentyFourHours) {
-			return false;
-		}
-		if (matches.groups.offset !== "Z") {
-			const offsetPattern = /[+-](?<hour>[0-2]\d):(?<minute>[0-5]\d)/u;
-			const offsetMatches = offsetPattern.exec(matches.groups.offset);
-			if (offsetMatches === null || typeof offsetMatches.groups === "undefined") {
-				return false;
-			}
-			const offsetHourNumber = parseInt(offsetMatches.groups.hour, 10);
-			if (offsetHourNumber >= twentyFourHours) {
-				return false;
-			}
-		}
-		return true;
-	}
-	return false;
+  const datePattern =
+    /(?<year>\d{4})-(?<month>[01]\d)-(?<day>[0-3]\d)T(?<hour>[0-2]\d):(?<minute>[0-5]\d):(?<second>[0-5]\d)\.(?<microsecond>\d{1,6})(?<offset>[+-][0-2]\d:[0-5]\d|Z)/u;
+  if (typeof possibleWKDatableString === "string") {
+    const matches = datePattern.exec(possibleWKDatableString);
+    if (matches === null || typeof matches.groups === "undefined") {
+      return false;
+    }
+    const yearNumber = parseInt(matches.groups.year, 10);
+    const monthNumber = parseInt(matches.groups.month, 10);
+    const dayNumber = parseInt(matches.groups.day, 10);
+    const hourNumber = parseInt(matches.groups.hour, 10);
+    if (!isValidDate(yearNumber, monthNumber, dayNumber)) {
+      return false;
+    }
+    if (hourNumber >= twentyFourHours) {
+      return false;
+    }
+    if (matches.groups.offset !== "Z") {
+      const offsetPattern = /[+-](?<hour>[0-2]\d):(?<minute>[0-5]\d)/u;
+      const offsetMatches = offsetPattern.exec(matches.groups.offset);
+      if (offsetMatches === null || typeof offsetMatches.groups === "undefined") {
+        return false;
+      }
+      const offsetHourNumber = parseInt(offsetMatches.groups.hour, 10);
+      if (offsetHourNumber >= twentyFourHours) {
+        return false;
+      }
+    }
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -588,14 +588,14 @@ export function isWKDatableString(possibleWKDatableString: unknown): possibleWKD
  * @category Base
  */
 export function isWKLessonBatchSizeNumber(
-	possibleWKLessonBatchSizeNumber: unknown,
+  possibleWKLessonBatchSizeNumber: unknown,
 ): possibleWKLessonBatchSizeNumber is WKLessonBatchSizeNumber {
-	return (
-		typeof possibleWKLessonBatchSizeNumber === "number" &&
-		Number.isInteger(possibleWKLessonBatchSizeNumber) &&
-		possibleWKLessonBatchSizeNumber >= WK_MIN_LESSON_BATCH_SIZE &&
-		possibleWKLessonBatchSizeNumber <= WK_MAX_LESSON_BATCH_SIZE
-	);
+  return (
+    typeof possibleWKLessonBatchSizeNumber === "number" &&
+    Number.isInteger(possibleWKLessonBatchSizeNumber) &&
+    possibleWKLessonBatchSizeNumber >= WK_MIN_LESSON_BATCH_SIZE &&
+    possibleWKLessonBatchSizeNumber <= WK_MAX_LESSON_BATCH_SIZE
+  );
 }
 
 /**
@@ -606,12 +606,12 @@ export function isWKLessonBatchSizeNumber(
  * @category Base
  */
 export function isWKLevel(possibleWKLevel: unknown): possibleWKLevel is WKLevel {
-	return (
-		typeof possibleWKLevel === "number" &&
-		Number.isInteger(possibleWKLevel) &&
-		possibleWKLevel >= 1 &&
-		possibleWKLevel <= WK_MAX_LEVELS
-	);
+  return (
+    typeof possibleWKLevel === "number" &&
+    Number.isInteger(possibleWKLevel) &&
+    possibleWKLevel >= 1 &&
+    possibleWKLevel <= WK_MAX_LEVELS
+  );
 }
 
 /**
@@ -622,17 +622,17 @@ export function isWKLevel(possibleWKLevel: unknown): possibleWKLevel is WKLevel 
  * @category Base
  */
 export function isWKLevelArray(possibleWKLevelArray: unknown): possibleWKLevelArray is WKLevel[] {
-	if (!Array.isArray(possibleWKLevelArray)) {
-		return false;
-	}
-	if (possibleWKLevelArray.length === 0) {
-		return false;
-	}
-	const allNumbersAndAllIntegers = possibleWKLevelArray.every(Number.isInteger);
-	const allNumbersInRange = possibleWKLevelArray.every((value) => {
-		return value >= 1 && value <= WK_MAX_LEVELS;
-	});
-	return allNumbersAndAllIntegers && allNumbersInRange;
+  if (!Array.isArray(possibleWKLevelArray)) {
+    return false;
+  }
+  if (possibleWKLevelArray.length === 0) {
+    return false;
+  }
+  const allNumbersAndAllIntegers = possibleWKLevelArray.every(Number.isInteger);
+  const allNumbersInRange = possibleWKLevelArray.every((value) => {
+    return value >= 1 && value <= WK_MAX_LEVELS;
+  });
+  return allNumbersAndAllIntegers && allNumbersInRange;
 }
 
 /**
@@ -643,12 +643,12 @@ export function isWKLevelArray(possibleWKLevelArray: unknown): possibleWKLevelAr
  * @category Base
  */
 export function isWKSrsStageNumber(possibleWKSrsStageNumber: unknown): possibleWKSrsStageNumber is WKSrsStageNumber {
-	return (
-		typeof possibleWKSrsStageNumber === "number" &&
-		Number.isInteger(possibleWKSrsStageNumber) &&
-		possibleWKSrsStageNumber >= 0 &&
-		possibleWKSrsStageNumber <= WK_MAX_SRS_STAGES
-	);
+  return (
+    typeof possibleWKSrsStageNumber === "number" &&
+    Number.isInteger(possibleWKSrsStageNumber) &&
+    possibleWKSrsStageNumber >= 0 &&
+    possibleWKSrsStageNumber <= WK_MAX_SRS_STAGES
+  );
 }
 
 /**
@@ -659,19 +659,19 @@ export function isWKSrsStageNumber(possibleWKSrsStageNumber: unknown): possibleW
  * @category Base
  */
 export function isWKSrsStageNumberArray(
-	possibleWKSrsStageNumberArray: unknown,
+  possibleWKSrsStageNumberArray: unknown,
 ): possibleWKSrsStageNumberArray is WKSrsStageNumber[] {
-	if (!Array.isArray(possibleWKSrsStageNumberArray)) {
-		return false;
-	}
-	if (possibleWKSrsStageNumberArray.length === 0) {
-		return false;
-	}
-	const allNumbersAndAllIntegers = possibleWKSrsStageNumberArray.every(Number.isInteger);
-	const allNumbersInRange = possibleWKSrsStageNumberArray.every((value) => {
-		return value >= 0 && value <= WK_MAX_SRS_STAGES;
-	});
-	return allNumbersAndAllIntegers && allNumbersInRange;
+  if (!Array.isArray(possibleWKSrsStageNumberArray)) {
+    return false;
+  }
+  if (possibleWKSrsStageNumberArray.length === 0) {
+    return false;
+  }
+  const allNumbersAndAllIntegers = possibleWKSrsStageNumberArray.every(Number.isInteger);
+  const allNumbersInRange = possibleWKSrsStageNumberArray.every((value) => {
+    return value >= 0 && value <= WK_MAX_SRS_STAGES;
+  });
+  return allNumbersAndAllIntegers && allNumbersInRange;
 }
 
 /**
@@ -683,38 +683,38 @@ export function isWKSrsStageNumberArray(
  * @category Base
  */
 export function stringifyParameters<T extends WKCollectionParameters>(params: T): string {
-	if (typeof params !== "object") {
-		throw new TypeError("Parameters must be expressed as an object.");
-	}
-	if (Object.keys(params).length === 0) {
-		return "";
-	}
+  if (typeof params !== "object") {
+    throw new TypeError("Parameters must be expressed as an object.");
+  }
+  if (Object.keys(params).length === 0) {
+    return "";
+  }
 
-	let firstItem = true;
-	let queryString = "";
+  let firstItem = true;
+  let queryString = "";
 
-	/* These boolean parameters are empty, i.e. no true or false, so should only be appended when actually set. */
-	const emptyQueryParams = ["immediately_available_for_lessons", "immediately_available_for_review", "in_review"];
+  /* These boolean parameters are empty, i.e. no true or false, so should only be appended when actually set. */
+  const emptyQueryParams = ["immediately_available_for_lessons", "immediately_available_for_review", "in_review"];
 
-	for (const [key, value] of Object.entries(params)) {
-		if (emptyQueryParams.includes(key) && typeof value === "boolean") {
-			if (value) {
-				queryString += firstItem ? "?" : "&";
-				queryString += `${key}`;
-			}
-		} else {
-			queryString += firstItem ? "?" : "&";
-			if (typeof value === "boolean") {
-				queryString += value ? `${key}=true` : `${key}=false`;
-			} else if (value instanceof Date && Object.prototype.toString.call(value) === "[object Date]") {
-				queryString += `${key}=${value.toISOString()}`;
-			} else if (Array.isArray(value) || typeof value === "number" || typeof value === "string") {
-				queryString += `${key}=${value.toString()}`;
-			}
-		}
-		firstItem = false;
-	}
-	return queryString;
+  for (const [key, value] of Object.entries(params)) {
+    if (emptyQueryParams.includes(key) && typeof value === "boolean") {
+      if (value) {
+        queryString += firstItem ? "?" : "&";
+        queryString += `${key}`;
+      }
+    } else {
+      queryString += firstItem ? "?" : "&";
+      if (typeof value === "boolean") {
+        queryString += value ? `${key}=true` : `${key}=false`;
+      } else if (value instanceof Date && Object.prototype.toString.call(value) === "[object Date]") {
+        queryString += `${key}=${value.toISOString()}`;
+      } else if (Array.isArray(value) || typeof value === "number" || typeof value === "string") {
+        queryString += `${key}=${value.toString()}`;
+      }
+    }
+    firstItem = false;
+  }
+  return queryString;
 }
 
 /**
@@ -726,112 +726,112 @@ export function stringifyParameters<T extends WKCollectionParameters>(params: T)
  * @category Base
  */
 export function validateParameters<T extends keyof WKCollectionParametersMap>(
-	type: T,
-	params: WKCollectionParametersMap[T],
+  type: T,
+  params: WKCollectionParametersMap[T],
 ): void {
-	/* Start by making dummy parameters with all properties requireed; this ensures we're checking all fields, and that
+  /* Start by making dummy parameters with all properties requireed; this ensures we're checking all fields, and that
 	   if we update types, this function will get updated, too. */
-	const assignmentParams: Required<WKAssignmentParameters> = {
-		available_after: new Date(),
-		available_before: new Date(),
-		burned: true,
-		hidden: true,
-		ids: [1],
-		immediately_available_for_lessons: true,
-		immediately_available_for_review: true,
-		in_review: true,
-		levels: [1],
-		page_after_id: 1,
-		page_before_id: 1,
-		srs_stages: [1],
-		started: true,
-		subject_ids: [1],
-		subject_types: ["kanji"],
-		unlocked: true,
-		updated_after: new Date(),
-	};
-	const levelProgressionParams: Required<WKLevelProgressionParameters> = {
-		ids: [1],
-		page_after_id: 1,
-		page_before_id: 1,
-		updated_after: new Date(),
-	};
-	const resetParams: Required<WKResetParameters> = {
-		ids: [1],
-		page_after_id: 1,
-		page_before_id: 1,
-		updated_after: new Date(),
-	};
-	const reviewParams: Required<WKReviewParameters> = {
-		assignment_ids: [1],
-		ids: [1],
-		page_after_id: 1,
-		page_before_id: 1,
-		subject_ids: [1],
-		updated_after: new Date(),
-	};
-	const reviewStatisticParams: Required<WKReviewStatisticParameters> = {
-		hidden: true,
-		ids: [1],
-		page_after_id: 1,
-		page_before_id: 1,
-		percentages_greater_than: 1,
-		percentages_less_than: 1,
-		subject_ids: [1],
-		subject_types: ["kanji"],
-		updated_after: new Date(),
-	};
-	const srsParams: Required<WKSpacedRepetitionSystemParameters> = {
-		ids: [1],
-		page_after_id: 1,
-		page_before_id: 1,
-		updated_after: new Date(),
-	};
-	const studyMaterialParams: Required<WKStudyMaterialParameters> = {
-		hidden: true,
-		ids: [1],
-		page_after_id: 1,
-		page_before_id: 1,
-		subject_ids: [1],
-		subject_types: ["kanji"],
-		updated_after: new Date(),
-	};
-	const subjectParams: Required<WKSubjectParameters> = {
-		hidden: true,
-		ids: [1],
-		levels: [1],
-		page_after_id: 1,
-		page_before_id: 1,
-		slugs: [""],
-		types: ["kanji"],
-		updated_after: new Date(),
-	};
-	const voiceActorParams: Required<WKVoiceActorParameters> = {
-		ids: [1],
-		page_after_id: 1,
-		page_before_id: 1,
-		updated_after: new Date(),
-	};
+  const assignmentParams: Required<WKAssignmentParameters> = {
+    available_after: new Date(),
+    available_before: new Date(),
+    burned: true,
+    hidden: true,
+    ids: [1],
+    immediately_available_for_lessons: true,
+    immediately_available_for_review: true,
+    in_review: true,
+    levels: [1],
+    page_after_id: 1,
+    page_before_id: 1,
+    srs_stages: [1],
+    started: true,
+    subject_ids: [1],
+    subject_types: ["kanji"],
+    unlocked: true,
+    updated_after: new Date(),
+  };
+  const levelProgressionParams: Required<WKLevelProgressionParameters> = {
+    ids: [1],
+    page_after_id: 1,
+    page_before_id: 1,
+    updated_after: new Date(),
+  };
+  const resetParams: Required<WKResetParameters> = {
+    ids: [1],
+    page_after_id: 1,
+    page_before_id: 1,
+    updated_after: new Date(),
+  };
+  const reviewParams: Required<WKReviewParameters> = {
+    assignment_ids: [1],
+    ids: [1],
+    page_after_id: 1,
+    page_before_id: 1,
+    subject_ids: [1],
+    updated_after: new Date(),
+  };
+  const reviewStatisticParams: Required<WKReviewStatisticParameters> = {
+    hidden: true,
+    ids: [1],
+    page_after_id: 1,
+    page_before_id: 1,
+    percentages_greater_than: 1,
+    percentages_less_than: 1,
+    subject_ids: [1],
+    subject_types: ["kanji"],
+    updated_after: new Date(),
+  };
+  const srsParams: Required<WKSpacedRepetitionSystemParameters> = {
+    ids: [1],
+    page_after_id: 1,
+    page_before_id: 1,
+    updated_after: new Date(),
+  };
+  const studyMaterialParams: Required<WKStudyMaterialParameters> = {
+    hidden: true,
+    ids: [1],
+    page_after_id: 1,
+    page_before_id: 1,
+    subject_ids: [1],
+    subject_types: ["kanji"],
+    updated_after: new Date(),
+  };
+  const subjectParams: Required<WKSubjectParameters> = {
+    hidden: true,
+    ids: [1],
+    levels: [1],
+    page_after_id: 1,
+    page_before_id: 1,
+    slugs: [""],
+    types: ["kanji"],
+    updated_after: new Date(),
+  };
+  const voiceActorParams: Required<WKVoiceActorParameters> = {
+    ids: [1],
+    page_after_id: 1,
+    page_before_id: 1,
+    updated_after: new Date(),
+  };
 
-	/* Map Collection names to their types. */
-	const validKeys: WKCollectionParametersMap = {
-		Assignment: assignmentParams,
-		"Level Progression": levelProgressionParams,
-		Reset: resetParams,
-		Review: reviewParams,
-		"Review Statistic": reviewStatisticParams,
-		"Spaced Repetition System": srsParams,
-		"Study Material": studyMaterialParams,
-		Subject: subjectParams,
-		"Voice Actor": voiceActorParams,
-	};
+  /* Map Collection names to their types. */
+  const validKeys: WKCollectionParametersMap = {
+    Assignment: assignmentParams,
+    "Level Progression": levelProgressionParams,
+    Reset: resetParams,
+    Review: reviewParams,
+    "Review Statistic": reviewStatisticParams,
+    "Spaced Repetition System": srsParams,
+    "Study Material": studyMaterialParams,
+    Subject: subjectParams,
+    "Voice Actor": voiceActorParams,
+  };
 
-	/* If we find a key in the object that isn't in the type, throw an error. */
-	Object.keys(params).forEach((key) => {
-		if (!(key in validKeys[type])) {
-			throw new TypeError(`Parameter "${key}" is not valid for ${type} Collections.`);
-		}
-	});
+  /* If we find a key in the object that isn't in the type, throw an error. */
+  Object.keys(params).forEach((key) => {
+    if (!(key in validKeys[type])) {
+      throw new TypeError(`Parameter "${key}" is not valid for ${type} Collections.`);
+    }
+  });
 }
 
 /**
@@ -843,87 +843,87 @@ export function validateParameters<T extends keyof WKCollectionParametersMap>(
  * @category Payloads
  */
 export function validatePayload<T extends keyof WKPayloadMap>(type: T, payload: WKPayloadMap[T]): void {
-	/* Let's try not to end up here! */
-	function throwTypeError(key: string, payloadType: T): never {
-		throw new TypeError(`Key "${key}" is not valid for a payload sent to ${payloadType} .`);
-	}
+  /* Let's try not to end up here! */
+  function throwTypeError(key: string, payloadType: T): never {
+    throw new TypeError(`Key "${key}" is not valid for a payload sent to ${payloadType} .`);
+  }
 
-	/* Create required dummy parameters */
-	const assignmentStartPayload: Required<WKAssignmentPayload> = {
-		started_at: new Date(),
-	};
-	const reviewCreatePayloadAssignment: Required<WKReviewPayload> = {
-		review: {
-			assignment_id: 1,
-			incorrect_meaning_answers: 0,
-			incorrect_reading_answers: 0,
-		},
-	};
-	const reviewCreatePayloadSubject: Required<WKReviewPayload> = {
-		review: {
-			subject_id: 1,
-			incorrect_meaning_answers: 0,
-			incorrect_reading_answers: 0,
-		},
-	};
-	const studyMaterialCreatePayload: Required<WKStudyMaterialCreatePayload> = {
-		subject_id: 1,
-		meaning_synonyms: ["one"],
-		meaning_note: "one",
-		reading_note: "one",
-	};
-	const studyMaterialUpdatePayload: Required<WKStudyMaterialUpdatePayload> = {
-		meaning_synonyms: ["one"],
-		meaning_note: "one",
-		reading_note: "one",
-	};
-	const preferences: Required<WKUserPreferences> = {
-		default_voice_actor_id: 1,
-		extra_study_autoplay_audio: true,
-		lessons_autoplay_audio: true,
-		lessons_batch_size: 3,
-		lessons_presentation_order: "ascending_level_then_subject",
-		reviews_autoplay_audio: true,
-		reviews_display_srs_indicator: true,
-		reviews_presentation_order: "shuffled",
-	};
-	const userPreferencesPayload: Required<WKUserPreferencesPayload> = {
-		user: {
-			preferences,
-		},
-	};
+  /* Create required dummy parameters */
+  const assignmentStartPayload: Required<WKAssignmentPayload> = {
+    started_at: new Date(),
+  };
+  const reviewCreatePayloadAssignment: Required<WKReviewPayload> = {
+    review: {
+      assignment_id: 1,
+      incorrect_meaning_answers: 0,
+      incorrect_reading_answers: 0,
+    },
+  };
+  const reviewCreatePayloadSubject: Required<WKReviewPayload> = {
+    review: {
+      subject_id: 1,
+      incorrect_meaning_answers: 0,
+      incorrect_reading_answers: 0,
+    },
+  };
+  const studyMaterialCreatePayload: Required<WKStudyMaterialCreatePayload> = {
+    subject_id: 1,
+    meaning_synonyms: ["one"],
+    meaning_note: "one",
+    reading_note: "one",
+  };
+  const studyMaterialUpdatePayload: Required<WKStudyMaterialUpdatePayload> = {
+    meaning_synonyms: ["one"],
+    meaning_note: "one",
+    reading_note: "one",
+  };
+  const preferences: Required<WKUserPreferences> = {
+    default_voice_actor_id: 1,
+    extra_study_autoplay_audio: true,
+    lessons_autoplay_audio: true,
+    lessons_batch_size: 3,
+    lessons_presentation_order: "ascending_level_then_subject",
+    reviews_autoplay_audio: true,
+    reviews_display_srs_indicator: true,
+    reviews_presentation_order: "shuffled",
+  };
+  const userPreferencesPayload: Required<WKUserPreferencesPayload> = {
+    user: {
+      preferences,
+    },
+  };
 
-	/* Valid-key sets, used depending on type of payload being validated */
-	const validKeysExceptReviews: Omit<WKPayloadMap, "POST /reviews"> = {
-		"PUT /assignments/<id>/start": assignmentStartPayload,
-		"POST /study_materials": studyMaterialCreatePayload,
-		"PUT /study_materials/<id>": studyMaterialUpdatePayload,
-		"PUT /user": userPreferencesPayload,
-	};
-	const validKeysReviewAssignment: Pick<WKPayloadMap, "POST /reviews"> = {
-		"POST /reviews": reviewCreatePayloadAssignment,
-	};
-	const validKeysReviewSubject: Pick<WKPayloadMap, "POST /reviews"> = {
-		"POST /reviews": reviewCreatePayloadSubject,
-	};
+  /* Valid-key sets, used depending on type of payload being validated */
+  const validKeysExceptReviews: Omit<WKPayloadMap, "POST /reviews"> = {
+    "PUT /assignments/<id>/start": assignmentStartPayload,
+    "POST /study_materials": studyMaterialCreatePayload,
+    "PUT /study_materials/<id>": studyMaterialUpdatePayload,
+    "PUT /user": userPreferencesPayload,
+  };
+  const validKeysReviewAssignment: Pick<WKPayloadMap, "POST /reviews"> = {
+    "POST /reviews": reviewCreatePayloadAssignment,
+  };
+  const validKeysReviewSubject: Pick<WKPayloadMap, "POST /reviews"> = {
+    "POST /reviews": reviewCreatePayloadSubject,
+  };
 
-	/* Check for unexpected keys, throw if we find one */
-	Object.keys(payload).forEach((key) => {
-		if (type === "POST /reviews") {
-			if (!(key in validKeysReviewAssignment["POST /reviews"]) && !(key in validKeysReviewSubject["POST /reviews"])) {
-				throwTypeError(key, type);
-			}
-		} else if (type === "POST /study_materials" && !(key in validKeysExceptReviews["POST /study_materials"])) {
-			throwTypeError(key, type);
-		} else if (
-			type === "PUT /assignments/<id>/start" &&
-			!(key in validKeysExceptReviews["PUT /assignments/<id>/start"])
-		) {
-			throwTypeError(key, type);
-		} else if (type === "PUT /study_materials/<id>" && !(key in validKeysExceptReviews["PUT /study_materials/<id>"])) {
-			throwTypeError(key, type);
-		} else if (type === "PUT /user" && !(key in validKeysExceptReviews["PUT /user"])) {
-			throwTypeError(key, type);
-		}
-	});
+  /* Check for unexpected keys, throw if we find one */
+  Object.keys(payload).forEach((key) => {
+    if (type === "POST /reviews") {
+      if (!(key in validKeysReviewAssignment["POST /reviews"]) && !(key in validKeysReviewSubject["POST /reviews"])) {
+        throwTypeError(key, type);
+      }
+    } else if (type === "POST /study_materials" && !(key in validKeysExceptReviews["POST /study_materials"])) {
+      throwTypeError(key, type);
+    } else if (
+      type === "PUT /assignments/<id>/start" &&
+      !(key in validKeysExceptReviews["PUT /assignments/<id>/start"])
+    ) {
+      throwTypeError(key, type);
+    } else if (type === "PUT /study_materials/<id>" && !(key in validKeysExceptReviews["PUT /study_materials/<id>"])) {
+      throwTypeError(key, type);
+    } else if (type === "PUT /user" && !(key in validKeysExceptReviews["PUT /user"])) {
+      throwTypeError(key, type);
+    }
+  });
 }

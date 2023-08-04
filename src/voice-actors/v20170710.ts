@@ -8,20 +8,20 @@ import type { WKCollection, WKCollectionParameters, WKDatableString, WKResource 
  * @category Voice Actors
  */
 export interface WKVoiceActor extends WKResource {
-	/**
-	 * A unique number identifying the voice actor.
-	 */
-	id: number;
+  /**
+   * A unique number identifying the voice actor.
+   */
+  id: number;
 
-	/**
-	 * The kind of object returned.
-	 */
-	object: "voice_actor";
+  /**
+   * The kind of object returned.
+   */
+  object: "voice_actor";
 
-	/**
-	 * Data for the returned voice actor.
-	 */
-	data: WKVoiceActorData;
+  /**
+   * Data for the returned voice actor.
+   */
+  data: WKVoiceActorData;
 }
 
 /**
@@ -32,10 +32,10 @@ export interface WKVoiceActor extends WKResource {
  * @category Voice Actors
  */
 export interface WKVoiceActorCollection extends WKCollection {
-	/**
-	 * An array of returned voice actors.
-	 */
-	data: WKVoiceActor[];
+  /**
+   * An array of returned voice actors.
+   */
+  data: WKVoiceActor[];
 }
 
 /**
@@ -46,24 +46,24 @@ export interface WKVoiceActorCollection extends WKCollection {
  * @category Voice Actors
  */
 export interface WKVoiceActorData {
-	/**
-	 * Timestamp for when the voice actor was added to WaniKani.
-	 */
-	created_at: WKDatableString;
+  /**
+   * Timestamp for when the voice actor was added to WaniKani.
+   */
+  created_at: WKDatableString;
 
-	/**
-	 * Details about the voice actor.
-	 */
-	description: string;
-	/**
-	 * The voice actor's gender, either `male` or `female`.
-	 */
-	gender: "female" | "male";
+  /**
+   * Details about the voice actor.
+   */
+  description: string;
+  /**
+   * The voice actor's gender, either `male` or `female`.
+   */
+  gender: "female" | "male";
 
-	/**
-	 * The voice actor's name.
-	 */
-	name: string;
+  /**
+   * The voice actor's name.
+   */
+  name: string;
 }
 
 /**

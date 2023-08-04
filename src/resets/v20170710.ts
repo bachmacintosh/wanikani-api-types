@@ -11,20 +11,20 @@ import type { WKCollection, WKCollectionParameters, WKDatableString, WKLevel, WK
  * @category Resources
  */
 export interface WKReset extends WKResource {
-	/**
-	 * A unique number identifying the reset.
-	 */
-	id: number;
+  /**
+   * A unique number identifying the reset.
+   */
+  id: number;
 
-	/**
-	 * The kind of object returned.
-	 */
-	object: "reset";
+  /**
+   * The kind of object returned.
+   */
+  object: "reset";
 
-	/**
-	 * Data for the returned reset.
-	 */
-	data: WKResetData;
+  /**
+   * Data for the returned reset.
+   */
+  data: WKResetData;
 }
 
 /**
@@ -35,10 +35,10 @@ export interface WKReset extends WKResource {
  * @category Resets
  */
 export interface WKResetCollection extends WKCollection {
-	/**
-	 * An array of returned resets.
-	 */
-	data: WKReset[];
+  /**
+   * An array of returned resets.
+   */
+  data: WKReset[];
 }
 
 /**
@@ -49,25 +49,25 @@ export interface WKResetCollection extends WKCollection {
  * @category Resets
  */
 export interface WKResetData {
-	/**
-	 * Timestamp when the user confirmed the reset.
-	 */
-	confirmed_at: WKDatableString | null;
+  /**
+   * Timestamp when the user confirmed the reset.
+   */
+  confirmed_at: WKDatableString | null;
 
-	/**
-	 * Timestamp when the reset was created.
-	 */
-	created_at: WKDatableString;
+  /**
+   * Timestamp when the reset was created.
+   */
+  created_at: WKDatableString;
 
-	/**
-	 * The user's level before the reset, from `1` to `60`.
-	 */
-	original_level: WKLevel;
+  /**
+   * The user's level before the reset, from `1` to `60`.
+   */
+  original_level: WKLevel;
 
-	/**
-	 * The user's level after the reset, from `1` to `60`. It must be less than or equal to `original_level`.
-	 */
-	target_level: WKLevel;
+  /**
+   * The user's level after the reset, from `1` to `60`. It must be less than or equal to `original_level`.
+   */
+  target_level: WKLevel;
 }
 
 /**

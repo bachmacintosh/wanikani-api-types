@@ -15,20 +15,20 @@ import type { WKCollection, WKCollectionParameters, WKDatableString, WKLevel, WK
  * @category Resources
  */
 export interface WKLevelProgression extends WKResource {
-	/**
-	 * A unique number identifying the level progression.
-	 */
-	id: number;
+  /**
+   * A unique number identifying the level progression.
+   */
+  id: number;
 
-	/**
-	 * The kind of object returned.
-	 */
-	object: "level_progression";
+  /**
+   * The kind of object returned.
+   */
+  object: "level_progression";
 
-	/**
-	 * Data for the returned level progression.
-	 */
-	data: WKLevelProgressionData;
+  /**
+   * Data for the returned level progression.
+   */
+  data: WKLevelProgressionData;
 }
 
 /**
@@ -39,10 +39,10 @@ export interface WKLevelProgression extends WKResource {
  * @category Level Progressions
  */
 export interface WKLevelProgressionCollection extends WKCollection {
-	/**
-	 * An array of returned level progressions.
-	 */
-	data: WKLevelProgression[];
+  /**
+   * An array of returned level progressions.
+   */
+  data: WKLevelProgression[];
 }
 
 /**
@@ -53,41 +53,41 @@ export interface WKLevelProgressionCollection extends WKCollection {
  * @category Level Progressions
  */
 export interface WKLevelProgressionData {
-	/**
-	 * Timestamp when the user abandons the level. This is primarily used when the user initiates a reset.
-	 */
-	abandoned_at: WKDatableString | null;
+  /**
+   * Timestamp when the user abandons the level. This is primarily used when the user initiates a reset.
+   */
+  abandoned_at: WKDatableString | null;
 
-	/**
-	 * Timestamp when the user burns 100% of the assignments belonging to the associated subject's level.
-	 */
-	completed_at: WKDatableString | null;
+  /**
+   * Timestamp when the user burns 100% of the assignments belonging to the associated subject's level.
+   */
+  completed_at: WKDatableString | null;
 
-	/**
-	 * Timestamp when the level progression is created.
-	 */
-	created_at: WKDatableString;
+  /**
+   * Timestamp when the level progression is created.
+   */
+  created_at: WKDatableString;
 
-	/**
-	 * The level of the progression, with possible values from `1` to `60`.
-	 */
-	level: WKLevel;
+  /**
+   * The level of the progression, with possible values from `1` to `60`.
+   */
+  level: WKLevel;
 
-	/**
-	 * Timestamp, in ISO-8601 format, when the user passes at least 90% of the assignments with a type of `kanji`
-	 * belonging to the associated subject's level.
-	 */
-	passed_at: WKDatableString | null;
+  /**
+   * Timestamp, in ISO-8601 format, when the user passes at least 90% of the assignments with a type of `kanji`
+   * belonging to the associated subject's level.
+   */
+  passed_at: WKDatableString | null;
 
-	/**
-	 * Timestamp when the user starts their first lesson of a subject belonging to the level.
-	 */
-	started_at: WKDatableString | null;
+  /**
+   * Timestamp when the user starts their first lesson of a subject belonging to the level.
+   */
+  started_at: WKDatableString | null;
 
-	/**
-	 * Timestamp when the user can access lessons and reviews for the `level`.
-	 */
-	unlocked_at: WKDatableString | null;
+  /**
+   * Timestamp when the user can access lessons and reviews for the `level`.
+   */
+  unlocked_at: WKDatableString | null;
 }
 
 /**

@@ -1,19 +1,19 @@
 {
-	"compilerOptions": {
-		"rootDir": "./src",
-		"outDir": "./dist",
-		"strict": true,
-		"lib": ["ESNext", "dom"],
-		"skipLibCheck": true,
-		"module": "ESNext",
-		"moduleResolution": "node",
-		"esModuleInterop": true,
-		"declaration": true,
-		"removeComments": false,
-		"target": "ES2020",
-		"verbatimModuleSyntax": true,
-		"exactOptionalPropertyTypes": true
-	},
-	"include": ["src/**/*.ts", "src/internal/docs/MethodsTheme.cts"],
-	"exclude": ["dist/**", "tests/**", "node_modules/**"]
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "strict": true,
+    "lib": ["ESNext", "dom"],
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "declaration": true,
+    "removeComments": false,
+    "target": "ES2020",
+    "verbatimModuleSyntax": true,
+    "exactOptionalPropertyTypes": true
+  },
+  "include": ["src/**/*.ts", "src/internal/docs/MethodsTheme.cts"],
+  "exclude": ["dist/**", "tests/**", "node_modules/**"]
 }

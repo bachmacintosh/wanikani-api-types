@@ -1,22 +1,22 @@
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 
 module.exports = {
-	preset: "ts-jest",
-	testEnvironment: "node",
-	extensionsToTreatAsEsm: [".ts"],
-	transform: {
-		"^.+\\.[tj]sx?$": [
-			"ts-jest",
-			{
-				useESM: true,
-				tsconfig: "./tsconfig.jest.json",
-			},
-		],
-	},
-	moduleNameMapper: {
-		"^(\\.{1,2}/.*)\\.js$": "$1",
-	},
-	collectCoverage: true,
-	coverageDirectory: "coverage",
-	coverageProvider: "v8",
+  preset: "ts-jest",
+  testEnvironment: "node",
+  extensionsToTreatAsEsm: [".ts"],
+  transform: {
+    "^.+\\.[tj]sx?$": [
+      "ts-jest",
+      {
+        useESM: true,
+        tsconfig: "./tsconfig.jest.json",
+      },
+    ],
+  },
+  moduleNameMapper: {
+    "^(\\.{1,2}/.*)\\.js$": "$1",
+  },
+  collectCoverage: true,
+  coverageDirectory: "coverage",
+  coverageProvider: "v8",
 };

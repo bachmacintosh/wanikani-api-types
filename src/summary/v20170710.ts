@@ -9,10 +9,10 @@ import type { WKDatableString, WKReport } from "../v20170710.js";
  * @category Summary
  */
 export interface WKSummary extends WKReport {
-	/**
-	 * Data for the Summary report.
-	 */
-	data: WKSummaryData;
+  /**
+   * Data for the Summary report.
+   */
+  data: WKSummaryData;
 }
 
 /**
@@ -23,20 +23,20 @@ export interface WKSummary extends WKReport {
  * @category Summary
  */
 export interface WKSummaryData {
-	/**
-	 * Details about subjects available for lessons.
-	 */
-	lessons: WKSummaryLesson[];
+  /**
+   * Details about subjects available for lessons.
+   */
+  lessons: WKSummaryLesson[];
 
-	/**
-	 * Earliest date when the reviews are available. Is `null` when the user has no reviews scheduled.
-	 */
-	next_reviews_at: WKDatableString | null;
+  /**
+   * Earliest date when the reviews are available. Is `null` when the user has no reviews scheduled.
+   */
+  next_reviews_at: WKDatableString | null;
 
-	/**
-	 * Details about subjects available for reviews now and in the next 24 hours by the hour (total of 25 objects).
-	 */
-	reviews: WKSummaryReview[];
+  /**
+   * Details about subjects available for reviews now and in the next 24 hours by the hour (total of 25 objects).
+   */
+  reviews: WKSummaryReview[];
 }
 
 /**
@@ -46,16 +46,16 @@ export interface WKSummaryData {
  * @category Summary
  */
 export interface WKSummaryLesson {
-	/**
-	 * When the paired `subject_ids` are available for lessons. Always beginning of the current hour when the API endpoint
-	 * is accessed.
-	 */
-	available_at: WKDatableString;
+  /**
+   * When the paired `subject_ids` are available for lessons. Always beginning of the current hour when the API endpoint
+   * is accessed.
+   */
+  available_at: WKDatableString;
 
-	/**
-	 * Collection of unique identifiers for subjects.
-	 */
-	subject_ids: number[];
+  /**
+   * Collection of unique identifiers for subjects.
+   */
+  subject_ids: number[];
 }
 
 /**
@@ -65,13 +65,13 @@ export interface WKSummaryLesson {
  * @category Summary
  */
 export interface WKSummaryReview {
-	/**
-	 * When the paired `subject_ids` are available for reviews. All timestamps are the top of an hour.
-	 */
-	available_at: WKDatableString;
+  /**
+   * When the paired `subject_ids` are available for reviews. All timestamps are the top of an hour.
+   */
+  available_at: WKDatableString;
 
-	/**
-	 * Collection of unique identifiers for subjects.
-	 */
-	subject_ids: number[];
+  /**
+   * Collection of unique identifiers for subjects.
+   */
+  subject_ids: number[];
 }

@@ -1,10 +1,10 @@
 import type {
-	WKCollection,
-	WKCollectionParameters,
-	WKDatableString,
-	WKResource,
-	WKSubjectTuple,
-	WKSubjectType,
+  WKCollection,
+  WKCollectionParameters,
+  WKDatableString,
+  WKResource,
+  WKSubjectTuple,
+  WKSubjectType,
 } from "../v20170710.js";
 
 /**
@@ -16,20 +16,20 @@ import type {
  * @category Study Materials
  */
 export interface WKStudyMaterial extends WKResource {
-	/**
-	 * A unique number identifying the study material.
-	 */
-	id: number;
+  /**
+   * A unique number identifying the study material.
+   */
+  id: number;
 
-	/**
-	 * The kind of object returned.
-	 */
-	object: "study_material";
+  /**
+   * The kind of object returned.
+   */
+  object: "study_material";
 
-	/**
-	 * Data for the returned study material.
-	 */
-	data: WKStudyMaterialData;
+  /**
+   * Data for the returned study material.
+   */
+  data: WKStudyMaterialData;
 }
 
 /**
@@ -41,20 +41,20 @@ export interface WKStudyMaterial extends WKResource {
  * {@link WKStudyMaterialUpdatePayload}; for study materials received from the API, use {@link WKStudyMaterialData}.
  */
 export interface WKStudyMaterialBaseData {
-	/**
-	 * Free form note related to the meaning(s) of the associated subject.
-	 */
-	meaning_note: string | null;
+  /**
+   * Free form note related to the meaning(s) of the associated subject.
+   */
+  meaning_note: string | null;
 
-	/**
-	 * Free form note related to the reading(s) of the associated subject.
-	 */
-	reading_note: string | null;
+  /**
+   * Free form note related to the reading(s) of the associated subject.
+   */
+  reading_note: string | null;
 
-	/**
-	 * Synonyms for the meaning of the subject. These are used as additional correct answers during reviews.
-	 */
-	meaning_synonyms: string[];
+  /**
+   * Synonyms for the meaning of the subject. These are used as additional correct answers during reviews.
+   */
+  meaning_synonyms: string[];
 }
 
 /**
@@ -65,10 +65,10 @@ export interface WKStudyMaterialBaseData {
  * @category Study Materials
  */
 export interface WKStudyMaterialCollection extends WKCollection {
-	/**
-	 * An array of returned study materials.
-	 */
-	data: WKStudyMaterial[];
+  /**
+   * An array of returned study materials.
+   */
+  data: WKStudyMaterial[];
 }
 
 /**
@@ -79,10 +79,10 @@ export interface WKStudyMaterialCollection extends WKCollection {
  * @category Study Materials
  */
 export interface WKStudyMaterialCreatePayload extends WKStudyMaterialUpdatePayload {
-	/**
-	 * Unique identifier of the associated subject.
-	 */
-	subject_id: number;
+  /**
+   * Unique identifier of the associated subject.
+   */
+  subject_id: number;
 }
 
 /**
@@ -93,25 +93,25 @@ export interface WKStudyMaterialCreatePayload extends WKStudyMaterialUpdatePaylo
  * @category Study Materials
  */
 export interface WKStudyMaterialData extends WKStudyMaterialBaseData {
-	/**
-	 * Timestamp when the study material was created.
-	 */
-	created_at: WKDatableString;
+  /**
+   * Timestamp when the study material was created.
+   */
+  created_at: WKDatableString;
 
-	/**
-	 * Indicates if the associated subject has been hidden, preventing it from appearing in lessons or reviews.
-	 */
-	hidden: boolean;
+  /**
+   * Indicates if the associated subject has been hidden, preventing it from appearing in lessons or reviews.
+   */
+  hidden: boolean;
 
-	/**
-	 * Unique identifier of the associated subject.
-	 */
-	subject_id: number;
+  /**
+   * Unique identifier of the associated subject.
+   */
+  subject_id: number;
 
-	/**
-	 * The type of the associated subject, one of: `kanji`, `radical`, or `vocabulary`.
-	 */
-	subject_type: WKSubjectType;
+  /**
+   * The type of the associated subject, one of: `kanji`, `radical`, or `vocabulary`.
+   */
+  subject_type: WKSubjectType;
 }
 
 /**
@@ -123,21 +123,21 @@ export interface WKStudyMaterialData extends WKStudyMaterialBaseData {
  * @category Study Materials
  */
 export interface WKStudyMaterialParameters extends WKCollectionParameters {
-	/**
-	 * Return study materials with a matching value in the `hidden` attribute.
-	 */
-	hidden?: boolean;
+  /**
+   * Return study materials with a matching value in the `hidden` attribute.
+   */
+  hidden?: boolean;
 
-	/**
-	 * Only study material records where `data.subject_id` matches one of the array values are returned.
-	 */
-	subject_ids?: number[];
+  /**
+   * Only study material records where `data.subject_id` matches one of the array values are returned.
+   */
+  subject_ids?: number[];
 
-	/**
-	 * Only study material records where `data.subject_type` matches one of the array values are returned. Valid values
-	 * are: `radical`, `kanji`, or `vocabulary`.
-	 */
-	subject_types?: WKSubjectTuple;
+  /**
+   * Only study material records where `data.subject_type` matches one of the array values are returned. Valid values
+   * are: `radical`, `kanji`, or `vocabulary`.
+   */
+  subject_types?: WKSubjectTuple;
 }
 
 /**

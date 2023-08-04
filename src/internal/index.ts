@@ -15,8 +15,8 @@ export type Brand<K, T> = K & { __brand: T };
  * @internal
  */
 export type Enumerate<N extends number, Acc extends number[] = []> = Acc["length"] extends N
-	? Acc[number]
-	: Enumerate<N, [...Acc, Acc["length"]]>;
+  ? Acc[number]
+  : Enumerate<N, [...Acc, Acc["length"]]>;
 
 /**
  * A range of numbers starting from number F to number T.
@@ -40,52 +40,52 @@ export type Range<F extends number, T extends number> = Exclude<Enumerate<T>, En
  * @internal
  */
 export function isValidDate(year: number, month: number, day: number): boolean {
-	const fourYears = 4;
-	const oneHundredYears = 100;
-	const fourHundredYears = 400;
-	const isLeapYear = (year % fourYears === 0 && year % oneHundredYears !== 0) || year % fourHundredYears === 0;
-	const monthsInYear = 12;
-	const thirtyOneDays = 31;
-	const thirtyDays = 30;
-	const twentyNineDays = 29;
-	const months = {
-		january: 1,
-		february: 2,
-		march: 3,
-		april: 4,
-		may: 5,
-		june: 6,
-		july: 7,
-		august: 8,
-		september: 9,
-		october: 10,
-		november: 11,
-		december: 12,
-	};
-	const monthsWithThirtyDays = [months.april, months.june, months.september, months.november];
-	const monthsWithThirtyOneDays = [
-		months.january,
-		months.march,
-		months.may,
-		months.july,
-		months.august,
-		months.october,
-		months.december,
-	];
-	if (month > monthsInYear || month <= 0) {
-		return false;
-	}
-	if (day <= 0) {
-		return false;
-	}
-	if (monthsWithThirtyOneDays.includes(month) && day > thirtyOneDays) {
-		return false;
-	}
-	if (monthsWithThirtyDays.includes(month) && day > thirtyDays) {
-		return false;
-	}
-	if (month === months.february && ((isLeapYear && day >= thirtyDays) || (!isLeapYear && day >= twentyNineDays))) {
-		return false;
-	}
-	return true;
+  const fourYears = 4;
+  const oneHundredYears = 100;
+  const fourHundredYears = 400;
+  const isLeapYear = (year % fourYears === 0 && year % oneHundredYears !== 0) || year % fourHundredYears === 0;
+  const monthsInYear = 12;
+  const thirtyOneDays = 31;
+  const thirtyDays = 30;
+  const twentyNineDays = 29;
+  const months = {
+    january: 1,
+    february: 2,
+    march: 3,
+    april: 4,
+    may: 5,
+    june: 6,
+    july: 7,
+    august: 8,
+    september: 9,
+    october: 10,
+    november: 11,
+    december: 12,
+  };
+  const monthsWithThirtyDays = [months.april, months.june, months.september, months.november];
+  const monthsWithThirtyOneDays = [
+    months.january,
+    months.march,
+    months.may,
+    months.july,
+    months.august,
+    months.october,
+    months.december,
+  ];
+  if (month > monthsInYear || month <= 0) {
+    return false;
+  }
+  if (day <= 0) {
+    return false;
+  }
+  if (monthsWithThirtyOneDays.includes(month) && day > thirtyOneDays) {
+    return false;
+  }
+  if (monthsWithThirtyDays.includes(month) && day > thirtyDays) {
+    return false;
+  }
+  if (month === months.february && ((isLeapYear && day >= thirtyDays) || (!isLeapYear && day >= twentyNineDays))) {
+    return false;
+  }
+  return true;
 }

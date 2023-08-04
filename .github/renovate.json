@@ -1,4 +1,4 @@
 {
-	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
-	"extends": ["github>bachmacintosh/renovate-config:jslib"]
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["github>bachmacintosh/renovate-config:jslib"]
 }
