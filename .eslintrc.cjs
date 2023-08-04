@@ -273,7 +273,7 @@ module.exports = {
     node: true,
   },
   root: true,
-  ignorePatterns: ["dist/**", "tests/**"],
+  ignorePatterns: ["dist/**", "docs/**", "tests/**"],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     tsconfigRootDir: __dirname,
