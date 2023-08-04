@@ -1,10 +1,10 @@
 import type {
-	WKCollection,
-	WKCollectionParameters,
-	WKDatableString,
-	WKLevel,
-	WKResource,
-	WKSubjectTuple,
+  WKCollection,
+  WKCollectionParameters,
+  WKDatableString,
+  WKLevel,
+  WKResource,
+  WKSubjectTuple,
 } from "../v20170710.js";
 
 /**
@@ -19,21 +19,21 @@ import type {
  * @category Resources
  * @category Subjects
  */
-export interface WKKanaVocabulary extends WKResource {
-	/**
-	 * A unique number identifying the vocabulary.
-	 */
-	id: number;
+interface WKKanaVocabulary extends WKResource {
+  /**
+   * Data for the returned vocabulary.
+   */
+  data: WKKanaVocabularyData;
 
-	/**
-	 * The kind of object returned.
-	 */
-	object: "kana_vocabulary";
+  /**
+   * A unique number identifying the vocabulary.
+   */
+  id: number;
 
-	/**
-	 * Data for the returned vocabulary.
-	 */
-	data: WKKanaVocabularyData;
+  /**
+   * The kind of object returned.
+   */
+  object: "kana_vocabulary";
 }
 
 /**
@@ -43,11 +43,11 @@ export interface WKKanaVocabulary extends WKResource {
  * @category Collections
  * @category Subjects
  */
-export interface WKKanaVocabularyCollection extends WKCollection {
-	/**
-	 * An array of returned vocabulary subjects.
-	 */
-	data: WKKanaVocabulary[];
+interface WKKanaVocabularyCollection extends WKCollection {
+  /**
+   * An array of returned vocabulary subjects.
+   */
+  data: WKKanaVocabulary[];
 }
 
 /**
@@ -57,66 +57,66 @@ export interface WKKanaVocabularyCollection extends WKCollection {
  * @category Data
  * @category Subjects
  */
-export interface WKKanaVocabularyData extends WKSubjectData {
-	/**
-	 * The UTF-8 characters for the subject, including kanji and hiragana.
-	 */
-	characters: string;
+interface WKKanaVocabularyData extends WKSubjectData {
+  /**
+   * The UTF-8 characters for the subject, including kanji and hiragana.
+   */
+  characters: string;
 
-	/**
-	 * A collection of context sentences.
-	 */
-	context_sentences: WKVocabularyContextSentence[];
+  /**
+   * A collection of context sentences.
+   */
+  context_sentences: WKVocabularyContextSentence[];
 
-	/**
-	 * Parts of speech.
-	 */
-	parts_of_speech: string[];
+  /**
+   * Parts of speech.
+   */
+  parts_of_speech: string[];
 
-	/**
-	 * A collection of pronunciation audio.
-	 */
-	pronunciation_audios: WKVocabularyPronunciationAudio[];
+  /**
+   * A collection of pronunciation audio.
+   */
+  pronunciation_audios: WKVocabularyPronunciationAudio[];
 
-	/**
-	 * Kana-only Vocabulary subjects will never have an `amalgamation_subject_ids` property defined.
-	 */
-	amalgamation_subject_ids?: never;
+  /**
+   * Kana-only Vocabulary subjects will never have an `amalgamation_subject_ids` property defined.
+   */
+  amalgamation_subject_ids?: never;
 
-	/**
-	 * Kana-only Vocabulary subjects will never have a `component_subject_ids` property defined.
-	 */
-	component_subject_ids?: never;
+  /**
+   * Kana-only Vocabulary subjects will never have a `character_images` property defined.
+   */
+  character_images?: never;
 
-	/**
-	 * Kana-only Vocabulary subjects will never have a `character_images` property defined.
-	 */
-	character_images?: never;
+  /**
+   * Kana-only Vocabulary subjects will never have a `component_subject_ids` property defined.
+   */
+  component_subject_ids?: never;
 
-	/**
-	 * Kana-only Vocabulary subjects will never have a `meaning_hint` property defined.
-	 */
-	meaning_hint?: never;
+  /**
+   * Kana-only Vocabulary subjects will never have a `meaning_hint` property defined.
+   */
+  meaning_hint?: never;
 
-	/**
-	 * Kana-only Vocabulary subjects will never have a `reading_hint` property defined.
-	 */
-	reading_hint?: never;
+  /**
+   * Kana-only Vocabulary subjects will never have a `reading_hint` property defined.
+   */
+  reading_hint?: never;
 
-	/**
-	 * Kana-only Vocabulary subjects will never have a `reading_mnemonic` property defined.
-	 */
-	reading_mnemonic?: never;
+  /**
+   * Kana-only Vocabulary subjects will never have a `reading_mnemonic` property defined.
+   */
+  reading_mnemonic?: never;
 
-	/**
-	 * Kana-only Vocabulary subjects will never have a `readings` property defined.
-	 */
-	readings?: never;
+  /**
+   * Kana-only Vocabulary subjects will never have a `readings` property defined.
+   */
+  readings?: never;
 
-	/**
-	 * Kana-only Vocabulary subjects will never have a `visually_similar_subject_ids` property defined.
-	 */
-	visually_similar_subject_ids?: never;
+  /**
+   * Kana-only Vocabulary subjects will never have a `visually_similar_subject_ids` property defined.
+   */
+  visually_similar_subject_ids?: never;
 }
 
 /**
@@ -131,21 +131,21 @@ export interface WKKanaVocabularyData extends WKSubjectData {
  * @category Resources
  * @category Subjects
  */
-export interface WKKanji extends WKResource {
-	/**
-	 * A unique number identifying the kanji.
-	 */
-	id: number;
+interface WKKanji extends WKResource {
+  /**
+   * Data for the returned kanji.
+   */
+  data: WKKanjiData;
 
-	/**
-	 * The kind of object returned.
-	 */
-	object: "kanji";
+  /**
+   * A unique number identifying the kanji.
+   */
+  id: number;
 
-	/**
-	 * Data for the returned kanji.
-	 */
-	data: WKKanjiData;
+  /**
+   * The kind of object returned.
+   */
+  object: "kanji";
 }
 
 /**
@@ -155,11 +155,11 @@ export interface WKKanji extends WKResource {
  * @category Collections
  * @category Subjects
  */
-export interface WKKanjiCollection extends WKCollection {
-	/**
-	 * An array of returned kanji subjects.
-	 */
-	data: WKKanji[];
+interface WKKanjiCollection extends WKCollection {
+  /**
+   * An array of returned kanji subjects.
+   */
+  data: WKKanji[];
 }
 
 /**
@@ -169,67 +169,67 @@ export interface WKKanjiCollection extends WKCollection {
  * @category Data
  * @category Subjects
  */
-export interface WKKanjiData extends WKSubjectData {
-	/**
-	 * An array of numeric identifiers for the vocabulary that have the kanji as a component.
-	 */
-	amalgamation_subject_ids: number[];
+interface WKKanjiData extends WKSubjectData {
+  /**
+   * An array of numeric identifiers for the vocabulary that have the kanji as a component.
+   */
+  amalgamation_subject_ids: number[];
 
-	/**
-	 * The UTF-8 characters for the subject, including kanji and hiragana.
-	 */
-	characters: string;
+  /**
+   * The UTF-8 characters for the subject, including kanji and hiragana.
+   */
+  characters: string;
 
-	/**
-	 * An array of numeric identifiers for the radicals that make up this kanji. Note that these are the subjects that
-	 * must have passed assignments in order to unlock this subject's assignment.
-	 */
-	component_subject_ids: number[];
+  /**
+   * An array of numeric identifiers for the radicals that make up this kanji. Note that these are the subjects that
+   * must have passed assignments in order to unlock this subject's assignment.
+   */
+  component_subject_ids: number[];
 
-	/**
-	 * Meaning hint for the kanji.
-	 */
-	meaning_hint: string | null;
+  /**
+   * Meaning hint for the kanji.
+   */
+  meaning_hint: string | null;
 
-	/**
-	 * Reading hint for the kanji.
-	 */
-	reading_hint: string | null;
+  /**
+   * Reading hint for the kanji.
+   */
+  reading_hint: string | null;
 
-	/**
-	 * The kanji's reading mnemonic.
-	 */
-	reading_mnemonic: string;
+  /**
+   * The kanji's reading mnemonic.
+   */
+  reading_mnemonic: string;
 
-	/**
-	 * Selected readings for the kanji.
-	 */
-	readings: WKKanjiReading[];
+  /**
+   * Selected readings for the kanji.
+   */
+  readings: WKKanjiReading[];
 
-	/**
-	 * An array of numeric identifiers for kanji which are visually similar to the kanji in question.
-	 */
-	visually_similar_subject_ids: number[];
+  /**
+   * An array of numeric identifiers for kanji which are visually similar to the kanji in question.
+   */
+  visually_similar_subject_ids: number[];
 
-	/**
-	 * Kanji subjects will never have a `character_images` property defined.
-	 */
-	character_images?: never;
+  /**
+   * Kanji subjects will never have a `character_images` property defined.
+   */
+  character_images?: never;
 
-	/**
-	 * Kanji subjects will never have a `context_sentences` property defined.
-	 */
-	context_sentences?: never;
+  /**
+   * Kanji subjects will never have a `context_sentences` property defined.
+   */
+  context_sentences?: never;
 
-	/**
-	 * Kanji subjects will never have a `parts_of_speech` property defined.
-	 */
-	parts_of_speech?: never;
+  /**
+   * Kanji subjects will never have a `parts_of_speech` property defined.
+   */
+  parts_of_speech?: never;
 
-	/**
-	 * Kanji subjects will never have a `pronunciation_audios` property defined.
-	 */
-	pronunciation_audios?: never;
+  /**
+   * Kanji subjects will never have a `pronunciation_audios` property defined.
+   */
+  pronunciation_audios?: never;
 }
 
 /**
@@ -238,26 +238,26 @@ export interface WKKanjiData extends WKSubjectData {
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-export interface WKKanjiReading {
-	/**
-	 * A singular subject reading.
-	 */
-	reading: string;
+interface WKKanjiReading {
+  /**
+   * Indicates if the reading is used to evaluate user input for correctness.
+   */
+  accepted_answer: boolean;
 
-	/**
-	 * Indicates priority in the WaniKani system.
-	 */
-	primary: boolean;
+  /**
+   * Indicates priority in the WaniKani system.
+   */
+  primary: boolean;
 
-	/**
-	 * Indicates if the reading is used to evaluate user input for correctness.
-	 */
-	accepted_answer: boolean;
+  /**
+   * A singular subject reading.
+   */
+  reading: string;
 
-	/**
-	 * The kanji reading's classfication: `kunyomi`, `nanori`, or `onyomi`.
-	 */
-	type: "kunyomi" | "nanori" | "onyomi";
+  /**
+   * The kanji reading's classfication: `kunyomi`, `nanori`, or `onyomi`.
+   */
+  type: "kunyomi" | "nanori" | "onyomi";
 }
 
 /**
@@ -272,21 +272,21 @@ export interface WKKanjiReading {
  * @category Resources
  * @category Subjects
  */
-export interface WKRadical extends WKResource {
-	/**
-	 * A unique number identifying the radical.
-	 */
-	id: number;
+interface WKRadical extends WKResource {
+  /**
+   * Data for the returned radical.
+   */
+  data: WKRadicalData;
 
-	/**
-	 * The kind of object returned.
-	 */
-	object: "radical";
+  /**
+   * A unique number identifying the radical.
+   */
+  id: number;
 
-	/**
-	 * Data for the returned radical.
-	 */
-	data: WKRadicalData;
+  /**
+   * The kind of object returned.
+   */
+  object: "radical";
 }
 
 /**
@@ -295,21 +295,21 @@ export interface WKRadical extends WKResource {
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-export interface WKRadicalCharacterImage {
-	/**
-	 * The location of the image.
-	 */
-	url: string;
+interface WKRadicalCharacterImage {
+  /**
+   * The content type of the image. Currently the API delivers `image/png` and `image/svg+xml`.
+   */
+  content_type: "image/png" | "image/svg+xml";
 
-	/**
-	 * The content type of the image. Currently the API delivers `image/png` and `image/svg+xml`.
-	 */
-	content_type: "image/png" | "image/svg+xml";
+  /**
+   * Details about the image. Each `content_type` returns a uniquely structured object.
+   */
+  metadata: WKRadicalCharacterImagePngMetadata | WKRadicalCharacterImageSvgMetadata;
 
-	/**
-	 * Details about the image. Each `content_type` returns a uniquely structured object.
-	 */
-	metadata: WKRadicalCharacterImagePngMetadata | WKRadicalCharacterImageSvgMetadata;
+  /**
+   * The location of the image.
+   */
+  url: string;
 }
 
 /**
@@ -318,26 +318,26 @@ export interface WKRadicalCharacterImage {
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-export interface WKRadicalCharacterImagePngMetadata {
-	/**
-	 * Color of the asset in hexadecimal.
-	 */
-	color: string;
+interface WKRadicalCharacterImagePngMetadata {
+  /**
+   * Color of the asset in hexadecimal.
+   */
+  color: string;
 
-	/**
-	 * Dimension of the asset in pixels.
-	 */
-	dimensions: string;
+  /**
+   * Dimension of the asset in pixels.
+   */
+  dimensions: string;
 
-	/**
-	 * A name descriptor.
-	 */
-	style_name: string;
+  /**
+   * A name descriptor.
+   */
+  style_name: string;
 
-	/**
-	 * A character image of type `image/png` will never have its `inline_styles` property defined.
-	 */
-	inline_styles?: never;
+  /**
+   * A character image of type `image/png` will never have its `inline_styles` property defined.
+   */
+  inline_styles?: never;
 }
 
 /**
@@ -346,26 +346,26 @@ export interface WKRadicalCharacterImagePngMetadata {
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-export interface WKRadicalCharacterImageSvgMetadata {
-	/**
-	 * The SVG asset contains built-in CSS styling.
-	 */
-	inline_styles: boolean;
+interface WKRadicalCharacterImageSvgMetadata {
+  /**
+   * The SVG asset contains built-in CSS styling.
+   */
+  inline_styles: boolean;
 
-	/**
-	 * A character image of type `image/svg+xml` will never have its `color` property defined.
-	 */
-	color?: never;
+  /**
+   * A character image of type `image/svg+xml` will never have its `color` property defined.
+   */
+  color?: never;
 
-	/**
-	 * A character image of type `image/svg+xml` will never have its `dimensions` property defined.
-	 */
-	dimensions?: never;
+  /**
+   * A character image of type `image/svg+xml` will never have its `dimensions` property defined.
+   */
+  dimensions?: never;
 
-	/**
-	 * A character image of type `image/svg+xml` will never have its `style_name` property defined.
-	 */
-	style_name?: never;
+  /**
+   * A character image of type `image/svg+xml` will never have its `style_name` property defined.
+   */
+  style_name?: never;
 }
 
 /**
@@ -375,11 +375,11 @@ export interface WKRadicalCharacterImageSvgMetadata {
  * @category Collections
  * @category Subjects
  */
-export interface WKRadicalCollection extends WKCollection {
-	/**
-	 * An array of returned radical subjects.
-	 */
-	data: WKRadical[];
+interface WKRadicalCollection extends WKCollection {
+  /**
+   * An array of returned radical subjects.
+   */
+  data: WKRadical[];
 }
 
 /**
@@ -389,61 +389,61 @@ export interface WKRadicalCollection extends WKCollection {
  * @category Data
  * @category Subjects
  */
-export interface WKRadicalData extends WKSubjectData {
-	/**
-	 * An array of numeric identifiers for the kanji that have the radical as a component.
-	 */
-	amalgamation_subject_ids: number[];
+interface WKRadicalData extends WKSubjectData {
+  /**
+   * An array of numeric identifiers for the kanji that have the radical as a component.
+   */
+  amalgamation_subject_ids: number[];
 
-	/**
-	 * A collection of images of the radical.
-	 */
-	character_images: WKRadicalCharacterImage[];
+  /**
+   * A collection of images of the radical.
+   */
+  character_images: WKRadicalCharacterImage[];
 
-	/**
-	 * Radical subjects will never have a `component_subject_ids` property defined.
-	 */
-	component_subject_ids?: never;
+  /**
+   * Radical subjects will never have a `component_subject_ids` property defined.
+   */
+  component_subject_ids?: never;
 
-	/**
-	 * Radical subjects will never have a `context_sentences` property defined.
-	 */
-	context_sentences?: never;
+  /**
+   * Radical subjects will never have a `context_sentences` property defined.
+   */
+  context_sentences?: never;
 
-	/**
-	 * Radical subjects will never have a `meaning_hint` property defined.
-	 */
-	meaning_hint?: never;
+  /**
+   * Radical subjects will never have a `meaning_hint` property defined.
+   */
+  meaning_hint?: never;
 
-	/**
-	 * Radical subjects will never have a `parts_of_speech` property defined.
-	 */
-	parts_of_speech?: never;
+  /**
+   * Radical subjects will never have a `parts_of_speech` property defined.
+   */
+  parts_of_speech?: never;
 
-	/**
-	 * Radical subjects will never have a `pronunciation_audios` property defined.
-	 */
-	pronunciation_audios?: never;
+  /**
+   * Radical subjects will never have a `pronunciation_audios` property defined.
+   */
+  pronunciation_audios?: never;
 
-	/**
-	 * Radical subjects will never have a `reading_hint` property defined.
-	 */
-	reading_hint?: never;
+  /**
+   * Radical subjects will never have a `reading_hint` property defined.
+   */
+  reading_hint?: never;
 
-	/**
-	 * Radical subjects will never have a `reading_mnemonic` property defined.
-	 */
-	reading_mnemonic?: never;
+  /**
+   * Radical subjects will never have a `reading_mnemonic` property defined.
+   */
+  reading_mnemonic?: never;
 
-	/**
-	 * Radical subjects will never have a `readings` property defined.
-	 */
-	readings?: never;
+  /**
+   * Radical subjects will never have a `readings` property defined.
+   */
+  readings?: never;
 
-	/**
-	 * Radical subjects will never have a `visually_similar_subject_ids` property defined.
-	 */
-	visually_similar_subject_ids?: never;
+  /**
+   * Radical subjects will never have a `visually_similar_subject_ids` property defined.
+   */
+  visually_similar_subject_ids?: never;
 }
 
 /**
@@ -457,7 +457,7 @@ export interface WKRadicalData extends WKSubjectData {
  * @category Resources
  * @category Subjects
  */
-export type WKSubject = WKKanaVocabulary | WKKanji | WKRadical | WKVocabulary;
+type WKSubject = WKKanaVocabulary | WKKanji | WKRadical | WKVocabulary;
 
 /**
  * A subject's auxilliary meanings.
@@ -465,17 +465,17 @@ export type WKSubject = WKKanaVocabulary | WKKanji | WKRadical | WKVocabulary;
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-export interface WKSubjectAuxiliaryMeaning {
-	/**
-	 * A singular subject meaning.
-	 */
-	meaning: string;
+interface WKSubjectAuxiliaryMeaning {
+  /**
+   * A singular subject meaning.
+   */
+  meaning: string;
 
-	/**
-	 * Either `whitelist` or `blacklist`. When evaluating user input, whitelisted meanings are used to match for
-	 * correctness. Blacklisted meanings are used to match for incorrectness.
-	 */
-	type: "blacklist" | "whitelist";
+  /**
+   * Either `whitelist` or `blacklist`. When evaluating user input, whitelisted meanings are used to match for
+   * correctness. Blacklisted meanings are used to match for incorrectness.
+   */
+  type: "blacklist" | "whitelist";
 }
 
 /**
@@ -485,11 +485,11 @@ export interface WKSubjectAuxiliaryMeaning {
  * @category Collections
  * @category Subjects
  */
-export interface WKSubjectCollection extends WKCollection {
-	/**
-	 * An array of returned subjects of mixed or unknown type.
-	 */
-	data: WKSubject[];
+interface WKSubjectCollection extends WKCollection {
+  /**
+   * An array of returned subjects of mixed or unknown type.
+   */
+  data: WKSubject[];
 }
 
 /**
@@ -503,67 +503,67 @@ export interface WKSubjectCollection extends WKCollection {
  * @category Data
  * @category Subjects
  */
-export interface WKSubjectData {
-	/**
-	 * Collection of auxiliary meanings.
-	 */
-	auxiliary_meanings: WKSubjectAuxiliaryMeaning[];
+interface WKSubjectData {
+  /**
+   * Collection of auxiliary meanings.
+   */
+  auxiliary_meanings: WKSubjectAuxiliaryMeaning[];
 
-	/**
-	 * The UTF-8 characters for the subject, including kanji and hiragana.
-	 *
-	 * Unlike kanji and vocabulary, radicals can have a null value for `characters`. Not all radicals have a UTF entry,
-	 * so the radical must be visually represented with an image instead.
-	 */
-	characters: string | null;
+  /**
+   * The UTF-8 characters for the subject, including kanji and hiragana.
+   *
+   * Unlike kanji and vocabulary, radicals can have a null value for `characters`. Not all radicals have a UTF entry,
+   * so the radical must be visually represented with an image instead.
+   */
+  characters: string | null;
 
-	/**
-	 * Timestamp when the subject was created.
-	 */
-	created_at: WKDatableString;
+  /**
+   * Timestamp when the subject was created.
+   */
+  created_at: WKDatableString;
 
-	/**
-	 * A URL pointing to the page on wanikani.com that provides detailed information about this subject.
-	 */
-	document_url: string;
+  /**
+   * A URL pointing to the page on wanikani.com that provides detailed information about this subject.
+   */
+  document_url: string;
 
-	/**
-	 * Timestamp when the subject was hidden, indicating associated assignments will no longer appear in lessons or
-	 * reviews and that the subject page is no longer visible on wanikani.com.
-	 */
-	hidden_at: WKDatableString | null;
+  /**
+   * Timestamp when the subject was hidden, indicating associated assignments will no longer appear in lessons or
+   * reviews and that the subject page is no longer visible on wanikani.com.
+   */
+  hidden_at: WKDatableString | null;
 
-	/**
-	 * The position that the subject appears in lessons. Note that the value is scoped to the level of the subject, so
-	 * there are duplicate values across levels.
-	 */
-	lesson_position: number;
+  /**
+   * The position that the subject appears in lessons. Note that the value is scoped to the level of the subject, so
+   * there are duplicate values across levels.
+   */
+  lesson_position: number;
 
-	/**
-	 * The level of the subject, from `1` to `60`.
-	 */
-	level: WKLevel;
+  /**
+   * The level of the subject, from `1` to `60`.
+   */
+  level: WKLevel;
 
-	/**
-	 * The subject's meaning mnemonic.
-	 */
-	meaning_mnemonic: string;
+  /**
+   * The subject's meaning mnemonic.
+   */
+  meaning_mnemonic: string;
 
-	/**
-	 * The subject meanings.
-	 */
-	meanings: WKSubjectMeaning[];
+  /**
+   * The subject meanings.
+   */
+  meanings: WKSubjectMeaning[];
 
-	/**
-	 * The string that is used when generating the document URL for the subject. Radicals use their meaning, downcased.
-	 * Kanji and vocabulary use their characters.
-	 */
-	slug: string;
+  /**
+   * The string that is used when generating the document URL for the subject. Radicals use their meaning, downcased.
+   * Kanji and vocabulary use their characters.
+   */
+  slug: string;
 
-	/**
-	 * Unique identifier of the associated Spaced Repetition System.
-	 */
-	spaced_repetition_system_id: number;
+  /**
+   * Unique identifier of the associated Spaced Repetition System.
+   */
+  spaced_repetition_system_id: number;
 }
 
 /**
@@ -573,36 +573,36 @@ export interface WKSubjectData {
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-export const WK_SUBJECT_MARKUP_MATCHERS = {
-	/**
-	 * A regular expression literal that matches to Japanese text surrounded by `<ja>` tags.
-	 */
-	ja: /<ja>(?<innerText>.+?)<\/ja>/gu,
+const WK_SUBJECT_MARKUP_MATCHERS = {
+  /**
+   * A regular expression literal that matches to Japanese text surrounded by `<ja>` tags.
+   */
+  ja: /<ja>(?<innerText>.+?)<\/ja>/gu,
 
-	/**
-	 * A regular expression literal that matches to Japanese kanji surrounded by `<kanji>` tags.
-	 */
-	kanji: /<kanji>(?<innerText>.+?)<\/kanji>/gu,
+  /**
+   * A regular expression literal that matches to Japanese kanji surrounded by `<kanji>` tags.
+   */
+  kanji: /<kanji>(?<innerText>.+?)<\/kanji>/gu,
 
-	/**
-	 * A regular expression literal that matches to a subject meaning surrounded by `<meaning>` tags.
-	 */
-	meaning: /<meaning>(?<innerText>.+?)<\/meaning>/gu,
+  /**
+   * A regular expression literal that matches to a subject meaning surrounded by `<meaning>` tags.
+   */
+  meaning: /<meaning>(?<innerText>.+?)<\/meaning>/gu,
 
-	/**
-	 * A regular expression literal that matches to WaniKani Radical names surrounded by `<radical>` tags.
-	 */
-	radical: /<radical>(?<innerText>.+?)<\/radical>/gu,
+  /**
+   * A regular expression literal that matches to WaniKani Radical names surrounded by `<radical>` tags.
+   */
+  radical: /<radical>(?<innerText>.+?)<\/radical>/gu,
 
-	/**
-	 * A regular expression literal that matches to a kanji/vocabulary reading surrounded by `<reading>` tags.
-	 */
-	reading: /<reading>(?<innerText>.+?)<\/reading>/gu,
+  /**
+   * A regular expression literal that matches to a kanji/vocabulary reading surrounded by `<reading>` tags.
+   */
+  reading: /<reading>(?<innerText>.+?)<\/reading>/gu,
 
-	/**
-	 * A regular expression literal that matches to WaniKani Vocabulary surrounded by `<vocabulary>` tags.
-	 */
-	vocabulary: /<vocabulary>(?<innerText>.+?)<\/vocabulary>/gu,
+  /**
+   * A regular expression literal that matches to WaniKani Vocabulary surrounded by `<vocabulary>` tags.
+   */
+  vocabulary: /<vocabulary>(?<innerText>.+?)<\/vocabulary>/gu,
 } as const;
 
 /**
@@ -611,21 +611,21 @@ export const WK_SUBJECT_MARKUP_MATCHERS = {
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-export interface WKSubjectMeaning {
-	/**
-	 * A singular subject meaning.
-	 */
-	meaning: string;
+interface WKSubjectMeaning {
+  /**
+   * Indicates if the meaning is used to evaluate user input for correctness.
+   */
+  accepted_answer: boolean;
 
-	/**
-	 * Indicates priority in the WaniKani system.
-	 */
-	primary: boolean;
+  /**
+   * A singular subject meaning.
+   */
+  meaning: string;
 
-	/**
-	 * Indicates if the meaning is used to evaluate user input for correctness.
-	 */
-	accepted_answer: boolean;
+  /**
+   * Indicates priority in the WaniKani system.
+   */
+  primary: boolean;
 }
 
 /**
@@ -636,26 +636,26 @@ export interface WKSubjectMeaning {
  * @category Parameters
  * @category Subjects
  */
-export interface WKSubjectParameters extends WKCollectionParameters {
-	/**
-	 * Return subjects of the specified types.
-	 */
-	types?: WKSubjectTuple;
+interface WKSubjectParameters extends WKCollectionParameters {
+  /**
+   * Return subjects which are or are not hidden from the user-facing application.
+   */
+  hidden?: boolean;
 
-	/**
-	 * Return subjects of the specified slug.
-	 */
-	slugs?: string[];
+  /**
+   * Return subjects at the specified levels.
+   */
+  levels?: WKLevel[];
 
-	/**
-	 * Return subjects at the specified levels.
-	 */
-	levels?: WKLevel[];
+  /**
+   * Return subjects of the specified slug.
+   */
+  slugs?: string[];
 
-	/**
-	 * Return subjects which are or are not hidden from the user-facing application.
-	 */
-	hidden?: boolean;
+  /**
+   * Return subjects of the specified types.
+   */
+  types?: WKSubjectTuple;
 }
 
 /**
@@ -670,21 +670,21 @@ export interface WKSubjectParameters extends WKCollectionParameters {
  * @category Resources
  * @category Subjects
  */
-export interface WKVocabulary extends WKResource {
-	/**
-	 * A unique number identifying the vocabulary.
-	 */
-	id: number;
+interface WKVocabulary extends WKResource {
+  /**
+   * Data for the returned vocabulary.
+   */
+  data: WKVocabularyData;
 
-	/**
-	 * The kind of object returned.
-	 */
-	object: "vocabulary";
+  /**
+   * A unique number identifying the vocabulary.
+   */
+  id: number;
 
-	/**
-	 * Data for the returned vocabulary.
-	 */
-	data: WKVocabularyData;
+  /**
+   * The kind of object returned.
+   */
+  object: "vocabulary";
 }
 
 /**
@@ -694,11 +694,11 @@ export interface WKVocabulary extends WKResource {
  * @category Collections
  * @category Subjects
  */
-export interface WKVocabularyCollection extends WKCollection {
-	/**
-	 * An array of returned vocabulary subjects.
-	 */
-	data: WKVocabulary[];
+interface WKVocabularyCollection extends WKCollection {
+  /**
+   * An array of returned vocabulary subjects.
+   */
+  data: WKVocabulary[];
 }
 
 /**
@@ -707,16 +707,16 @@ export interface WKVocabularyCollection extends WKCollection {
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-export interface WKVocabularyContextSentence {
-	/**
-	 * English translation of the sentence.
-	 */
-	en: string;
+interface WKVocabularyContextSentence {
+  /**
+   * English translation of the sentence.
+   */
+  en: string;
 
-	/**
-	 * Japanese context sentence.
-	 */
-	ja: string;
+  /**
+   * Japanese context sentence.
+   */
+  ja: string;
 }
 
 /**
@@ -726,67 +726,67 @@ export interface WKVocabularyContextSentence {
  * @category Data
  * @category Subjects
  */
-export interface WKVocabularyData extends WKSubjectData {
-	/**
-	 * The UTF-8 characters for the subject, including kanji and hiragana.
-	 */
-	characters: string;
+interface WKVocabularyData extends WKSubjectData {
+  /**
+   * The UTF-8 characters for the subject, including kanji and hiragana.
+   */
+  characters: string;
 
-	/**
-	 * An array of numeric identifiers for the kanji that make up this vocabulary. Note that these are the subjects that
-	 * must be have passed assignments in order to unlock this subject's assignment.
-	 */
-	component_subject_ids: number[];
+  /**
+   * An array of numeric identifiers for the kanji that make up this vocabulary. Note that these are the subjects that
+   * must be have passed assignments in order to unlock this subject's assignment.
+   */
+  component_subject_ids: number[];
 
-	/**
-	 * A collection of context sentences.
-	 */
-	context_sentences: WKVocabularyContextSentence[];
+  /**
+   * A collection of context sentences.
+   */
+  context_sentences: WKVocabularyContextSentence[];
 
-	/**
-	 * Parts of speech.
-	 */
-	parts_of_speech: string[];
+  /**
+   * Parts of speech.
+   */
+  parts_of_speech: string[];
 
-	/**
-	 * A collection of pronunciation audio.
-	 */
-	pronunciation_audios: WKVocabularyPronunciationAudio[];
+  /**
+   * A collection of pronunciation audio.
+   */
+  pronunciation_audios: WKVocabularyPronunciationAudio[];
 
-	/**
-	 * The vocabulary's reading mnemonic.
-	 */
-	reading_mnemonic: string;
+  /**
+   * The vocabulary's reading mnemonic.
+   */
+  reading_mnemonic: string;
 
-	/**
-	 * Selected readings for the vocabulary.
-	 */
-	readings: WKVocabularyReading[];
+  /**
+   * Selected readings for the vocabulary.
+   */
+  readings: WKVocabularyReading[];
 
-	/**
-	 * Vocabulary subjects will never have an `amalgamation_subject_ids` property defined.
-	 */
-	amalgamation_subject_ids?: never;
+  /**
+   * Vocabulary subjects will never have an `amalgamation_subject_ids` property defined.
+   */
+  amalgamation_subject_ids?: never;
 
-	/**
-	 * Vocabulary subjects will never have a `character_images` property defined.
-	 */
-	character_images?: never;
+  /**
+   * Vocabulary subjects will never have a `character_images` property defined.
+   */
+  character_images?: never;
 
-	/**
-	 * Vocabulary subjects will never have a `meaning_hint` property defined.
-	 */
-	meaning_hint?: never;
+  /**
+   * Vocabulary subjects will never have a `meaning_hint` property defined.
+   */
+  meaning_hint?: never;
 
-	/**
-	 * Vocabulary subjects will never have a `reading_hint` property defined.
-	 */
-	reading_hint?: never;
+  /**
+   * Vocabulary subjects will never have a `reading_hint` property defined.
+   */
+  reading_hint?: never;
 
-	/**
-	 * Vocabulary subjects will never have a `visually_similar_subject_ids` property defined.
-	 */
-	visually_similar_subject_ids?: never;
+  /**
+   * Vocabulary subjects will never have a `visually_similar_subject_ids` property defined.
+   */
+  visually_similar_subject_ids?: never;
 }
 
 /**
@@ -795,51 +795,51 @@ export interface WKVocabularyData extends WKSubjectData {
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-export interface WKVocabularyPronunciationAudio {
-	/**
-	 * The location of the audio.
-	 */
-	url: string;
+interface WKVocabularyPronunciationAudio {
+  /**
+   * The content type of the audio. Currently the API delivers `audio/mpeg`, `audio/ogg`, and `audio/webm`.
+   */
+  content_type: "audio/mpeg" | "audio/ogg" | "audio/webm";
 
-	/**
-	 * The content type of the audio. Currently the API delivers `audio/mpeg`, `audio/ogg`, and `audio/webm`.
-	 */
-	content_type: "audio/mpeg" | "audio/ogg" | "audio/webm";
+  /**
+   * Details about the pronunciation audio.
+   */
+  metadata: {
+    /**
+     * The gender of the voice actor.
+     */
+    gender: "female" | "male";
 
-	/**
-	 * Details about the pronunciation audio.
-	 */
-	metadata: {
-		/**
-		 * The gender of the voice actor.
-		 */
-		gender: "female" | "male";
+    /**
+     * Vocabulary being pronounced in kana.
+     */
+    pronunciation: string;
 
-		/**
-		 * A unique ID shared between same source pronunciation audio.
-		 */
-		source_id: number;
+    /**
+     * A unique ID shared between same source pronunciation audio.
+     */
+    source_id: number;
 
-		/**
-		 * Vocabulary being pronounced in kana.
-		 */
-		pronunciation: string;
+    /**
+     * A unique ID belonging to the voice actor.
+     */
+    voice_actor_id: number;
 
-		/**
-		 * A unique ID belonging to the voice actor.
-		 */
-		voice_actor_id: number;
+    /**
+     * Humanized name of the voice actor.
+     */
+    voice_actor_name: string;
 
-		/**
-		 * Humanized name of the voice actor.
-		 */
-		voice_actor_name: string;
+    /**
+     * Description of the voice.
+     */
+    voice_description: string;
+  };
 
-		/**
-		 * Description of the voice.
-		 */
-		voice_description: string;
-	};
+  /**
+   * The location of the audio.
+   */
+  url: string;
 }
 
 /**
@@ -848,24 +848,53 @@ export interface WKVocabularyPronunciationAudio {
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-export interface WKVocabularyReading {
-	/**
-	 * A singular subject reading.
-	 */
-	reading: string;
+interface WKVocabularyReading {
+  /**
+   * Indicates if the reading is used to evaluate user input for correctness.
+   */
+  accepted_answer: boolean;
 
-	/**
-	 * Indicates priority in the WaniKani system.
-	 */
-	primary: boolean;
+  /**
+   * Indicates priority in the WaniKani system.
+   */
+  primary: boolean;
 
-	/**
-	 * Indicates if the reading is used to evaluate user input for correctness.
-	 */
-	accepted_answer: boolean;
+  /**
+   * A singular subject reading.
+   */
+  reading: string;
 
-	/**
-	 * Vocabulary readings will never have a reading `type`.
-	 */
-	type?: never;
+  /**
+   * Vocabulary readings will never have a reading `type`.
+   */
+  type?: never;
 }
+
+export {
+  type WKKanaVocabulary,
+  type WKKanaVocabularyCollection,
+  type WKKanaVocabularyData,
+  type WKKanji,
+  type WKKanjiCollection,
+  type WKKanjiData,
+  type WKKanjiReading,
+  type WKRadical,
+  type WKRadicalCharacterImage,
+  type WKRadicalCharacterImagePngMetadata,
+  type WKRadicalCharacterImageSvgMetadata,
+  type WKRadicalCollection,
+  type WKRadicalData,
+  type WKSubject,
+  type WKSubjectAuxiliaryMeaning,
+  type WKSubjectCollection,
+  type WKSubjectData,
+  WK_SUBJECT_MARKUP_MATCHERS,
+  type WKSubjectMeaning,
+  type WKSubjectParameters,
+  type WKVocabulary,
+  type WKVocabularyCollection,
+  type WKVocabularyContextSentence,
+  type WKVocabularyData,
+  type WKVocabularyPronunciationAudio,
+  type WKVocabularyReading,
+};

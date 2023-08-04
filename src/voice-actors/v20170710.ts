@@ -7,21 +7,21 @@ import type { WKCollection, WKCollectionParameters, WKDatableString, WKResource 
  * @category Resources
  * @category Voice Actors
  */
-export interface WKVoiceActor extends WKResource {
-	/**
-	 * A unique number identifying the voice actor.
-	 */
-	id: number;
+interface WKVoiceActor extends WKResource {
+  /**
+   * Data for the returned voice actor.
+   */
+  data: WKVoiceActorData;
 
-	/**
-	 * The kind of object returned.
-	 */
-	object: "voice_actor";
+  /**
+   * A unique number identifying the voice actor.
+   */
+  id: number;
 
-	/**
-	 * Data for the returned voice actor.
-	 */
-	data: WKVoiceActorData;
+  /**
+   * The kind of object returned.
+   */
+  object: "voice_actor";
 }
 
 /**
@@ -31,11 +31,11 @@ export interface WKVoiceActor extends WKResource {
  * @category Collections
  * @category Voice Actors
  */
-export interface WKVoiceActorCollection extends WKCollection {
-	/**
-	 * An array of returned voice actors.
-	 */
-	data: WKVoiceActor[];
+interface WKVoiceActorCollection extends WKCollection {
+  /**
+   * An array of returned voice actors.
+   */
+  data: WKVoiceActor[];
 }
 
 /**
@@ -45,25 +45,25 @@ export interface WKVoiceActorCollection extends WKCollection {
  * @category Data
  * @category Voice Actors
  */
-export interface WKVoiceActorData {
-	/**
-	 * Timestamp for when the voice actor was added to WaniKani.
-	 */
-	created_at: WKDatableString;
+interface WKVoiceActorData {
+  /**
+   * Timestamp for when the voice actor was added to WaniKani.
+   */
+  created_at: WKDatableString;
 
-	/**
-	 * Details about the voice actor.
-	 */
-	description: string;
-	/**
-	 * The voice actor's gender, either `male` or `female`.
-	 */
-	gender: "female" | "male";
+  /**
+   * Details about the voice actor.
+   */
+  description: string;
+  /**
+   * The voice actor's gender, either `male` or `female`.
+   */
+  gender: "female" | "male";
 
-	/**
-	 * The voice actor's name.
-	 */
-	name: string;
+  /**
+   * The voice actor's name.
+   */
+  name: string;
 }
 
 /**
@@ -74,4 +74,6 @@ export interface WKVoiceActorData {
  * @category Parameters
  * @category Voice Actors
  */
-export type WKVoiceActorParameters = WKCollectionParameters;
+type WKVoiceActorParameters = WKCollectionParameters;
+
+export type { WKVoiceActor, WKVoiceActorCollection, WKVoiceActorData, WKVoiceActorParameters };

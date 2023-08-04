@@ -10,21 +10,21 @@ import type { WKCollection, WKCollectionParameters, WKDatableString, WKLevel, WK
  * @category Resets
  * @category Resources
  */
-export interface WKReset extends WKResource {
-	/**
-	 * A unique number identifying the reset.
-	 */
-	id: number;
+interface WKReset extends WKResource {
+  /**
+   * Data for the returned reset.
+   */
+  data: WKResetData;
 
-	/**
-	 * The kind of object returned.
-	 */
-	object: "reset";
+  /**
+   * A unique number identifying the reset.
+   */
+  id: number;
 
-	/**
-	 * Data for the returned reset.
-	 */
-	data: WKResetData;
+  /**
+   * The kind of object returned.
+   */
+  object: "reset";
 }
 
 /**
@@ -34,11 +34,11 @@ export interface WKReset extends WKResource {
  * @category Collections
  * @category Resets
  */
-export interface WKResetCollection extends WKCollection {
-	/**
-	 * An array of returned resets.
-	 */
-	data: WKReset[];
+interface WKResetCollection extends WKCollection {
+  /**
+   * An array of returned resets.
+   */
+  data: WKReset[];
 }
 
 /**
@@ -48,26 +48,26 @@ export interface WKResetCollection extends WKCollection {
  * @category Data
  * @category Resets
  */
-export interface WKResetData {
-	/**
-	 * Timestamp when the user confirmed the reset.
-	 */
-	confirmed_at: WKDatableString | null;
+interface WKResetData {
+  /**
+   * Timestamp when the user confirmed the reset.
+   */
+  confirmed_at: WKDatableString | null;
 
-	/**
-	 * Timestamp when the reset was created.
-	 */
-	created_at: WKDatableString;
+  /**
+   * Timestamp when the reset was created.
+   */
+  created_at: WKDatableString;
 
-	/**
-	 * The user's level before the reset, from `1` to `60`.
-	 */
-	original_level: WKLevel;
+  /**
+   * The user's level before the reset, from `1` to `60`.
+   */
+  original_level: WKLevel;
 
-	/**
-	 * The user's level after the reset, from `1` to `60`. It must be less than or equal to `original_level`.
-	 */
-	target_level: WKLevel;
+  /**
+   * The user's level after the reset, from `1` to `60`. It must be less than or equal to `original_level`.
+   */
+  target_level: WKLevel;
 }
 
 /**
@@ -78,4 +78,6 @@ export interface WKResetData {
  * @category Parameters
  * @category Resets
  */
-export type WKResetParameters = WKCollectionParameters;
+type WKResetParameters = WKCollectionParameters;
+
+export type { WKReset, WKResetCollection, WKResetData, WKResetParameters };
