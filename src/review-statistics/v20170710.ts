@@ -18,7 +18,12 @@ import type {
  * @category Resources
  * @category Review Statistics
  */
-export interface WKReviewStatistic extends WKResource {
+interface WKReviewStatistic extends WKResource {
+  /**
+   * Data for the returned review statistic.
+   */
+  data: WKReviewStatisticData;
+
   /**
    * A unique number identifying the review statistic.
    */
@@ -28,11 +33,6 @@ export interface WKReviewStatistic extends WKResource {
    * The kind of object returned.
    */
   object: "review_statistic";
-
-  /**
-   * Data for the returned review statistic.
-   */
-  data: WKReviewStatisticData;
 }
 
 /**
@@ -42,7 +42,7 @@ export interface WKReviewStatistic extends WKResource {
  * @category Collections
  * @category Review Statistics
  */
-export interface WKReviewStatisticCollection extends WKCollection {
+interface WKReviewStatisticCollection extends WKCollection {
   /**
    * An array of returned review statistics.
    */
@@ -56,7 +56,7 @@ export interface WKReviewStatisticCollection extends WKCollection {
  * @category Data
  * @category Review Statistics
  */
-export interface WKReviewStatisticData {
+interface WKReviewStatisticData {
   /**
    * Timestamp when the review statistic was created.
    */
@@ -131,7 +131,7 @@ export interface WKReviewStatisticData {
  * @category Parameters
  * @category Review Statistics
  */
-export interface WKReviewStatisticParameters extends WKCollectionParameters {
+interface WKReviewStatisticParameters extends WKCollectionParameters {
   /**
    * Return review statistics with a matching value in the `hidden` attribute.
    */
@@ -158,3 +158,5 @@ export interface WKReviewStatisticParameters extends WKCollectionParameters {
    */
   subject_types?: WKSubjectTuple;
 }
+
+export type { WKReviewStatistic, WKReviewStatisticCollection, WKReviewStatisticData, WKReviewStatisticParameters };

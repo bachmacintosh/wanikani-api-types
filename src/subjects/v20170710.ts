@@ -19,7 +19,12 @@ import type {
  * @category Resources
  * @category Subjects
  */
-export interface WKKanaVocabulary extends WKResource {
+interface WKKanaVocabulary extends WKResource {
+  /**
+   * Data for the returned vocabulary.
+   */
+  data: WKKanaVocabularyData;
+
   /**
    * A unique number identifying the vocabulary.
    */
@@ -29,11 +34,6 @@ export interface WKKanaVocabulary extends WKResource {
    * The kind of object returned.
    */
   object: "kana_vocabulary";
-
-  /**
-   * Data for the returned vocabulary.
-   */
-  data: WKKanaVocabularyData;
 }
 
 /**
@@ -43,7 +43,7 @@ export interface WKKanaVocabulary extends WKResource {
  * @category Collections
  * @category Subjects
  */
-export interface WKKanaVocabularyCollection extends WKCollection {
+interface WKKanaVocabularyCollection extends WKCollection {
   /**
    * An array of returned vocabulary subjects.
    */
@@ -57,7 +57,7 @@ export interface WKKanaVocabularyCollection extends WKCollection {
  * @category Data
  * @category Subjects
  */
-export interface WKKanaVocabularyData extends WKSubjectData {
+interface WKKanaVocabularyData extends WKSubjectData {
   /**
    * The UTF-8 characters for the subject, including kanji and hiragana.
    */
@@ -84,14 +84,14 @@ export interface WKKanaVocabularyData extends WKSubjectData {
   amalgamation_subject_ids?: never;
 
   /**
-   * Kana-only Vocabulary subjects will never have a `component_subject_ids` property defined.
-   */
-  component_subject_ids?: never;
-
-  /**
    * Kana-only Vocabulary subjects will never have a `character_images` property defined.
    */
   character_images?: never;
+
+  /**
+   * Kana-only Vocabulary subjects will never have a `component_subject_ids` property defined.
+   */
+  component_subject_ids?: never;
 
   /**
    * Kana-only Vocabulary subjects will never have a `meaning_hint` property defined.
@@ -131,7 +131,12 @@ export interface WKKanaVocabularyData extends WKSubjectData {
  * @category Resources
  * @category Subjects
  */
-export interface WKKanji extends WKResource {
+interface WKKanji extends WKResource {
+  /**
+   * Data for the returned kanji.
+   */
+  data: WKKanjiData;
+
   /**
    * A unique number identifying the kanji.
    */
@@ -141,11 +146,6 @@ export interface WKKanji extends WKResource {
    * The kind of object returned.
    */
   object: "kanji";
-
-  /**
-   * Data for the returned kanji.
-   */
-  data: WKKanjiData;
 }
 
 /**
@@ -155,7 +155,7 @@ export interface WKKanji extends WKResource {
  * @category Collections
  * @category Subjects
  */
-export interface WKKanjiCollection extends WKCollection {
+interface WKKanjiCollection extends WKCollection {
   /**
    * An array of returned kanji subjects.
    */
@@ -169,7 +169,7 @@ export interface WKKanjiCollection extends WKCollection {
  * @category Data
  * @category Subjects
  */
-export interface WKKanjiData extends WKSubjectData {
+interface WKKanjiData extends WKSubjectData {
   /**
    * An array of numeric identifiers for the vocabulary that have the kanji as a component.
    */
@@ -238,11 +238,11 @@ export interface WKKanjiData extends WKSubjectData {
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-export interface WKKanjiReading {
+interface WKKanjiReading {
   /**
-   * A singular subject reading.
+   * Indicates if the reading is used to evaluate user input for correctness.
    */
-  reading: string;
+  accepted_answer: boolean;
 
   /**
    * Indicates priority in the WaniKani system.
@@ -250,9 +250,9 @@ export interface WKKanjiReading {
   primary: boolean;
 
   /**
-   * Indicates if the reading is used to evaluate user input for correctness.
+   * A singular subject reading.
    */
-  accepted_answer: boolean;
+  reading: string;
 
   /**
    * The kanji reading's classfication: `kunyomi`, `nanori`, or `onyomi`.
@@ -272,7 +272,12 @@ export interface WKKanjiReading {
  * @category Resources
  * @category Subjects
  */
-export interface WKRadical extends WKResource {
+interface WKRadical extends WKResource {
+  /**
+   * Data for the returned radical.
+   */
+  data: WKRadicalData;
+
   /**
    * A unique number identifying the radical.
    */
@@ -282,11 +287,6 @@ export interface WKRadical extends WKResource {
    * The kind of object returned.
    */
   object: "radical";
-
-  /**
-   * Data for the returned radical.
-   */
-  data: WKRadicalData;
 }
 
 /**
@@ -295,12 +295,7 @@ export interface WKRadical extends WKResource {
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-export interface WKRadicalCharacterImage {
-  /**
-   * The location of the image.
-   */
-  url: string;
-
+interface WKRadicalCharacterImage {
   /**
    * The content type of the image. Currently the API delivers `image/png` and `image/svg+xml`.
    */
@@ -310,6 +305,11 @@ export interface WKRadicalCharacterImage {
    * Details about the image. Each `content_type` returns a uniquely structured object.
    */
   metadata: WKRadicalCharacterImagePngMetadata | WKRadicalCharacterImageSvgMetadata;
+
+  /**
+   * The location of the image.
+   */
+  url: string;
 }
 
 /**
@@ -318,7 +318,7 @@ export interface WKRadicalCharacterImage {
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-export interface WKRadicalCharacterImagePngMetadata {
+interface WKRadicalCharacterImagePngMetadata {
   /**
    * Color of the asset in hexadecimal.
    */
@@ -346,7 +346,7 @@ export interface WKRadicalCharacterImagePngMetadata {
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-export interface WKRadicalCharacterImageSvgMetadata {
+interface WKRadicalCharacterImageSvgMetadata {
   /**
    * The SVG asset contains built-in CSS styling.
    */
@@ -375,7 +375,7 @@ export interface WKRadicalCharacterImageSvgMetadata {
  * @category Collections
  * @category Subjects
  */
-export interface WKRadicalCollection extends WKCollection {
+interface WKRadicalCollection extends WKCollection {
   /**
    * An array of returned radical subjects.
    */
@@ -389,7 +389,7 @@ export interface WKRadicalCollection extends WKCollection {
  * @category Data
  * @category Subjects
  */
-export interface WKRadicalData extends WKSubjectData {
+interface WKRadicalData extends WKSubjectData {
   /**
    * An array of numeric identifiers for the kanji that have the radical as a component.
    */
@@ -457,7 +457,7 @@ export interface WKRadicalData extends WKSubjectData {
  * @category Resources
  * @category Subjects
  */
-export type WKSubject = WKKanaVocabulary | WKKanji | WKRadical | WKVocabulary;
+type WKSubject = WKKanaVocabulary | WKKanji | WKRadical | WKVocabulary;
 
 /**
  * A subject's auxilliary meanings.
@@ -465,7 +465,7 @@ export type WKSubject = WKKanaVocabulary | WKKanji | WKRadical | WKVocabulary;
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-export interface WKSubjectAuxiliaryMeaning {
+interface WKSubjectAuxiliaryMeaning {
   /**
    * A singular subject meaning.
    */
@@ -485,7 +485,7 @@ export interface WKSubjectAuxiliaryMeaning {
  * @category Collections
  * @category Subjects
  */
-export interface WKSubjectCollection extends WKCollection {
+interface WKSubjectCollection extends WKCollection {
   /**
    * An array of returned subjects of mixed or unknown type.
    */
@@ -503,7 +503,7 @@ export interface WKSubjectCollection extends WKCollection {
  * @category Data
  * @category Subjects
  */
-export interface WKSubjectData {
+interface WKSubjectData {
   /**
    * Collection of auxiliary meanings.
    */
@@ -573,7 +573,7 @@ export interface WKSubjectData {
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-export const WK_SUBJECT_MARKUP_MATCHERS = {
+const WK_SUBJECT_MARKUP_MATCHERS = {
   /**
    * A regular expression literal that matches to Japanese text surrounded by `<ja>` tags.
    */
@@ -611,7 +611,12 @@ export const WK_SUBJECT_MARKUP_MATCHERS = {
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-export interface WKSubjectMeaning {
+interface WKSubjectMeaning {
+  /**
+   * Indicates if the meaning is used to evaluate user input for correctness.
+   */
+  accepted_answer: boolean;
+
   /**
    * A singular subject meaning.
    */
@@ -621,11 +626,6 @@ export interface WKSubjectMeaning {
    * Indicates priority in the WaniKani system.
    */
   primary: boolean;
-
-  /**
-   * Indicates if the meaning is used to evaluate user input for correctness.
-   */
-  accepted_answer: boolean;
 }
 
 /**
@@ -636,16 +636,11 @@ export interface WKSubjectMeaning {
  * @category Parameters
  * @category Subjects
  */
-export interface WKSubjectParameters extends WKCollectionParameters {
+interface WKSubjectParameters extends WKCollectionParameters {
   /**
-   * Return subjects of the specified types.
+   * Return subjects which are or are not hidden from the user-facing application.
    */
-  types?: WKSubjectTuple;
-
-  /**
-   * Return subjects of the specified slug.
-   */
-  slugs?: string[];
+  hidden?: boolean;
 
   /**
    * Return subjects at the specified levels.
@@ -653,9 +648,14 @@ export interface WKSubjectParameters extends WKCollectionParameters {
   levels?: WKLevel[];
 
   /**
-   * Return subjects which are or are not hidden from the user-facing application.
+   * Return subjects of the specified slug.
    */
-  hidden?: boolean;
+  slugs?: string[];
+
+  /**
+   * Return subjects of the specified types.
+   */
+  types?: WKSubjectTuple;
 }
 
 /**
@@ -670,7 +670,12 @@ export interface WKSubjectParameters extends WKCollectionParameters {
  * @category Resources
  * @category Subjects
  */
-export interface WKVocabulary extends WKResource {
+interface WKVocabulary extends WKResource {
+  /**
+   * Data for the returned vocabulary.
+   */
+  data: WKVocabularyData;
+
   /**
    * A unique number identifying the vocabulary.
    */
@@ -680,11 +685,6 @@ export interface WKVocabulary extends WKResource {
    * The kind of object returned.
    */
   object: "vocabulary";
-
-  /**
-   * Data for the returned vocabulary.
-   */
-  data: WKVocabularyData;
 }
 
 /**
@@ -694,7 +694,7 @@ export interface WKVocabulary extends WKResource {
  * @category Collections
  * @category Subjects
  */
-export interface WKVocabularyCollection extends WKCollection {
+interface WKVocabularyCollection extends WKCollection {
   /**
    * An array of returned vocabulary subjects.
    */
@@ -707,7 +707,7 @@ export interface WKVocabularyCollection extends WKCollection {
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-export interface WKVocabularyContextSentence {
+interface WKVocabularyContextSentence {
   /**
    * English translation of the sentence.
    */
@@ -726,7 +726,7 @@ export interface WKVocabularyContextSentence {
  * @category Data
  * @category Subjects
  */
-export interface WKVocabularyData extends WKSubjectData {
+interface WKVocabularyData extends WKSubjectData {
   /**
    * The UTF-8 characters for the subject, including kanji and hiragana.
    */
@@ -795,12 +795,7 @@ export interface WKVocabularyData extends WKSubjectData {
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-export interface WKVocabularyPronunciationAudio {
-  /**
-   * The location of the audio.
-   */
-  url: string;
-
+interface WKVocabularyPronunciationAudio {
   /**
    * The content type of the audio. Currently the API delivers `audio/mpeg`, `audio/ogg`, and `audio/webm`.
    */
@@ -816,14 +811,14 @@ export interface WKVocabularyPronunciationAudio {
     gender: "female" | "male";
 
     /**
-     * A unique ID shared between same source pronunciation audio.
-     */
-    source_id: number;
-
-    /**
      * Vocabulary being pronounced in kana.
      */
     pronunciation: string;
+
+    /**
+     * A unique ID shared between same source pronunciation audio.
+     */
+    source_id: number;
 
     /**
      * A unique ID belonging to the voice actor.
@@ -840,6 +835,11 @@ export interface WKVocabularyPronunciationAudio {
      */
     voice_description: string;
   };
+
+  /**
+   * The location of the audio.
+   */
+  url: string;
 }
 
 /**
@@ -848,11 +848,11 @@ export interface WKVocabularyPronunciationAudio {
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-export interface WKVocabularyReading {
+interface WKVocabularyReading {
   /**
-   * A singular subject reading.
+   * Indicates if the reading is used to evaluate user input for correctness.
    */
-  reading: string;
+  accepted_answer: boolean;
 
   /**
    * Indicates priority in the WaniKani system.
@@ -860,12 +860,41 @@ export interface WKVocabularyReading {
   primary: boolean;
 
   /**
-   * Indicates if the reading is used to evaluate user input for correctness.
+   * A singular subject reading.
    */
-  accepted_answer: boolean;
+  reading: string;
 
   /**
    * Vocabulary readings will never have a reading `type`.
    */
   type?: never;
 }
+
+export {
+  type WKKanaVocabulary,
+  type WKKanaVocabularyCollection,
+  type WKKanaVocabularyData,
+  type WKKanji,
+  type WKKanjiCollection,
+  type WKKanjiData,
+  type WKKanjiReading,
+  type WKRadical,
+  type WKRadicalCharacterImage,
+  type WKRadicalCharacterImagePngMetadata,
+  type WKRadicalCharacterImageSvgMetadata,
+  type WKRadicalCollection,
+  type WKRadicalData,
+  type WKSubject,
+  type WKSubjectAuxiliaryMeaning,
+  type WKSubjectCollection,
+  type WKSubjectData,
+  WK_SUBJECT_MARKUP_MATCHERS,
+  type WKSubjectMeaning,
+  type WKSubjectParameters,
+  type WKVocabulary,
+  type WKVocabularyCollection,
+  type WKVocabularyContextSentence,
+  type WKVocabularyData,
+  type WKVocabularyPronunciationAudio,
+  type WKVocabularyReading,
+};

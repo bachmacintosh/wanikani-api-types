@@ -1,4 +1,4 @@
-import type { Brand, Range } from "../internal/index.js";
+import { type Brand, type Range, isValidDate } from "../internal";
 import type {
   WKAssignment,
   WKAssignmentData,
@@ -43,7 +43,6 @@ import type {
   WKVoiceActorData,
   WKVoiceActorParameters,
 } from "../v20170710.js";
-import { isValidDate } from "../internal/index.js";
 
 /**
  * All known WaniKani API revisions, created when breaking changes are introduced to the WaniKani API.
@@ -51,7 +50,7 @@ import { isValidDate } from "../internal/index.js";
  * @see {@link https://docs.api.wanikani.com/20170710/#revisions-aka-versioning}
  * @category Base
  */
-export type WKApiRevision = "20170710";
+type WKApiRevision = "20170710";
 
 /**
  * A constant representing the WaniKani API revision. This will match the revision module being imported from, or the
@@ -60,7 +59,7 @@ export type WKApiRevision = "20170710";
  * @see {@link https://docs.api.wanikani.com/20170710/#revisions-aka-versioning}
  * @category Base
  */
-export const WK_API_REVISION: WKApiRevision = "20170710";
+const WK_API_REVISION: WKApiRevision = "20170710";
 
 /**
  * The common properties across all Collection items from the WaniKani API.
@@ -69,49 +68,7 @@ export const WK_API_REVISION: WKApiRevision = "20170710";
  * @category Base
  * @category Collections
  */
-export interface WKCollection {
-  /**
-   * The kind of object returned.
-   */
-  object: "collection";
-
-  /**
-   * The URL of the request. For collections, that will contain all the filters and options you've passed to the API.
-   */
-  url: string;
-
-  /**
-   * Pagination Info for the collection.
-   */
-  pages: {
-    /**
-     * The URL of the next page of results. If there are no more results, the value is `null`.
-     */
-    next_url: string | null;
-
-    /**
-     * The URL of the previous page of results. If there are no results at all or no previous page to go to, the value
-     * is `null`.
-     */
-    previous_url: string | null;
-
-    /**
-     * Maximum number of items delivered per page for this collection.
-     */
-    per_page: number;
-  };
-
-  /**
-   * The total number of items in the collection.
-   */
-  total_count: number;
-
-  /**
-   * For collections, this is the timestamp of the most recently updated resource in the specified scope and is not
-   * limited by pagination. If no items were returned for the specified scope, then this will be `null`.
-   */
-  data_updated_at: WKDatableString | null;
-
+interface WKCollection {
   /**
    * The resource's data, dependent on the collection's resource type.
    */
@@ -131,6 +88,48 @@ export interface WKCollection {
     | WKVoiceActor[];
 
   /**
+   * For collections, this is the timestamp of the most recently updated resource in the specified scope and is not
+   * limited by pagination. If no items were returned for the specified scope, then this will be `null`.
+   */
+  data_updated_at: WKDatableString | null;
+
+  /**
+   * The kind of object returned.
+   */
+  object: "collection";
+
+  /**
+   * Pagination Info for the collection.
+   */
+  pages: {
+    /**
+     * The URL of the next page of results. If there are no more results, the value is `null`.
+     */
+    next_url: string | null;
+
+    /**
+     * Maximum number of items delivered per page for this collection.
+     */
+    per_page: number;
+
+    /**
+     * The URL of the previous page of results. If there are no results at all or no previous page to go to, the value
+     * is `null`.
+     */
+    previous_url: string | null;
+  };
+
+  /**
+   * The total number of items in the collection.
+   */
+  total_count: number;
+
+  /**
+   * The URL of the request. For collections, that will contain all the filters and options you've passed to the API.
+   */
+  url: string;
+
+  /**
    * A collection will never have a `code` property.
    */
   code?: never;
@@ -148,7 +147,7 @@ export interface WKCollection {
  * @category Base
  * @category Parameters
  */
-export interface WKCollectionParameters {
+interface WKCollectionParameters {
   /**
    * Only resources where `data.id` matches one of the array values are returned.
    */
@@ -180,7 +179,7 @@ export interface WKCollectionParameters {
  * @category Base
  * @category Parameters
  */
-export interface WKCollectionParametersMap {
+interface WKCollectionParametersMap {
   /**
    * Parameters for Assignment Collections.
    */
@@ -225,23 +224,23 @@ export interface WKCollectionParametersMap {
  * @see {@link isWKDatableString}
  * @category Base
  */
-export type WKDatableString = Brand<string, "WKDatableString">;
+type WKDatableString = Brand<string, "WKDatableString">;
 
 /**
  * An error response returned by the WaniKani API.
  *
  * @category Base
  */
-export interface WKError {
-  /**
-   * A message string that describes the error.
-   */
-  error: string;
-
+interface WKError {
   /**
    * An HTTP status code indicating the type of error.
    */
   code: number;
+
+  /**
+   * A message string that describes the error.
+   */
+  error: string;
 
   /**
    * An error will never include a `data` property.
@@ -284,91 +283,91 @@ export interface WKError {
  *
  * @category Base
  */
-export type WKLessonBatchSizeNumber = Range<WKMinLessonBatchSize, WKMaxLessonBatchSize>;
+type WKLessonBatchSizeNumber = Range<WKMinLessonBatchSize, WKMaxLessonBatchSize>;
 
 /**
  * A number representing a level in WaniKani, from `1` to `60`.
  *
  * @category Base
  */
-export type WKLevel = Range<1, WKMaxLevels>;
+type WKLevel = Range<1, WKMaxLevels>;
 
 /**
  * The maximum batch size for lessons in the WaniKani app.
  *
  * @category Base
  */
-export type WKMaxLessonBatchSize = 10;
+type WKMaxLessonBatchSize = 10;
 
 /**
  * The maximum batch size for lessons in the WaniKani app; exported for use in lieu of a Magic Number.
  *
  * @category Base
  */
-export const WK_MAX_LESSON_BATCH_SIZE: WKMaxLessonBatchSize = 10;
+const WK_MAX_LESSON_BATCH_SIZE: WKMaxLessonBatchSize = 10;
 
 /**
  * The maximum level provided by WaniKani; used to calculate level ranges.
  *
  * @category Base
  */
-export type WKMaxLevels = 60;
+type WKMaxLevels = 60;
 
 /**
  * The maximum level provided by WaniKani; exported for use in lieu of a Magic Number.
  *
  * @category Base
  */
-export const WK_MAX_LEVELS: WKMaxLevels = 60;
+const WK_MAX_LEVELS: WKMaxLevels = 60;
 
 /**
  * The maximum number of SRS Stages used in WaniKani's reviews.
  *
  * @category Base
  */
-export type WKMaxSrsReviewStages = 8;
+type WKMaxSrsReviewStages = 8;
 
 /**
  * The maximum number of SRS Stages used in WaniKani's reviews; exported for use in lieu of a Magic Number.
  *
  * @category Base
  */
-export const WK_MAX_SRS_REVIEW_STAGES: WKMaxSrsReviewStages = 8;
+const WK_MAX_SRS_REVIEW_STAGES: WKMaxSrsReviewStages = 8;
 
 /**
  * The maximum number of SRS Stages used in WaniKani's SRS; used to calculate SRS Stage ranges.
  *
  * @category Base
  */
-export type WKMaxSrsStages = 9;
+type WKMaxSrsStages = 9;
 
 /**
  * The maximum number of SRS Stages used in WaniKani's SRS; exported for use in lieu of a Magic Number.
  *
  * @category Base
  */
-export const WK_MAX_SRS_STAGES: WKMaxSrsStages = 9;
+const WK_MAX_SRS_STAGES: WKMaxSrsStages = 9;
 
 /**
  * The minimum batch size for lessons in the WaniKani app.
  *
  * @category Base
  */
-export type WKMinLessonBatchSize = 3;
+type WKMinLessonBatchSize = 3;
 
 /**
  * The minimum batch size for lessons in the WaniKani app; exported for use in lieu of a Magic Number.
  *
  * @category Base
  */
-export const WK_MIN_LESSON_BATCH_SIZE: WKMinLessonBatchSize = 3;
+const WK_MIN_LESSON_BATCH_SIZE: WKMinLessonBatchSize = 3;
 
 /**
  * The lowest number of levels that a WaniKani user has access to, when they are on a free subscription.
  *
  * @category Base
  */
-export type WKMinLevels = 3;
+type WKMinLevels = 3;
 
 /**
  * The lowest number of levels that a WaniKani user has access to, when they are on a free subscription; exported for
@@ -376,7 +375,7 @@ export type WKMinLevels = 3;
  *
  * @category Base
  */
-export const WK_MIN_LEVELS: WKMinLevels = 3;
+const WK_MIN_LEVELS: WKMinLevels = 3;
 
 /**
  * Map PUT and POST requests to the WaniKani API, to their respective Payload types.
@@ -384,13 +383,13 @@ export const WK_MIN_LEVELS: WKMinLevels = 3;
  * @category Base
  * @category Payloads
  */
-export interface WKPayloadMap {
-  /** Payload to start an Assignment. */
-  "PUT /assignments/<id>/start": WKAssignmentPayload;
+interface WKPayloadMap {
   /** Payload to create a Review. */
   "POST /reviews": WKReviewPayload;
   /** Payload to create a new Study Material. */
   "POST /study_materials": WKStudyMaterialCreatePayload;
+  /** Payload to start an Assignment. */
+  "PUT /assignments/<id>/start": WKAssignmentPayload;
   /** Payload to update an existing Study Material. */
   "PUT /study_materials/<id>": WKStudyMaterialUpdatePayload;
   /** Payload to update the User's Preferences. */
@@ -405,7 +404,17 @@ export interface WKPayloadMap {
  * @category Base
  * @category Reports
  */
-export interface WKReport {
+interface WKReport {
+  /**
+   * The report's data, dependent on the particular report.
+   */
+  data: WKSummaryData;
+
+  /**
+   * The last time the report was updated.
+   */
+  data_updated_at: WKDatableString;
+
   /**
    * The kind of object returned.
    */
@@ -415,16 +424,6 @@ export interface WKReport {
    * The URL of the requested report.
    */
   url: string;
-
-  /**
-   * The last time the report was updated.
-   */
-  data_updated_at: WKDatableString;
-
-  /**
-   * The report's data, dependent on the particular report.
-   */
-  data: WKSummaryData;
 
   /**
    * A report will never have a `code` property.
@@ -445,28 +444,7 @@ export interface WKReport {
  * @category Base
  * @category Resources
  */
-export interface WKResource {
-  /**
-   * A unique identifying number present on all Resources except a User
-   * resource, where it is present the `data` object.
-   */
-  id?: number;
-
-  /**
-   * The kind of object returned.
-   */
-  object: WKResourceType | WKSubjectType;
-
-  /**
-   * The URL of the requested resource.
-   */
-  url: string;
-
-  /**
-   * For a resource, this is the last time that particular resource was updated.
-   */
-  data_updated_at: WKDatableString;
-
+interface WKResource {
   /**
    * The resource's data, dependent on the particular type of resource.
    */
@@ -486,6 +464,21 @@ export interface WKResource {
     | WKVoiceActorData;
 
   /**
+   * For a resource, this is the last time that particular resource was updated.
+   */
+  data_updated_at: WKDatableString;
+
+  /**
+   * The kind of object returned.
+   */
+  object: WKResourceType | WKSubjectType;
+
+  /**
+   * The URL of the requested resource.
+   */
+  url: string;
+
+  /**
    * A resource will never have a `code` property.
    */
   code?: never;
@@ -494,6 +487,12 @@ export interface WKResource {
    * A resource will never have an `error` property.
    */
   error?: never;
+
+  /**
+   * A unique identifying number present on all Resources except a User
+   * resource, where it is present the `data` object.
+   */
+  id?: number;
 }
 
 /**
@@ -502,7 +501,7 @@ export interface WKResource {
  * @see {@link https://docs.api.wanikani.com/20170710/#response-structure}
  * @category Base
  */
-export type WKResourceType =
+type WKResourceType =
   | "assignment"
   | "level_progression"
   | "reset"
@@ -518,7 +517,7 @@ export type WKResourceType =
  *
  * @category Base
  */
-export type WKSrsStageNumber = Range<0, WKMaxSrsStages>;
+type WKSrsStageNumber = Range<0, WKMaxSrsStages>;
 
 /**
  * A non-empty array of WaniKani subject types.
@@ -527,7 +526,7 @@ export type WKSrsStageNumber = Range<0, WKMaxSrsStages>;
  * @category Base
  * @category Subjects
  */
-export type WKSubjectTuple = [WKSubjectType, ...WKSubjectType[]];
+type WKSubjectTuple = [WKSubjectType, ...WKSubjectType[]];
 
 /**
  * The types of subjects used on WaniKani and its API.
@@ -536,7 +535,7 @@ export type WKSubjectTuple = [WKSubjectType, ...WKSubjectType[]];
  * @category Base
  * @category Subjects
  */
-export type WKSubjectType = "kana_vocabulary" | "kanji" | "radical" | "vocabulary";
+type WKSubjectType = "kana_vocabulary" | "kanji" | "radical" | "vocabulary";
 
 /**
  * A type guard to determine if a given item is a valid {@link WKDatableString}.
@@ -545,14 +544,14 @@ export type WKSubjectType = "kana_vocabulary" | "kanji" | "radical" | "vocabular
  * @returns `true` if the item is a valid {@link WKDatableString}, `false` if not.
  * @category Base
  */
-export function isWKDatableString(possibleWKDatableString: unknown): possibleWKDatableString is WKDatableString {
+function isWKDatableString(possibleWKDatableString: unknown): possibleWKDatableString is WKDatableString {
   const twentyFourHours = 24;
 
   const datePattern =
     /(?<year>\d{4})-(?<month>[01]\d)-(?<day>[0-3]\d)T(?<hour>[0-2]\d):(?<minute>[0-5]\d):(?<second>[0-5]\d)\.(?<microsecond>\d{1,6})(?<offset>[+-][0-2]\d:[0-5]\d|Z)/u;
   if (typeof possibleWKDatableString === "string") {
     const matches = datePattern.exec(possibleWKDatableString);
-    if (matches === null || typeof matches.groups === "undefined") {
+    if (typeof matches?.groups === "undefined") {
       return false;
     }
     const yearNumber = parseInt(matches.groups.year, 10);
@@ -568,7 +567,7 @@ export function isWKDatableString(possibleWKDatableString: unknown): possibleWKD
     if (matches.groups.offset !== "Z") {
       const offsetPattern = /[+-](?<hour>[0-2]\d):(?<minute>[0-5]\d)/u;
       const offsetMatches = offsetPattern.exec(matches.groups.offset);
-      if (offsetMatches === null || typeof offsetMatches.groups === "undefined") {
+      if (typeof offsetMatches?.groups === "undefined") {
         return false;
       }
       const offsetHourNumber = parseInt(offsetMatches.groups.hour, 10);
@@ -587,7 +586,7 @@ export function isWKDatableString(possibleWKDatableString: unknown): possibleWKD
  * @returns `true` if the item is a valid {@link WKLessonBatchSizeNumber}, `false` if not.
  * @category Base
  */
-export function isWKLessonBatchSizeNumber(
+function isWKLessonBatchSizeNumber(
   possibleWKLessonBatchSizeNumber: unknown,
 ): possibleWKLessonBatchSizeNumber is WKLessonBatchSizeNumber {
   return (
@@ -605,7 +604,7 @@ export function isWKLessonBatchSizeNumber(
  * @returns `true` if the item is a valid {@link WKLevel}, `false` if not.
  * @category Base
  */
-export function isWKLevel(possibleWKLevel: unknown): possibleWKLevel is WKLevel {
+function isWKLevel(possibleWKLevel: unknown): possibleWKLevel is WKLevel {
   return (
     typeof possibleWKLevel === "number" &&
     Number.isInteger(possibleWKLevel) &&
@@ -621,18 +620,18 @@ export function isWKLevel(possibleWKLevel: unknown): possibleWKLevel is WKLevel 
  * @returns `true` if the item is a valid {@link WKLevel} array, `false` if not.
  * @category Base
  */
-export function isWKLevelArray(possibleWKLevelArray: unknown): possibleWKLevelArray is WKLevel[] {
+function isWKLevelArray(possibleWKLevelArray: unknown): possibleWKLevelArray is WKLevel[] {
   if (!Array.isArray(possibleWKLevelArray)) {
     return false;
   }
   if (possibleWKLevelArray.length === 0) {
     return false;
   }
-  const allNumbersAndAllIntegers = possibleWKLevelArray.every(Number.isInteger);
-  const allNumbersInRange = possibleWKLevelArray.every((value) => {
+  const hasAllNumbersAndAllIntegers = possibleWKLevelArray.every(Number.isInteger);
+  const hasAllNumbersInRange = possibleWKLevelArray.every((value) => {
     return value >= 1 && value <= WK_MAX_LEVELS;
   });
-  return allNumbersAndAllIntegers && allNumbersInRange;
+  return hasAllNumbersAndAllIntegers && hasAllNumbersInRange;
 }
 
 /**
@@ -642,7 +641,7 @@ export function isWKLevelArray(possibleWKLevelArray: unknown): possibleWKLevelAr
  * @returns `true` if the item is a valid {@link WKSrsStageNumber}, `false` if not.
  * @category Base
  */
-export function isWKSrsStageNumber(possibleWKSrsStageNumber: unknown): possibleWKSrsStageNumber is WKSrsStageNumber {
+function isWKSrsStageNumber(possibleWKSrsStageNumber: unknown): possibleWKSrsStageNumber is WKSrsStageNumber {
   return (
     typeof possibleWKSrsStageNumber === "number" &&
     Number.isInteger(possibleWKSrsStageNumber) &&
@@ -658,7 +657,7 @@ export function isWKSrsStageNumber(possibleWKSrsStageNumber: unknown): possibleW
  * @returns `true` if the item is a valid {@link WKSrsStageNumber} array, `false` if not.
  * @category Base
  */
-export function isWKSrsStageNumberArray(
+function isWKSrsStageNumberArray(
   possibleWKSrsStageNumberArray: unknown,
 ): possibleWKSrsStageNumberArray is WKSrsStageNumber[] {
   if (!Array.isArray(possibleWKSrsStageNumberArray)) {
@@ -667,11 +666,11 @@ export function isWKSrsStageNumberArray(
   if (possibleWKSrsStageNumberArray.length === 0) {
     return false;
   }
-  const allNumbersAndAllIntegers = possibleWKSrsStageNumberArray.every(Number.isInteger);
-  const allNumbersInRange = possibleWKSrsStageNumberArray.every((value) => {
+  const hasAllNumbersAndAllIntegers = possibleWKSrsStageNumberArray.every(Number.isInteger);
+  const hasAllNumbersInRange = possibleWKSrsStageNumberArray.every((value) => {
     return value >= 0 && value <= WK_MAX_SRS_STAGES;
   });
-  return allNumbersAndAllIntegers && allNumbersInRange;
+  return hasAllNumbersAndAllIntegers && hasAllNumbersInRange;
 }
 
 /**
@@ -682,7 +681,7 @@ export function isWKSrsStageNumberArray(
  * @throws A `TypeError` if a non-object is passed to the function.
  * @category Base
  */
-export function stringifyParameters<T extends WKCollectionParameters>(params: T): string {
+function stringifyParameters<T extends WKCollectionParameters>(params: T): string {
   if (typeof params !== "object") {
     throw new TypeError("Parameters must be expressed as an object.");
   }
@@ -690,7 +689,7 @@ export function stringifyParameters<T extends WKCollectionParameters>(params: T)
     return "";
   }
 
-  let firstItem = true;
+  let isFirstItem = true;
   let queryString = "";
 
   /* These boolean parameters are empty, i.e. no true or false, so should only be appended when actually set. */
@@ -699,11 +698,11 @@ export function stringifyParameters<T extends WKCollectionParameters>(params: T)
   for (const [key, value] of Object.entries(params)) {
     if (emptyQueryParams.includes(key) && typeof value === "boolean") {
       if (value) {
-        queryString += firstItem ? "?" : "&";
+        queryString += isFirstItem ? "?" : "&";
         queryString += `${key}`;
       }
     } else {
-      queryString += firstItem ? "?" : "&";
+      queryString += isFirstItem ? "?" : "&";
       if (typeof value === "boolean") {
         queryString += value ? `${key}=true` : `${key}=false`;
       } else if (value instanceof Date && Object.prototype.toString.call(value) === "[object Date]") {
@@ -712,7 +711,7 @@ export function stringifyParameters<T extends WKCollectionParameters>(params: T)
         queryString += `${key}=${value.toString()}`;
       }
     }
-    firstItem = false;
+    isFirstItem = false;
   }
   return queryString;
 }
@@ -725,12 +724,12 @@ export function stringifyParameters<T extends WKCollectionParameters>(params: T)
  * @throws A `TypeError` if parameter validation fails.
  * @category Base
  */
-export function validateParameters<T extends keyof WKCollectionParametersMap>(
+function validateParameters<T extends keyof WKCollectionParametersMap>(
   type: T,
   params: WKCollectionParametersMap[T],
 ): void {
   /* Start by making dummy parameters with all properties requireed; this ensures we're checking all fields, and that
-	   if we update types, this function will get updated, too. */
+     if we update types, this function will get updated, too. */
   const assignmentParams: Required<WKAssignmentParameters> = {
     available_after: new Date(),
     available_before: new Date(),
@@ -842,7 +841,7 @@ export function validateParameters<T extends keyof WKCollectionParametersMap>(
  * @category Base
  * @category Payloads
  */
-export function validatePayload<T extends keyof WKPayloadMap>(type: T, payload: WKPayloadMap[T]): void {
+function validatePayload<T extends keyof WKPayloadMap>(type: T, payload: WKPayloadMap[T]): void {
   /* Let's try not to end up here! */
   function throwTypeError(key: string, payloadType: T): never {
     throw new TypeError(`Key "${key}" is not valid for a payload sent to ${payloadType} .`);
@@ -927,3 +926,43 @@ export function validatePayload<T extends keyof WKPayloadMap>(type: T, payload: 
     }
   });
 }
+
+export {
+  type WKApiRevision,
+  WK_API_REVISION,
+  type WKCollection,
+  type WKCollectionParameters,
+  type WKCollectionParametersMap,
+  type WKDatableString,
+  type WKError,
+  type WKLessonBatchSizeNumber,
+  type WKLevel,
+  type WKMaxLessonBatchSize,
+  WK_MAX_LESSON_BATCH_SIZE,
+  type WKMaxLevels,
+  WK_MAX_LEVELS,
+  type WKMaxSrsReviewStages,
+  WK_MAX_SRS_REVIEW_STAGES,
+  type WKMaxSrsStages,
+  WK_MAX_SRS_STAGES,
+  type WKMinLessonBatchSize,
+  WK_MIN_LESSON_BATCH_SIZE,
+  type WKMinLevels,
+  WK_MIN_LEVELS,
+  type WKPayloadMap,
+  type WKReport,
+  type WKResource,
+  type WKResourceType,
+  type WKSrsStageNumber,
+  type WKSubjectTuple,
+  type WKSubjectType,
+  isWKDatableString,
+  isWKLessonBatchSizeNumber,
+  isWKLevel,
+  isWKLevelArray,
+  isWKSrsStageNumber,
+  isWKSrsStageNumberArray,
+  stringifyParameters,
+  validateParameters,
+  validatePayload,
+};

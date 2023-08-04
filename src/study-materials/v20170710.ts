@@ -15,7 +15,12 @@ import type {
  * @category Resources
  * @category Study Materials
  */
-export interface WKStudyMaterial extends WKResource {
+interface WKStudyMaterial extends WKResource {
+  /**
+   * Data for the returned study material.
+   */
+  data: WKStudyMaterialData;
+
   /**
    * A unique number identifying the study material.
    */
@@ -25,11 +30,6 @@ export interface WKStudyMaterial extends WKResource {
    * The kind of object returned.
    */
   object: "study_material";
-
-  /**
-   * Data for the returned study material.
-   */
-  data: WKStudyMaterialData;
 }
 
 /**
@@ -40,21 +40,21 @@ export interface WKStudyMaterial extends WKResource {
  * @remarks For creating study materials, use {@link WKStudyMaterialCreatePayload}; for updating study materials, use
  * {@link WKStudyMaterialUpdatePayload}; for study materials received from the API, use {@link WKStudyMaterialData}.
  */
-export interface WKStudyMaterialBaseData {
+interface WKStudyMaterialBaseData {
   /**
    * Free form note related to the meaning(s) of the associated subject.
    */
   meaning_note: string | null;
 
   /**
-   * Free form note related to the reading(s) of the associated subject.
-   */
-  reading_note: string | null;
-
-  /**
    * Synonyms for the meaning of the subject. These are used as additional correct answers during reviews.
    */
   meaning_synonyms: string[];
+
+  /**
+   * Free form note related to the reading(s) of the associated subject.
+   */
+  reading_note: string | null;
 }
 
 /**
@@ -64,7 +64,7 @@ export interface WKStudyMaterialBaseData {
  * @category Collections
  * @category Study Materials
  */
-export interface WKStudyMaterialCollection extends WKCollection {
+interface WKStudyMaterialCollection extends WKCollection {
   /**
    * An array of returned study materials.
    */
@@ -78,7 +78,7 @@ export interface WKStudyMaterialCollection extends WKCollection {
  * @category Payloads
  * @category Study Materials
  */
-export interface WKStudyMaterialCreatePayload extends WKStudyMaterialUpdatePayload {
+interface WKStudyMaterialCreatePayload extends WKStudyMaterialUpdatePayload {
   /**
    * Unique identifier of the associated subject.
    */
@@ -92,7 +92,7 @@ export interface WKStudyMaterialCreatePayload extends WKStudyMaterialUpdatePaylo
  * @category Data
  * @category Study Materials
  */
-export interface WKStudyMaterialData extends WKStudyMaterialBaseData {
+interface WKStudyMaterialData extends WKStudyMaterialBaseData {
   /**
    * Timestamp when the study material was created.
    */
@@ -122,7 +122,7 @@ export interface WKStudyMaterialData extends WKStudyMaterialBaseData {
  * @category Parameters
  * @category Study Materials
  */
-export interface WKStudyMaterialParameters extends WKCollectionParameters {
+interface WKStudyMaterialParameters extends WKCollectionParameters {
   /**
    * Return study materials with a matching value in the `hidden` attribute.
    */
@@ -147,4 +147,14 @@ export interface WKStudyMaterialParameters extends WKCollectionParameters {
  * @category Payloads
  * @category Study Materials
  */
-export type WKStudyMaterialUpdatePayload = Partial<WKStudyMaterialBaseData>;
+type WKStudyMaterialUpdatePayload = Partial<WKStudyMaterialBaseData>;
+
+export type {
+  WKStudyMaterial,
+  WKStudyMaterialBaseData,
+  WKStudyMaterialCollection,
+  WKStudyMaterialCreatePayload,
+  WKStudyMaterialData,
+  WKStudyMaterialParameters,
+  WKStudyMaterialUpdatePayload,
+};

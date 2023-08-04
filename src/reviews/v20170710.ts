@@ -8,7 +8,7 @@ import type {
   WKResource,
   WKReviewStatistic,
 } from "../v20170710.js";
-import type { Range } from "../internal/index.js";
+import type { Range } from "../internal";
 
 /**
  * A created review returned from the WaniKani API.
@@ -17,7 +17,13 @@ import type { Range } from "../internal/index.js";
  * @category Resources
  * @category Reviews
  */
-export interface WKCreatedReview extends WKResource {
+interface WKCreatedReview extends WKResource {
+  /**
+   * Data for the created review.
+   * @see {@link https://docs.api.wanikani.com/20170710/#reviews}
+   */
+  data: WKReviewData;
+
   /**
    * A unique number identifying the review.
    */
@@ -27,12 +33,6 @@ export interface WKCreatedReview extends WKResource {
    * The kind of object returned.
    */
   object: "review";
-
-  /**
-   * Data for the created review.
-   * @see {@link https://docs.api.wanikani.com/20170710/#reviews}
-   */
-  data: WKReviewData;
 
   /**
    * The resources updated alongside creating the review.
@@ -61,7 +61,12 @@ export interface WKCreatedReview extends WKResource {
  * @category Resources
  * @category Reviews
  */
-export interface WKReview extends WKResource {
+interface WKReview extends WKResource {
+  /**
+   * Data for the returned review.
+   */
+  data: WKReviewData;
+
   /**
    * A unique number identifying the review.
    */
@@ -71,11 +76,6 @@ export interface WKReview extends WKResource {
    * The kind of object returned.
    */
   object: "review";
-
-  /**
-   * Data for the returned review.
-   */
-  data: WKReviewData;
 }
 
 /**
@@ -85,7 +85,7 @@ export interface WKReview extends WKResource {
  * @category Collections
  * @category Reviews
  */
-export interface WKReviewCollection extends WKCollection {
+interface WKReviewCollection extends WKCollection {
   /**
    * An array of returned reviews.
    */
@@ -99,7 +99,7 @@ export interface WKReviewCollection extends WKCollection {
  * @category Data
  * @category Reviews
  */
-export interface WKReviewData {
+interface WKReviewData {
   /**
    * Unique identifier of the associated assignment.
    */
@@ -150,7 +150,7 @@ export interface WKReviewData {
  * @category Parameters
  * @category Reviews
  */
-export interface WKReviewParameters extends WKCollectionParameters {
+interface WKReviewParameters extends WKCollectionParameters {
   /**
    * Only reviews where `data.assignment_id` matches one of the array values are returned.
    */
@@ -193,7 +193,7 @@ interface WKReviewObjectdBase {
  * @see {@link https://docs.api.wanikani.com/20170710/#create-a-review}
  * @category Reviews
  */
-export interface WKReviewObjectWithAssignmentId extends WKReviewObjectdBase {
+interface WKReviewObjectWithAssignmentId extends WKReviewObjectdBase {
   /**
    * Unique identifier of the assignment. This or `subject_id` must be set.
    */
@@ -211,16 +211,16 @@ export interface WKReviewObjectWithAssignmentId extends WKReviewObjectdBase {
  * @see {@link https://docs.api.wanikani.com/20170710/#create-a-review}
  * @category Reviews
  */
-export interface WKReviewObjectWithSubjectId extends WKReviewObjectdBase {
-  /**
-   * The `assignment_id` should never be set at the same time as `subject_id`.
-   */
-  assignment_id?: never;
-
+interface WKReviewObjectWithSubjectId extends WKReviewObjectdBase {
   /**
    * Unique identifier of the subject. This or `assignment_id` must be set.
    */
   subject_id: number;
+
+  /**
+   * The `assignment_id` should never be set at the same time as `subject_id`.
+   */
+  assignment_id?: never;
 }
 
 /**
@@ -230,9 +230,20 @@ export interface WKReviewObjectWithSubjectId extends WKReviewObjectdBase {
  * @category Payloads
  * @category Reviews
  */
-export interface WKReviewPayload {
+interface WKReviewPayload {
   /**
    * A review object with either the `assignment_id` or `subject_id` specified.
    */
   review: WKReviewObjectWithAssignmentId | WKReviewObjectWithSubjectId;
 }
+
+export type {
+  WKCreatedReview,
+  WKReview,
+  WKReviewCollection,
+  WKReviewData,
+  WKReviewObjectWithAssignmentId,
+  WKReviewObjectWithSubjectId,
+  WKReviewParameters,
+  WKReviewPayload,
+};

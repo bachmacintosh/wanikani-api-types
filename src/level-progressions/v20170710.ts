@@ -14,7 +14,12 @@ import type { WKCollection, WKCollectionParameters, WKDatableString, WKLevel, WK
  * @category Level Progressions
  * @category Resources
  */
-export interface WKLevelProgression extends WKResource {
+interface WKLevelProgression extends WKResource {
+  /**
+   * Data for the returned level progression.
+   */
+  data: WKLevelProgressionData;
+
   /**
    * A unique number identifying the level progression.
    */
@@ -24,11 +29,6 @@ export interface WKLevelProgression extends WKResource {
    * The kind of object returned.
    */
   object: "level_progression";
-
-  /**
-   * Data for the returned level progression.
-   */
-  data: WKLevelProgressionData;
 }
 
 /**
@@ -38,7 +38,7 @@ export interface WKLevelProgression extends WKResource {
  * @category Collections
  * @category Level Progressions
  */
-export interface WKLevelProgressionCollection extends WKCollection {
+interface WKLevelProgressionCollection extends WKCollection {
   /**
    * An array of returned level progressions.
    */
@@ -52,7 +52,7 @@ export interface WKLevelProgressionCollection extends WKCollection {
  * @category Data
  * @category Level Progressions
  */
-export interface WKLevelProgressionData {
+interface WKLevelProgressionData {
   /**
    * Timestamp when the user abandons the level. This is primarily used when the user initiates a reset.
    */
@@ -98,4 +98,6 @@ export interface WKLevelProgressionData {
  * @category Level Progressions
  * @category Parameters
  */
-export type WKLevelProgressionParameters = WKCollectionParameters;
+type WKLevelProgressionParameters = WKCollectionParameters;
+
+export type { WKLevelProgression, WKLevelProgressionCollection, WKLevelProgressionData, WKLevelProgressionParameters };
