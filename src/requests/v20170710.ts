@@ -25,7 +25,7 @@ const baseUrl = "https://api.wanikani.com/v2";
  * @see {@link WKRequestFactory}
  * @category Requests
  */
-interface WKRequest {
+export interface WKRequest {
   /** The request body, either `null` for GET requests, or a `string` for POST and PUT requests. */
   body: string | null;
   /** The request headers, including both standard and user-set headers. */
@@ -42,7 +42,7 @@ interface WKRequest {
  *
  * @category Requests
  */
-class WKRequestFactory {
+export class WKRequestFactory {
   /**
    * The headers set on factory initialization, excluding anything in the `customHeaders` property in
    * {@link WKRequestFactoryInit}.
@@ -666,7 +666,7 @@ class WKRequestFactory {
  *
  * @category Requests
  */
-interface WKRequestFactoryInit {
+export interface WKRequestFactoryInit {
   /** The WaniKani API Token to use in the requests. */
   apiToken: string;
   /** Any additional headers to be added to all requests. */
@@ -682,7 +682,7 @@ interface WKRequestFactoryInit {
  *
  * @category Requests
  */
-interface WKRequestGetOptions {
+export interface WKRequestGetOptions {
   /** Custom headers to add to this request only. */
   customHeaders?: Record<string, string>;
   /** Adds an `If-Modified-Since` header to the request. */
@@ -696,7 +696,7 @@ interface WKRequestGetOptions {
  *
  * @category Requests
  */
-interface WKRequestHeaders {
+export interface WKRequestHeaders {
   /** HTTP Authorization header, using a Bearer Token. */
   Authorization: `Bearer ${string}`;
   /** The WaniKani API Revision. */
@@ -719,7 +719,7 @@ interface WKRequestHeaders {
  *
  * @category Requests
  */
-interface WKRequestPostPutOptions {
+export interface WKRequestPostPutOptions {
   /** Custom headers to add to this request only. */
   customHeaders?: Record<string, string>;
 }
@@ -730,7 +730,7 @@ interface WKRequestPostPutOptions {
  * @category Assignments
  * @category Requests
  */
-interface WKAssignmentRequests {
+export interface WKAssignmentRequests {
   /**
    * Get an Assignment or Assignment Collection from the WaniKani API.
    * @param idOrParams The Assignment ID for individual Assignments, or parameters for Assignment Collections.
@@ -755,7 +755,7 @@ interface WKAssignmentRequests {
  * @category Level Progressions
  * @category Requests
  */
-interface WKLevelProgressionRequests {
+export interface WKLevelProgressionRequests {
   /**
    * Get a Level Progression or Level Progression Collection from the WaniKani API.
    * @param idOrParams The Level Progression ID for individual Level Progressions, or parameters for Level
@@ -772,7 +772,7 @@ interface WKLevelProgressionRequests {
  * @category Requests
  * @category Resets
  */
-interface WKResetRequests {
+export interface WKResetRequests {
   /**
    * Get a Reset or Reset Collection from the WaniKani API.
    * @param idOrParams The Reset ID for individual Resets, or parameters for Reset Collections.
@@ -788,7 +788,7 @@ interface WKResetRequests {
  * @category Requests
  * @category Reviews
  */
-interface WKReviewRequests {
+export interface WKReviewRequests {
   /**
    * Create a new Review via the WaniKani API.
    * @param payload The payload to send when creating the Review.
@@ -811,7 +811,7 @@ interface WKReviewRequests {
  * @category Requests
  * @category Review Statistics
  */
-interface WKReviewStatisticRequests {
+export interface WKReviewStatisticRequests {
   /**
    * Get a Review Statistic or Review Statistic Collection from the WaniKani API.
    * @param idOrParams The Review Statistic ID for individual Review Statistics, or parameters for Review Statistic
@@ -828,7 +828,7 @@ interface WKReviewStatisticRequests {
  * @category Requests
  * @category Spaced Repetition Systems
  */
-interface WKSpacedRepetitionSystemRequests {
+export interface WKSpacedRepetitionSystemRequests {
   /**
    * Get a Spaced Repetition System (SRS) or Spaced Repetition System (SRS) Collection from the WaniKani API.
    * @param idOrParams The Spaced Repetition System (SRS) ID for individual Spaced Repetition Systems (SRS), or
@@ -845,7 +845,7 @@ interface WKSpacedRepetitionSystemRequests {
  * @category Requests
  * @category Study Materials
  */
-interface WKStudyMaterialRequests {
+export interface WKStudyMaterialRequests {
   /**
    * Create a new Study Material for a given Subject via the WaniKani API.
    * @param payload The payload to send when creating the new Study Material.
@@ -878,7 +878,7 @@ interface WKStudyMaterialRequests {
  * @category Requests
  * @category Subjects
  */
-interface WKSubjectRequests {
+export interface WKSubjectRequests {
   /**
    * Get a Subject or Subject Collection from the WaniKani API.
    * @param idOrParams The Subject ID for individual Subjects, or parameters for Subject Collections.
@@ -894,7 +894,7 @@ interface WKSubjectRequests {
  * @category Requests
  * @category Summary
  */
-interface WKSummaryRequests {
+export interface WKSummaryRequests {
   /**
    * Get a summary of a user's available and upcoming lessons/reviews from the WaniKani API.
    *
@@ -910,7 +910,7 @@ interface WKSummaryRequests {
  * @category Requests
  * @category User
  */
-interface WKUserRequests {
+export interface WKUserRequests {
   /**
    * Get a user's information from the WaniKani API.
    *
@@ -935,7 +935,7 @@ interface WKUserRequests {
  * @category Requests
  * @category Voice Actors
  */
-interface WKVoiceActorRequests {
+export interface WKVoiceActorRequests {
   /**
    * Get a Voice Actor or Voice Actor Collection from the WaniKani API.
    * @param idOrParams The Voice Actor ID for individual Voice Actors, or parameters for Voice Actor Collections.
@@ -944,23 +944,3 @@ interface WKVoiceActorRequests {
    */
   get: (idOrParams?: WKVoiceActorParameters | number, options?: WKRequestGetOptions) => WKRequest;
 }
-
-export {
-  type WKAssignmentRequests,
-  type WKLevelProgressionRequests,
-  type WKRequest,
-  WKRequestFactory,
-  type WKRequestFactoryInit,
-  type WKRequestGetOptions,
-  type WKRequestHeaders,
-  type WKRequestPostPutOptions,
-  type WKResetRequests,
-  type WKReviewRequests,
-  type WKReviewStatisticRequests,
-  type WKSpacedRepetitionSystemRequests,
-  type WKStudyMaterialRequests,
-  type WKSubjectRequests,
-  type WKSummaryRequests,
-  type WKUserRequests,
-  type WKVoiceActorRequests,
-};

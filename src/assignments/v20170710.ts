@@ -18,7 +18,7 @@ import type {
  * @category Assignments
  * @category Resources
  */
-interface WKAssignment extends WKResource {
+export interface WKAssignment extends WKResource {
   /**
    * Date for the returned assignment.
    */
@@ -42,7 +42,7 @@ interface WKAssignment extends WKResource {
  * @category Assignments
  * @category Collections
  */
-interface WKAssignmentCollection extends WKCollection {
+export interface WKAssignmentCollection extends WKCollection {
   /**
    * An array of returned assignments.
    */
@@ -56,7 +56,7 @@ interface WKAssignmentCollection extends WKCollection {
  * @category Assignments
  * @category Data
  */
-interface WKAssignmentData {
+export interface WKAssignmentData {
   /**
    * When the related subject will be available in the user's review queue.
    */
@@ -127,7 +127,7 @@ interface WKAssignmentData {
  * @category Assignments
  * @category Parameters
  */
-interface WKAssignmentParameters extends WKCollectionParameters {
+export interface WKAssignmentParameters extends WKCollectionParameters {
   /**
    * Only assignments available at or after this time are returned.
    */
@@ -207,11 +207,9 @@ interface WKAssignmentParameters extends WKCollectionParameters {
  * @category Assignments
  * @category Payloads
  */
-interface WKAssignmentPayload {
+export interface WKAssignmentPayload {
   /**
    * When the assignment was started. Must be greater than or equal to the assignment's `unlocked_at` date.
    */
   started_at?: Date | WKDatableString;
 }
-
-export type { WKAssignment, WKAssignmentCollection, WKAssignmentData, WKAssignmentParameters, WKAssignmentPayload };

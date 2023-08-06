@@ -15,7 +15,7 @@ import type {
  * @category Resources
  * @category Study Materials
  */
-interface WKStudyMaterial extends WKResource {
+export interface WKStudyMaterial extends WKResource {
   /**
    * Data for the returned study material.
    */
@@ -40,7 +40,7 @@ interface WKStudyMaterial extends WKResource {
  * @remarks For creating study materials, use {@link WKStudyMaterialCreatePayload}; for updating study materials, use
  * {@link WKStudyMaterialUpdatePayload}; for study materials received from the API, use {@link WKStudyMaterialData}.
  */
-interface WKStudyMaterialBaseData {
+export interface WKStudyMaterialBaseData {
   /**
    * Free form note related to the meaning(s) of the associated subject.
    */
@@ -64,7 +64,7 @@ interface WKStudyMaterialBaseData {
  * @category Collections
  * @category Study Materials
  */
-interface WKStudyMaterialCollection extends WKCollection {
+export interface WKStudyMaterialCollection extends WKCollection {
   /**
    * An array of returned study materials.
    */
@@ -78,7 +78,7 @@ interface WKStudyMaterialCollection extends WKCollection {
  * @category Payloads
  * @category Study Materials
  */
-interface WKStudyMaterialCreatePayload extends WKStudyMaterialUpdatePayload {
+export interface WKStudyMaterialCreatePayload extends WKStudyMaterialUpdatePayload {
   /**
    * Unique identifier of the associated subject.
    */
@@ -92,7 +92,7 @@ interface WKStudyMaterialCreatePayload extends WKStudyMaterialUpdatePayload {
  * @category Data
  * @category Study Materials
  */
-interface WKStudyMaterialData extends WKStudyMaterialBaseData {
+export interface WKStudyMaterialData extends WKStudyMaterialBaseData {
   /**
    * Timestamp when the study material was created.
    */
@@ -122,7 +122,7 @@ interface WKStudyMaterialData extends WKStudyMaterialBaseData {
  * @category Parameters
  * @category Study Materials
  */
-interface WKStudyMaterialParameters extends WKCollectionParameters {
+export interface WKStudyMaterialParameters extends WKCollectionParameters {
   /**
    * Return study materials with a matching value in the `hidden` attribute.
    */
@@ -147,14 +147,4 @@ interface WKStudyMaterialParameters extends WKCollectionParameters {
  * @category Payloads
  * @category Study Materials
  */
-type WKStudyMaterialUpdatePayload = Partial<WKStudyMaterialBaseData>;
-
-export type {
-  WKStudyMaterial,
-  WKStudyMaterialBaseData,
-  WKStudyMaterialCollection,
-  WKStudyMaterialCreatePayload,
-  WKStudyMaterialData,
-  WKStudyMaterialParameters,
-  WKStudyMaterialUpdatePayload,
-};
+export type WKStudyMaterialUpdatePayload = Partial<WKStudyMaterialBaseData>;

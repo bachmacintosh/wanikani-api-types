@@ -8,7 +8,7 @@ import type { WKDatableString, WKReport } from "../v20170710.js";
  * @category Reports
  * @category Summary
  */
-interface WKSummary extends WKReport {
+export interface WKSummary extends WKReport {
   /**
    * Data for the Summary report.
    */
@@ -22,7 +22,7 @@ interface WKSummary extends WKReport {
  * @category Data
  * @category Summary
  */
-interface WKSummaryData {
+export interface WKSummaryData {
   /**
    * Details about subjects available for lessons.
    */
@@ -45,7 +45,7 @@ interface WKSummaryData {
  * @see {@link https://docs.api.wanikani.com/20170710/#summary}
  * @category Summary
  */
-interface WKSummaryLesson {
+export interface WKSummaryLesson {
   /**
    * When the paired `subject_ids` are available for lessons. Always beginning of the current hour when the API endpoint
    * is accessed.
@@ -64,7 +64,7 @@ interface WKSummaryLesson {
  * @see {@link https://docs.api.wanikani.com/20170710/#summary}
  * @category Summary
  */
-interface WKSummaryReview {
+export interface WKSummaryReview {
   /**
    * When the paired `subject_ids` are available for reviews. All timestamps are the top of an hour.
    */
@@ -75,5 +75,3 @@ interface WKSummaryReview {
    */
   subject_ids: number[];
 }
-
-export type { WKSummary, WKSummaryData, WKSummaryLesson, WKSummaryReview };

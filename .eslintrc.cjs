@@ -486,7 +486,6 @@ module.exports = {
     // Import Rules
     "import/exports-last": "error",
     "import/first": "error",
-    "import/group-exports": "error",
     "import/newline-after-import": "error",
     "import/no-absolute-path": "error",
     "import/no-amd": "error",

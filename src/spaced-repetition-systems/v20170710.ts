@@ -14,7 +14,7 @@ import type {
  * @category Resources
  * @category Spaced Repetition Systems
  */
-interface WKSpacedRepetitionSystem extends WKResource {
+export interface WKSpacedRepetitionSystem extends WKResource {
   /**
    * Data for the return Spaced Repetition System.
    */
@@ -38,7 +38,7 @@ interface WKSpacedRepetitionSystem extends WKResource {
  * @category Collections
  * @category Spaced Repetition Systems
  */
-interface WKSpacedRepetitionSystemCollection extends WKCollection {
+export interface WKSpacedRepetitionSystemCollection extends WKCollection {
   /**
    * An array of returned Spaced Repetition Systems.
    */
@@ -52,7 +52,7 @@ interface WKSpacedRepetitionSystemCollection extends WKCollection {
  * @category Data
  * @category Spaced Repetition Systems
  */
-interface WKSpacedRepetitionSystemData {
+export interface WKSpacedRepetitionSystemData {
   /**
    * `position` of the burning stage.
    */
@@ -102,7 +102,7 @@ interface WKSpacedRepetitionSystemData {
  * @category Parameters
  * @category Spaced Repetition Systems
  */
-type WKSpacedRepetitionSystemParameters = WKCollectionParameters;
+export type WKSpacedRepetitionSystemParameters = WKCollectionParameters;
 
 /**
  * An individual Spaced Repetition System (SRS) Stage.
@@ -110,7 +110,7 @@ type WKSpacedRepetitionSystemParameters = WKCollectionParameters;
  * @see {@link https://docs.api.wanikani.com/20170710/#spaced-repetition-systems}
  * @category Spaced Repetition Systems
  */
-interface WKSpacedRepetitionSystemStage {
+export interface WKSpacedRepetitionSystemStage {
   /**
    * The length of time added to the time of review registration, adjusted to the beginning of the hour.
    */
@@ -126,11 +126,3 @@ interface WKSpacedRepetitionSystemStage {
    */
   position: WKSrsStageNumber;
 }
-
-export type {
-  WKSpacedRepetitionSystem,
-  WKSpacedRepetitionSystemCollection,
-  WKSpacedRepetitionSystemData,
-  WKSpacedRepetitionSystemParameters,
-  WKSpacedRepetitionSystemStage,
-};
