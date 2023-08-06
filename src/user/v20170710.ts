@@ -14,7 +14,7 @@ import type {
  * @category Resources
  * @category User
  */
-interface WKUser extends WKResource {
+export interface WKUser extends WKResource {
   /**
    * Data for the returned user.
    */
@@ -35,7 +35,7 @@ interface WKUser extends WKResource {
  * @category Data
  * @category User
  */
-interface WKUserData {
+export interface WKUserData {
   /**
    * If the user is on vacation, this will be the timestamp of when that vacation started. If the user is not on
    * vacation, this is `null`.
@@ -84,7 +84,7 @@ interface WKUserData {
  * @see {@link https://docs.api.wanikani.com/20170710/#user}
  * @category User
  */
-interface WKUserPreferences {
+export interface WKUserPreferences {
   /**
    * The voice actor to be used for lessons and reviews. The value is associated to
    * `subject.pronunciation_audios.metadata.voice_actor_id`.
@@ -135,7 +135,7 @@ interface WKUserPreferences {
  * @category Payloads
  * @category User
  */
-interface WKUserPreferencesPayload {
+export interface WKUserPreferencesPayload {
   /**
    * The user object, as part of the payload.
    */
@@ -153,7 +153,7 @@ interface WKUserPreferencesPayload {
  * @see {@link https://docs.api.wanikani.com/20170710/#user}
  * @category User
  */
-interface WKUserSubscription {
+export interface WKUserSubscription {
   /**
    * Whether or not the user currently has a paid subscription.
    */
@@ -180,5 +180,3 @@ interface WKUserSubscription {
    */
   type: "free" | "lifetime" | "recurring" | "unknown";
 }
-
-export type { WKUser, WKUserData, WKUserPreferences, WKUserPreferencesPayload, WKUserSubscription };

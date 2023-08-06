@@ -18,7 +18,7 @@ import type {
  * @category Resources
  * @category Review Statistics
  */
-interface WKReviewStatistic extends WKResource {
+export interface WKReviewStatistic extends WKResource {
   /**
    * Data for the returned review statistic.
    */
@@ -42,7 +42,7 @@ interface WKReviewStatistic extends WKResource {
  * @category Collections
  * @category Review Statistics
  */
-interface WKReviewStatisticCollection extends WKCollection {
+export interface WKReviewStatisticCollection extends WKCollection {
   /**
    * An array of returned review statistics.
    */
@@ -56,7 +56,7 @@ interface WKReviewStatisticCollection extends WKCollection {
  * @category Data
  * @category Review Statistics
  */
-interface WKReviewStatisticData {
+export interface WKReviewStatisticData {
   /**
    * Timestamp when the review statistic was created.
    */
@@ -131,7 +131,7 @@ interface WKReviewStatisticData {
  * @category Parameters
  * @category Review Statistics
  */
-interface WKReviewStatisticParameters extends WKCollectionParameters {
+export interface WKReviewStatisticParameters extends WKCollectionParameters {
   /**
    * Return review statistics with a matching value in the `hidden` attribute.
    */
@@ -158,5 +158,3 @@ interface WKReviewStatisticParameters extends WKCollectionParameters {
    */
   subject_types?: WKSubjectTuple;
 }
-
-export type { WKReviewStatistic, WKReviewStatisticCollection, WKReviewStatisticData, WKReviewStatisticParameters };

@@ -5,7 +5,7 @@
  */
 
 /* eslint-disable-next-line @typescript-eslint/naming-convention -- Need double undercore for Type Branding */
-type Brand<K, T> = K & { __brand: T };
+export type Brand<K, T> = K & { __brand: T };
 
 /**
  * Tail-recursion for excluding numbers.
@@ -14,7 +14,7 @@ type Brand<K, T> = K & { __brand: T };
  *
  * @internal
  */
-type Enumerate<N extends number, Acc extends number[] = []> = Acc["length"] extends N
+export type Enumerate<N extends number, Acc extends number[] = []> = Acc["length"] extends N
   ? Acc[number]
   : Enumerate<N, [...Acc, Acc["length"]]>;
 
@@ -28,7 +28,7 @@ type Enumerate<N extends number, Acc extends number[] = []> = Acc["length"] exte
  * @internal
  */
 
-type Range<F extends number, T extends number> = Exclude<Enumerate<T>, Enumerate<F>> | T;
+export type Range<F extends number, T extends number> = Exclude<Enumerate<T>, Enumerate<F>> | T;
 
 /**
  * Checks if a given year, month, and day compose a valid date.
@@ -39,7 +39,7 @@ type Range<F extends number, T extends number> = Exclude<Enumerate<T>, Enumerate
  * @returns `true` if the year, month, and day are a valid date, `false` if not.
  * @internal
  */
-function isValidDate(year: number, month: number, day: number): boolean {
+export function isValidDate(year: number, month: number, day: number): boolean {
   const fourYears = 4;
   const oneHundredYears = 100;
   const fourHundredYears = 400;
@@ -89,5 +89,3 @@ function isValidDate(year: number, month: number, day: number): boolean {
   }
   return true;
 }
-
-export { type Brand, type Enumerate, type Range, isValidDate };

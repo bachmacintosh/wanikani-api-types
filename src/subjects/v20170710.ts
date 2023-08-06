@@ -19,7 +19,7 @@ import type {
  * @category Resources
  * @category Subjects
  */
-interface WKKanaVocabulary extends WKResource {
+export interface WKKanaVocabulary extends WKResource {
   /**
    * Data for the returned vocabulary.
    */
@@ -43,7 +43,7 @@ interface WKKanaVocabulary extends WKResource {
  * @category Collections
  * @category Subjects
  */
-interface WKKanaVocabularyCollection extends WKCollection {
+export interface WKKanaVocabularyCollection extends WKCollection {
   /**
    * An array of returned vocabulary subjects.
    */
@@ -57,7 +57,7 @@ interface WKKanaVocabularyCollection extends WKCollection {
  * @category Data
  * @category Subjects
  */
-interface WKKanaVocabularyData extends WKSubjectData {
+export interface WKKanaVocabularyData extends WKSubjectData {
   /**
    * The UTF-8 characters for the subject, including kanji and hiragana.
    */
@@ -131,7 +131,7 @@ interface WKKanaVocabularyData extends WKSubjectData {
  * @category Resources
  * @category Subjects
  */
-interface WKKanji extends WKResource {
+export interface WKKanji extends WKResource {
   /**
    * Data for the returned kanji.
    */
@@ -155,7 +155,7 @@ interface WKKanji extends WKResource {
  * @category Collections
  * @category Subjects
  */
-interface WKKanjiCollection extends WKCollection {
+export interface WKKanjiCollection extends WKCollection {
   /**
    * An array of returned kanji subjects.
    */
@@ -169,7 +169,7 @@ interface WKKanjiCollection extends WKCollection {
  * @category Data
  * @category Subjects
  */
-interface WKKanjiData extends WKSubjectData {
+export interface WKKanjiData extends WKSubjectData {
   /**
    * An array of numeric identifiers for the vocabulary that have the kanji as a component.
    */
@@ -238,7 +238,7 @@ interface WKKanjiData extends WKSubjectData {
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-interface WKKanjiReading {
+export interface WKKanjiReading {
   /**
    * Indicates if the reading is used to evaluate user input for correctness.
    */
@@ -272,7 +272,7 @@ interface WKKanjiReading {
  * @category Resources
  * @category Subjects
  */
-interface WKRadical extends WKResource {
+export interface WKRadical extends WKResource {
   /**
    * Data for the returned radical.
    */
@@ -295,7 +295,7 @@ interface WKRadical extends WKResource {
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-interface WKRadicalCharacterImage {
+export interface WKRadicalCharacterImage {
   /**
    * The content type of the image. Currently the API delivers `image/png` and `image/svg+xml`.
    */
@@ -318,7 +318,7 @@ interface WKRadicalCharacterImage {
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-interface WKRadicalCharacterImagePngMetadata {
+export interface WKRadicalCharacterImagePngMetadata {
   /**
    * Color of the asset in hexadecimal.
    */
@@ -346,7 +346,7 @@ interface WKRadicalCharacterImagePngMetadata {
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-interface WKRadicalCharacterImageSvgMetadata {
+export interface WKRadicalCharacterImageSvgMetadata {
   /**
    * The SVG asset contains built-in CSS styling.
    */
@@ -375,7 +375,7 @@ interface WKRadicalCharacterImageSvgMetadata {
  * @category Collections
  * @category Subjects
  */
-interface WKRadicalCollection extends WKCollection {
+export interface WKRadicalCollection extends WKCollection {
   /**
    * An array of returned radical subjects.
    */
@@ -389,7 +389,7 @@ interface WKRadicalCollection extends WKCollection {
  * @category Data
  * @category Subjects
  */
-interface WKRadicalData extends WKSubjectData {
+export interface WKRadicalData extends WKSubjectData {
   /**
    * An array of numeric identifiers for the kanji that have the radical as a component.
    */
@@ -457,7 +457,7 @@ interface WKRadicalData extends WKSubjectData {
  * @category Resources
  * @category Subjects
  */
-type WKSubject = WKKanaVocabulary | WKKanji | WKRadical | WKVocabulary;
+export type WKSubject = WKKanaVocabulary | WKKanji | WKRadical | WKVocabulary;
 
 /**
  * A subject's auxilliary meanings.
@@ -465,7 +465,7 @@ type WKSubject = WKKanaVocabulary | WKKanji | WKRadical | WKVocabulary;
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-interface WKSubjectAuxiliaryMeaning {
+export interface WKSubjectAuxiliaryMeaning {
   /**
    * A singular subject meaning.
    */
@@ -485,7 +485,7 @@ interface WKSubjectAuxiliaryMeaning {
  * @category Collections
  * @category Subjects
  */
-interface WKSubjectCollection extends WKCollection {
+export interface WKSubjectCollection extends WKCollection {
   /**
    * An array of returned subjects of mixed or unknown type.
    */
@@ -503,7 +503,7 @@ interface WKSubjectCollection extends WKCollection {
  * @category Data
  * @category Subjects
  */
-interface WKSubjectData {
+export interface WKSubjectData {
   /**
    * Collection of auxiliary meanings.
    */
@@ -573,7 +573,7 @@ interface WKSubjectData {
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-const WK_SUBJECT_MARKUP_MATCHERS = {
+export const WK_SUBJECT_MARKUP_MATCHERS = {
   /**
    * A regular expression literal that matches to Japanese text surrounded by `<ja>` tags.
    */
@@ -611,7 +611,7 @@ const WK_SUBJECT_MARKUP_MATCHERS = {
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-interface WKSubjectMeaning {
+export interface WKSubjectMeaning {
   /**
    * Indicates if the meaning is used to evaluate user input for correctness.
    */
@@ -636,7 +636,7 @@ interface WKSubjectMeaning {
  * @category Parameters
  * @category Subjects
  */
-interface WKSubjectParameters extends WKCollectionParameters {
+export interface WKSubjectParameters extends WKCollectionParameters {
   /**
    * Return subjects which are or are not hidden from the user-facing application.
    */
@@ -670,7 +670,7 @@ interface WKSubjectParameters extends WKCollectionParameters {
  * @category Resources
  * @category Subjects
  */
-interface WKVocabulary extends WKResource {
+export interface WKVocabulary extends WKResource {
   /**
    * Data for the returned vocabulary.
    */
@@ -694,7 +694,7 @@ interface WKVocabulary extends WKResource {
  * @category Collections
  * @category Subjects
  */
-interface WKVocabularyCollection extends WKCollection {
+export interface WKVocabularyCollection extends WKCollection {
   /**
    * An array of returned vocabulary subjects.
    */
@@ -707,7 +707,7 @@ interface WKVocabularyCollection extends WKCollection {
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-interface WKVocabularyContextSentence {
+export interface WKVocabularyContextSentence {
   /**
    * English translation of the sentence.
    */
@@ -726,7 +726,7 @@ interface WKVocabularyContextSentence {
  * @category Data
  * @category Subjects
  */
-interface WKVocabularyData extends WKSubjectData {
+export interface WKVocabularyData extends WKSubjectData {
   /**
    * The UTF-8 characters for the subject, including kanji and hiragana.
    */
@@ -795,7 +795,7 @@ interface WKVocabularyData extends WKSubjectData {
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-interface WKVocabularyPronunciationAudio {
+export interface WKVocabularyPronunciationAudio {
   /**
    * The content type of the audio. Currently the API delivers `audio/mpeg`, `audio/ogg`, and `audio/webm`.
    */
@@ -848,7 +848,7 @@ interface WKVocabularyPronunciationAudio {
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-interface WKVocabularyReading {
+export interface WKVocabularyReading {
   /**
    * Indicates if the reading is used to evaluate user input for correctness.
    */
@@ -869,32 +869,3 @@ interface WKVocabularyReading {
    */
   type?: never;
 }
-
-export {
-  type WKKanaVocabulary,
-  type WKKanaVocabularyCollection,
-  type WKKanaVocabularyData,
-  type WKKanji,
-  type WKKanjiCollection,
-  type WKKanjiData,
-  type WKKanjiReading,
-  type WKRadical,
-  type WKRadicalCharacterImage,
-  type WKRadicalCharacterImagePngMetadata,
-  type WKRadicalCharacterImageSvgMetadata,
-  type WKRadicalCollection,
-  type WKRadicalData,
-  type WKSubject,
-  type WKSubjectAuxiliaryMeaning,
-  type WKSubjectCollection,
-  type WKSubjectData,
-  WK_SUBJECT_MARKUP_MATCHERS,
-  type WKSubjectMeaning,
-  type WKSubjectParameters,
-  type WKVocabulary,
-  type WKVocabularyCollection,
-  type WKVocabularyContextSentence,
-  type WKVocabularyData,
-  type WKVocabularyPronunciationAudio,
-  type WKVocabularyReading,
-};

@@ -7,7 +7,7 @@ import type { WKCollection, WKCollectionParameters, WKDatableString, WKResource 
  * @category Resources
  * @category Voice Actors
  */
-interface WKVoiceActor extends WKResource {
+export interface WKVoiceActor extends WKResource {
   /**
    * Data for the returned voice actor.
    */
@@ -31,7 +31,7 @@ interface WKVoiceActor extends WKResource {
  * @category Collections
  * @category Voice Actors
  */
-interface WKVoiceActorCollection extends WKCollection {
+export interface WKVoiceActorCollection extends WKCollection {
   /**
    * An array of returned voice actors.
    */
@@ -45,7 +45,7 @@ interface WKVoiceActorCollection extends WKCollection {
  * @category Data
  * @category Voice Actors
  */
-interface WKVoiceActorData {
+export interface WKVoiceActorData {
   /**
    * Timestamp for when the voice actor was added to WaniKani.
    */
@@ -74,6 +74,4 @@ interface WKVoiceActorData {
  * @category Parameters
  * @category Voice Actors
  */
-type WKVoiceActorParameters = WKCollectionParameters;
-
-export type { WKVoiceActor, WKVoiceActorCollection, WKVoiceActorData, WKVoiceActorParameters };
+export type WKVoiceActorParameters = WKCollectionParameters;

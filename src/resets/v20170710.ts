@@ -10,7 +10,7 @@ import type { WKCollection, WKCollectionParameters, WKDatableString, WKLevel, WK
  * @category Resets
  * @category Resources
  */
-interface WKReset extends WKResource {
+export interface WKReset extends WKResource {
   /**
    * Data for the returned reset.
    */
@@ -34,7 +34,7 @@ interface WKReset extends WKResource {
  * @category Collections
  * @category Resets
  */
-interface WKResetCollection extends WKCollection {
+export interface WKResetCollection extends WKCollection {
   /**
    * An array of returned resets.
    */
@@ -48,7 +48,7 @@ interface WKResetCollection extends WKCollection {
  * @category Data
  * @category Resets
  */
-interface WKResetData {
+export interface WKResetData {
   /**
    * Timestamp when the user confirmed the reset.
    */
@@ -78,6 +78,4 @@ interface WKResetData {
  * @category Parameters
  * @category Resets
  */
-type WKResetParameters = WKCollectionParameters;
-
-export type { WKReset, WKResetCollection, WKResetData, WKResetParameters };
+export type WKResetParameters = WKCollectionParameters;
