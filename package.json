@@ -1,6 +1,6 @@
 {
   "name": "@bachmacintosh/wanikani-api-types",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Regularly updated type definitions for the WaniKani API",
   "keywords": [
     "wanikani",
