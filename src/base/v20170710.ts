@@ -699,7 +699,7 @@ export function stringifyParameters<T extends WKCollectionParameters>(params: T)
     if (emptyQueryParams.includes(key) && typeof value === "boolean") {
       if (value) {
         queryString += isFirstItem ? "?" : "&";
-        queryString += `${key}`;
+        queryString += key;
       }
     } else {
       queryString += isFirstItem ? "?" : "&";
