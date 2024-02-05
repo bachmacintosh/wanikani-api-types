@@ -21,7 +21,7 @@ jobs:
       - name: Run Unit Tests
         run: npm test
       - name: Upload Coverage Reports to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
       - name: Build Documentation
         run: npm run build:docs
       - name: Build Library
