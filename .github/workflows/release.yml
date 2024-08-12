@@ -37,11 +37,4 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish Documentation
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: bachmacintosh-wanikani-api-types
-          directory: "./docs"
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-          branch: main
+        run: "curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK }}"
