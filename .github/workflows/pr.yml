@@ -16,61 +16,64 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
+          cache: "pnpm"
       - name: Install Dependencies
-        run: npm ci
+        run: pnpm install
       - name: Lint Code
-        run: npm run lint
+        run: pnpm lint
       - name: Run Unit Tests
-        run: npm test
+        run: pnpm test
       - name: Upload Coverage Reports to Codecov
         uses: codecov/codecov-action@v4
       - name: Build Documentation
-        run: npm run build:docs
+        run: pnpm build:docs
       - name: Install TypeScript 4.5
-        run: 'npm install --no-save typescript@"~4.5"'
+        run: 'pnpm add typescript@"~4.5"'
       - name: Build Library on TypeScript 4.5
-        run: npm run build:ts4
+        run: pnpm build:ts4
       - name: Install TypeScript 4.6
-        run: 'npm install --no-save typescript@"~4.6"'
+        run: 'pnpm add typescript@"~4.6"'
       - name: Build Library on TypeScript 4.6
-        run: npm run build:ts4
+        run: pnpm build:ts4
       - name: Install TypeScript 4.7
-        run: 'npm install --no-save typescript@"~4.7"'
+        run: 'pnpm add typescript@"~4.7"'
       - name: Build Library on TypeScript 4.7
-        run: npm run build:ts4
+        run: pnpm build:ts4
       - name: Install TypeScript 4.8
-        run: 'npm install --no-save typescript@"~4.8"'
+        run: 'pnpm add typescript@"~4.8"'
       - name: Build Library on TypeScript 4.8
-        run: npm run build:ts4
+        run: pnpm build:ts4
       - name: Install TypeScript 4.9
-        run: 'npm install --no-save typescript@"~4.9"'
+        run: 'pnpm add typescript@"~4.9"'
       - name: Build Library on TypeScript 4.9
-        run: npm run build:ts4
+        run: pnpm build:ts4
       - name: Install TypeScript 5.0
-        run: 'npm install --no-save typescript@"~5.0"'
+        run: 'pnpm add typescript@"~5.0"'
       - name: Build Library on TypeScript 5.0
-        run: npm run build
+        run: pnpm build
       - name: Install TypeScript 5.1
-        run: 'npm install --no-save typescript@"~5.1"'
+        run: 'pnpm add typescript@"~5.1"'
       - name: Build Library on TypeScript 5.1
-        run: npm run build
+        run: pnpm build
       - name: Install TypeScript 5.2
-        run: 'npm install --no-save typescript@"~5.2"'
+        run: 'pnpm add typescript@"~5.2"'
       - name: Build Library on TypeScript 5.2
-        run: npm run build
+        run: pnpm build
       - name: Install TypeScript 5.3
-        run: 'npm install --no-save typescript@"~5.3"'
+        run: 'pnpm add typescript@"~5.3"'
       - name: Build Library on TypeScript 5.3
-        run: npm run build
+        run: pnpm build
       - name: Install TypeScript 5.4
-        run: 'npm install --no-save typescript@"~5.4"'
+        run: 'pnpm add typescript@"~5.4"'
       - name: Build Library on TypeScript 5.4
-        run: npm run build
+        run: pnpm build
       - name: Install TypeScript 5.5
-        run: 'npm install --no-save typescript@"~5.5"'
+        run: 'pnpm add typescript@"~5.5"'
       - name: Build Library on TypeScript 5.5
-        run: npm run build
+        run: pnpm build
