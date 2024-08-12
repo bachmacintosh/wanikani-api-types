@@ -66,3 +66,11 @@ jobs:
         run: 'npm install --no-save typescript@"~5.3"'
       - name: Build Library on TypeScript 5.3
         run: npm run build
+      - name: Install TypeScript 5.4
+        run: 'npm install --no-save typescript@"~5.4"'
+      - name: Build Library on TypeScript 5.4
+        run: npm run build
+      - name: Install TypeScript 5.5
+        run: 'npm install --no-save typescript@"~5.5"'
+      - name: Build Library on TypeScript 5.5
+        run: npm run build
