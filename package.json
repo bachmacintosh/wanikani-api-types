@@ -32,7 +32,7 @@
     "build:docs": "typedoc",
     "lint": "eslint . && prettier --check .",
     "lint:fix": "eslint --fix . && prettier --write .",
-    "test": "jest ./tests --verbose"
+    "test": "vitest run"
   },
   "files": [
     "dist/**/*.{js,d.ts}"
@@ -45,6 +45,7 @@
     "@jest/globals": "29.7.0",
     "@typescript-eslint/eslint-plugin": "6.21.0",
     "@typescript-eslint/parser": "6.21.0",
+    "@vitest/coverage-v8": "2.0.5",
     "eslint": "8.57.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-import-resolver-typescript": "3.6.1",

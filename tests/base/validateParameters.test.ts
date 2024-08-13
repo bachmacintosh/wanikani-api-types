@@ -1,4 +1,4 @@
-import { expect, it } from "@jest/globals";
+import { expect, it } from "vitest";
 import type { WKAssignmentParameters } from "../../src/assignments/v20170710";
 import type { WKLevelProgressionParameters } from "../../src/level-progressions/v20170710";
 import type { WKResetParameters } from "../../src/resets/v20170710";

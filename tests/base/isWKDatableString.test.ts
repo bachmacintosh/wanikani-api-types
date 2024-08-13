@@ -1,4 +1,4 @@
-import { expect, it } from "@jest/globals";
+import { expect, it } from "vitest";
 import { isWKDatableString } from "../../src/base/v20170710";
 
 it("Returns false on non-strings", () => {
