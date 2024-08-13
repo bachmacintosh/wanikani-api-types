@@ -27,8 +27,8 @@
     }
   },
   "scripts": {
-    "build": "rimraf dist && tsc",
-    "build:ts4": "rimraf dist && tsc -p ./tsconfig.ts4.json",
+    "build": "rimraf dist && tsup --dts --format esm --entry src/index.ts --entry src/v20170710.ts",
+    "build:ts4": "rimraf dist && tsup --tsconfig tsconfig.ts4.json --dts --format esm --entry src/index.ts --entry src/v20170710.ts",
     "build:docs": "typedoc",
     "lint": "eslint . && prettier --check .",
     "lint:fix": "eslint --fix . && prettier --write .",
@@ -48,6 +48,7 @@
     "eslint-config-prettier": "9.1.0",
     "prettier": "3.3.3",
     "rimraf": "6.0.1",
+    "tsup": "8.2.4",
     "typedoc": "0.26.5",
     "typescript": "5.5.4",
     "typescript-eslint": "8.1.0",
