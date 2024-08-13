@@ -32,7 +32,7 @@ jobs:
       - name: Build Library
         run: pnpm build
       - name: Publish Library
-        run: pnpm publish
+        run: pnpm publish --access=public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
