@@ -15,6 +15,6 @@
     "isolatedModules": true,
     "exactOptionalPropertyTypes": true
   },
-  "include": ["src/**/*.ts", "src/internal/docs/MethodsTheme.cts"],
+  "include": ["src/**/*.ts"],
   "exclude": ["dist/**", "tests/**", "node_modules/**"]
 }
