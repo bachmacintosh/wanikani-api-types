@@ -1,4 +1,4 @@
-import { expect, it } from "@jest/globals";
+import { expect, it } from "vitest";
 import { isWKSrsStageNumberArray } from "../../src/base/v20170710";
 import type { WKSrsStageNumber } from "../../src/base/v20170710";
 

@@ -8,33 +8,33 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
-      contents: read
-      deployments: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.release.tag_name }}
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
+          cache: "pnpm"
           registry-url: "https://registry.npmjs.org"
-      - name: Install Latest NPM Version
-        run: npm install -g npm@latest
       - name: Install Dependencies
-        run: npm ci
+        run: pnpm install
       - name: Lint Code
-        run: npm run lint
+        run: pnpm lint
       - name: Run Unit Tests
-        run: npm test
+        run: pnpm test
       - name: Build Documentation
-        run: npm run build:docs
+        run: pnpm build:docs
       - name: Build Library
-        run: npm run build
+        run: pnpm build
       - name: Publish Library
-        run: npm publish --provenance
+        run: pnpm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: true
       - name: Publish Documentation
         run: "curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK }}"

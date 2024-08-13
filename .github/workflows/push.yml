@@ -10,19 +10,24 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
+          cache: "pnpm"
       - name: Install Dependencies
-        run: npm ci
+        run: pnpm install
       - name: Lint Code
-        run: npm run lint
+        run: pnpm lint
       - name: Run Unit Tests
-        run: npm test
+        run: pnpm test
       - name: Upload Coverage Reports to Codecov
         uses: codecov/codecov-action@v4
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       - name: Build Documentation
-        run: npm run build:docs
+        run: pnpm build:docs
       - name: Build Library
-        run: npm run build
+        run: pnpm build

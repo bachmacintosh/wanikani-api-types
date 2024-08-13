@@ -1,4 +1,4 @@
-import { expect, it } from "@jest/globals";
+import { expect, it } from "vitest";
 import type { WKAssignmentParameters, WKAssignmentPayload } from "../../src/assignments/v20170710";
 import type { WKReviewParameters, WKReviewPayload } from "../../src/reviews/v20170710";
 import type {

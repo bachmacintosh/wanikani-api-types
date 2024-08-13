@@ -28,7 +28,7 @@ export type Enumerate<N extends number, Acc extends number[] = []> = Acc["length
  * @internal
  */
 
-export type Range<F extends number, T extends number> = Exclude<Enumerate<T>, Enumerate<F>> | T;
+export type NumberRange<F extends number, T extends number> = Exclude<Enumerate<T>, Enumerate<F>> | T;
 
 /**
  * Checks if a given year, month, and day compose a valid date.

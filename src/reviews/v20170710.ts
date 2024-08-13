@@ -8,7 +8,7 @@ import type {
   WKResource,
   WKReviewStatistic,
 } from "../v20170710.js";
-import type { Range } from "../internal";
+import type { NumberRange } from "../internal";
 
 /**
  * The base object used in the request to create a new review via the WaniKani API.
@@ -140,7 +140,7 @@ export interface WKReviewData {
    * The SRS stage interval calculated from the number of correct and incorrect answers, with valid values ranging
    * from `1` to `9`.
    */
-  ending_srs_stage: Range<1, WKMaxSrsStages>;
+  ending_srs_stage: NumberRange<1, WKMaxSrsStages>;
 
   /**
    * The number of times the user has answered the meaning incorrectly.
@@ -160,7 +160,7 @@ export interface WKReviewData {
   /**
    * The starting SRS stage interval, with valid values ranging from `1` to `8`.
    */
-  starting_srs_stage: Range<1, WKMaxSrsReviewStages>;
+  starting_srs_stage: NumberRange<1, WKMaxSrsReviewStages>;
 
   /**
    * Unique identifier of the associated subject.

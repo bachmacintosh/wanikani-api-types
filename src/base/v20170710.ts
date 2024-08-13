@@ -1,4 +1,4 @@
-import { type Brand, type Range, isValidDate } from "../internal";
+import { type Brand, type NumberRange, isValidDate } from "../internal";
 import type {
   WKAssignment,
   WKAssignmentData,
@@ -283,14 +283,14 @@ export interface WKError {
  *
  * @category Base
  */
-export type WKLessonBatchSizeNumber = Range<WKMinLessonBatchSize, WKMaxLessonBatchSize>;
+export type WKLessonBatchSizeNumber = NumberRange<WKMinLessonBatchSize, WKMaxLessonBatchSize>;
 
 /**
  * A number representing a level in WaniKani, from `1` to `60`.
  *
  * @category Base
  */
-export type WKLevel = Range<1, WKMaxLevels>;
+export type WKLevel = NumberRange<1, WKMaxLevels>;
 
 /**
  * The maximum batch size for lessons in the WaniKani app.
@@ -517,7 +517,7 @@ export type WKResourceType =
  *
  * @category Base
  */
-export type WKSrsStageNumber = Range<0, WKMaxSrsStages>;
+export type WKSrsStageNumber = NumberRange<0, WKMaxSrsStages>;
 
 /**
  * A non-empty array of WaniKani subject types.
@@ -628,9 +628,7 @@ export function isWKLevelArray(possibleWKLevelArray: unknown): possibleWKLevelAr
     return false;
   }
   const hasAllNumbersAndAllIntegers = possibleWKLevelArray.every(Number.isInteger);
-  const hasAllNumbersInRange = possibleWKLevelArray.every((value) => {
-    return value >= 1 && value <= WK_MAX_LEVELS;
-  });
+  const hasAllNumbersInRange = possibleWKLevelArray.every((value) => value >= 1 && value <= WK_MAX_LEVELS);
   return hasAllNumbersAndAllIntegers && hasAllNumbersInRange;
 }
 
@@ -667,9 +665,7 @@ export function isWKSrsStageNumberArray(
     return false;
   }
   const hasAllNumbersAndAllIntegers = possibleWKSrsStageNumberArray.every(Number.isInteger);
-  const hasAllNumbersInRange = possibleWKSrsStageNumberArray.every((value) => {
-    return value >= 0 && value <= WK_MAX_SRS_STAGES;
-  });
+  const hasAllNumbersInRange = possibleWKSrsStageNumberArray.every((value) => value >= 0 && value <= WK_MAX_SRS_STAGES);
   return hasAllNumbersAndAllIntegers && hasAllNumbersInRange;
 }
 
@@ -681,7 +677,7 @@ export function isWKSrsStageNumberArray(
  * @throws A `TypeError` if a non-object is passed to the function.
  * @category Base
  */
-export function stringifyParameters<T extends WKCollectionParameters>(params: T): string {
+export function stringifyParameters(params: WKCollectionParameters): string {
   if (typeof params !== "object") {
     throw new TypeError("Parameters must be expressed as an object.");
   }

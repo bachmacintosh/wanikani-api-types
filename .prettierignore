@@ -5,3 +5,6 @@ coverage
 # Generated data
 dist/
 docs/
+
+# Lockfile
+pnpm-lock.yaml
