@@ -628,9 +628,7 @@ export function isWKLevelArray(possibleWKLevelArray: unknown): possibleWKLevelAr
     return false;
   }
   const hasAllNumbersAndAllIntegers = possibleWKLevelArray.every(Number.isInteger);
-  const hasAllNumbersInRange = possibleWKLevelArray.every((value) => {
-    return value >= 1 && value <= WK_MAX_LEVELS;
-  });
+  const hasAllNumbersInRange = possibleWKLevelArray.every((value) => value >= 1 && value <= WK_MAX_LEVELS);
   return hasAllNumbersAndAllIntegers && hasAllNumbersInRange;
 }
 
@@ -667,9 +665,7 @@ export function isWKSrsStageNumberArray(
     return false;
   }
   const hasAllNumbersAndAllIntegers = possibleWKSrsStageNumberArray.every(Number.isInteger);
-  const hasAllNumbersInRange = possibleWKSrsStageNumberArray.every((value) => {
-    return value >= 0 && value <= WK_MAX_SRS_STAGES;
-  });
+  const hasAllNumbersInRange = possibleWKSrsStageNumberArray.every((value) => value >= 0 && value <= WK_MAX_SRS_STAGES);
   return hasAllNumbersAndAllIntegers && hasAllNumbersInRange;
 }
 
