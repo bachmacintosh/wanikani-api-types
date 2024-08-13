@@ -31,6 +31,8 @@ jobs:
         run: pnpm test
       - name: Upload Coverage Reports to Codecov
         uses: codecov/codecov-action@v4
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       - name: Build Documentation
         run: pnpm build:docs
       - name: Install TypeScript 4.5
