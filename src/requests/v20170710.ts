@@ -115,7 +115,7 @@ export class WKRequestFactory {
         }
         return request;
       },
-      start: (id: number, payload: WKAssignmentPayload, options?: WKRequestPostPutOptions): WKRequest => {
+      start: (assignmentId: number, payload: WKAssignmentPayload, options?: WKRequestPostPutOptions): WKRequest => {
         validatePayload("PUT /assignments/<id>/start", payload);
         const headers = { ...this._postPutHeaders };
         if (typeof options !== "undefined") {
@@ -130,7 +130,7 @@ export class WKRequestFactory {
           body: JSON.stringify(payload),
           headers,
           method: "PUT",
-          url: `${baseUrl}/assignments/${id}/start`,
+          url: `${baseUrl}/assignments/${assignmentId}/start`,
         };
         return request;
       },
@@ -407,7 +407,11 @@ export class WKRequestFactory {
         };
         return request;
       },
-      update: (id: number, payload: WKStudyMaterialUpdatePayload, options?: WKRequestPostPutOptions): WKRequest => {
+      update: (
+        studyMaterialId: number,
+        payload: WKStudyMaterialUpdatePayload,
+        options?: WKRequestPostPutOptions,
+      ): WKRequest => {
         validatePayload("PUT /study_materials/<id>", payload);
         const headers = { ...this._postPutHeaders };
         if (typeof options !== "undefined") {
@@ -422,7 +426,7 @@ export class WKRequestFactory {
           body: JSON.stringify(payload),
           headers,
           method: "PUT",
-          url: `${baseUrl}/study_materials/${id}`,
+          url: `${baseUrl}/study_materials/${studyMaterialId}`,
         };
         return request;
       },
