@@ -1,4 +1,4 @@
-import { expect, it } from "@jest/globals";
+import { expect, it } from "vitest";
 import { WK_SUBJECT_MARKUP_MATCHERS } from "../../src/subjects/v20170710.js";
 
 it("Matches Japanese text highlighting in <ja> tags", () => {
