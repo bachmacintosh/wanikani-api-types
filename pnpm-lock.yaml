@@ -36,8 +36,8 @@ importers:
         specifier: 8.2.4
         version: 8.2.4(postcss@8.4.41)(typescript@5.5.4)(yaml@2.5.0)
       typedoc:
-        specifier: 0.26.5
-        version: 0.26.5(typescript@5.5.4)
+        specifier: 0.26.6
+        version: 0.26.6(typescript@5.5.4)
       typescript:
         specifier: 5.5.4
         version: 5.5.4
@@ -1451,8 +1451,8 @@ packages:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
     engines: {node: '>= 0.8.0'}
 
-  typedoc@0.26.5:
-    resolution: {integrity: sha512-Vn9YKdjKtDZqSk+by7beZ+xzkkr8T8CYoiasqyt4TTRFy5+UHzL/mF/o4wGBjRF+rlWQHDb0t6xCpA3JNL5phg==}
+  typedoc@0.26.6:
+    resolution: {integrity: sha512-SfEU3SH3wHNaxhFPjaZE2kNl/NFtLNW5c1oHsg7mti7GjmUj1Roq6osBQeMd+F4kL0BoRBBr8gQAuqBlfFu8LA==}
     engines: {node: '>= 18'}
     hasBin: true
     peerDependencies:
@@ -2875,7 +2875,7 @@ snapshots:
     dependencies:
       prelude-ls: 1.2.1
 
-  typedoc@0.26.5(typescript@5.5.4):
+  typedoc@0.26.6(typescript@5.5.4):
     dependencies:
       lunr: 2.3.9
       markdown-it: 14.1.0
