@@ -6,7 +6,9 @@ import type { WKReviewPayload } from "../../src/reviews/v20170710";
 import { validatePayload } from "../../src/base/v20170710";
 
 const assignmentStartPayload: Required<WKAssignmentPayload> = {
-  started_at: new Date(),
+  assignment: {
+    started_at: new Date(),
+  },
 };
 const reviewCreatePayloadAssignment: Required<WKReviewPayload> = {
   review: {
