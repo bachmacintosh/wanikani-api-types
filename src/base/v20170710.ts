@@ -845,7 +845,9 @@ export function validatePayload<T extends keyof WKPayloadMap>(type: T, payload: 
 
   /* Create required dummy parameters */
   const assignmentStartPayload: Required<WKAssignmentPayload> = {
-    started_at: new Date(),
+    assignment: {
+      started_at: new Date(),
+    },
   };
   const reviewCreatePayloadAssignment: Required<WKReviewPayload> = {
     review: {
