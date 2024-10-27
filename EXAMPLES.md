@@ -270,7 +270,9 @@ async function startAssignment(id: number, started_at?: WKDatableString | Date):
   let payload: WKAssignmentPayload = {};
   if (typeof started_at !== "undefined" && (isWKDatableString(started_at) || started_at instanceof Date)) {
     payload = {
-      started_at,
+      assignment: {
+        started_at,
+      },
     };
   }
   const request = new WKRequestFactory({ apiToken: WANIKANI_API_TOKEN, revision: WK_API_REVISION }).assignments.start(
