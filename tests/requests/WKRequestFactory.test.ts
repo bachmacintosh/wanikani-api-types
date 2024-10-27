@@ -93,10 +93,12 @@ it("Returns PUT request for starting an Assignment", () => {
     "Content-Type": "application/json",
     "X-Forwarded-For": "192.168.1.1",
   };
-  const expectedBody = `{"started_at":"2023-02-04T15:30:00.000Z"}`;
+  const expectedBody = `{"assignment":{"started_at":"2023-02-04T15:30:00.000Z"}}`;
 
   const payload: WKAssignmentPayload = {
-    started_at: new Date("2023-02-04T15:30:00.000Z"),
+    assignment: {
+      started_at: new Date("2023-02-04T15:30:00.000Z"),
+    },
   };
 
   const request = wanikani.assignments.start(123, payload, putPostOptions);

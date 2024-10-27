@@ -209,7 +209,12 @@ export interface WKAssignmentParameters extends WKCollectionParameters {
  */
 export interface WKAssignmentPayload {
   /**
-   * When the assignment was started. Must be greater than or equal to the assignment's `unlocked_at` date.
+   * Specify properties of the Assignment; currently only `started_at` is supported.
    */
-  started_at?: Date | WKDatableString;
+  assignment: {
+    /**
+     * When the assignment was started. Must be greater than or equal to the assignment's `unlocked_at` date.
+     */
+    started_at?: Date | WKDatableString;
+  };
 }
