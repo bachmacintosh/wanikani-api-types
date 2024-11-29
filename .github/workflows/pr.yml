@@ -30,7 +30,7 @@ jobs:
       - name: Run Unit Tests
         run: pnpm test
       - name: Upload Coverage Reports to Codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       - name: Build Documentation
