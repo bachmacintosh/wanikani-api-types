@@ -52,12 +52,12 @@
     "rimraf": "6.0.1",
     "tsup": "8.3.5",
     "typedoc": "0.27.1",
-    "typescript": "5.5.4",
+    "typescript": "5.7.2",
     "typescript-eslint": "8.15.0",
     "vitest": "2.1.4"
   },
   "peerDependencies": {
-    "typescript": "4.5.x - 5.5.x"
+    "typescript": "4.5.x - 5.7.x"
   },
   "packageManager": "pnpm@9.12.3+sha512.cce0f9de9c5a7c95bef944169cc5dfe8741abfb145078c0d508b868056848a87c81e626246cb60967cbd7fd29a6c062ef73ff840d96b3c86c40ac92cf4a813ee"
 }
