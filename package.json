@@ -42,7 +42,7 @@
     "url": "https://github.com/bachmacintosh/wanikani-api-types"
   },
   "devDependencies": {
-    "@bachman-dev/eslint-config": "2.0.2",
+    "@bachman-dev/eslint-config": "2.1.0",
     "@eslint/js": "9.15.0",
     "@types/eslint__js": "8.42.3",
     "@vitest/coverage-v8": "2.1.6",
