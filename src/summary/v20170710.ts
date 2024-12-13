@@ -1,4 +1,4 @@
-import type { WKDatableString, WKReport } from "../v20170710.js";
+import type { WKDatableString, WKReport } from "../base/v20170710.js";
 
 /**
  * The summary report contains currently available lessons and reviews and the reviews that will become available in the

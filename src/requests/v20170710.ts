@@ -1,21 +1,18 @@
+import { type WKApiRevision, stringifyParameters, validateParameters, validatePayload } from "../base/v20170710.js";
+import type { WKAssignmentParameters, WKAssignmentPayload } from "../assignments/v20170710.js";
+import type { WKReviewParameters, WKReviewPayload } from "../reviews/v20170710.js";
 import type {
-  WKApiRevision,
-  WKAssignmentParameters,
-  WKAssignmentPayload,
-  WKLevelProgressionParameters,
-  WKResetParameters,
-  WKReviewParameters,
-  WKReviewPayload,
-  WKReviewStatisticParameters,
-  WKSpacedRepetitionSystemParameters,
   WKStudyMaterialCreatePayload,
   WKStudyMaterialParameters,
   WKStudyMaterialUpdatePayload,
-  WKSubjectParameters,
-  WKUserPreferencesPayload,
-  WKVoiceActorParameters,
-} from "../v20170710.js";
-import { stringifyParameters, validateParameters, validatePayload } from "../base/v20170710.js";
+} from "../study-materials/v20170710.js";
+import type { WKLevelProgressionParameters } from "../level-progressions/v20170710.js";
+import type { WKResetParameters } from "../resets/v20170710.js";
+import type { WKReviewStatisticParameters } from "../review-statistics/v20170710.js";
+import type { WKSpacedRepetitionSystemParameters } from "../spaced-repetition-systems/v20170710.js";
+import type { WKSubjectParameters } from "../subjects/v20170710.js";
+import type { WKUserPreferencesPayload } from "../user/v20170710.js";
+import type { WKVoiceActorParameters } from "../voice-actors/v20170710.js";
 
 const baseUrl = "https://api.wanikani.com/v2";
 

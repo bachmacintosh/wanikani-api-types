@@ -1,14 +1,14 @@
 import type {
-  WKAssignment,
   WKCollection,
   WKCollectionParameters,
   WKDatableString,
   WKMaxSrsReviewStages,
   WKMaxSrsStages,
   WKResource,
-  WKReviewStatistic,
-} from "../v20170710.js";
-import type { NumberRange } from "../internal";
+} from "../base/v20170710.js";
+import type { NumberRange } from "../internal/index.js";
+import type { WKAssignment } from "../assignments/v20170710.js";
+import type { WKReviewStatistic } from "../review-statistics/v20170710.js";
 
 /**
  * The base object used in the request to create a new review via the WaniKani API.

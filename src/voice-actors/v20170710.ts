@@ -1,4 +1,4 @@
-import type { WKCollection, WKCollectionParameters, WKDatableString, WKResource } from "../v20170710.js";
+import type { WKCollection, WKCollectionParameters, WKDatableString, WKResource } from "../base/v20170710.js";
 
 /**
  * Available voice actors used for vocabulary reading pronunciation audio.

@@ -11,19 +11,18 @@
   "license": "MIT",
   "homepage": "https://wanikani-api-types.bachman.dev",
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
     },
-    "./dist/v20170710": {
-      "import": "./dist/v20170710.js",
-      "require": "./dist/v20170710.js",
-      "types": "./dist/v20170710.d.ts"
+    "./v20170710": {
+      "import": {
+        "types": "./dist/v20170710.d.ts",
+        "default": "./dist/v20170710.js"
+      }
     }
   },
   "scripts": {

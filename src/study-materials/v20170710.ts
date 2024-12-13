@@ -5,7 +5,7 @@ import type {
   WKResource,
   WKSubjectTuple,
   WKSubjectType,
-} from "../v20170710.js";
+} from "../base/v20170710.js";
 
 /**
  * Study materials store user-specific notes and synonyms for a given subject. The records are created as soon as the

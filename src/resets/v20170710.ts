@@ -1,4 +1,4 @@
-import type { WKCollection, WKCollectionParameters, WKDatableString, WKLevel, WKResource } from "../v20170710.js";
+import type { WKCollection, WKCollectionParameters, WKDatableString, WKLevel, WKResource } from "../base/v20170710.js";
 
 /**
  * Users can reset their progress back to any level at or below their current level. When they reset to a particular

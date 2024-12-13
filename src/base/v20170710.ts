@@ -1,48 +1,49 @@
-import { type Brand, type NumberRange, isValidDate } from "../internal";
+import { type Brand, type NumberRange, isValidDate } from "../internal/index.js";
 import type {
   WKAssignment,
   WKAssignmentData,
   WKAssignmentParameters,
   WKAssignmentPayload,
+} from "../assignments/v20170710.js";
+import type {
   WKKanaVocabulary,
   WKKanaVocabularyData,
   WKKanji,
   WKKanjiData,
+  WKRadical,
+  WKRadicalData,
+  WKSubject,
+  WKSubjectParameters,
+  WKVocabulary,
+  WKVocabularyData,
+} from "../subjects/v20170710.js";
+import type {
   WKLevelProgression,
   WKLevelProgressionData,
   WKLevelProgressionParameters,
-  WKRadical,
-  WKRadicalData,
-  WKReset,
-  WKResetData,
-  WKResetParameters,
-  WKReview,
-  WKReviewData,
-  WKReviewParameters,
-  WKReviewPayload,
+} from "../level-progressions/v20170710.js";
+import type { WKReset, WKResetData, WKResetParameters } from "../resets/v20170710.js";
+import type { WKReview, WKReviewData, WKReviewParameters, WKReviewPayload } from "../reviews/v20170710.js";
+import type {
   WKReviewStatistic,
   WKReviewStatisticData,
   WKReviewStatisticParameters,
+} from "../review-statistics/v20170710.js";
+import type {
   WKSpacedRepetitionSystem,
   WKSpacedRepetitionSystemData,
   WKSpacedRepetitionSystemParameters,
+} from "../spaced-repetition-systems/v20170710.js";
+import type {
   WKStudyMaterial,
   WKStudyMaterialCreatePayload,
   WKStudyMaterialData,
   WKStudyMaterialParameters,
   WKStudyMaterialUpdatePayload,
-  WKSubject,
-  WKSubjectParameters,
-  WKSummaryData,
-  WKUserData,
-  WKUserPreferences,
-  WKUserPreferencesPayload,
-  WKVocabulary,
-  WKVocabularyData,
-  WKVoiceActor,
-  WKVoiceActorData,
-  WKVoiceActorParameters,
-} from "../v20170710.js";
+} from "../study-materials/v20170710.js";
+import type { WKUserData, WKUserPreferences, WKUserPreferencesPayload } from "../user/v20170710.js";
+import type { WKVoiceActor, WKVoiceActorData, WKVoiceActorParameters } from "../voice-actors/v20170710.js";
+import type { WKSummaryData } from "../summary/v20170710.js";
 
 /**
  * All known WaniKani API revisions, created when breaking changes are introduced to the WaniKani API.
