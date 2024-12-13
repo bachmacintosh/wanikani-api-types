@@ -1,6 +1,6 @@
 {
   "name": "@bachmacintosh/wanikani-api-types",
-  "version": "1.7.0",
+  "version": "2.0.0-alpha.0",
   "description": "Regularly updated type definitions for the WaniKani API",
   "keywords": [
     "wanikani",
@@ -28,7 +28,6 @@
   },
   "scripts": {
     "build": "rimraf dist && tsup --dts --format esm --entry src/index.ts --entry src/v20170710.ts",
-    "build:ts4": "rimraf dist && tsup --tsconfig tsconfig.ts4.json --dts --format esm --entry src/index.ts --entry src/v20170710.ts",
     "build:docs": "typedoc",
     "lint": "eslint . && prettier --check .",
     "lint:fix": "eslint --fix . && prettier --write .",
@@ -57,7 +56,7 @@
     "vitest": "2.1.6"
   },
   "peerDependencies": {
-    "typescript": "4.5.x - 5.7.x"
+    "typescript": "5.0.x - 5.7.x"
   },
   "packageManager": "pnpm@9.14.3+sha512.c0f53ee99477ed969b82b289ad011a5d16bf1623c957e7f29eabe8d0c00b574c29b8c7f54f6c67ee710c73f285c8154d07ce44b46fe2c0eeb476a90441bac371"
 }
