@@ -5,7 +5,7 @@ import type {
   WKResource,
   WKSubjectTuple,
   WKSubjectType,
-} from "../v20170710.js";
+} from "../base/v20170710.js";
 
 /**
  * Review statistics summarize the activity recorded in reviews. They contain sum the number of correct and incorrect

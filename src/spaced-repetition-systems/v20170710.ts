@@ -4,7 +4,7 @@ import type {
   WKDatableString,
   WKResource,
   WKSrsStageNumber,
-} from "../v20170710.js";
+} from "../base/v20170710.js";
 
 /**
  * Available spaced repetition systems used for calculating `srs_stage` changes to Assignments and Reviews. Has

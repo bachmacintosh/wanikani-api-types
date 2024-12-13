@@ -5,7 +5,7 @@ import type {
   WKMaxLevels,
   WKMinLevels,
   WKResource,
-} from "../v20170710.js";
+} from "../base/v20170710.js";
 
 /**
  * A user and their status/information on WaniKani.

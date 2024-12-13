@@ -1,4 +1,4 @@
-import type { WKCollection, WKCollectionParameters, WKDatableString, WKLevel, WKResource } from "../v20170710.js";
+import type { WKCollection, WKCollectionParameters, WKDatableString, WKLevel, WKResource } from "../base/v20170710.js";
 
 /**
  * Level progressions contain information about a user's progress through the WaniKani levels.

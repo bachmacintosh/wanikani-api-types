@@ -7,7 +7,7 @@ import type {
   WKSrsStageNumber,
   WKSubjectTuple,
   WKSubjectType,
-} from "../v20170710.js";
+} from "../base/v20170710.js";
 
 /**
  * Assignments contain information about a user's progress on a particular subject, including their current state and

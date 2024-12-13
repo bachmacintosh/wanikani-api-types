@@ -5,7 +5,7 @@ import type {
   WKLevel,
   WKResource,
   WKSubjectTuple,
-} from "../v20170710.js";
+} from "../base/v20170710.js";
 
 /**
  * The exact structure of a subject depends on the subject type. The available subject types are `kana_vocabulary`,
