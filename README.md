@@ -21,11 +21,12 @@ A new Major Version x includes backwards-incompatible changes such as removing p
 
 | Package Version | TypeScript Versions | WaniKani API Version | Latest API Revision |
 | --------------- | ------------------- | -------------------- | ------------------- |
+| 2.x             | 5.0 - 5.7           | 2                    | 20170710            |
 | 1.x             | 4.5 - 5.7           | 2                    | 20170710            |
 
 ## Install
 
-### NPM / Yarn / pnpm
+### NPM / Yarn / pnpm / Deno / Bun
 
 <details>
 <summary>Click/Tap to Show Instructions</summary>
@@ -41,7 +42,15 @@ yarn add @bachmacintosh/wanikani-api-types
 ```
 
 ```shell
-pnpm install @bachmacintosh/wanikani-api-types
+pnpm add @bachmacintosh/wanikani-api-types
+```
+
+```shell
+deno add npm:@bachmacintosh/wanikani-api-types
+```
+
+```shell
+bun add @bachmacintosh/wanikani-api-types
 ```
 
 Then, import using one of two methods.
@@ -51,8 +60,11 @@ Then, import using one of two methods.
 The module you import from matches a [WaniKani API Revision](https://docs.api.wanikani.com/20170710/#revisions-aka-versioning); you shouldn't expect any breaking changes from the package.
 
 ```typescript
-import type { WKAssignmentParameters, WKDatableString } from "@bachmacintosh/wanikani-api-types/dist/v20170710";
-import { stringifyParameters } from "@bachmacintosh/wanikani-api-types/dist/v20170710";
+import {
+  type WKAssignmentParameters,
+  type WKDatableString,
+  stringifyParameters,
+} from "@bachmacintosh/wanikani-api-types/v20170710";
 ```
 
 #### Latest API Revision (Not Recommended)
@@ -60,40 +72,11 @@ import { stringifyParameters } from "@bachmacintosh/wanikani-api-types/dist/v201
 Importing from the index module will always provide types, methods, etc. for use with the latest and greatest API Revision.
 
 ```typescript
-import type { WKAssignmentParameters, WKDatableString } from "@bachmacintosh/wanikani-api-types";
-import { stringifyParameters } from "@bachmacintosh/wanikani-api-types";
-```
-
-</details>
-
-### Deno via NPM Specifier
-
-<details>
-<summary>Click/Tap to Show Instructions</summary>
-
-Deno version 1.28 and up can import the library using an [npm specifier](https://deno.land/manual@v1.31.3/node/npm_specifiers).
-
-**Be sure to replace `x.y.z` with your desired version number.**
-
-#### Specific API Revision (Recommended)
-
-The module you import from matches a [WaniKani API Revision](https://docs.api.wanikani.com/20170710/#revisions-aka-versioning); you shouldn't expect any breaking changes from the package.
-
-```typescript
-import type {
-  WKAssignmentParameters,
-  WKDatableString,
-} from "npm:@bachmacintosh/wanikani-api-types@x.y.z/dist/v20170710";
-import { stringifyParameters } from "npm:@bachmacintosh/wanikani-api-types@x.y.z/dist/v20170710";
-```
-
-#### Latest API Revision (Not Recommended)
-
-Importing from the index module will always provide types, methods, etc. for use with the latest and greatest API Revision.
-
-```typescript
-import type { WKAssignmentParameters, WKDatableString } from "npm:@bachmacintosh/wanikani-api-types@x.y.z";
-import { stringifyParameters } from "npm:@bachmacintosh/wanikani-api-types@x.y.z";
+import {
+  type WKAssignmentParameters,
+  type WKDatableString,
+  stringifyParameters,
+} from "@bachmacintosh/wanikani-api-types";
 ```
 
 </details>
@@ -116,8 +99,8 @@ The module you import from matches a [WaniKani API Revision](https://docs.api.wa
 import type {
   WKAssignmentParameters,
   WKDatableString,
-} from "https://esm.sh/@bachmacintosh/wanikani-api-types@x.y.z/dist/v20170710.js";
-import { stringifyParameters } from "https://esm.sh/@bachmacintosh/wanikani-api-types@x.y.z/dist/v20170710.js";
+} from "https://esm.sh/@bachmacintosh/wanikani-api-types@x.y.z/v20170710";
+import { stringifyParameters } from "https://esm.sh/@bachmacintosh/wanikani-api-types@x.y.z/v20170710";
 ```
 
 #### Latest API Revision (Not Recommended)
