@@ -9,20 +9,13 @@ Keep in mind these are very simple examples, and you might want to make addition
 These examples all assume you've set an environment variable, `WANIKANI_API_TOKEN`, for API authorization. Add the following code before using these examples pertaining to your JavaScript runtime.
 
 ```typescript
-/* NodeJS: */
-
-// npm install dotenv
-import * as dotenv from "dotenv";
-dotenv.config();
+// NodeJS: run node with --env-file option
+// Bun: Reads .env automatically, else use --env-file option
 const WANIKANI_API_TOKEN = process.env("WANIKANI_API_TOKEN");
 
-/* Deno:
-   See here for which version to use on the import for your version of Deno:
-   https://raw.githubusercontent.com/denoland/dotland/main/versions.json
-*/
-import { load } from "https://deno.land/std@0.180.0/dotenv/mod.ts";
-const env = await load();
-const WANIKANI_API_TOKEN = env["WANIKANI_API_TOKEN"];
+// Deno -- deno add jsr:@std/dotenv/load
+import "@std/dotenv/load";
+const WANIKANI_API_TOKEN = Deno.env.get("WANIKANI_API_TOKEN");
 ```
 
 ## Get a 24-Hour Review Forecast
@@ -30,8 +23,12 @@ const WANIKANI_API_TOKEN = env["WANIKANI_API_TOKEN"];
 Maybe you want a bar/line graph of your review workload for the day...
 
 ```typescript
-import type { WKError, WKSummary } from "@bachmacintosh/wanikani-api-types/dist/v20170710";
-import { WKRequestFactory, WK_API_REVISION } from "@bachmacintosh/wanikani-api-types/dist/v20170710";
+import {
+  type WKError,
+  WKRequestFactory,
+  type WKSummary,
+  WK_API_REVISION,
+} from "@bachmacintosh/wanikani-api-types/v20170710";
 
 interface WaniKaniReviewForecast {
   date: Date;
@@ -72,13 +69,15 @@ async function reviewForecast(): Promise<WaniKaniReviewForecast[]> {
 A very wide collection of subjects, but can be limited by level.
 
 ```typescript
-import type {
-  WKError,
-  WKSubjectCollection,
-  WKSubjectData,
-  WKSubjectParameters,
-} from "@bachmacintosh/wanikani-api-types/dist/v20170710";
-import { WKRequestFactory, WK_API_REVISION, isWKLevel } from "@bachmacintosh/wanikani-api-types/dist/v20170710";
+import {
+  type WKError,
+  WKRequestFactory,
+  type WKSubjectCollection,
+  type WKSubjectData,
+  type WKSubjectParameters,
+  WK_API_REVISION,
+  isWKLevel,
+} from "@bachmacintosh/wanikani-api-types/v20170710";
 
 async function getSubjects(level?: number): Promise<WKSubjectData[]> {
   if (typeof level !== "undefined" && !isWKLevel(level)) {
@@ -124,18 +123,19 @@ async function getSubjects(level?: number): Promise<WKSubjectData[]> {
 Fetches all the info you need to display the lessons, hear pronunciation audio, and which assignments to start after the quiz. It also respects the user's lesson presentation and batch size preferences.
 
 ```typescript
-import type {
-  WKAssignmentCollection,
-  WKAssignmentData,
-  WKAssignmentParameters,
-  WKError,
-  WKLevel,
-  WKSubjectCollection,
-  WKSubjectData,
-  WKSubjectParameters,
-  WKUser,
-} from "@bachmacintosh/wanikani-api-types/dist/v20170710";
-import { WKRequestFactory, WK_API_REVISION } from "@bachmacintosh/wanikani-api-types/dist/v20170710";
+import {
+  type WKAssignmentCollection,
+  type WKAssignmentData,
+  type WKAssignmentParameters,
+  type WKError,
+  type WKLevel,
+  WKRequestFactory,
+  type WKSubjectCollection,
+  type WKSubjectData,
+  type WKSubjectParameters,
+  type WKUser,
+  WK_API_REVISION,
+} from "@bachmacintosh/wanikani-api-types/v20170710";
 
 interface WaniKaniLesson {
   subject: WKSubjectData;
@@ -258,13 +258,15 @@ async function getLessons(): Promise<WaniKaniLesson[]> {
 For instance, the aforementioned assignments you quizzed after getting the lessons above...
 
 ```typescript
-import type {
-  WKAssignment,
-  WKAssignmentPayload,
-  WKDatableString,
-  WKError,
-} from "@bachmacintosh/wanikani-api-types/dist/v20170710";
-import { WKRequestFactory, WK_API_REVISION, isWKDatableString } from "@bachmacintosh/wanikani-api-types/dist/v20170710";
+import {
+  type WKAssignment,
+  type WKAssignmentPayload,
+  type WKDatableString,
+  type WKError,
+  WKRequestFactory,
+  WK_API_REVISION,
+  isWKDatableString,
+} from "@bachmacintosh/wanikani-api-types/v20170710";
 
 async function startAssignment(id: number, started_at?: WKDatableString | Date): Promise<WKAssignment> {
   let payload: WKAssignmentPayload = {};
@@ -301,13 +303,15 @@ async function startAssignment(id: number, started_at?: WKDatableString | Date):
 Later that day, when a review is available, create it against the started assignment(s)...
 
 ```typescript
-import type {
-  WKCreatedReview,
-  WKDatableString,
-  WKError,
-  WKReviewPayload,
-} from "@bachmacintosh/wanikani-api-types/dist/v20170710";
-import { WKRequestFactory, WK_API_REVISION, isWKDatableString } from "@bachmacintosh/wanikani-api-types/dist/v20170710";
+import {
+  type WKCreatedReview,
+  type WKDatableString,
+  type WKError,
+  WKRequestFactory,
+  type WKReviewPayload,
+  WK_API_REVISION,
+  isWKDatableString,
+} from "@bachmacintosh/wanikani-api-types/v20170710";
 
 async function createReview(
   id: number,
