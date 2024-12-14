@@ -31,7 +31,14 @@ jobs:
         run: pnpm build:docs
       - name: Build Library
         run: pnpm build
-      - name: Publish Library
+      - name: Publish Library (Prerelease)
+        if: ${{ github.event.release.prerelease }}
+        run: pnpm publish --access=public --tag=next --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: true
+      - name: Publish Library (Latest)
+        if: ${{ !github.event.release.prerelease }}
         run: pnpm publish --access=public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
