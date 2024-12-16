@@ -1,7 +1,7 @@
 import type {
+  DatableString,
   WKCollection,
   WKCollectionParameters,
-  WKDatableString,
   WKLevel,
   WKResource,
   WKSrsStageNumber,
@@ -60,17 +60,17 @@ export interface WKAssignmentData {
   /**
    * When the related subject will be available in the user's review queue.
    */
-  available_at: WKDatableString | null;
+  available_at: DatableString | null;
 
   /**
    * When the user reaches SRS stage 9 the first time.
    */
-  burned_at: WKDatableString | null;
+  burned_at: DatableString | null;
 
   /**
    * When the assignment was created.
    */
-  created_at: WKDatableString;
+  created_at: DatableString;
 
   /**
    * Indicates if the associated subject has been hidden, preventing it from appearing in lessons or reviews.
@@ -80,12 +80,12 @@ export interface WKAssignmentData {
   /**
    * When the user reaches SRS stage `5` for the first time.
    */
-  passed_at: WKDatableString | null;
+  passed_at: DatableString | null;
 
   /**
    * When the subject is resurrected and placed back in the user's review queue.
    */
-  resurrected_at: WKDatableString | null;
+  resurrected_at: DatableString | null;
 
   /**
    * The current SRS stage interval. The interval range is determined by the related subject's Spaced Repetition
@@ -96,7 +96,7 @@ export interface WKAssignmentData {
   /**
    * When the user completes the lesson for the related subject.
    */
-  started_at: WKDatableString | null;
+  started_at: DatableString | null;
 
   /**
    * Unique identifier of the associated subject.
@@ -115,7 +115,7 @@ export interface WKAssignmentData {
    * * The subject components have reached SRS stage 5 once (they have been “passed”).
    * * The user's level is equal to or greater than the level of the assignment’s subject.
    */
-  unlocked_at: WKDatableString | null;
+  unlocked_at: DatableString | null;
 }
 
 /**
@@ -131,12 +131,12 @@ export interface WKAssignmentParameters extends WKCollectionParameters {
   /**
    * Only assignments available at or after this time are returned.
    */
-  available_after?: Date | WKDatableString;
+  available_after?: DatableString | Date;
 
   /**
    * Only assignments available at or before this time are returned.
    */
-  available_before?: Date | WKDatableString;
+  available_before?: DatableString | Date;
 
   /**
    * When set to `true`, returns assignments that have a value in `data.burned_at`. Returns assignments with a `null`
@@ -215,6 +215,6 @@ export interface WKAssignmentPayload {
     /**
      * When the assignment was started. Must be greater than or equal to the assignment's `unlocked_at` date.
      */
-    started_at?: Date | WKDatableString;
+    started_at?: DatableString | Date;
   };
 }

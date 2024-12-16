@@ -1,7 +1,7 @@
 import type {
+  DatableString,
   WKCollection,
   WKCollectionParameters,
-  WKDatableString,
   WKResource,
   WKSubjectTuple,
   WKSubjectType,
@@ -96,7 +96,7 @@ export interface WKStudyMaterialData extends WKStudyMaterialBaseData {
   /**
    * Timestamp when the study material was created.
    */
-  created_at: WKDatableString;
+  created_at: DatableString;
 
   /**
    * Indicates if the associated subject has been hidden, preventing it from appearing in lessons or reviews.

@@ -1,7 +1,7 @@
 import type {
+  DatableString,
   WKCollection,
   WKCollectionParameters,
-  WKDatableString,
   WKLevel,
   WKResource,
   WKSubjectTuple,
@@ -520,7 +520,7 @@ export interface WKSubjectData {
   /**
    * Timestamp when the subject was created.
    */
-  created_at: WKDatableString;
+  created_at: DatableString;
 
   /**
    * A URL pointing to the page on wanikani.com that provides detailed information about this subject.
@@ -531,7 +531,7 @@ export interface WKSubjectData {
    * Timestamp when the subject was hidden, indicating associated assignments will no longer appear in lessons or
    * reviews and that the subject page is no longer visible on wanikani.com.
    */
-  hidden_at: WKDatableString | null;
+  hidden_at: DatableString | null;
 
   /**
    * The position that the subject appears in lessons. Note that the value is scoped to the level of the subject, so
