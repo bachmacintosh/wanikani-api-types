@@ -1,4 +1,4 @@
-import type { WKCollection, WKCollectionParameters, WKDatableString, WKLevel, WKResource } from "../base/v20170710.js";
+import type { DatableString, WKCollection, WKCollectionParameters, WKLevel, WKResource } from "../base/v20170710.js";
 
 /**
  * Level progressions contain information about a user's progress through the WaniKani levels.
@@ -56,17 +56,17 @@ export interface WKLevelProgressionData {
   /**
    * Timestamp when the user abandons the level. This is primarily used when the user initiates a reset.
    */
-  abandoned_at: WKDatableString | null;
+  abandoned_at: DatableString | null;
 
   /**
    * Timestamp when the user burns 100% of the assignments belonging to the associated subject's level.
    */
-  completed_at: WKDatableString | null;
+  completed_at: DatableString | null;
 
   /**
    * Timestamp when the level progression is created.
    */
-  created_at: WKDatableString;
+  created_at: DatableString;
 
   /**
    * The level of the progression, with possible values from `1` to `60`.
@@ -77,17 +77,17 @@ export interface WKLevelProgressionData {
    * Timestamp, in ISO-8601 format, when the user passes at least 90% of the assignments with a type of `kanji`
    * belonging to the associated subject's level.
    */
-  passed_at: WKDatableString | null;
+  passed_at: DatableString | null;
 
   /**
    * Timestamp when the user starts their first lesson of a subject belonging to the level.
    */
-  started_at: WKDatableString | null;
+  started_at: DatableString | null;
 
   /**
    * Timestamp when the user can access lessons and reviews for the `level`.
    */
-  unlocked_at: WKDatableString | null;
+  unlocked_at: DatableString | null;
 }
 
 /**

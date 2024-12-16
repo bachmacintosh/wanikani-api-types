@@ -1,7 +1,7 @@
 import type {
+  DatableString,
   WKCollection,
   WKCollectionParameters,
-  WKDatableString,
   WKResource,
   WKSubjectTuple,
   WKSubjectType,
@@ -60,7 +60,7 @@ export interface WKReviewStatisticData {
   /**
    * Timestamp when the review statistic was created.
    */
-  created_at: WKDatableString;
+  created_at: DatableString;
 
   /**
    * Indicates if the associated subject has been hidden, preventing it from appearing in lessons or reviews.

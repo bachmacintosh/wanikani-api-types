@@ -1,5 +1,5 @@
 import * as v from "valibot";
-import { type Brand, type NumberRange, isValidDate } from "../internal/index.js";
+
 import type {
   WKAssignment,
   WKAssignmentData,
@@ -44,6 +44,7 @@ import type {
 } from "../study-materials/v20170710.js";
 import type { WKUserData, WKUserPreferences, WKUserPreferencesPayload } from "../user/v20170710.js";
 import type { WKVoiceActor, WKVoiceActorData, WKVoiceActorParameters } from "../voice-actors/v20170710.js";
+import type { NumberRange } from "../internal/index.js";
 import type { WKSummaryData } from "../summary/v20170710.js";
 
 export const ApiRevision = v.pipe(
@@ -61,6 +62,17 @@ export type ApiRevision = v.InferOutput<typeof ApiRevision>;
  * @category Base
  */
 export const API_REVISION: ApiRevision = "20170710";
+
+export const DatableString = v.pipe(
+  v.string(),
+  v.isoTimestamp(),
+  v.brand("DatableString"),
+  v.description(
+    "A `string` sent to/returned from the WaniKani API that can be converted into a JavaScript `Date` object.",
+  ),
+  v.metadata({ categories: ["Base"] }),
+);
+export type DatableString = v.InferOutput<typeof DatableString>;
 
 /**
  * The common properties across all Collection items from the WaniKani API.
@@ -92,7 +104,7 @@ export interface WKCollection {
    * For collections, this is the timestamp of the most recently updated resource in the specified scope and is not
    * limited by pagination. If no items were returned for the specified scope, then this will be `null`.
    */
-  data_updated_at: WKDatableString | null;
+  data_updated_at: DatableString | null;
 
   /**
    * The kind of object returned.
@@ -171,7 +183,7 @@ export interface WKCollectionParameters {
   /**
    * Only resources updated after this time are returned.
    */
-  updated_after?: Date | WKDatableString;
+  updated_after?: DatableString | Date;
 }
 
 /**
@@ -218,14 +230,6 @@ export interface WKCollectionParametersMap {
    */
   "Voice Actor": WKVoiceActorParameters;
 }
-
-/**
- * A `string` sent to/returned from the WaniKani API that can be converted into a JavaScript `Date` object.
- *
- * @see {@link isWKDatableString}
- * @category Base
- */
-export type WKDatableString = Brand<string, "WKDatableString">;
 
 /**
  * An error response returned by the WaniKani API.
@@ -414,7 +418,7 @@ export interface WKReport {
   /**
    * The last time the report was updated.
    */
-  data_updated_at: WKDatableString;
+  data_updated_at: DatableString;
 
   /**
    * The kind of object returned.
@@ -467,7 +471,7 @@ export interface WKResource {
   /**
    * For a resource, this is the last time that particular resource was updated.
    */
-  data_updated_at: WKDatableString;
+  data_updated_at: DatableString;
 
   /**
    * The kind of object returned.
@@ -537,49 +541,6 @@ export type WKSubjectTuple = [WKSubjectType, ...WKSubjectType[]];
  * @category Subjects
  */
 export type WKSubjectType = "kana_vocabulary" | "kanji" | "radical" | "vocabulary";
-
-/**
- * A type guard to determine if a given item is a valid {@link WKDatableString}.
- *
- * @param possibleWKDatableString - An unknown item.
- * @returns `true` if the item is a valid {@link WKDatableString}, `false` if not.
- * @category Base
- */
-export function isWKDatableString(possibleWKDatableString: unknown): possibleWKDatableString is WKDatableString {
-  const twentyFourHours = 24;
-
-  const datePattern =
-    /(?<year>\d{4})-(?<month>[01]\d)-(?<day>[0-3]\d)T(?<hour>[0-2]\d):(?<minute>[0-5]\d):(?<second>[0-5]\d)\.(?<microsecond>\d{1,6})(?<offset>[+-][0-2]\d:[0-5]\d|Z)/u;
-  if (typeof possibleWKDatableString === "string") {
-    const matches = datePattern.exec(possibleWKDatableString);
-    if (typeof matches?.groups === "undefined") {
-      return false;
-    }
-    const yearNumber = parseInt(matches.groups.year, 10);
-    const monthNumber = parseInt(matches.groups.month, 10);
-    const dayNumber = parseInt(matches.groups.day, 10);
-    const hourNumber = parseInt(matches.groups.hour, 10);
-    if (!isValidDate(yearNumber, monthNumber, dayNumber)) {
-      return false;
-    }
-    if (hourNumber >= twentyFourHours) {
-      return false;
-    }
-    if (matches.groups.offset !== "Z") {
-      const offsetPattern = /[+-](?<hour>[0-2]\d):(?<minute>[0-5]\d)/u;
-      const offsetMatches = offsetPattern.exec(matches.groups.offset);
-      if (typeof offsetMatches?.groups === "undefined") {
-        return false;
-      }
-      const offsetHourNumber = parseInt(offsetMatches.groups.hour, 10);
-      if (offsetHourNumber >= twentyFourHours) {
-        return false;
-      }
-    }
-    return true;
-  }
-  return false;
-}
 
 /**
  * A type guard to determine if a given item is a {@link WKLessonBatchSizeNumber}.

@@ -1,7 +1,7 @@
 import type {
+  DatableString,
   WKCollection,
   WKCollectionParameters,
-  WKDatableString,
   WKResource,
   WKSrsStageNumber,
 } from "../base/v20170710.js";
@@ -61,7 +61,7 @@ export interface WKSpacedRepetitionSystemData {
   /**
    * Timestamp when the `spaced_repetition_system` was created.
    */
-  created_at: WKDatableString;
+  created_at: DatableString;
 
   /**
    * Details about the spaced repetition system.

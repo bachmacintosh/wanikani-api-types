@@ -31,5 +31,5 @@
     "invalidLink": true,
     "notExported": true
   },
-  "intentionallyNotExported": ["Brand", "NumberRange"]
+  "intentionallyNotExported": ["NumberRange"]
 }

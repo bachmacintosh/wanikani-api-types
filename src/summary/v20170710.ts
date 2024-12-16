@@ -1,4 +1,4 @@
-import type { WKDatableString, WKReport } from "../base/v20170710.js";
+import type { DatableString, WKReport } from "../base/v20170710.js";
 
 /**
  * The summary report contains currently available lessons and reviews and the reviews that will become available in the
@@ -31,7 +31,7 @@ export interface WKSummaryData {
   /**
    * Earliest date when the reviews are available. Is `null` when the user has no reviews scheduled.
    */
-  next_reviews_at: WKDatableString | null;
+  next_reviews_at: DatableString | null;
 
   /**
    * Details about subjects available for reviews now and in the next 24 hours by the hour (total of 25 objects).
@@ -50,7 +50,7 @@ export interface WKSummaryLesson {
    * When the paired `subject_ids` are available for lessons. Always beginning of the current hour when the API endpoint
    * is accessed.
    */
-  available_at: WKDatableString;
+  available_at: DatableString;
 
   /**
    * Collection of unique identifiers for subjects.
@@ -68,7 +68,7 @@ export interface WKSummaryReview {
   /**
    * When the paired `subject_ids` are available for reviews. All timestamps are the top of an hour.
    */
-  available_at: WKDatableString;
+  available_at: DatableString;
 
   /**
    * Collection of unique identifiers for subjects.

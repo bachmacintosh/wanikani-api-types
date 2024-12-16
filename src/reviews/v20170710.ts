@@ -1,7 +1,7 @@
 import type {
+  DatableString,
   WKCollection,
   WKCollectionParameters,
-  WKDatableString,
   WKMaxSrsReviewStages,
   WKMaxSrsStages,
   WKResource,
@@ -33,7 +33,7 @@ interface WKReviewObjectdBase {
    * Timestamp when the review was completed. Defaults to the time of the request if omitted from the request body.
    * Must be in the past, but after `assignment.available_at`.
    */
-  created_at?: Date | WKDatableString;
+  created_at?: DatableString | Date;
 }
 
 /**
@@ -134,7 +134,7 @@ export interface WKReviewData {
   /**
    * Timestamp when the review was created.
    */
-  created_at: WKDatableString;
+  created_at: DatableString;
 
   /**
    * The SRS stage interval calculated from the number of correct and incorrect answers, with valid values ranging

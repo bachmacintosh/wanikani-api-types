@@ -1,4 +1,4 @@
-import type { WKCollection, WKCollectionParameters, WKDatableString, WKResource } from "../base/v20170710.js";
+import type { DatableString, WKCollection, WKCollectionParameters, WKResource } from "../base/v20170710.js";
 
 /**
  * Available voice actors used for vocabulary reading pronunciation audio.
@@ -49,7 +49,7 @@ export interface WKVoiceActorData {
   /**
    * Timestamp for when the voice actor was added to WaniKani.
    */
-  created_at: WKDatableString;
+  created_at: DatableString;
 
   /**
    * Details about the voice actor.

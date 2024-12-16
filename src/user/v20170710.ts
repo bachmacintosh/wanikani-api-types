@@ -1,5 +1,5 @@
 import type {
-  WKDatableString,
+  DatableString,
   WKLessonBatchSizeNumber,
   WKLevel,
   WKMaxLevels,
@@ -40,7 +40,7 @@ export interface WKUserData {
    * If the user is on vacation, this will be the timestamp of when that vacation started. If the user is not on
    * vacation, this is `null`.
    */
-  current_vacation_started_at: WKDatableString | null;
+  current_vacation_started_at: DatableString | null;
 
   /**
    * A user's unique ID string.
@@ -65,7 +65,7 @@ export interface WKUserData {
   /**
    * The signup date for the user.
    */
-  started_at: WKDatableString;
+  started_at: DatableString;
 
   /**
    * Details about the user's subscription state.
@@ -171,7 +171,7 @@ export interface WKUserSubscription {
    * The date when the user's subscription period ends. If the user has subscription type `lifetime` or `free` then the
    * value is `null`.
    */
-  period_ends_at: WKDatableString | null;
+  period_ends_at: DatableString | null;
 
   /**
    * The type of subscription the user has. Options are following: `free`, `recurring`, and `lifetime`. A type of
