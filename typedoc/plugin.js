@@ -76,11 +76,7 @@ export function load(app) {
    */
   function onCreateDeclaration(context, refl) {
     // Remove any Valibot schemas from the documentation by adding @ignore tags
-    if (
-      (refl.kindOf(ReflectionKind.Variable) || refl.kindOf(ReflectionKind.Property)) &&
-      refl.type?.type === "reference" &&
-      refl.type.package === "valibot"
-    ) {
+    if (refl.kindOf(ReflectionKind.Variable) && refl.type?.type === "reference" && refl.type.package === "valibot") {
       if (refl.type.qualifiedName === "SchemaWithPipe") {
         refl.type.typeArguments?.forEach((typeArgument) => {
           if (typeArgument.type === "tuple") {
