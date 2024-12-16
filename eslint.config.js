@@ -11,13 +11,16 @@ export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.strictTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
-  bachmanDev({ language: "typescript" }),
+  bachmanDev({ language: "typescript", namingConvention: "allow-pascal-case-constants" }),
   {
     languageOptions: {
       parserOptions: {
         projectService: true,
         tsconfigRootDir: import.meta.dirname,
       },
+    },
+    rules: {
+      "id-length": ["error", { exceptions: ["v"] }],
     },
   },
   {

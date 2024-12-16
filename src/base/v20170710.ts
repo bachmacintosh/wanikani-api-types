@@ -1,3 +1,4 @@
+import * as v from "valibot";
 import { type Brand, type NumberRange, isValidDate } from "../internal/index.js";
 import type {
   WKAssignment,
@@ -51,7 +52,8 @@ import type { WKSummaryData } from "../summary/v20170710.js";
  * @see {@link https://docs.api.wanikani.com/20170710/#revisions-aka-versioning}
  * @category Base
  */
-export type WKApiRevision = "20170710";
+export type ApiRevision = v.InferOutput<typeof ApiRevision>;
+export const ApiRevision = v.literal("20170710");
 
 /**
  * A constant representing the WaniKani API revision. This will match the revision module being imported from, or the
@@ -60,7 +62,7 @@ export type WKApiRevision = "20170710";
  * @see {@link https://docs.api.wanikani.com/20170710/#revisions-aka-versioning}
  * @category Base
  */
-export const WK_API_REVISION: WKApiRevision = "20170710";
+export const WK_API_REVISION: ApiRevision = "20170710";
 
 /**
  * The common properties across all Collection items from the WaniKani API.
