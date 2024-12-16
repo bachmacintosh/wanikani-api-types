@@ -46,14 +46,12 @@ import type { WKUserData, WKUserPreferences, WKUserPreferencesPayload } from "..
 import type { WKVoiceActor, WKVoiceActorData, WKVoiceActorParameters } from "../voice-actors/v20170710.js";
 import type { WKSummaryData } from "../summary/v20170710.js";
 
-/**
- * All known WaniKani API revisions, created when breaking changes are introduced to the WaniKani API.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#revisions-aka-versioning}
- * @category Base
- */
+export const ApiRevision = v.pipe(
+  v.literal("20170710"),
+  v.description("All known WaniKani API revisions, created when breaking changes are introduced to the WaniKani API."),
+  v.metadata({ link: "https://docs.api.wanikani.com/20170710/#revisions-aka-versioning", categories: ["Base"] }),
+);
 export type ApiRevision = v.InferOutput<typeof ApiRevision>;
-export const ApiRevision = v.literal("20170710");
 
 /**
  * A constant representing the WaniKani API revision. This will match the revision module being imported from, or the
@@ -62,7 +60,7 @@ export const ApiRevision = v.literal("20170710");
  * @see {@link https://docs.api.wanikani.com/20170710/#revisions-aka-versioning}
  * @category Base
  */
-export const WK_API_REVISION: ApiRevision = "20170710";
+export const API_REVISION: ApiRevision = "20170710";
 
 /**
  * The common properties across all Collection items from the WaniKani API.
