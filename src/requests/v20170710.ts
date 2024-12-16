@@ -1,4 +1,4 @@
-import { type WKApiRevision, stringifyParameters, validateParameters, validatePayload } from "../base/v20170710.js";
+import { type ApiRevision, stringifyParameters, validateParameters, validatePayload } from "../base/v20170710.js";
 import type { WKAssignmentParameters, WKAssignmentPayload } from "../assignments/v20170710.js";
 import type { WKReviewParameters, WKReviewPayload } from "../reviews/v20170710.js";
 import type {
@@ -624,7 +624,7 @@ export class WKRequestFactory {
    * @param revision The WaniKani API Revision to use.
    * @returns The factory, with the newly set WaniKani API Revision.
    */
-  public setApiRevision(revision: WKApiRevision): this {
+  public setApiRevision(revision: ApiRevision): this {
     this._initHeaders["Wanikani-Revision"] = revision;
     this._getHeaders["Wanikani-Revision"] = revision;
     this._postPutHeaders["Wanikani-Revision"] = revision;
@@ -675,7 +675,7 @@ export interface WKRequestFactoryInit {
   /**
    * The WaniKani API Revision to use in the requests; if not set, the factory will default to the current API Revision.
    */
-  revision?: WKApiRevision;
+  revision?: ApiRevision;
 }
 
 /**
@@ -701,7 +701,7 @@ export interface WKRequestHeaders {
   /** HTTP Authorization header, using a Bearer Token. */
   Authorization: `Bearer ${string}`;
   /** The WaniKani API Revision. */
-  "Wanikani-Revision": WKApiRevision;
+  "Wanikani-Revision": ApiRevision;
   [customHeaders: string]: string;
   /** The client should accept JSON as that is how the WaniKani API's response bodies are formatted. */
   Accept?: "application/json";

@@ -29,6 +29,7 @@ SOFTWARE.
 // @ts-check
 import {
   Comment,
+  CommentTag,
   Converter,
   DeclarationReflection,
   ReferenceType,
@@ -46,6 +47,9 @@ export function load(app) {
   /** @type Map<DeclarationReflection, ReferenceType> */
   const schemaTypes = new Map();
 
+  /** @type Map<string, Comment | undefined> */
+  const schemaComments = new Map();
+
   app.converter.on(Converter.EVENT_CREATE_DECLARATION, onCreateDeclaration);
   app.converter.on(Converter.EVENT_END, (context) => {
     const typeCleanup = makeRecursiveVisitor({
@@ -60,8 +64,6 @@ export function load(app) {
         refOrig.reflection.type.typeArguments = [
           ReferenceType.createResolvedReference(inferredType.name, inferredType, context.project),
         ];
-
-        inferredType.comment ??= refOrig.reflection.comment?.clone();
       }
     }
 
@@ -75,6 +77,77 @@ export function load(app) {
   function onCreateDeclaration(context, refl) {
     // Remove any Valibot schemas from the documentation by adding @ignore tags
     if (refl.kindOf(ReflectionKind.Variable) && refl.type?.type === "reference" && refl.type.package === "valibot") {
+      if (refl.type.qualifiedName === "SchemaWithPipe") {
+        refl.type.typeArguments?.forEach((typeArgument) => {
+          if (typeArgument.type === "tuple") {
+            typeArgument.elements.forEach((element) => {
+              if (element.type === "reference" && typeof element.typeArguments !== "undefined") {
+                if (
+                  element.qualifiedName === "DescriptionAction" &&
+                  typeof element.typeArguments[1] !== "undefined" &&
+                  element.typeArguments[1].type === "literal" &&
+                  typeof element.typeArguments[1].value === "string"
+                ) {
+                  if (typeof refl.comment === "undefined") {
+                    refl.comment = new Comment([{ kind: "text", text: element.typeArguments[1].value }]);
+                  } else {
+                    refl.comment.summary = [{ kind: "text", text: element.typeArguments[1].value }];
+                  }
+                } else if (
+                  element.qualifiedName === "MetadataAction" &&
+                  typeof element.typeArguments[1] !== "undefined" &&
+                  element.typeArguments[1].type === "reflection"
+                ) {
+                  element.typeArguments[1].declaration.children?.forEach((child) => {
+                    if (child.name === "link" && typeof child.defaultValue === "string") {
+                      if (typeof refl.comment === "undefined") {
+                        refl.comment = new Comment(
+                          [],
+                          [
+                            new CommentTag("@see", [
+                              { kind: "inline-tag", tag: "@link", text: child.defaultValue.replaceAll(`"`, "") },
+                            ]),
+                          ],
+                        );
+                      } else {
+                        refl.comment.blockTags.push(
+                          new CommentTag("@see", [
+                            { kind: "inline-tag", tag: "@link", text: child.defaultValue.replaceAll(`"`, "") },
+                          ]),
+                        );
+                      }
+                    } else if (
+                      child.name === "categories" &&
+                      child.type?.type === "typeOperator" &&
+                      child.type.target.type === "tuple"
+                    ) {
+                      child.type.target.elements.forEach((category) => {
+                        if (category.type === "literal" && typeof category.value === "string") {
+                          if (typeof refl.comment === "undefined") {
+                            refl.comment = new Comment(
+                              [],
+                              [
+                                new CommentTag("@category", [
+                                  { kind: "text", text: category.value.replaceAll(`"`, "") },
+                                ]),
+                              ],
+                            );
+                          } else {
+                            refl.comment.blockTags.push(
+                              new CommentTag("@category", [{ kind: "text", text: category.value.replaceAll(`"`, "") }]),
+                            );
+                          }
+                        }
+                      });
+                    }
+                  });
+                }
+              }
+            });
+          }
+        });
+      }
+      schemaComments.set(refl.name, refl.comment);
       refl.comment = new Comment([], [], new Set(["@ignore"]));
     }
 
@@ -104,6 +177,8 @@ export function load(app) {
         }),
       );
       refl.type = context.converter.convertType(context, type);
+
+      refl.comment = schemaComments.get(refl.name);
 
       if (originalRef) {
         schemaTypes.set(refl, originalRef);
