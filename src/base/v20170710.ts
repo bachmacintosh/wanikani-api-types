@@ -1,5 +1,4 @@
 import * as v from "valibot";
-
 import type {
   WKAssignment,
   WKAssignmentData,
@@ -47,12 +46,14 @@ import type { WKVoiceActor, WKVoiceActorData, WKVoiceActorParameters } from "../
 import type { NumberRange } from "../internal/index.js";
 import type { WKSummaryData } from "../summary/v20170710.js";
 
-export const ApiRevision = v.pipe(
-  v.literal("20170710"),
-  v.description("All known WaniKani API revisions, created when breaking changes are introduced to the WaniKani API."),
-  v.metadata({ link: "https://docs.api.wanikani.com/20170710/#revisions-aka-versioning", categories: ["Base"] }),
-);
-export type ApiRevision = v.InferOutput<typeof ApiRevision>;
+/**
+ * All known WaniKani API revisions, created when breaking changes are introduced to the WaniKani API.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#revisions-aka-versioning}
+ * @category Base
+ */
+export type ApiRevision = "20170710";
+export const ApiRevision = v.literal("20170710");
 
 /**
  * A constant representing the WaniKani API revision. This will match the revision module being imported from, or the
@@ -63,16 +64,13 @@ export type ApiRevision = v.InferOutput<typeof ApiRevision>;
  */
 export const API_REVISION: ApiRevision = "20170710";
 
-export const DatableString = v.pipe(
-  v.string(),
-  v.isoTimestamp(),
-  v.brand("DatableString"),
-  v.description(
-    "A `string` sent to/returned from the WaniKani API that can be converted into a JavaScript `Date` object.",
-  ),
-  v.metadata({ categories: ["Base"] }),
-);
-export type DatableString = v.InferOutput<typeof DatableString>;
+/**
+ * A `string` sent to/returned from the WaniKani API that can be converted into a JavaScript `Date` object.
+ *
+ * @category Base
+ */
+export type DatableString = v.Brand<"DatableString"> & string;
+export const DatableString = v.pipe(v.string(), v.isoTimestamp(), v.brand("DatableString"));
 
 /**
  * The common properties across all Collection items from the WaniKani API.
