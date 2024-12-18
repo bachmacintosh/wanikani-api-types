@@ -40,8 +40,8 @@ importers:
         specifier: 8.3.5
         version: 8.3.5(@microsoft/api-extractor@7.48.0(@types/node@22.2.0))(postcss@8.4.41)(typescript@5.7.2)(yaml@2.6.1)
       typedoc:
-        specifier: 0.27.1
-        version: 0.27.1(typescript@5.7.2)
+        specifier: 0.27.5
+        version: 0.27.5(typescript@5.7.2)
       typescript:
         specifier: 5.7.2
         version: 5.7.2
@@ -1559,8 +1559,8 @@ packages:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
     engines: {node: '>= 0.8.0'}
 
-  typedoc@0.27.1:
-    resolution: {integrity: sha512-cbFtNFpkCtHAHRvMnCDdtM2+xhO2uiJAcw4ooLmVMuaY9yLJswKvi6wOwPZgTnKKnm/HKpO/Ub6DVk4KRf/vRg==}
+  typedoc@0.27.5:
+    resolution: {integrity: sha512-x+fhKJtTg4ozXwKayh/ek4wxZQI/+2hmZUdO2i2NGDBRUflDble70z+ewHod3d4gRpXSO6fnlnjbDTnJk7HlkQ==}
     engines: {node: '>= 18'}
     hasBin: true
     peerDependencies:
@@ -3147,7 +3147,7 @@ snapshots:
     dependencies:
       prelude-ls: 1.2.1
 
-  typedoc@0.27.1(typescript@5.7.2):
+  typedoc@0.27.5(typescript@5.7.2):
     dependencies:
       '@gerrit0/mini-shiki': 1.24.1
       lunr: 2.3.9
