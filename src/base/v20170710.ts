@@ -129,7 +129,14 @@ export const SubjectType = v.picklist(["kana_vocabulary", "kanji", "radical", "v
  * @category Subjects
  */
 export type SubjectTuple = [SubjectType, ...SubjectType[]];
-export const SubjectTuple = v.pipe(v.tupleWithRest([SubjectType], SubjectType), v.nonEmpty());
+export const SubjectTuple = v.pipe(
+  v.tupleWithRest([SubjectType], SubjectType),
+  v.nonEmpty(),
+  v.checkItems(
+    (item, index, array) => array.indexOf(item) === index,
+    "Duplicate Subject Type detected in Subject Tuple",
+  ),
+);
 
 /**
  * The common properties across all Collection items from the WaniKani API.
