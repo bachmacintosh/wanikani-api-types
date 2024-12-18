@@ -30,6 +30,5 @@
     "notDocumented": true,
     "invalidLink": true,
     "notExported": true
-  },
-  "intentionallyNotExported": ["NumberRange"]
+  }
 }

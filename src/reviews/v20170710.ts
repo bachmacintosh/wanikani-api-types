@@ -1,12 +1,5 @@
-import type {
-  DatableString,
-  WKCollection,
-  WKCollectionParameters,
-  WKMaxSrsReviewStages,
-  WKMaxSrsStages,
-  WKResource,
-} from "../base/v20170710.js";
-import type { NumberRange } from "../internal/index.js";
+import type { DatableString, WKCollection, WKCollectionParameters, WKResource } from "../base/v20170710.js";
+import type { SpacedRepetitionSystemStageNumber } from "../spaced-repetition-systems/v20170710.js";
 import type { WKAssignment } from "../assignments/v20170710.js";
 import type { WKReviewStatistic } from "../review-statistics/v20170710.js";
 
@@ -140,7 +133,7 @@ export interface WKReviewData {
    * The SRS stage interval calculated from the number of correct and incorrect answers, with valid values ranging
    * from `1` to `9`.
    */
-  ending_srs_stage: NumberRange<1, WKMaxSrsStages>;
+  ending_srs_stage: SpacedRepetitionSystemStageNumber;
 
   /**
    * The number of times the user has answered the meaning incorrectly.
@@ -160,7 +153,7 @@ export interface WKReviewData {
   /**
    * The starting SRS stage interval, with valid values ranging from `1` to `8`.
    */
-  starting_srs_stage: NumberRange<1, WKMaxSrsReviewStages>;
+  starting_srs_stage: SpacedRepetitionSystemStageNumber;
 
   /**
    * Unique identifier of the associated subject.

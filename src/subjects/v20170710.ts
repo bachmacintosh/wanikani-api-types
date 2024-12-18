@@ -1,10 +1,10 @@
 import type {
   DatableString,
+  Level,
+  SubjectTuple,
   WKCollection,
   WKCollectionParameters,
-  WKLevel,
   WKResource,
-  WKSubjectTuple,
 } from "../base/v20170710.js";
 
 /**
@@ -542,7 +542,7 @@ export interface WKSubjectData {
   /**
    * The level of the subject, from `1` to `60`.
    */
-  level: WKLevel;
+  level: Level;
 
   /**
    * The subject's meaning mnemonic.
@@ -645,7 +645,7 @@ export interface WKSubjectParameters extends WKCollectionParameters {
   /**
    * Return subjects at the specified levels.
    */
-  levels?: WKLevel[];
+  levels?: Level[];
 
   /**
    * Return subjects of the specified slug.
@@ -655,7 +655,7 @@ export interface WKSubjectParameters extends WKCollectionParameters {
   /**
    * Return subjects of the specified types.
    */
-  types?: WKSubjectTuple;
+  types?: SubjectTuple;
 }
 
 /**

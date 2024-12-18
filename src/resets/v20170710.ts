@@ -1,4 +1,4 @@
-import type { DatableString, WKCollection, WKCollectionParameters, WKLevel, WKResource } from "../base/v20170710.js";
+import type { DatableString, Level, WKCollection, WKCollectionParameters, WKResource } from "../base/v20170710.js";
 
 /**
  * Users can reset their progress back to any level at or below their current level. When they reset to a particular
@@ -62,12 +62,12 @@ export interface WKResetData {
   /**
    * The user's level before the reset, from `1` to `60`.
    */
-  original_level: WKLevel;
+  original_level: Level;
 
   /**
    * The user's level after the reset, from `1` to `60`. It must be less than or equal to `original_level`.
    */
-  target_level: WKLevel;
+  target_level: Level;
 }
 
 /**
