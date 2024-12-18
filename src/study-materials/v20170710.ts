@@ -1,10 +1,10 @@
 import type {
   DatableString,
+  SubjectTuple,
+  SubjectType,
   WKCollection,
   WKCollectionParameters,
   WKResource,
-  WKSubjectTuple,
-  WKSubjectType,
 } from "../base/v20170710.js";
 
 /**
@@ -111,7 +111,7 @@ export interface WKStudyMaterialData extends WKStudyMaterialBaseData {
   /**
    * The type of the associated subject, one of: `kanji`, `radical`, or `vocabulary`.
    */
-  subject_type: WKSubjectType;
+  subject_type: SubjectType;
 }
 
 /**
@@ -137,7 +137,7 @@ export interface WKStudyMaterialParameters extends WKCollectionParameters {
    * Only study material records where `data.subject_type` matches one of the array values are returned. Valid values
    * are: `radical`, `kanji`, or `vocabulary`.
    */
-  subject_types?: WKSubjectTuple;
+  subject_types?: SubjectTuple;
 }
 
 /**

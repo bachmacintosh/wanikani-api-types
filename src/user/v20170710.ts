@@ -1,11 +1,34 @@
-import type {
-  DatableString,
-  WKLessonBatchSizeNumber,
-  WKLevel,
-  WKMaxLevels,
-  WKMinLevels,
-  WKResource,
-} from "../base/v20170710.js";
+import * as v from "valibot";
+import type { DatableString, Level, WKResource } from "../base/v20170710.js";
+
+/**
+ * A number representing a valid lesson batch size in WaniKani, from `3` to `10`.
+ *
+ * @category User
+ */
+export type LessonBatchSizeNumber = v.Brand<"LessonBatchSizeNumber"> & number;
+const MinLessonBatchSize = 3;
+const MaxLessonBatchSize = 10;
+export const LessonBatchSizeNumber = v.pipe(
+  v.number(),
+  v.minValue(MinLessonBatchSize),
+  v.maxValue(MaxLessonBatchSize),
+  v.brand("LessonBatchSizeNumber"),
+);
+
+/**
+ * The minimum batch size for lessons in the WaniKani app; exported for use in lieu of a Magic Number.
+ *
+ * @category User
+ */
+export const MIN_LESSON_BATCH_SIZE: LessonBatchSizeNumber = v.parse(LessonBatchSizeNumber, MinLessonBatchSize);
+
+/**
+ * The maximum batch size for lessons in the WaniKani app; exported for use in lieu of a Magic Number.
+ *
+ * @category User
+ */
+export const MAX_LESSON_BATCH_SIZE: LessonBatchSizeNumber = v.parse(LessonBatchSizeNumber, MaxLessonBatchSize);
 
 /**
  * A user and their status/information on WaniKani.
@@ -50,7 +73,7 @@ export interface WKUserData {
   /**
    * The current level of the user. This ignores subscription status.
    */
-  level: WKLevel;
+  level: Level;
 
   /**
    * User settings specific to the WaniKani application.
@@ -104,7 +127,7 @@ export interface WKUserPreferences {
   /**
    * Number of subjects introduced to the user during lessons before quizzing.
    */
-  lessons_batch_size: WKLessonBatchSizeNumber;
+  lessons_batch_size: LessonBatchSizeNumber;
 
   /**
    * The order in which lessons are presented. The options are `ascending_level_then_subject`, `shuffled`, and
@@ -165,7 +188,7 @@ export interface WKUserSubscription {
    *
    * **Any application that uses data from the WaniKani API must respect these access limits.**
    */
-  max_level_granted: WKMaxLevels | WKMinLevels;
+  max_level_granted: Level;
 
   /**
    * The date when the user's subscription period ends. If the user has subscription type `lifetime` or `free` then the

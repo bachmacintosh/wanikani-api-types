@@ -1,4 +1,4 @@
-import type { DatableString, WKCollection, WKCollectionParameters, WKLevel, WKResource } from "../base/v20170710.js";
+import type { DatableString, Level, WKCollection, WKCollectionParameters, WKResource } from "../base/v20170710.js";
 
 /**
  * Level progressions contain information about a user's progress through the WaniKani levels.
@@ -71,7 +71,7 @@ export interface WKLevelProgressionData {
   /**
    * The level of the progression, with possible values from `1` to `60`.
    */
-  level: WKLevel;
+  level: Level;
 
   /**
    * Timestamp, in ISO-8601 format, when the user passes at least 90% of the assignments with a type of `kanji`

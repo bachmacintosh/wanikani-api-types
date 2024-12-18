@@ -1,13 +1,13 @@
 import type {
   DatableString,
+  Level,
+  SubjectTuple,
+  SubjectType,
   WKCollection,
   WKCollectionParameters,
-  WKLevel,
   WKResource,
-  WKSrsStageNumber,
-  WKSubjectTuple,
-  WKSubjectType,
 } from "../base/v20170710.js";
+import type { SpacedRepetitionSystemStageNumber } from "../spaced-repetition-systems/v20170710.js";
 
 /**
  * Assignments contain information about a user's progress on a particular subject, including their current state and
@@ -91,7 +91,7 @@ export interface WKAssignmentData {
    * The current SRS stage interval. The interval range is determined by the related subject's Spaced Repetition
    * System.
    */
-  srs_stage: WKSrsStageNumber;
+  srs_stage: SpacedRepetitionSystemStageNumber;
 
   /**
    * When the user completes the lesson for the related subject.
@@ -106,7 +106,7 @@ export interface WKAssignmentData {
   /**
    * The type of the associated subject, one of: `kanji`, `radical`, or `vocabulary`.
    */
-  subject_type: WKSubjectType;
+  subject_type: SubjectType;
 
   /**
    * When the related subjects has its prerequisites satisfied and is made available in lessons.
@@ -168,13 +168,13 @@ export interface WKAssignmentParameters extends WKCollectionParameters {
    * Only assignments where the associated subject level matches one of the array values are returned. Valid values
    * range from `1` to `60`.
    */
-  levels?: WKLevel[];
+  levels?: Level[];
 
   /**
    * Only assignments where `data.srs_stage` matches one of the array values are returned. Valid values range from `0`
    * to `9`.
    */
-  srs_stages?: WKSrsStageNumber[];
+  srs_stages?: SpacedRepetitionSystemStageNumber[];
 
   /**
    * When set to `true`, returns assignments that have a value in `data.started_at`. Returns assignments with a `null`
@@ -191,7 +191,7 @@ export interface WKAssignmentParameters extends WKCollectionParameters {
    * Only assignments where `data.subject_type` matches one of the array values are returned. Valid values are:
    * `radical`, `kanji`, or `vocabulary`.
    */
-  subject_types?: WKSubjectTuple;
+  subject_types?: SubjectTuple;
 
   /**
    * When set to true, returns assignments that have a value in `data.unlocked_at`. Returns assignments with a `null`

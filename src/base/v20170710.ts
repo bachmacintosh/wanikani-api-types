@@ -1,10 +1,5 @@
 import * as v from "valibot";
-import type {
-  WKAssignment,
-  WKAssignmentData,
-  WKAssignmentParameters,
-  WKAssignmentPayload,
-} from "../assignments/v20170710.js";
+import type { WKAssignment, WKAssignmentData, WKAssignmentParameters } from "../assignments/v20170710.js";
 import type {
   WKKanaVocabulary,
   WKKanaVocabularyData,
@@ -23,7 +18,7 @@ import type {
   WKLevelProgressionParameters,
 } from "../level-progressions/v20170710.js";
 import type { WKReset, WKResetData, WKResetParameters } from "../resets/v20170710.js";
-import type { WKReview, WKReviewData, WKReviewParameters, WKReviewPayload } from "../reviews/v20170710.js";
+import type { WKReview, WKReviewData, WKReviewParameters } from "../reviews/v20170710.js";
 import type {
   WKReviewStatistic,
   WKReviewStatisticData,
@@ -34,17 +29,10 @@ import type {
   WKSpacedRepetitionSystemData,
   WKSpacedRepetitionSystemParameters,
 } from "../spaced-repetition-systems/v20170710.js";
-import type {
-  WKStudyMaterial,
-  WKStudyMaterialCreatePayload,
-  WKStudyMaterialData,
-  WKStudyMaterialParameters,
-  WKStudyMaterialUpdatePayload,
-} from "../study-materials/v20170710.js";
-import type { WKUserData, WKUserPreferences, WKUserPreferencesPayload } from "../user/v20170710.js";
+import type { WKStudyMaterial, WKStudyMaterialData, WKStudyMaterialParameters } from "../study-materials/v20170710.js";
 import type { WKVoiceActor, WKVoiceActorData, WKVoiceActorParameters } from "../voice-actors/v20170710.js";
-import type { NumberRange } from "../internal/index.js";
 import type { WKSummaryData } from "../summary/v20170710.js";
+import type { WKUserData } from "../user/v20170710.js";
 
 /**
  * All known WaniKani API revisions, created when breaking changes are introduced to the WaniKani API.
@@ -71,6 +59,77 @@ export const API_REVISION: ApiRevision = "20170710";
  */
 export type DatableString = v.Brand<"DatableString"> & string;
 export const DatableString = v.pipe(v.string(), v.isoTimestamp(), v.brand("DatableString"));
+
+/**
+ * A number representing a level in WaniKani, from `1` to `60`.
+ *
+ * @category Base
+ */
+export type Level = v.Brand<"Level"> & number;
+const MaxLevel = 60;
+export const Level = v.pipe(v.number(), v.minValue(1), v.maxValue(MaxLevel), v.brand("Level"));
+
+/**
+ * The minimum level provided by WaniKani; exported for use in lieu of a Magic Number.
+ *
+ * @category Base
+ */
+export const MIN_LEVEL: Level = v.parse(Level, 1);
+
+/**
+ * The maximum level provided by WaniKani; exported for use in lieu of a Magic Number.
+ *
+ * @category Base
+ */
+export const MAX_LEVEL: Level = v.parse(Level, MaxLevel);
+
+/**
+ * The types of resources used on WaniKani and its API.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#response-structure}
+ * @category Base
+ */
+export type ResourceType =
+  | "assignment"
+  | "level_progression"
+  | "reset"
+  | "review_statistic"
+  | "review"
+  | "spaced_repetition_system"
+  | "study_material"
+  | "user"
+  | "voice_actor";
+export const ResourceType = v.picklist([
+  "assignment",
+  "level_progression",
+  "reset",
+  "review_statistic",
+  "review",
+  "spaced_repetition_system",
+  "study_material",
+  "user",
+  "voice_actor",
+]);
+
+/**
+ * The types of subjects used on WaniKani and its API.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
+ * @category Base
+ * @category Subjects
+ */
+export type SubjectType = "kana_vocabulary" | "kanji" | "radical" | "vocabulary";
+export const SubjectType = v.picklist(["kana_vocabulary", "kanji", "radical", "vocabulary"]);
+
+/**
+ * A non-empty array of WaniKani subject types.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
+ * @category Base
+ * @category Subjects
+ */
+export type SubjectTuple = [SubjectType, ...SubjectType[]];
+export const SubjectTuple = v.pipe(v.tupleWithRest([SubjectType], SubjectType), v.nonEmpty());
 
 /**
  * The common properties across all Collection items from the WaniKani API.
@@ -282,124 +341,6 @@ export interface WKError {
 }
 
 /**
- * A number representing a valid lesson batch size in WaniKani, from `3` to `10`.
- *
- * @category Base
- */
-export type WKLessonBatchSizeNumber = NumberRange<WKMinLessonBatchSize, WKMaxLessonBatchSize>;
-
-/**
- * A number representing a level in WaniKani, from `1` to `60`.
- *
- * @category Base
- */
-export type WKLevel = NumberRange<1, WKMaxLevels>;
-
-/**
- * The maximum batch size for lessons in the WaniKani app.
- *
- * @category Base
- */
-export type WKMaxLessonBatchSize = 10;
-
-/**
- * The maximum batch size for lessons in the WaniKani app; exported for use in lieu of a Magic Number.
- *
- * @category Base
- */
-export const WK_MAX_LESSON_BATCH_SIZE: WKMaxLessonBatchSize = 10;
-
-/**
- * The maximum level provided by WaniKani; used to calculate level ranges.
- *
- * @category Base
- */
-export type WKMaxLevels = 60;
-
-/**
- * The maximum level provided by WaniKani; exported for use in lieu of a Magic Number.
- *
- * @category Base
- */
-export const WK_MAX_LEVELS: WKMaxLevels = 60;
-
-/**
- * The maximum number of SRS Stages used in WaniKani's reviews.
- *
- * @category Base
- */
-export type WKMaxSrsReviewStages = 8;
-
-/**
- * The maximum number of SRS Stages used in WaniKani's reviews; exported for use in lieu of a Magic Number.
- *
- * @category Base
- */
-export const WK_MAX_SRS_REVIEW_STAGES: WKMaxSrsReviewStages = 8;
-
-/**
- * The maximum number of SRS Stages used in WaniKani's SRS; used to calculate SRS Stage ranges.
- *
- * @category Base
- */
-export type WKMaxSrsStages = 9;
-
-/**
- * The maximum number of SRS Stages used in WaniKani's SRS; exported for use in lieu of a Magic Number.
- *
- * @category Base
- */
-export const WK_MAX_SRS_STAGES: WKMaxSrsStages = 9;
-
-/**
- * The minimum batch size for lessons in the WaniKani app.
- *
- * @category Base
- */
-export type WKMinLessonBatchSize = 3;
-
-/**
- * The minimum batch size for lessons in the WaniKani app; exported for use in lieu of a Magic Number.
- *
- * @category Base
- */
-export const WK_MIN_LESSON_BATCH_SIZE: WKMinLessonBatchSize = 3;
-
-/**
- * The lowest number of levels that a WaniKani user has access to, when they are on a free subscription.
- *
- * @category Base
- */
-export type WKMinLevels = 3;
-
-/**
- * The lowest number of levels that a WaniKani user has access to, when they are on a free subscription; exported for
- * use in lieu of a Magic Number.
- *
- * @category Base
- */
-export const WK_MIN_LEVELS: WKMinLevels = 3;
-
-/**
- * Map PUT and POST requests to the WaniKani API, to their respective Payload types.
- *
- * @category Base
- * @category Payloads
- */
-export interface WKPayloadMap {
-  /** Payload to create a Review. */
-  "POST /reviews": WKReviewPayload;
-  /** Payload to create a new Study Material. */
-  "POST /study_materials": WKStudyMaterialCreatePayload;
-  /** Payload to start an Assignment. */
-  "PUT /assignments/<id>/start": WKAssignmentPayload;
-  /** Payload to update an existing Study Material. */
-  "PUT /study_materials/<id>": WKStudyMaterialUpdatePayload;
-  /** Payload to update the User's Preferences. */
-  "PUT /user": WKUserPreferencesPayload;
-}
-
-/**
  * The common properties across all Reports from the WaniKani API
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#response-structure}
@@ -474,7 +415,7 @@ export interface WKResource {
   /**
    * The kind of object returned.
    */
-  object: WKResourceType | WKSubjectType;
+  object: ResourceType | SubjectType;
 
   /**
    * The URL of the requested resource.
@@ -496,137 +437,6 @@ export interface WKResource {
    * resource, where it is present the `data` object.
    */
   id?: number;
-}
-
-/**
- * The types of resources used on WaniKani and its API.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#response-structure}
- * @category Base
- */
-export type WKResourceType =
-  | "assignment"
-  | "level_progression"
-  | "reset"
-  | "review_statistic"
-  | "review"
-  | "spaced_repetition_system"
-  | "study_material"
-  | "user"
-  | "voice_actor";
-
-/**
- * A valid WaniKani Spaced Repetition System (SRS) Stage Number, based on the known SRS' on WaniKani and its API.
- *
- * @category Base
- */
-export type WKSrsStageNumber = NumberRange<0, WKMaxSrsStages>;
-
-/**
- * A non-empty array of WaniKani subject types.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
- * @category Base
- * @category Subjects
- */
-export type WKSubjectTuple = [WKSubjectType, ...WKSubjectType[]];
-
-/**
- * The types of subjects used on WaniKani and its API.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
- * @category Base
- * @category Subjects
- */
-export type WKSubjectType = "kana_vocabulary" | "kanji" | "radical" | "vocabulary";
-
-/**
- * A type guard to determine if a given item is a {@link WKLessonBatchSizeNumber}.
- * @param possibleWKLessonBatchSizeNumber - An unknown item.
- * @returns `true` if the item is a valid {@link WKLessonBatchSizeNumber}, `false` if not.
- * @category Base
- */
-export function isWKLessonBatchSizeNumber(
-  possibleWKLessonBatchSizeNumber: unknown,
-): possibleWKLessonBatchSizeNumber is WKLessonBatchSizeNumber {
-  return (
-    typeof possibleWKLessonBatchSizeNumber === "number" &&
-    Number.isInteger(possibleWKLessonBatchSizeNumber) &&
-    possibleWKLessonBatchSizeNumber >= WK_MIN_LESSON_BATCH_SIZE &&
-    possibleWKLessonBatchSizeNumber <= WK_MAX_LESSON_BATCH_SIZE
-  );
-}
-
-/**
- * A type guard to determine if a given item is a {@link WKLevel}.
- *
- * @param possibleWKLevel - An unknown item.
- * @returns `true` if the item is a valid {@link WKLevel}, `false` if not.
- * @category Base
- */
-export function isWKLevel(possibleWKLevel: unknown): possibleWKLevel is WKLevel {
-  return (
-    typeof possibleWKLevel === "number" &&
-    Number.isInteger(possibleWKLevel) &&
-    possibleWKLevel >= 1 &&
-    possibleWKLevel <= WK_MAX_LEVELS
-  );
-}
-
-/**
- * A type guard to determine if a given item is a {@link WKLevel} array.
- *
- * @param possibleWKLevelArray - An unknown item.
- * @returns `true` if the item is a valid {@link WKLevel} array, `false` if not.
- * @category Base
- */
-export function isWKLevelArray(possibleWKLevelArray: unknown): possibleWKLevelArray is WKLevel[] {
-  if (!Array.isArray(possibleWKLevelArray)) {
-    return false;
-  }
-  if (possibleWKLevelArray.length === 0) {
-    return false;
-  }
-  const hasAllNumbersAndAllIntegers = possibleWKLevelArray.every(Number.isInteger);
-  const hasAllNumbersInRange = possibleWKLevelArray.every((value) => value >= 1 && value <= WK_MAX_LEVELS);
-  return hasAllNumbersAndAllIntegers && hasAllNumbersInRange;
-}
-
-/**
- * A type guard to determine if a given item is a {@link WKSrsStageNumber}.
- *
- * @param possibleWKSrsStageNumber - An unknown item.
- * @returns `true` if the item is a valid {@link WKSrsStageNumber}, `false` if not.
- * @category Base
- */
-export function isWKSrsStageNumber(possibleWKSrsStageNumber: unknown): possibleWKSrsStageNumber is WKSrsStageNumber {
-  return (
-    typeof possibleWKSrsStageNumber === "number" &&
-    Number.isInteger(possibleWKSrsStageNumber) &&
-    possibleWKSrsStageNumber >= 0 &&
-    possibleWKSrsStageNumber <= WK_MAX_SRS_STAGES
-  );
-}
-
-/**
- * A type guard to determine if a given item is a {@link WKSrsStageNumber} array.
- *
- * @param possibleWKSrsStageNumberArray - An unknown item.
- * @returns `true` if the item is a valid {@link WKSrsStageNumber} array, `false` if not.
- * @category Base
- */
-export function isWKSrsStageNumberArray(
-  possibleWKSrsStageNumberArray: unknown,
-): possibleWKSrsStageNumberArray is WKSrsStageNumber[] {
-  if (!Array.isArray(possibleWKSrsStageNumberArray)) {
-    return false;
-  }
-  if (possibleWKSrsStageNumberArray.length === 0) {
-    return false;
-  }
-  const hasAllNumbersAndAllIntegers = possibleWKSrsStageNumberArray.every(Number.isInteger);
-  const hasAllNumbersInRange = possibleWKSrsStageNumberArray.every((value) => value >= 0 && value <= WK_MAX_SRS_STAGES);
-  return hasAllNumbersAndAllIntegers && hasAllNumbersInRange;
 }
 
 /**
@@ -670,217 +480,4 @@ export function stringifyParameters(params: WKCollectionParameters): string {
     isFirstItem = false;
   }
   return queryString;
-}
-
-/**
- * Perform runtime validation of Collection Parameters.
- *
- * @param type The type of parameters to validate.
- * @param params The {@link WKCollectionParameters} object to validate.
- * @throws A `TypeError` if parameter validation fails.
- * @category Base
- */
-export function validateParameters<T extends keyof WKCollectionParametersMap>(
-  type: T,
-  params: WKCollectionParametersMap[T],
-): void {
-  /* Start by making dummy parameters with all properties requireed; this ensures we're checking all fields, and that
-     if we update types, this function will get updated, too. */
-  const assignmentParams: Required<WKAssignmentParameters> = {
-    available_after: new Date(),
-    available_before: new Date(),
-    burned: true,
-    hidden: true,
-    ids: [1],
-    immediately_available_for_lessons: true,
-    immediately_available_for_review: true,
-    in_review: true,
-    levels: [1],
-    page_after_id: 1,
-    page_before_id: 1,
-    srs_stages: [1],
-    started: true,
-    subject_ids: [1],
-    subject_types: ["kanji"],
-    unlocked: true,
-    updated_after: new Date(),
-  };
-  const levelProgressionParams: Required<WKLevelProgressionParameters> = {
-    ids: [1],
-    page_after_id: 1,
-    page_before_id: 1,
-    updated_after: new Date(),
-  };
-  const resetParams: Required<WKResetParameters> = {
-    ids: [1],
-    page_after_id: 1,
-    page_before_id: 1,
-    updated_after: new Date(),
-  };
-  const reviewParams: Required<WKReviewParameters> = {
-    assignment_ids: [1],
-    ids: [1],
-    page_after_id: 1,
-    page_before_id: 1,
-    subject_ids: [1],
-    updated_after: new Date(),
-  };
-  const reviewStatisticParams: Required<WKReviewStatisticParameters> = {
-    hidden: true,
-    ids: [1],
-    page_after_id: 1,
-    page_before_id: 1,
-    percentages_greater_than: 1,
-    percentages_less_than: 1,
-    subject_ids: [1],
-    subject_types: ["kanji"],
-    updated_after: new Date(),
-  };
-  const srsParams: Required<WKSpacedRepetitionSystemParameters> = {
-    ids: [1],
-    page_after_id: 1,
-    page_before_id: 1,
-    updated_after: new Date(),
-  };
-  const studyMaterialParams: Required<WKStudyMaterialParameters> = {
-    hidden: true,
-    ids: [1],
-    page_after_id: 1,
-    page_before_id: 1,
-    subject_ids: [1],
-    subject_types: ["kanji"],
-    updated_after: new Date(),
-  };
-  const subjectParams: Required<WKSubjectParameters> = {
-    hidden: true,
-    ids: [1],
-    levels: [1],
-    page_after_id: 1,
-    page_before_id: 1,
-    slugs: [""],
-    types: ["kanji"],
-    updated_after: new Date(),
-  };
-  const voiceActorParams: Required<WKVoiceActorParameters> = {
-    ids: [1],
-    page_after_id: 1,
-    page_before_id: 1,
-    updated_after: new Date(),
-  };
-
-  /* Map Collection names to their types. */
-  const validKeys: WKCollectionParametersMap = {
-    Assignment: assignmentParams,
-    "Level Progression": levelProgressionParams,
-    Reset: resetParams,
-    Review: reviewParams,
-    "Review Statistic": reviewStatisticParams,
-    "Spaced Repetition System": srsParams,
-    "Study Material": studyMaterialParams,
-    Subject: subjectParams,
-    "Voice Actor": voiceActorParams,
-  };
-
-  /* If we find a key in the object that isn't in the type, throw an error. */
-  Object.keys(params).forEach((key) => {
-    if (!(key in validKeys[type])) {
-      throw new TypeError(`Parameter "${key}" is not valid for ${type} Collections.`);
-    }
-  });
-}
-
-/**
- * Perform runtime validation of Payloads.
- * @param type The URI for the given payload, i.e. a type of `POST` or `PUT` request.
- * @param payload The payload object to be validated.
- * @throws A `TypeError` if payload validation fails.
- * @category Base
- * @category Payloads
- */
-export function validatePayload<T extends keyof WKPayloadMap>(type: T, payload: WKPayloadMap[T]): void {
-  /* Let's try not to end up here! */
-  function throwTypeError(key: string, payloadType: T): never {
-    throw new TypeError(`Key "${key}" is not valid for a payload sent to ${payloadType} .`);
-  }
-
-  /* Create required dummy parameters */
-  const assignmentStartPayload: Required<WKAssignmentPayload> = {
-    assignment: {
-      started_at: new Date(),
-    },
-  };
-  const reviewCreatePayloadAssignment: Required<WKReviewPayload> = {
-    review: {
-      assignment_id: 1,
-      incorrect_meaning_answers: 0,
-      incorrect_reading_answers: 0,
-    },
-  };
-  const reviewCreatePayloadSubject: Required<WKReviewPayload> = {
-    review: {
-      subject_id: 1,
-      incorrect_meaning_answers: 0,
-      incorrect_reading_answers: 0,
-    },
-  };
-  const studyMaterialCreatePayload: Required<WKStudyMaterialCreatePayload> = {
-    subject_id: 1,
-    meaning_synonyms: ["one"],
-    meaning_note: "one",
-    reading_note: "one",
-  };
-  const studyMaterialUpdatePayload: Required<WKStudyMaterialUpdatePayload> = {
-    meaning_synonyms: ["one"],
-    meaning_note: "one",
-    reading_note: "one",
-  };
-  const preferences: Required<WKUserPreferences> = {
-    default_voice_actor_id: 1,
-    extra_study_autoplay_audio: true,
-    lessons_autoplay_audio: true,
-    lessons_batch_size: 3,
-    lessons_presentation_order: "ascending_level_then_subject",
-    reviews_autoplay_audio: true,
-    reviews_display_srs_indicator: true,
-    reviews_presentation_order: "shuffled",
-  };
-  const userPreferencesPayload: Required<WKUserPreferencesPayload> = {
-    user: {
-      preferences,
-    },
-  };
-
-  /* Valid-key sets, used depending on type of payload being validated */
-  const validKeysExceptReviews: Omit<WKPayloadMap, "POST /reviews"> = {
-    "PUT /assignments/<id>/start": assignmentStartPayload,
-    "POST /study_materials": studyMaterialCreatePayload,
-    "PUT /study_materials/<id>": studyMaterialUpdatePayload,
-    "PUT /user": userPreferencesPayload,
-  };
-  const validKeysReviewAssignment: Pick<WKPayloadMap, "POST /reviews"> = {
-    "POST /reviews": reviewCreatePayloadAssignment,
-  };
-  const validKeysReviewSubject: Pick<WKPayloadMap, "POST /reviews"> = {
-    "POST /reviews": reviewCreatePayloadSubject,
-  };
-
-  /* Check for unexpected keys, throw if we find one */
-  Object.keys(payload).forEach((key) => {
-    if (type === "POST /reviews") {
-      if (!(key in validKeysReviewAssignment["POST /reviews"]) && !(key in validKeysReviewSubject["POST /reviews"])) {
-        throwTypeError(key, type);
-      }
-    } else if (type === "POST /study_materials" && !(key in validKeysExceptReviews["POST /study_materials"])) {
-      throwTypeError(key, type);
-    } else if (
-      type === "PUT /assignments/<id>/start" &&
-      !(key in validKeysExceptReviews["PUT /assignments/<id>/start"])
-    ) {
-      throwTypeError(key, type);
-    } else if (type === "PUT /study_materials/<id>" && !(key in validKeysExceptReviews["PUT /study_materials/<id>"])) {
-      throwTypeError(key, type);
-    } else if (type === "PUT /user" && !(key in validKeysExceptReviews["PUT /user"])) {
-      throwTypeError(key, type);
-    }
-  });
 }

@@ -1,4 +1,4 @@
-import { type ApiRevision, stringifyParameters, validateParameters, validatePayload } from "../base/v20170710.js";
+import { type ApiRevision, stringifyParameters } from "../base/v20170710.js";
 import type { WKAssignmentParameters, WKAssignmentPayload } from "../assignments/v20170710.js";
 import type { WKReviewParameters, WKReviewPayload } from "../reviews/v20170710.js";
 import type {
@@ -107,13 +107,13 @@ export class WKRequestFactory {
         if (typeof idOrParams === "number") {
           request.url += `/${idOrParams}`;
         } else if (typeof idOrParams !== "undefined") {
-          validateParameters("Assignment", idOrParams);
+          // TODO: Validate Parameters
           request.url += stringifyParameters(idOrParams);
         }
         return request;
       },
       start: (assignmentId: number, payload: WKAssignmentPayload, options?: WKRequestPostPutOptions): WKRequest => {
-        validatePayload("PUT /assignments/<id>/start", payload);
+        // TODO: Validate Payload
         const headers = { ...this._postPutHeaders };
         if (typeof options !== "undefined") {
           if (typeof options.customHeaders !== "undefined") {
@@ -164,7 +164,7 @@ export class WKRequestFactory {
         if (typeof idOrParams === "number") {
           request.url += `/${idOrParams}`;
         } else if (typeof idOrParams !== "undefined") {
-          validateParameters("Level Progression", idOrParams);
+          // TODO: Validate Parameters
           request.url += stringifyParameters(idOrParams);
         }
         return request;
@@ -202,7 +202,7 @@ export class WKRequestFactory {
         if (typeof idOrParams === "number") {
           request.url += `/${idOrParams}`;
         } else if (typeof idOrParams !== "undefined") {
-          validateParameters("Reset", idOrParams);
+          // TODO: Validate Parameters
           request.url += stringifyParameters(idOrParams);
         }
         return request;
@@ -216,7 +216,7 @@ export class WKRequestFactory {
   public get reviews(): WKReviewRequests {
     return {
       create: (payload: WKReviewPayload, options?: WKRequestPostPutOptions): WKRequest => {
-        validatePayload("POST /reviews", payload);
+        // TODO: Validate Payload
         const headers = { ...this._postPutHeaders };
         if (typeof options !== "undefined") {
           if (typeof options.customHeaders !== "undefined") {
@@ -259,7 +259,7 @@ export class WKRequestFactory {
         if (typeof idOrParams === "number") {
           request.url += `/${idOrParams}`;
         } else if (typeof idOrParams !== "undefined") {
-          validateParameters("Review", idOrParams);
+          // TODO: Validate Parameters
           request.url += stringifyParameters(idOrParams);
         }
         return request;
@@ -297,7 +297,7 @@ export class WKRequestFactory {
         if (typeof idOrParams === "number") {
           request.url += `/${idOrParams}`;
         } else if (typeof idOrParams !== "undefined") {
-          validateParameters("Review Statistic", idOrParams);
+          // TODO: Validate Parameters
           request.url += stringifyParameters(idOrParams);
         }
         return request;
@@ -335,7 +335,7 @@ export class WKRequestFactory {
         if (typeof idOrParams === "number") {
           request.url += `/${idOrParams}`;
         } else if (typeof idOrParams !== "undefined") {
-          validateParameters("Spaced Repetition System", idOrParams);
+          // TODO: Validate Parameters
           request.url += stringifyParameters(idOrParams);
         }
         return request;
@@ -380,13 +380,13 @@ export class WKRequestFactory {
         if (typeof idOrParams === "number") {
           request.url += `/${idOrParams}`;
         } else if (typeof idOrParams !== "undefined") {
-          validateParameters("Study Material", idOrParams);
+          // TODO: Validate Parameters
           request.url += stringifyParameters(idOrParams);
         }
         return request;
       },
       create: (payload: WKStudyMaterialCreatePayload, options?: WKRequestPostPutOptions): WKRequest => {
-        validatePayload("POST /study_materials", payload);
+        // TODO: Validate Payload
         const headers = { ...this._postPutHeaders };
         if (typeof options !== "undefined") {
           if (typeof options.customHeaders !== "undefined") {
@@ -409,7 +409,7 @@ export class WKRequestFactory {
         payload: WKStudyMaterialUpdatePayload,
         options?: WKRequestPostPutOptions,
       ): WKRequest => {
-        validatePayload("PUT /study_materials/<id>", payload);
+        // TODO: Validate Payload
         const headers = { ...this._postPutHeaders };
         if (typeof options !== "undefined") {
           if (typeof options.customHeaders !== "undefined") {
@@ -460,7 +460,7 @@ export class WKRequestFactory {
         if (typeof idOrParams === "number") {
           request.url += `/${idOrParams}`;
         } else if (typeof idOrParams !== "undefined") {
-          validateParameters("Subject", idOrParams);
+          // TODO: Validate Parameters
           request.url += stringifyParameters(idOrParams);
         }
         return request;
@@ -530,7 +530,7 @@ export class WKRequestFactory {
         return request;
       },
       updatePreferences: (payload: WKUserPreferencesPayload, options?: WKRequestPostPutOptions): WKRequest => {
-        validatePayload("PUT /user", payload);
+        // TODO: Validate Payload
         const headers = { ...this._postPutHeaders };
         if (typeof options !== "undefined") {
           if (typeof options.customHeaders !== "undefined") {
@@ -581,7 +581,7 @@ export class WKRequestFactory {
         if (typeof idOrParams === "number") {
           request.url += `/${idOrParams}`;
         } else if (typeof idOrParams !== "undefined") {
-          validateParameters("Voice Actor", idOrParams);
+          // TODO: Validate Parameters
           request.url += stringifyParameters(idOrParams);
         }
         return request;

@@ -1,10 +1,10 @@
 import type {
   DatableString,
+  SubjectTuple,
+  SubjectType,
   WKCollection,
   WKCollectionParameters,
   WKResource,
-  WKSubjectTuple,
-  WKSubjectType,
 } from "../base/v20170710.js";
 
 /**
@@ -120,7 +120,7 @@ export interface WKReviewStatisticData {
   /**
    * The type of the associated subject, one of: `kanji`, `radical`, or `vocabulary`.
    */
-  subject_type: WKSubjectType;
+  subject_type: SubjectType;
 }
 
 /**
@@ -156,5 +156,5 @@ export interface WKReviewStatisticParameters extends WKCollectionParameters {
    * Only review statistics where `data.subject_type` matches one of the array values are returned. Valid values are:
    * `radical`, `kanji`, or `vocabulary`.
    */
-  subject_types?: WKSubjectTuple;
+  subject_types?: SubjectTuple;
 }

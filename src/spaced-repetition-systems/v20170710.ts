@@ -1,10 +1,45 @@
-import type {
-  DatableString,
-  WKCollection,
-  WKCollectionParameters,
-  WKResource,
-  WKSrsStageNumber,
-} from "../base/v20170710.js";
+import * as v from "valibot";
+import type { DatableString, WKCollection, WKCollectionParameters, WKResource } from "../base/v20170710.js";
+
+/**
+ * A valid WaniKani Spaced Repetition System (SRS) Stage Number, based on the known SRS' on WaniKani and its API.
+ *
+ * @category Spaced Repetition Systems
+ */
+export type SpacedRepetitionSystemStageNumber = v.Brand<"SpacedRepetitionSystemStageNumber"> & number;
+const MinSrsStage = 0;
+const MaxSrsReviewStage = 8;
+const MaxSrsStage = 9;
+export const SpacedRepetitionSystemStageNumber = v.pipe(
+  v.number(),
+  v.minValue(MinSrsStage),
+  v.maxValue(MaxSrsStage),
+  v.brand("SpacedRepetitionSystemStageNumber"),
+);
+
+/**
+ * The minimum SRS Stage Number used in WaniKani's SRS; exported for use in lieu of a Magic Number.
+ *
+ * @category Spaced Repetition Systems
+ */
+export const MIN_SRS_STAGE: SpacedRepetitionSystemStageNumber = v.parse(SpacedRepetitionSystemStageNumber, MinSrsStage);
+
+/**
+ * The maximum SRS Stage Number used in WaniKani's reviews; exported for use in lieu of a Magic Number.
+ *
+ * @category Spaced Repetition Systems
+ */
+export const MAX_SRS_REVIEW_STAGE: SpacedRepetitionSystemStageNumber = v.parse(
+  SpacedRepetitionSystemStageNumber,
+  MaxSrsReviewStage,
+);
+
+/**
+ * The maximum SRS Stage Number used in WaniKani's SRS; exported for use in lieu of a Magic Number.
+ *
+ * @category Spaced Repetition Systems
+ */
+export const MAX_SRS_STAGE: SpacedRepetitionSystemStageNumber = v.parse(SpacedRepetitionSystemStageNumber, MaxSrsStage);
 
 /**
  * Available spaced repetition systems used for calculating `srs_stage` changes to Assignments and Reviews. Has
@@ -56,7 +91,7 @@ export interface WKSpacedRepetitionSystemData {
   /**
    * `position` of the burning stage.
    */
-  burning_stage_position: WKSrsStageNumber;
+  burning_stage_position: SpacedRepetitionSystemStageNumber;
 
   /**
    * Timestamp when the `spaced_repetition_system` was created.
@@ -76,7 +111,7 @@ export interface WKSpacedRepetitionSystemData {
   /**
    * `position` of the passing stage.
    */
-  passing_stage_position: WKSrsStageNumber;
+  passing_stage_position: SpacedRepetitionSystemStageNumber;
 
   /**
    * A collection of stages.
@@ -86,12 +121,12 @@ export interface WKSpacedRepetitionSystemData {
   /**
    * `position` of the starting stage.
    */
-  starting_stage_position: WKSrsStageNumber;
+  starting_stage_position: SpacedRepetitionSystemStageNumber;
 
   /**
    * `position` of the unlocking stage.
    */
-  unlocking_stage_position: WKSrsStageNumber;
+  unlocking_stage_position: SpacedRepetitionSystemStageNumber;
 }
 
 /**
@@ -124,5 +159,5 @@ export interface WKSpacedRepetitionSystemStage {
   /**
    * The position of the stage within the continuous order.
    */
-  position: WKSrsStageNumber;
+  position: SpacedRepetitionSystemStageNumber;
 }
