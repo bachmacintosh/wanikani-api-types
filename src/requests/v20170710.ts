@@ -1,32 +1,31 @@
+import * as v from "valibot";
 import { type ApiRevision, stringifyParameters } from "../base/v20170710.js";
-import type { WKAssignmentParameters, WKAssignmentPayload } from "../assignments/v20170710.js";
-import type { WKReviewParameters, WKReviewPayload } from "../reviews/v20170710.js";
-import type {
-  WKStudyMaterialCreatePayload,
-  WKStudyMaterialParameters,
-  WKStudyMaterialUpdatePayload,
+import { AssignmentParameters, AssignmentPayload } from "../assignments/v20170710.js";
+import { ReviewParameters, ReviewPayload } from "../reviews/v20170710.js";
+import {
+  StudyMaterialCreatePayload,
+  StudyMaterialParameters,
+  StudyMaterialUpdatePayload,
 } from "../study-materials/v20170710.js";
-import type { WKLevelProgressionParameters } from "../level-progressions/v20170710.js";
-import type { WKResetParameters } from "../resets/v20170710.js";
-import type { WKReviewStatisticParameters } from "../review-statistics/v20170710.js";
-import type { WKSpacedRepetitionSystemParameters } from "../spaced-repetition-systems/v20170710.js";
-import type { WKSubjectParameters } from "../subjects/v20170710.js";
-import type { WKUserPreferencesPayload } from "../user/v20170710.js";
-import type { WKVoiceActorParameters } from "../voice-actors/v20170710.js";
-
-const baseUrl = "https://api.wanikani.com/v2";
+import { LevelProgressionParameters } from "../level-progressions/v20170710.js";
+import { ResetParameters } from "../resets/v20170710.js";
+import { ReviewStatisticParameters } from "../review-statistics/v20170710.js";
+import { SpacedRepetitionSystemParameters } from "../spaced-repetition-systems/v20170710.js";
+import { SubjectParameters } from "../subjects/v20170710.js";
+import { UserPreferencesPayload } from "../user/v20170710.js";
+import { VoiceActorParameters } from "../voice-actors/v20170710.js";
 
 /**
  * An object containing all information needed to make a request to the WaniKani API using any HTTP API/Library.
  *
- * @see {@link WKRequestFactory}
+ * @see {@link ApiRequestFactory}
  * @category Requests
  */
-export interface WKRequest {
+export interface ApiRequest {
   /** The request body, either `null` for GET requests, or a `string` for POST and PUT requests. */
   body: string | null;
   /** The request headers, including both standard and user-set headers. */
-  headers: WKRequestHeaders;
+  headers: ApiRequestHeaders;
   /** The request's HTTP method. */
   method: "GET" | "POST" | "PUT";
   /** The full URL where the request will be sent to. */
@@ -34,559 +33,547 @@ export interface WKRequest {
 }
 
 /**
- * A factory for preparing requests to the WaniKani API, with methods that return a {@link WKRequest} that can be used
- * in any HTTP API/Library to make the request.
+ * A factory for preparing requests to the WaniKani API, with methods that return an {@link ApiRequest} that can be used
+ * in any HTTP library/package to make the request.
  *
  * @category Requests
  */
-export class WKRequestFactory {
+export class ApiRequestFactory {
+  /**
+   * Types of Assignment Requests available in the WaniKani API.
+   */
+  public readonly assignments = {
+    /**
+     * Get an Assignment or Assignment Collection from the WaniKani API.
+     * @param idOrParams The Assignment ID for individual Assignments, or parameters for Assignment Collections.
+     * @param options Options for making GET requests to the API.
+     * @returns A Get Assignment(s) Request usabile in any HTTP API/Library.
+     */
+    get: (idOrParams?: AssignmentParameters | number, options?: ApiRequestOptions): ApiRequest => {
+      const headers = { ...this._getHeaders };
+      if (typeof options?.customHeaders !== "undefined") {
+        for (const [key, value] of Object.entries(options.customHeaders)) {
+          ApiRequestFactory._validateHeader(key, value);
+          headers[key] = value;
+        }
+      }
+      const request: ApiRequest = {
+        body: null,
+        headers,
+        method: "GET",
+        url: `${this.baseUrl}/assignments`,
+      };
+      if (typeof idOrParams === "number") {
+        request.url += `/${idOrParams}`;
+      } else if (typeof idOrParams !== "undefined") {
+        const validatedParameters = v.parse(AssignmentParameters, idOrParams);
+        request.url += stringifyParameters(validatedParameters);
+      }
+      return request;
+    },
+
+    /**
+     * Start an Assignment (i.e. move from Lessons to Reviews) via the WaniKani API.
+     * @param assignmentId The Assignment ID to start.
+     * @param payload The payload to send when starting the Assignment.
+     * @param options Options for making PUT requests to the API.
+     * @returns A Start Assignment Request usable in any HTTP API/Library.
+     */
+    start: (assignmentId: number, payload: AssignmentPayload, options?: ApiRequestOptions): ApiRequest => {
+      const validatedPayload = v.parse(AssignmentPayload, payload);
+      const headers = { ...this._postPutHeaders };
+      if (typeof options?.customHeaders !== "undefined") {
+        for (const [key, value] of Object.entries(options.customHeaders)) {
+          ApiRequestFactory._validateHeader(key, value);
+          headers[key] = value;
+        }
+      }
+      const request: ApiRequest = {
+        body: JSON.stringify(validatedPayload),
+        headers,
+        method: "PUT",
+        url: `${this.baseUrl}/assignments/${assignmentId}/start`,
+      };
+      return request;
+    },
+  };
+
+  /** The base URL of the WaniKani API */
+  public readonly baseUrl = "https://api.wanikani.com/v2";
+
+  /**
+   * Types of Level Progression Requests available in the WaniKani API.
+   */
+  public readonly levelProgressions = {
+    /**
+     * Get a Level Progression or Level Progression Collection from the WaniKani API.
+     * @param idOrParams The Level Progression ID for individual Level Progressions, or parameters for Level
+     * Progression Collections.
+     * @param options Options for making GET requests to the API.
+     * @returns A Get Level Progression(s) Request usabile in any HTTP API/Library.
+     */
+    get: (idOrParams?: LevelProgressionParameters | number, options?: ApiRequestOptions): ApiRequest => {
+      const headers = { ...this._getHeaders };
+      if (typeof options?.customHeaders !== "undefined") {
+        for (const [key, value] of Object.entries(options.customHeaders)) {
+          ApiRequestFactory._validateHeader(key, value);
+          headers[key] = value;
+        }
+      }
+      const request: ApiRequest = {
+        body: null,
+        headers,
+        method: "GET",
+        url: `${this.baseUrl}/level_progressions`,
+      };
+      if (typeof idOrParams === "number") {
+        request.url += `/${idOrParams}`;
+      } else if (typeof idOrParams !== "undefined") {
+        const validatedParameters = v.parse(LevelProgressionParameters, idOrParams);
+        request.url += stringifyParameters(validatedParameters);
+      }
+      return request;
+    },
+  };
+
+  /**
+   * Types of Reset Requests available in the WaniKani API.
+   */
+  public readonly resets = {
+    /**
+     * Get a Reset or Reset Collection from the WaniKani API.
+     * @param idOrParams The Reset ID for individual Resets, or parameters for Reset Collections.
+     * @param options Options for making GET requests to the API.
+     * @returns A Get Reset(s) Request usabile in any HTTP API/Library.
+     */
+    get: (idOrParams?: ResetParameters | number, options?: ApiRequestOptions): ApiRequest => {
+      const headers = { ...this._getHeaders };
+      if (typeof options?.customHeaders !== "undefined") {
+        for (const [key, value] of Object.entries(options.customHeaders)) {
+          ApiRequestFactory._validateHeader(key, value);
+          headers[key] = value;
+        }
+      }
+      const request: ApiRequest = {
+        body: null,
+        headers,
+        method: "GET",
+        url: `${this.baseUrl}/resets`,
+      };
+      if (typeof idOrParams === "number") {
+        request.url += `/${idOrParams}`;
+      } else if (typeof idOrParams !== "undefined") {
+        const validatedParameters = v.parse(ResetParameters, idOrParams);
+        request.url += stringifyParameters(validatedParameters);
+      }
+      return request;
+    },
+  };
+
+  /**
+   * Types of Review Statistic Requests available in the WaniKani API.
+   */
+  public readonly reviewStatistics = {
+    /**
+     * Get a Review Statistic or Review Statistic Collection from the WaniKani API.
+     * @param idOrParams The Review Statistic ID for individual Review Statistics, or parameters for Review Statistic
+     * Collections.
+     * @param options Options for making GET requests to the API.
+     * @returns A Get Review Statistic(s) Request usabile in any HTTP API/Library.
+     */
+    get: (idOrParams?: ReviewStatisticParameters | number, options?: ApiRequestOptions): ApiRequest => {
+      const headers = { ...this._getHeaders };
+      if (typeof options?.customHeaders !== "undefined") {
+        for (const [key, value] of Object.entries(options.customHeaders)) {
+          ApiRequestFactory._validateHeader(key, value);
+          headers[key] = value;
+        }
+      }
+      const request: ApiRequest = {
+        body: null,
+        headers,
+        method: "GET",
+        url: `${this.baseUrl}/review_statistics`,
+      };
+      if (typeof idOrParams === "number") {
+        request.url += `/${idOrParams}`;
+      } else if (typeof idOrParams !== "undefined") {
+        const validatedParameters = v.parse(ReviewStatisticParameters, idOrParams);
+        request.url += stringifyParameters(validatedParameters);
+      }
+      return request;
+    },
+  };
+
+  /**
+   * Types of Review Requests available in the WaniKani API.
+   */
+  public readonly reviews = {
+    /**
+     * Create a new Review via the WaniKani API.
+     * @param payload The payload to send when creating the Review.
+     * @param options Options for making POST requests to the API.
+     * @returns A Create Review Request usabile in any HTTP API/Library.
+     */
+    create: (payload: ReviewPayload, options?: ApiRequestOptions): ApiRequest => {
+      const validatedPayload = v.parse(ReviewPayload, payload);
+      const headers = { ...this._postPutHeaders };
+      if (typeof options !== "undefined") {
+        if (typeof options.customHeaders !== "undefined") {
+          for (const [key, value] of Object.entries(options.customHeaders)) {
+            ApiRequestFactory._validateHeader(key, value);
+            headers[key] = value;
+          }
+        }
+      }
+      const request: ApiRequest = {
+        body: JSON.stringify(validatedPayload),
+        headers,
+        method: "POST",
+        url: `${this.baseUrl}/reviews`,
+      };
+      return request;
+    },
+
+    /**
+     * Get a Review or Review Collection from the WaniKani API.
+     * @param idOrParams The Review ID for individual Reviews, or parameters for Review Collections.
+     * @param options Options for making GET requests to the API.
+     * @returns A Get Review(s) Request usabile in any HTTP API/Library.
+     */
+    get: (idOrParams?: ReviewParameters | number, options?: ApiRequestOptions): ApiRequest => {
+      const headers = { ...this._getHeaders };
+      if (typeof options?.customHeaders !== "undefined") {
+        for (const [key, value] of Object.entries(options.customHeaders)) {
+          ApiRequestFactory._validateHeader(key, value);
+          headers[key] = value;
+        }
+      }
+      const request: ApiRequest = {
+        body: null,
+        headers,
+        method: "GET",
+        url: `${this.baseUrl}/reviews`,
+      };
+      if (typeof idOrParams === "number") {
+        request.url += `/${idOrParams}`;
+      } else if (typeof idOrParams !== "undefined") {
+        const validatedParameters = v.parse(ReviewParameters, idOrParams);
+        request.url += stringifyParameters(validatedParameters);
+      }
+      return request;
+    },
+  };
+
+  /**
+   * Types of Spaced Repetition System (SRS) Requests available in the WaniKani API.
+   */
+  public readonly spacedRepetitionSystems = {
+    /**
+     * Get a Spaced Repetition System (SRS) or Spaced Repetition System (SRS) Collection from the WaniKani API.
+     * @param idOrParams The Spaced Repetition System (SRS) ID for individual Spaced Repetition Systems (SRS), or
+     * parameters for Spaced Repetition System (SRS) Collections.
+     * @param options Options for making GET requests to the API.
+     * @returns A Get Spaced Repetition System(s) (SRS) Request usabile in any HTTP API/Library.
+     */
+    get: (idOrParams?: SpacedRepetitionSystemParameters | number, options?: ApiRequestOptions): ApiRequest => {
+      const headers = { ...this._getHeaders };
+      if (typeof options?.customHeaders !== "undefined") {
+        for (const [key, value] of Object.entries(options.customHeaders)) {
+          ApiRequestFactory._validateHeader(key, value);
+          headers[key] = value;
+        }
+      }
+      const request: ApiRequest = {
+        body: null,
+        headers,
+        method: "GET",
+        url: `${this.baseUrl}/spaced_repetition_systems`,
+      };
+      if (typeof idOrParams === "number") {
+        request.url += `/${idOrParams}`;
+      } else if (typeof idOrParams !== "undefined") {
+        const validatedParameters = v.parse(SpacedRepetitionSystemParameters, idOrParams);
+        request.url += stringifyParameters(validatedParameters);
+      }
+      return request;
+    },
+  };
+
+  /**
+   * Types of Study Material Requests available in the WaniKani API.
+   */
+  public readonly studyMaterials = {
+    /**
+     * Get a Study Material or Study Material Collection from the WaniKani API.
+     * @param idOrParams The Study Material ID for individual Study Materials, or parameters for Study Material
+     * Collections.
+     * @param options Options for making GET requests to the API.
+     * @returns A Get Study Material(s) Request usabile in any HTTP API/Library.
+     */
+    get: (idOrParams?: StudyMaterialParameters | number, options?: ApiRequestOptions): ApiRequest => {
+      const headers = { ...this._getHeaders };
+      if (typeof options?.customHeaders !== "undefined") {
+        for (const [key, value] of Object.entries(options.customHeaders)) {
+          ApiRequestFactory._validateHeader(key, value);
+          headers[key] = value;
+        }
+      }
+      const request: ApiRequest = {
+        body: null,
+        headers,
+        method: "GET",
+        url: `${this.baseUrl}/study_materials`,
+      };
+      if (typeof idOrParams === "number") {
+        request.url += `/${idOrParams}`;
+      } else if (typeof idOrParams !== "undefined") {
+        const validatedParameters = v.parse(StudyMaterialParameters, idOrParams);
+        request.url += stringifyParameters(validatedParameters);
+      }
+      return request;
+    },
+
+    /**
+     * Create a new Study Material for a given Subject via the WaniKani API.
+     * @param payload The payload to send when creating the new Study Material.
+     * @param options Options for making POST requests to the API.
+     * @returns A Create Study Material Request usabile in any HTTP API/Library.
+     */
+    create: (payload: StudyMaterialCreatePayload, options?: ApiRequestOptions): ApiRequest => {
+      const validatedPayload = v.parse(StudyMaterialCreatePayload, payload);
+      const headers = { ...this._postPutHeaders };
+      if (typeof options !== "undefined") {
+        if (typeof options.customHeaders !== "undefined") {
+          for (const [key, value] of Object.entries(options.customHeaders)) {
+            ApiRequestFactory._validateHeader(key, value);
+            headers[key] = value;
+          }
+        }
+      }
+      const request: ApiRequest = {
+        body: JSON.stringify(validatedPayload),
+        headers,
+        method: "POST",
+        url: `${this.baseUrl}/study_materials`,
+      };
+      return request;
+    },
+
+    /**
+     * Update a Study Material for a given Subject.
+     * @param studyMaterialId The Study Material ID to update.
+     * @param payload The payload to send when updating the Study Material.
+     * @param options Options for making PUT requests to the API.
+     * @returns An Update Study Material Request usabile in any HTTP API/Library.
+     */
+    update: (studyMaterialId: number, payload: StudyMaterialUpdatePayload, options?: ApiRequestOptions): ApiRequest => {
+      const validatedPayload = v.parse(StudyMaterialUpdatePayload, payload);
+      const headers = { ...this._postPutHeaders };
+      if (typeof options !== "undefined") {
+        if (typeof options.customHeaders !== "undefined") {
+          for (const [key, value] of Object.entries(options.customHeaders)) {
+            ApiRequestFactory._validateHeader(key, value);
+            headers[key] = value;
+          }
+        }
+      }
+      const request: ApiRequest = {
+        body: JSON.stringify(validatedPayload),
+        headers,
+        method: "PUT",
+        url: `${this.baseUrl}/study_materials/${studyMaterialId}`,
+      };
+      return request;
+    },
+  };
+
+  /**
+   * Types of Subject Requests available in the WaniKani API.
+   */
+  public readonly subjects = {
+    /**
+     * Get a Subject or Subject Collection from the WaniKani API.
+     * @param idOrParams The Subject ID for individual Subjects, or parameters for Subject Collections.
+     * @param options Options for making GET requests to the API.
+     * @returns A Get Subject(s) Request usabile in any HTTP API/Library.
+     */
+    get: (idOrParams?: SubjectParameters | number, options?: ApiRequestOptions): ApiRequest => {
+      const headers = { ...this._getHeaders };
+      if (typeof options?.customHeaders !== "undefined") {
+        for (const [key, value] of Object.entries(options.customHeaders)) {
+          ApiRequestFactory._validateHeader(key, value);
+          headers[key] = value;
+        }
+      }
+      const request: ApiRequest = {
+        body: null,
+        headers,
+        method: "GET",
+        url: `${this.baseUrl}/subjects`,
+      };
+      if (typeof idOrParams === "number") {
+        request.url += `/${idOrParams}`;
+      } else if (typeof idOrParams !== "undefined") {
+        const validatedParameters = v.parse(SubjectParameters, idOrParams);
+        request.url += stringifyParameters(validatedParameters);
+      }
+      return request;
+    },
+  };
+
+  /**
+   * Types of Summary Requests available in the WaniKani API.
+   */
+  public readonly summary = {
+    /**
+     * Get a summary of a user's available and upcoming lessons/reviews from the WaniKani API.
+     *
+     * @param options Options for making GET requests to the API.
+     * @returns A Get Summary Request usabile in any HTTP API/Library.
+     */
+    get: (options?: ApiRequestOptions): ApiRequest => {
+      const headers = { ...this._getHeaders };
+      if (typeof options?.customHeaders !== "undefined") {
+        for (const [key, value] of Object.entries(options.customHeaders)) {
+          ApiRequestFactory._validateHeader(key, value);
+          headers[key] = value;
+        }
+      }
+      const request: ApiRequest = {
+        body: null,
+        headers,
+        method: "GET",
+        url: `${this.baseUrl}/summary`,
+      };
+      return request;
+    },
+  };
+
+  /**
+   * Types of User Requests available in the WaniKani API.
+   */
+  public readonly user = {
+    /**
+     * Get a user's information from the WaniKani API.
+     *
+     * @param options Options for making GET requests to the API.
+     * @returns A Get User Request usabile in any HTTP API/Library.
+     */
+    get: (options?: ApiRequestOptions): ApiRequest => {
+      const headers = { ...this._getHeaders };
+      if (typeof options?.customHeaders !== "undefined") {
+        for (const [key, value] of Object.entries(options.customHeaders)) {
+          ApiRequestFactory._validateHeader(key, value);
+          headers[key] = value;
+        }
+      }
+      const request: ApiRequest = {
+        body: null,
+        headers,
+        method: "GET",
+        url: `${this.baseUrl}/user`,
+      };
+      return request;
+    },
+
+    /**
+     * Update a User's Preferences via the WaniKani API.
+     *
+     * @param payload The payload containing changed Preferences to send for the update.
+     * @param options Options for making PUT requests to the API.
+     * @returns An Update User Preferences Request usabile in any HTTP API/Library.
+     */
+    updatePreferences: (payload: UserPreferencesPayload, options?: ApiRequestOptions): ApiRequest => {
+      const validatedPayload = v.parse(UserPreferencesPayload, payload);
+      const headers = { ...this._postPutHeaders };
+      if (typeof options !== "undefined") {
+        if (typeof options.customHeaders !== "undefined") {
+          for (const [key, value] of Object.entries(options.customHeaders)) {
+            ApiRequestFactory._validateHeader(key, value);
+            headers[key] = value;
+          }
+        }
+      }
+      const request: ApiRequest = {
+        body: JSON.stringify(validatedPayload),
+        headers,
+        method: "PUT",
+        url: `${this.baseUrl}/user`,
+      };
+      return request;
+    },
+  };
+
+  /**
+   * Types of Voice Actor Requests available in the WaniKani API.
+   */
+  public readonly voiceActors = {
+    /**
+     * Get a Voice Actor or Voice Actor Collection from the WaniKani API.
+     * @param idOrParams The Voice Actor ID for individual Voice Actors, or parameters for Voice Actor Collections.
+     * @param options Options for making GET requests to the API.
+     * @returns A Get Voice Actor(s) Request usabile in any HTTP API/Library.
+     */
+    get: (idOrParams?: VoiceActorParameters | number, options?: ApiRequestOptions): ApiRequest => {
+      const headers = { ...this._getHeaders };
+      if (typeof options?.customHeaders !== "undefined") {
+        for (const [key, value] of Object.entries(options.customHeaders)) {
+          ApiRequestFactory._validateHeader(key, value);
+          headers[key] = value;
+        }
+      }
+      const request: ApiRequest = {
+        body: null,
+        headers,
+        method: "GET",
+        url: `${this.baseUrl}/voice_actors`,
+      };
+      if (typeof idOrParams === "number") {
+        request.url += `/${idOrParams}`;
+      } else if (typeof idOrParams !== "undefined") {
+        const validatedParameters = v.parse(VoiceActorParameters, idOrParams);
+        request.url += stringifyParameters(validatedParameters);
+      }
+      return request;
+    },
+  };
+
   /**
    * The headers set on factory initialization, excluding anything in the `customHeaders` property in
-   * {@link WKRequestFactoryInit}.
+   * {@link ApiRequestFactoryInit}.
    */
-  private readonly _initHeaders: WKRequestHeaders;
+  private readonly _initHeaders: ApiRequestHeaders;
 
   /**
    * The headers that will be added to any GET requests returned by the factory.
    */
-  private _getHeaders: WKRequestHeaders;
+  private _getHeaders: ApiRequestHeaders;
 
   /**
    * The headers that will be added to any POST and PUT requests returned by the factory.
    */
-  private _postPutHeaders: WKRequestHeaders;
+  private _postPutHeaders: ApiRequestHeaders;
 
   /**
    * Initialize the Request Factory.
    * @param init Initialization options for the factory.
    */
-  public constructor(init: WKRequestFactoryInit) {
+  public constructor(init: ApiRequestFactoryInit) {
     this._initHeaders = {
-      Authorization: `Bearer ${init.apiToken}`,
-      "Wanikani-Revision": init.revision ?? "20170710",
+      authorization: `Bearer ${init.apiToken}`,
+      "wanikani-revision": init.revision ?? "20170710",
     };
     this._getHeaders = { ...this._initHeaders };
     this._postPutHeaders = { ...this._initHeaders };
     if (typeof init.customHeaders !== "undefined") {
       for (const [key, value] of Object.entries(init.customHeaders)) {
-        WKRequestFactory.validateHeader(key, value);
+        ApiRequestFactory._validateHeader(key, value);
         this._getHeaders[key] = value;
         this._postPutHeaders[key] = value;
       }
     }
-    this._postPutHeaders["Content-Type"] = "application/json";
-  }
-
-  /**
-   * Returns a collection of requests pertaining to Assignments on the WaniKani API.
-   */
-  public get assignments(): WKAssignmentRequests {
-    return {
-      get: (idOrParams?: WKAssignmentParameters | number, options?: WKRequestGetOptions): WKRequest => {
-        const headers = { ...this._getHeaders };
-        if (typeof options !== "undefined") {
-          if (typeof options.ifModifiedSince !== "undefined") {
-            headers["If-Modified-Since"] = options.ifModifiedSince;
-          }
-          if (typeof options.ifNoneMatch !== "undefined") {
-            headers["If-None-Match"] = options.ifNoneMatch;
-          }
-          if (typeof options.customHeaders !== "undefined") {
-            for (const [key, value] of Object.entries(options.customHeaders)) {
-              WKRequestFactory.validateHeader(key, value);
-              headers[key] = value;
-            }
-          }
-        }
-        const request: WKRequest = {
-          body: null,
-          headers,
-          method: "GET",
-          url: `${baseUrl}/assignments`,
-        };
-        if (typeof idOrParams === "number") {
-          request.url += `/${idOrParams}`;
-        } else if (typeof idOrParams !== "undefined") {
-          // TODO: Validate Parameters
-          request.url += stringifyParameters(idOrParams);
-        }
-        return request;
-      },
-      start: (assignmentId: number, payload: WKAssignmentPayload, options?: WKRequestPostPutOptions): WKRequest => {
-        // TODO: Validate Payload
-        const headers = { ...this._postPutHeaders };
-        if (typeof options !== "undefined") {
-          if (typeof options.customHeaders !== "undefined") {
-            for (const [key, value] of Object.entries(options.customHeaders)) {
-              WKRequestFactory.validateHeader(key, value);
-              headers[key] = value;
-            }
-          }
-        }
-        const request: WKRequest = {
-          body: JSON.stringify(payload),
-          headers,
-          method: "PUT",
-          url: `${baseUrl}/assignments/${assignmentId}/start`,
-        };
-        return request;
-      },
-    };
-  }
-
-  /**
-   * Returns a collection of requests pertaining to Level Progressions on the WaniKani API.
-   */
-  public get levelProgressions(): WKLevelProgressionRequests {
-    return {
-      get: (idOrParams?: WKLevelProgressionParameters | number, options?: WKRequestGetOptions): WKRequest => {
-        const headers = { ...this._getHeaders };
-        if (typeof options !== "undefined") {
-          if (typeof options.ifModifiedSince !== "undefined") {
-            headers["If-Modified-Since"] = options.ifModifiedSince;
-          }
-          if (typeof options.ifNoneMatch !== "undefined") {
-            headers["If-None-Match"] = options.ifNoneMatch;
-          }
-          if (typeof options.customHeaders !== "undefined") {
-            for (const [key, value] of Object.entries(options.customHeaders)) {
-              WKRequestFactory.validateHeader(key, value);
-              headers[key] = value;
-            }
-          }
-        }
-        const request: WKRequest = {
-          body: null,
-          headers,
-          method: "GET",
-          url: `${baseUrl}/level_progressions`,
-        };
-        if (typeof idOrParams === "number") {
-          request.url += `/${idOrParams}`;
-        } else if (typeof idOrParams !== "undefined") {
-          // TODO: Validate Parameters
-          request.url += stringifyParameters(idOrParams);
-        }
-        return request;
-      },
-    };
-  }
-
-  /**
-   * Returns a collection of requests pertaining to Resets on the WaniKani API.
-   */
-  public get resets(): WKResetRequests {
-    return {
-      get: (idOrParams?: WKResetParameters | number, options?: WKRequestGetOptions): WKRequest => {
-        const headers = { ...this._getHeaders };
-        if (typeof options !== "undefined") {
-          if (typeof options.ifModifiedSince !== "undefined") {
-            headers["If-Modified-Since"] = options.ifModifiedSince;
-          }
-          if (typeof options.ifNoneMatch !== "undefined") {
-            headers["If-None-Match"] = options.ifNoneMatch;
-          }
-          if (typeof options.customHeaders !== "undefined") {
-            for (const [key, value] of Object.entries(options.customHeaders)) {
-              WKRequestFactory.validateHeader(key, value);
-              headers[key] = value;
-            }
-          }
-        }
-        const request: WKRequest = {
-          body: null,
-          headers,
-          method: "GET",
-          url: `${baseUrl}/resets`,
-        };
-        if (typeof idOrParams === "number") {
-          request.url += `/${idOrParams}`;
-        } else if (typeof idOrParams !== "undefined") {
-          // TODO: Validate Parameters
-          request.url += stringifyParameters(idOrParams);
-        }
-        return request;
-      },
-    };
-  }
-
-  /**
-   * Returns a collection of requests pertaining to Reviews on the WaniKani API.
-   */
-  public get reviews(): WKReviewRequests {
-    return {
-      create: (payload: WKReviewPayload, options?: WKRequestPostPutOptions): WKRequest => {
-        // TODO: Validate Payload
-        const headers = { ...this._postPutHeaders };
-        if (typeof options !== "undefined") {
-          if (typeof options.customHeaders !== "undefined") {
-            for (const [key, value] of Object.entries(options.customHeaders)) {
-              WKRequestFactory.validateHeader(key, value);
-              headers[key] = value;
-            }
-          }
-        }
-        const request: WKRequest = {
-          body: JSON.stringify(payload),
-          headers,
-          method: "POST",
-          url: `${baseUrl}/reviews`,
-        };
-        return request;
-      },
-      get: (idOrParams?: WKReviewParameters | number, options?: WKRequestGetOptions): WKRequest => {
-        const headers = { ...this._getHeaders };
-        if (typeof options !== "undefined") {
-          if (typeof options.ifModifiedSince !== "undefined") {
-            headers["If-Modified-Since"] = options.ifModifiedSince;
-          }
-          if (typeof options.ifNoneMatch !== "undefined") {
-            headers["If-None-Match"] = options.ifNoneMatch;
-          }
-          if (typeof options.customHeaders !== "undefined") {
-            for (const [key, value] of Object.entries(options.customHeaders)) {
-              WKRequestFactory.validateHeader(key, value);
-              headers[key] = value;
-            }
-          }
-        }
-        const request: WKRequest = {
-          body: null,
-          headers,
-          method: "GET",
-          url: `${baseUrl}/reviews`,
-        };
-        if (typeof idOrParams === "number") {
-          request.url += `/${idOrParams}`;
-        } else if (typeof idOrParams !== "undefined") {
-          // TODO: Validate Parameters
-          request.url += stringifyParameters(idOrParams);
-        }
-        return request;
-      },
-    };
-  }
-
-  /**
-   * Returns a collection of requests pertaining to Review Statistics on the WaniKani API.
-   */
-  public get reviewStatistics(): WKReviewStatisticRequests {
-    return {
-      get: (idOrParams?: WKReviewStatisticParameters | number, options?: WKRequestGetOptions): WKRequest => {
-        const headers = { ...this._getHeaders };
-        if (typeof options !== "undefined") {
-          if (typeof options.ifModifiedSince !== "undefined") {
-            headers["If-Modified-Since"] = options.ifModifiedSince;
-          }
-          if (typeof options.ifNoneMatch !== "undefined") {
-            headers["If-None-Match"] = options.ifNoneMatch;
-          }
-          if (typeof options.customHeaders !== "undefined") {
-            for (const [key, value] of Object.entries(options.customHeaders)) {
-              WKRequestFactory.validateHeader(key, value);
-              headers[key] = value;
-            }
-          }
-        }
-        const request: WKRequest = {
-          body: null,
-          headers,
-          method: "GET",
-          url: `${baseUrl}/review_statistics`,
-        };
-        if (typeof idOrParams === "number") {
-          request.url += `/${idOrParams}`;
-        } else if (typeof idOrParams !== "undefined") {
-          // TODO: Validate Parameters
-          request.url += stringifyParameters(idOrParams);
-        }
-        return request;
-      },
-    };
-  }
-
-  /**
-   * Returns a collection of requests pertaining to Spaced Repetition Systems (SRS) on the WaniKani API.
-   */
-  public get spacedRepetitionSystems(): WKSpacedRepetitionSystemRequests {
-    return {
-      get: (idOrParams?: WKSpacedRepetitionSystemParameters | number, options?: WKRequestGetOptions): WKRequest => {
-        const headers = { ...this._getHeaders };
-        if (typeof options !== "undefined") {
-          if (typeof options.ifModifiedSince !== "undefined") {
-            headers["If-Modified-Since"] = options.ifModifiedSince;
-          }
-          if (typeof options.ifNoneMatch !== "undefined") {
-            headers["If-None-Match"] = options.ifNoneMatch;
-          }
-          if (typeof options.customHeaders !== "undefined") {
-            for (const [key, value] of Object.entries(options.customHeaders)) {
-              WKRequestFactory.validateHeader(key, value);
-              headers[key] = value;
-            }
-          }
-        }
-        const request: WKRequest = {
-          body: null,
-          headers,
-          method: "GET",
-          url: `${baseUrl}/spaced_repetition_systems`,
-        };
-        if (typeof idOrParams === "number") {
-          request.url += `/${idOrParams}`;
-        } else if (typeof idOrParams !== "undefined") {
-          // TODO: Validate Parameters
-          request.url += stringifyParameters(idOrParams);
-        }
-        return request;
-      },
-    };
-  }
-
-  /**
-   * Returns a collection of requests pertaining to Spaced Repetition Systems (SRS) on the WaniKani API.
-   */
-  public get srs(): WKSpacedRepetitionSystemRequests {
-    return this.spacedRepetitionSystems;
-  }
-
-  /**
-   * Returns a collection of requests pertaining to Study Materials on the WaniKani API.
-   */
-  public get studyMaterials(): WKStudyMaterialRequests {
-    return {
-      get: (idOrParams?: WKStudyMaterialParameters | number, options?: WKRequestGetOptions): WKRequest => {
-        const headers = { ...this._getHeaders };
-        if (typeof options !== "undefined") {
-          if (typeof options.ifModifiedSince !== "undefined") {
-            headers["If-Modified-Since"] = options.ifModifiedSince;
-          }
-          if (typeof options.ifNoneMatch !== "undefined") {
-            headers["If-None-Match"] = options.ifNoneMatch;
-          }
-          if (typeof options.customHeaders !== "undefined") {
-            for (const [key, value] of Object.entries(options.customHeaders)) {
-              WKRequestFactory.validateHeader(key, value);
-              headers[key] = value;
-            }
-          }
-        }
-        const request: WKRequest = {
-          body: null,
-          headers,
-          method: "GET",
-          url: `${baseUrl}/study_materials`,
-        };
-        if (typeof idOrParams === "number") {
-          request.url += `/${idOrParams}`;
-        } else if (typeof idOrParams !== "undefined") {
-          // TODO: Validate Parameters
-          request.url += stringifyParameters(idOrParams);
-        }
-        return request;
-      },
-      create: (payload: WKStudyMaterialCreatePayload, options?: WKRequestPostPutOptions): WKRequest => {
-        // TODO: Validate Payload
-        const headers = { ...this._postPutHeaders };
-        if (typeof options !== "undefined") {
-          if (typeof options.customHeaders !== "undefined") {
-            for (const [key, value] of Object.entries(options.customHeaders)) {
-              WKRequestFactory.validateHeader(key, value);
-              headers[key] = value;
-            }
-          }
-        }
-        const request: WKRequest = {
-          body: JSON.stringify(payload),
-          headers,
-          method: "POST",
-          url: `${baseUrl}/study_materials`,
-        };
-        return request;
-      },
-      update: (
-        studyMaterialId: number,
-        payload: WKStudyMaterialUpdatePayload,
-        options?: WKRequestPostPutOptions,
-      ): WKRequest => {
-        // TODO: Validate Payload
-        const headers = { ...this._postPutHeaders };
-        if (typeof options !== "undefined") {
-          if (typeof options.customHeaders !== "undefined") {
-            for (const [key, value] of Object.entries(options.customHeaders)) {
-              WKRequestFactory.validateHeader(key, value);
-              headers[key] = value;
-            }
-          }
-        }
-        const request: WKRequest = {
-          body: JSON.stringify(payload),
-          headers,
-          method: "PUT",
-          url: `${baseUrl}/study_materials/${studyMaterialId}`,
-        };
-        return request;
-      },
-    };
-  }
-
-  /**
-   * Returns a collection of requests pertaining to Subjects on the WaniKani API.
-   */
-  public get subjects(): WKSubjectRequests {
-    return {
-      get: (idOrParams?: WKSubjectParameters | number, options?: WKRequestGetOptions): WKRequest => {
-        const headers = { ...this._getHeaders };
-        if (typeof options !== "undefined") {
-          if (typeof options.ifModifiedSince !== "undefined") {
-            headers["If-Modified-Since"] = options.ifModifiedSince;
-          }
-          if (typeof options.ifNoneMatch !== "undefined") {
-            headers["If-None-Match"] = options.ifNoneMatch;
-          }
-          if (typeof options.customHeaders !== "undefined") {
-            for (const [key, value] of Object.entries(options.customHeaders)) {
-              WKRequestFactory.validateHeader(key, value);
-              headers[key] = value;
-            }
-          }
-        }
-        const request: WKRequest = {
-          body: null,
-          headers,
-          method: "GET",
-          url: `${baseUrl}/subjects`,
-        };
-        if (typeof idOrParams === "number") {
-          request.url += `/${idOrParams}`;
-        } else if (typeof idOrParams !== "undefined") {
-          // TODO: Validate Parameters
-          request.url += stringifyParameters(idOrParams);
-        }
-        return request;
-      },
-    };
-  }
-
-  /**
-   * Returns a collection of requests pertaining to Summaries on the WaniKani API.
-   */
-  public get summary(): WKSummaryRequests {
-    return {
-      get: (options?: WKRequestGetOptions): WKRequest => {
-        const headers = { ...this._getHeaders };
-        if (typeof options !== "undefined") {
-          if (typeof options.ifModifiedSince !== "undefined") {
-            headers["If-Modified-Since"] = options.ifModifiedSince;
-          }
-          if (typeof options.ifNoneMatch !== "undefined") {
-            headers["If-None-Match"] = options.ifNoneMatch;
-          }
-          if (typeof options.customHeaders !== "undefined") {
-            for (const [key, value] of Object.entries(options.customHeaders)) {
-              WKRequestFactory.validateHeader(key, value);
-              headers[key] = value;
-            }
-          }
-        }
-        const request: WKRequest = {
-          body: null,
-          headers,
-          method: "GET",
-          url: `${baseUrl}/summary`,
-        };
-        return request;
-      },
-    };
-  }
-
-  /**
-   * Returns a collection of requests pertaining to Users on the WaniKani API.
-   */
-  public get user(): WKUserRequests {
-    return {
-      get: (options?: WKRequestGetOptions): WKRequest => {
-        const headers = { ...this._getHeaders };
-        if (typeof options !== "undefined") {
-          if (typeof options.ifModifiedSince !== "undefined") {
-            headers["If-Modified-Since"] = options.ifModifiedSince;
-          }
-          if (typeof options.ifNoneMatch !== "undefined") {
-            headers["If-None-Match"] = options.ifNoneMatch;
-          }
-          if (typeof options.customHeaders !== "undefined") {
-            for (const [key, value] of Object.entries(options.customHeaders)) {
-              WKRequestFactory.validateHeader(key, value);
-              headers[key] = value;
-            }
-          }
-        }
-        const request: WKRequest = {
-          body: null,
-          headers,
-          method: "GET",
-          url: `${baseUrl}/user`,
-        };
-        return request;
-      },
-      updatePreferences: (payload: WKUserPreferencesPayload, options?: WKRequestPostPutOptions): WKRequest => {
-        // TODO: Validate Payload
-        const headers = { ...this._postPutHeaders };
-        if (typeof options !== "undefined") {
-          if (typeof options.customHeaders !== "undefined") {
-            for (const [key, value] of Object.entries(options.customHeaders)) {
-              WKRequestFactory.validateHeader(key, value);
-              headers[key] = value;
-            }
-          }
-        }
-        const request: WKRequest = {
-          body: JSON.stringify(payload),
-          headers,
-          method: "PUT",
-          url: `${baseUrl}/user`,
-        };
-        return request;
-      },
-    };
-  }
-
-  /**
-   * Returns a collection of requests pertaining to Voice Actors on the WaniKani API.
-   */
-  public get voiceActors(): WKVoiceActorRequests {
-    return {
-      get: (idOrParams?: WKVoiceActorParameters | number, options?: WKRequestGetOptions): WKRequest => {
-        const headers = { ...this._getHeaders };
-        if (typeof options !== "undefined") {
-          if (typeof options.ifModifiedSince !== "undefined") {
-            headers["If-Modified-Since"] = options.ifModifiedSince;
-          }
-          if (typeof options.ifNoneMatch !== "undefined") {
-            headers["If-None-Match"] = options.ifNoneMatch;
-          }
-          if (typeof options.customHeaders !== "undefined") {
-            for (const [key, value] of Object.entries(options.customHeaders)) {
-              WKRequestFactory.validateHeader(key, value);
-              headers[key] = value;
-            }
-          }
-        }
-        const request: WKRequest = {
-          body: null,
-          headers,
-          method: "GET",
-          url: `${baseUrl}/voice_actors`,
-        };
-        if (typeof idOrParams === "number") {
-          request.url += `/${idOrParams}`;
-        } else if (typeof idOrParams !== "undefined") {
-          // TODO: Validate Parameters
-          request.url += stringifyParameters(idOrParams);
-        }
-        return request;
-      },
-    };
+    this._postPutHeaders["content-type"] = "application/json";
   }
 
   /**
@@ -594,13 +581,17 @@ export class WKRequestFactory {
    * @param key The header key, e.g. `Accpet` or `X-Forwarded-For`
    * @param value The header value, e.g. `application/json` or `192.168.1.1`
    * @throws A `TypeError` if there is an attempt to improperly set type-checked headers.
+   * @internal
    */
-  public static validateHeader(key: string, value: string): void {
-    if (key === "Authorization") {
+  private static _validateHeader(key: string, value: string): void {
+    if (key.toLowerCase() === "authorization") {
       throw new TypeError("WaniKani API Token should be set via setApiToken() method.");
-    } else if (key === "Wanikani-Revision") {
+    } else if (key.toLowerCase() === "wanikani-revision") {
       throw new TypeError("WaniKani API Revision should be set via setApiRevision() method.");
-    } else if ((key === "Accept" || key === "Content-Type") && value !== "application/json") {
+    } else if (
+      (key.toLowerCase() === "accept" || key.toLowerCase() === "content-type") &&
+      value !== "application/json"
+    ) {
       throw new TypeError(`The "${key}" header must be set to "application/json" .`);
     }
   }
@@ -612,7 +603,7 @@ export class WKRequestFactory {
    */
   public addCustomHeaders(headers: Record<string, string>): this {
     for (const [key, value] of Object.entries(headers)) {
-      WKRequestFactory.validateHeader(key, value);
+      ApiRequestFactory._validateHeader(key, value);
       this._getHeaders[key] = value;
       this._postPutHeaders[key] = value;
     }
@@ -653,21 +644,21 @@ export class WKRequestFactory {
     this._getHeaders = { ...this._initHeaders };
     this._postPutHeaders = { ...this._initHeaders };
     for (const [key, value] of Object.entries(headers)) {
-      WKRequestFactory.validateHeader(key, value);
+      ApiRequestFactory._validateHeader(key, value);
       this._getHeaders[key] = value;
       this._postPutHeaders[key] = value;
     }
-    this._postPutHeaders["Content-Type"] = "application/json";
+    this._postPutHeaders["content-type"] = "application/json";
     return this;
   }
 }
 
 /**
- * Initialization options for a {@link WKRequestFactory}.
+ * Initialization options for a {@link ApiRequestFactory}.
  *
  * @category Requests
  */
-export interface WKRequestFactoryInit {
+export interface ApiRequestFactoryInit {
   /** The WaniKani API Token to use in the requests. */
   apiToken: string;
   /** Any additional headers to be added to all requests. */
@@ -683,13 +674,9 @@ export interface WKRequestFactoryInit {
  *
  * @category Requests
  */
-export interface WKRequestGetOptions {
+export interface ApiRequestOptions {
   /** Custom headers to add to this request only. */
   customHeaders?: Record<string, string>;
-  /** Adds an `If-Modified-Since` header to the request. */
-  ifModifiedSince?: string;
-  /** Adds an `If-None-Match` header to the request. */
-  ifNoneMatch?: string;
 }
 
 /**
@@ -697,251 +684,20 @@ export interface WKRequestGetOptions {
  *
  * @category Requests
  */
-export interface WKRequestHeaders {
+export interface ApiRequestHeaders {
   /** HTTP Authorization header, using a Bearer Token. */
-  Authorization: `Bearer ${string}`;
+  authorization: `Bearer ${string}`;
   /** The WaniKani API Revision. */
-  "Wanikani-Revision": ApiRevision;
+  "wanikani-revision": ApiRevision;
   [customHeaders: string]: string;
   /** The client should accept JSON as that is how the WaniKani API's response bodies are formatted. */
-  Accept?: "application/json";
+  accept?: "application/json";
   /** When making a POST or PUT request, the client should indicate they are sending a JSON request body. */
-  "Content-Type"?: "application/json";
+  "content-type"?: "application/json";
   /** An HTTP Date can be sent to check for data changes, and expect an HTTP Status 304 if there are none. */
-  "If-Modified-Since"?: string;
+  "if-modified-since"?: string;
   /** An HTTP ETag can be sent to check for data changes, and expect an HTTP Status 304 if there are none. */
-  "If-None-Match"?: string;
+  "if-none-match"?: string;
   /** A User Agent to better identify who is making the request to the WaniKani API. */
-  "User-Agent"?: string;
-}
-
-/**
- * Options for making POST and PUT Requests to the WaniKani API.
- *
- * @category Requests
- */
-export interface WKRequestPostPutOptions {
-  /** Custom headers to add to this request only. */
-  customHeaders?: Record<string, string>;
-}
-
-/**
- * Types of Assignment Requests available in the WaniKani API.
- *
- * @category Assignments
- * @category Requests
- */
-export interface WKAssignmentRequests {
-  /**
-   * Get an Assignment or Assignment Collection from the WaniKani API.
-   * @param idOrParams The Assignment ID for individual Assignments, or parameters for Assignment Collections.
-   * @param options Options for making GET requests to the API.
-   * @returns A Get Assignment(s) Request usabile in any HTTP API/Library.
-   */
-  get: (idOrParams?: WKAssignmentParameters | number, options?: WKRequestGetOptions) => WKRequest;
-
-  /**
-   * Start an Assignment (i.e. move from Lessons to Reviews) via the WaniKani API.
-   * @param id The Assignment ID to start.
-   * @param payload The payload to send when starting the Assignment.
-   * @param options Options for making PUT requests to the API.
-   * @returns A Start Assignment Request usable in any HTTP API/Library.
-   */
-  start: (id: number, payload: WKAssignmentPayload, options?: WKRequestPostPutOptions) => WKRequest;
-}
-
-/**
- * Types of Level Progression Requests available in the WaniKani API.
- *
- * @category Level Progressions
- * @category Requests
- */
-export interface WKLevelProgressionRequests {
-  /**
-   * Get a Level Progression or Level Progression Collection from the WaniKani API.
-   * @param idOrParams The Level Progression ID for individual Level Progressions, or parameters for Level
-   * Progression Collections.
-   * @param options Options for making GET requests to the API.
-   * @returns A Get Level Progression(s) Request usabile in any HTTP API/Library.
-   */
-  get: (idOrParams?: WKLevelProgressionParameters | number, options?: WKRequestGetOptions) => WKRequest;
-}
-
-/**
- * Types of Reset Requests available in the WaniKani API.
- *
- * @category Requests
- * @category Resets
- */
-export interface WKResetRequests {
-  /**
-   * Get a Reset or Reset Collection from the WaniKani API.
-   * @param idOrParams The Reset ID for individual Resets, or parameters for Reset Collections.
-   * @param options Options for making GET requests to the API.
-   * @returns A Get Reset(s) Request usabile in any HTTP API/Library.
-   */
-  get: (idOrParams?: WKResetParameters | number, options?: WKRequestGetOptions) => WKRequest;
-}
-
-/**
- * Types of Review Requests available in the WaniKani API.
- *
- * @category Requests
- * @category Reviews
- */
-export interface WKReviewRequests {
-  /**
-   * Create a new Review via the WaniKani API.
-   * @param payload The payload to send when creating the Review.
-   * @param options Options for making POST requests to the API.
-   * @returns A Create Review Request usabile in any HTTP API/Library.
-   */
-  create: (payload: WKReviewPayload, options?: WKRequestPostPutOptions) => WKRequest;
-  /**
-   * Get a Review or Review Collection from the WaniKani API.
-   * @param idOrParams The Review ID for individual Reviews, or parameters for Review Collections.
-   * @param options Options for making GET requests to the API.
-   * @returns A Get Review(s) Request usabile in any HTTP API/Library.
-   */
-  get: (idOrParams?: WKReviewParameters | number, options?: WKRequestGetOptions) => WKRequest;
-}
-
-/**
- * Types of Review Statistic Requests available in the WaniKani API.
- *
- * @category Requests
- * @category Review Statistics
- */
-export interface WKReviewStatisticRequests {
-  /**
-   * Get a Review Statistic or Review Statistic Collection from the WaniKani API.
-   * @param idOrParams The Review Statistic ID for individual Review Statistics, or parameters for Review Statistic
-   * Collections.
-   * @param options Options for making GET requests to the API.
-   * @returns A Get Review Statistic(s) Request usabile in any HTTP API/Library.
-   */
-  get: (idOrParams?: WKReviewStatisticParameters | number, options?: WKRequestGetOptions) => WKRequest;
-}
-
-/**
- * Types of Spaced Repetition System (SRS) Requests available in the WaniKani API.
- *
- * @category Requests
- * @category Spaced Repetition Systems
- */
-export interface WKSpacedRepetitionSystemRequests {
-  /**
-   * Get a Spaced Repetition System (SRS) or Spaced Repetition System (SRS) Collection from the WaniKani API.
-   * @param idOrParams The Spaced Repetition System (SRS) ID for individual Spaced Repetition Systems (SRS), or
-   * parameters for Spaced Repetition System (SRS) Collections.
-   * @param options Options for making GET requests to the API.
-   * @returns A Get Spaced Repetition System(s) (SRS) Request usabile in any HTTP API/Library.
-   */
-  get: (idOrParams?: WKSpacedRepetitionSystemParameters | number, options?: WKRequestGetOptions) => WKRequest;
-}
-
-/**
- * Types of Study Material Requests available in the WaniKani API.
- *
- * @category Requests
- * @category Study Materials
- */
-export interface WKStudyMaterialRequests {
-  /**
-   * Create a new Study Material for a given Subject via the WaniKani API.
-   * @param payload The payload to send when creating the new Study Material.
-   * @param options Options for making POST requests to the API.
-   * @returns A Create Study Material Request usabile in any HTTP API/Library.
-   */
-  create: (payload: WKStudyMaterialCreatePayload, options?: WKRequestPostPutOptions) => WKRequest;
-  /**
-   * Get a Study Material or Study Material Collection from the WaniKani API.
-   * @param idOrParams The Study Material ID for individual Study Materials, or parameters for Study Material
-   * Collections.
-   * @param options Options for making GET requests to the API.
-   * @returns A Get Study Material(s) Request usabile in any HTTP API/Library.
-   */
-  get: (idOrParams?: WKStudyMaterialParameters | number, options?: WKRequestGetOptions) => WKRequest;
-
-  /**
-   * Update a Study Material for a given Subject.
-   * @param id The Study Material ID to update.
-   * @param payload The payload to send when updating the Study Material.
-   * @param options Options for making PUT requests to the API.
-   * @returns An Update Study Material Request usabile in any HTTP API/Library.
-   */
-  update: (id: number, payload: WKStudyMaterialUpdatePayload, options?: WKRequestPostPutOptions) => WKRequest;
-}
-
-/**
- * Types of Subject Requests available in the WaniKani API.
- *
- * @category Requests
- * @category Subjects
- */
-export interface WKSubjectRequests {
-  /**
-   * Get a Subject or Subject Collection from the WaniKani API.
-   * @param idOrParams The Subject ID for individual Subjects, or parameters for Subject Collections.
-   * @param options Options for making GET requests to the API.
-   * @returns A Get Subject(s) Request usabile in any HTTP API/Library.
-   */
-  get: (idOrParams?: WKSubjectParameters | number, options?: WKRequestGetOptions) => WKRequest;
-}
-
-/**
- * Types of Summary Requests available in the WaniKani API.
- *
- * @category Requests
- * @category Summary
- */
-export interface WKSummaryRequests {
-  /**
-   * Get a summary of a user's available and upcoming lessons/reviews from the WaniKani API.
-   *
-   * @param options Options for making GET requests to the API.
-   * @returns A Get Summary Request usabile in any HTTP API/Library.
-   */
-  get: (options?: WKRequestGetOptions) => WKRequest;
-}
-
-/**
- * Types of User Requests available in the WaniKani API.
- *
- * @category Requests
- * @category User
- */
-export interface WKUserRequests {
-  /**
-   * Get a user's information from the WaniKani API.
-   *
-   * @param options Options for making GET requests to the API.
-   * @returns A Get User Request usabile in any HTTP API/Library.
-   */
-  get: (options?: WKRequestGetOptions) => WKRequest;
-
-  /**
-   * Update a User's Preferences via the WaniKani API.
-   *
-   * @param payload The payload containing changed Preferences to send for the update.
-   * @param options Options for making PUT requests to the API.
-   * @returns An Update User Preferences Request usabile in any HTTP API/Library.
-   */
-  updatePreferences: (payload: WKUserPreferencesPayload, options?: WKRequestPostPutOptions) => WKRequest;
-}
-
-/**
- * Types of Voice Actor Requests available in the WaniKani API.
- *
- * @category Requests
- * @category Voice Actors
- */
-export interface WKVoiceActorRequests {
-  /**
-   * Get a Voice Actor or Voice Actor Collection from the WaniKani API.
-   * @param idOrParams The Voice Actor ID for individual Voice Actors, or parameters for Voice Actor Collections.
-   * @param options Options for making GET requests to the API.
-   * @returns A Get Voice Actor(s) Request usabile in any HTTP API/Library.
-   */
-  get: (idOrParams?: WKVoiceActorParameters | number, options?: WKRequestGetOptions) => WKRequest;
+  "user-agent"?: string;
 }

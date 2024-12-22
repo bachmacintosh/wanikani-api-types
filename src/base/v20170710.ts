@@ -1,5 +1,5 @@
 import * as v from "valibot";
-import type { WKAssignment, WKAssignmentData, WKAssignmentParameters } from "../assignments/v20170710.js";
+import type { WKAssignment, WKAssignmentData } from "../assignments/v20170710.js";
 import type {
   WKKanaVocabulary,
   WKKanaVocabularyData,
@@ -8,29 +8,16 @@ import type {
   WKRadical,
   WKRadicalData,
   WKSubject,
-  WKSubjectParameters,
   WKVocabulary,
   WKVocabularyData,
 } from "../subjects/v20170710.js";
-import type {
-  WKLevelProgression,
-  WKLevelProgressionData,
-  WKLevelProgressionParameters,
-} from "../level-progressions/v20170710.js";
-import type { WKReset, WKResetData, WKResetParameters } from "../resets/v20170710.js";
-import type { WKReview, WKReviewData, WKReviewParameters } from "../reviews/v20170710.js";
-import type {
-  WKReviewStatistic,
-  WKReviewStatisticData,
-  WKReviewStatisticParameters,
-} from "../review-statistics/v20170710.js";
-import type {
-  WKSpacedRepetitionSystem,
-  WKSpacedRepetitionSystemData,
-  WKSpacedRepetitionSystemParameters,
-} from "../spaced-repetition-systems/v20170710.js";
-import type { WKStudyMaterial, WKStudyMaterialData, WKStudyMaterialParameters } from "../study-materials/v20170710.js";
-import type { WKVoiceActor, WKVoiceActorData, WKVoiceActorParameters } from "../voice-actors/v20170710.js";
+import type { WKLevelProgression, WKLevelProgressionData } from "../level-progressions/v20170710.js";
+import type { WKReset, WKResetData } from "../resets/v20170710.js";
+import type { WKReview, WKReviewData } from "../reviews/v20170710.js";
+import type { WKReviewStatistic, WKReviewStatisticData } from "../review-statistics/v20170710.js";
+import type { WKSpacedRepetitionSystem, WKSpacedRepetitionSystemData } from "../spaced-repetition-systems/v20170710.js";
+import type { WKStudyMaterial, WKStudyMaterialData } from "../study-materials/v20170710.js";
+import type { WKVoiceActor, WKVoiceActorData } from "../voice-actors/v20170710.js";
 import type { WKSummaryData } from "../summary/v20170710.js";
 import type { WKUserData } from "../user/v20170710.js";
 
@@ -65,9 +52,9 @@ export const DatableString = v.pipe(v.string(), v.isoTimestamp(), v.brand("Datab
  *
  * @category Base
  */
-export type Level = v.Brand<"Level"> & number;
+export type Level = number & {};
 const MaxLevel = 60;
-export const Level = v.pipe(v.number(), v.minValue(1), v.maxValue(MaxLevel), v.brand("Level"));
+export const Level = v.pipe(v.number(), v.minValue(1), v.maxValue(MaxLevel));
 
 /**
  * The minimum level provided by WaniKani; exported for use in lieu of a Magic Number.
@@ -224,7 +211,7 @@ export interface WKCollection {
  * @category Base
  * @category Parameters
  */
-export interface WKCollectionParameters {
+export interface CollectionParameters {
   /**
    * Only resources where `data.id` matches one of the array values are returned.
    */
@@ -249,51 +236,12 @@ export interface WKCollectionParameters {
    */
   updated_after?: DatableString | Date;
 }
-
-/**
- * A map between WaniKani API Collection names and their respective types.
- *
- * @category Base
- * @category Parameters
- */
-export interface WKCollectionParametersMap {
-  /**
-   * Parameters for Assignment Collections.
-   */
-  Assignment: WKAssignmentParameters;
-  /**
-   * Parameters for Level Progression Collections.
-   */
-  "Level Progression": WKLevelProgressionParameters;
-  /**
-   * Parameters for Reset Collections.
-   */
-  Reset: WKResetParameters;
-  /**
-   * Parameters for Review Collections.
-   */
-  Review: WKReviewParameters;
-  /**
-   * Parameters for Review Statistic Collections.
-   */
-  "Review Statistic": WKReviewStatisticParameters;
-  /**
-   * Parameters for Spaced Repetition System (SRS) Collections.
-   */
-  "Spaced Repetition System": WKSpacedRepetitionSystemParameters;
-  /**
-   * Parameters for Study Material Collections.
-   */
-  "Study Material": WKStudyMaterialParameters;
-  /**
-   * Parameters for Subject Collections.
-   */
-  Subject: WKSubjectParameters;
-  /**
-   * Parameters for Voice Actor Collections.
-   */
-  "Voice Actor": WKVoiceActorParameters;
-}
+export const CollectionParameters = v.object({
+  ids: v.optional(v.array(v.number())),
+  page_after_id: v.optional(v.number()),
+  page_before_id: v.optional(v.number()),
+  updated_after: v.optional(DatableString),
+});
 
 /**
  * An error response returned by the WaniKani API.
@@ -454,7 +402,7 @@ export interface WKResource {
  * @throws A `TypeError` if a non-object is passed to the function.
  * @category Base
  */
-export function stringifyParameters(params: WKCollectionParameters): string {
+export function stringifyParameters(params: CollectionParameters): string {
   if (typeof params !== "object") {
     throw new TypeError("Parameters must be expressed as an object.");
   }

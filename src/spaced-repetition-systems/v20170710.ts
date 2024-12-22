@@ -1,21 +1,16 @@
 import * as v from "valibot";
-import type { DatableString, WKCollection, WKCollectionParameters, WKResource } from "../base/v20170710.js";
+import { CollectionParameters, type DatableString, type WKCollection, type WKResource } from "../base/v20170710.js";
 
 /**
  * A valid WaniKani Spaced Repetition System (SRS) Stage Number, based on the known SRS' on WaniKani and its API.
  *
  * @category Spaced Repetition Systems
  */
-export type SpacedRepetitionSystemStageNumber = v.Brand<"SpacedRepetitionSystemStageNumber"> & number;
+export type SpacedRepetitionSystemStageNumber = number & {};
 const MinSrsStage = 0;
 const MaxSrsReviewStage = 8;
 const MaxSrsStage = 9;
-export const SpacedRepetitionSystemStageNumber = v.pipe(
-  v.number(),
-  v.minValue(MinSrsStage),
-  v.maxValue(MaxSrsStage),
-  v.brand("SpacedRepetitionSystemStageNumber"),
-);
+export const SpacedRepetitionSystemStageNumber = v.pipe(v.number(), v.minValue(MinSrsStage), v.maxValue(MaxSrsStage));
 
 /**
  * The minimum SRS Stage Number used in WaniKani's SRS; exported for use in lieu of a Magic Number.
@@ -137,7 +132,8 @@ export interface WKSpacedRepetitionSystemData {
  * @category Parameters
  * @category Spaced Repetition Systems
  */
-export type WKSpacedRepetitionSystemParameters = WKCollectionParameters;
+export type SpacedRepetitionSystemParameters = CollectionParameters;
+export const SpacedRepetitionSystemParameters = CollectionParameters;
 
 /**
  * An individual Spaced Repetition System (SRS) Stage.

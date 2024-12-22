@@ -1,4 +1,10 @@
-import type { DatableString, Level, WKCollection, WKCollectionParameters, WKResource } from "../base/v20170710.js";
+import {
+  CollectionParameters,
+  type DatableString,
+  type Level,
+  type WKCollection,
+  type WKResource,
+} from "../base/v20170710.js";
 
 /**
  * Users can reset their progress back to any level at or below their current level. When they reset to a particular
@@ -78,4 +84,5 @@ export interface WKResetData {
  * @category Parameters
  * @category Resets
  */
-export type WKResetParameters = WKCollectionParameters;
+export type ResetParameters = CollectionParameters;
+export const ResetParameters = CollectionParameters;

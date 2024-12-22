@@ -1,11 +1,13 @@
-import type {
-  DatableString,
+import * as v from "valibot";
+import {
+  type CollectionParameters,
+  type DatableString,
   Level,
   SubjectTuple,
-  WKCollection,
-  WKCollectionParameters,
-  WKResource,
+  type WKCollection,
+  type WKResource,
 } from "../base/v20170710.js";
+import { extendCollectionParameters } from "../internal/index.js";
 
 /**
  * The exact structure of a subject depends on the subject type. The available subject types are `kana_vocabulary`,
@@ -629,36 +631,6 @@ export interface WKSubjectMeaning {
 }
 
 /**
- * Parameters that can be passed to the WaniKani API to filter a request for a Subject Collection.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#get-all-subjects}
- * @see {@link stringifyParameters}
- * @category Parameters
- * @category Subjects
- */
-export interface WKSubjectParameters extends WKCollectionParameters {
-  /**
-   * Return subjects which are or are not hidden from the user-facing application.
-   */
-  hidden?: boolean;
-
-  /**
-   * Return subjects at the specified levels.
-   */
-  levels?: Level[];
-
-  /**
-   * Return subjects of the specified slug.
-   */
-  slugs?: string[];
-
-  /**
-   * Return subjects of the specified types.
-   */
-  types?: SubjectTuple;
-}
-
-/**
  * The exact structure of a subject depends on the subject type. The available subject types are `kana_vocabulary`,
  * `kanji`, `radical`, and `vocabulary`. Note that any attributes called out for the specific subject type behaves
  * differently than the common attribute of the same name.
@@ -869,3 +841,41 @@ export interface WKVocabularyReading {
    */
   type?: never;
 }
+
+/**
+ * Parameters that can be passed to the WaniKani API to filter a request for a Subject Collection.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#get-all-subjects}
+ * @see {@link stringifyParameters}
+ * @category Parameters
+ * @category Subjects
+ */
+export interface SubjectParameters extends CollectionParameters {
+  /**
+   * Return subjects which are or are not hidden from the user-facing application.
+   */
+  hidden?: boolean;
+
+  /**
+   * Return subjects at the specified levels.
+   */
+  levels?: Level[];
+
+  /**
+   * Return subjects of the specified slug.
+   */
+  slugs?: string[];
+
+  /**
+   * Return subjects of the specified types.
+   */
+  types?: SubjectTuple;
+}
+export const SubjectParameters = extendCollectionParameters(
+  v.object({
+    hidden: v.optional(v.boolean()),
+    levels: v.optional(v.array(Level)),
+    slugs: v.optional(v.array(v.string())),
+    types: v.optional(SubjectTuple),
+  }),
+);

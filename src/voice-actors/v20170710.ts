@@ -1,4 +1,4 @@
-import type { DatableString, WKCollection, WKCollectionParameters, WKResource } from "../base/v20170710.js";
+import { CollectionParameters, type DatableString, type WKCollection, type WKResource } from "../base/v20170710.js";
 
 /**
  * Available voice actors used for vocabulary reading pronunciation audio.
@@ -74,4 +74,5 @@ export interface WKVoiceActorData {
  * @category Parameters
  * @category Voice Actors
  */
-export type WKVoiceActorParameters = WKCollectionParameters;
+export type VoiceActorParameters = CollectionParameters;
+export const VoiceActorParameters = CollectionParameters;
