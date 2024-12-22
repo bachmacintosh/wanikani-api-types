@@ -616,9 +616,9 @@ export class ApiRequestFactory {
    * @returns The factory, with the newly set WaniKani API Revision.
    */
   public setApiRevision(revision: ApiRevision): this {
-    this._initHeaders["Wanikani-Revision"] = revision;
-    this._getHeaders["Wanikani-Revision"] = revision;
-    this._postPutHeaders["Wanikani-Revision"] = revision;
+    this._initHeaders["wanikani-revision"] = revision;
+    this._getHeaders["wanikani-revision"] = revision;
+    this._postPutHeaders["wanikani-revision"] = revision;
     return this;
   }
 
@@ -628,9 +628,9 @@ export class ApiRequestFactory {
    * @returns The factory, with the newly set WaniKani API Token.
    */
   public setApiToken(token: string): this {
-    this._initHeaders.Authorization = `Bearer ${token}`;
-    this._getHeaders.Authorization = `Bearer ${token}`;
-    this._postPutHeaders.Authorization = `Bearer ${token}`;
+    this._initHeaders.authorization = `Bearer ${token}`;
+    this._getHeaders.authorization = `Bearer ${token}`;
+    this._postPutHeaders.authorization = `Bearer ${token}`;
     return this;
   }
 
