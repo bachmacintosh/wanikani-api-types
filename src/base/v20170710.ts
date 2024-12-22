@@ -240,7 +240,7 @@ export const CollectionParameters = v.object({
   ids: v.optional(v.array(v.number())),
   page_after_id: v.optional(v.number()),
   page_before_id: v.optional(v.number()),
-  updated_after: v.optional(DatableString),
+  updated_after: v.optional(v.union([DatableString, v.date()])),
 });
 
 /**

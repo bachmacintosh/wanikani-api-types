@@ -166,6 +166,6 @@ export const ReviewStatisticParameters = extendCollectionParameters(
     percentages_greater_than: v.optional(v.number()),
     percentages_less_than: v.optional(v.number()),
     subject_ids: v.optional(v.array(v.number())),
-    subject_types: SubjectTuple,
+    subject_types: v.optional(SubjectTuple),
   }),
 );
