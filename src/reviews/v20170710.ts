@@ -1,7 +1,9 @@
-import type { DatableString, WKCollection, WKCollectionParameters, WKResource } from "../base/v20170710.js";
+import * as v from "valibot";
+import { type CollectionParameters, DatableString, type WKCollection, type WKResource } from "../base/v20170710.js";
 import type { SpacedRepetitionSystemStageNumber } from "../spaced-repetition-systems/v20170710.js";
 import type { WKAssignment } from "../assignments/v20170710.js";
 import type { WKReviewStatistic } from "../review-statistics/v20170710.js";
+import { extendCollectionParameters } from "../internal/index.js";
 
 /**
  * The base object used in the request to create a new review via the WaniKani API.
@@ -10,7 +12,7 @@ import type { WKReviewStatistic } from "../review-statistics/v20170710.js";
  * @category Reviews
  * @internal
  */
-interface WKReviewObjectdBase {
+interface ReviewObjectdBase {
   /**
    * Must be zero or a positive number. This is the number of times the meaning was answered incorrectly.
    */
@@ -28,6 +30,11 @@ interface WKReviewObjectdBase {
    */
   created_at?: DatableString | Date;
 }
+const ReviewObjectdBase = v.object({
+  incorrect_meaning_answers: v.number(),
+  incorrect_reading_answers: v.number(),
+  created_at: v.optional(v.union([DatableString, v.date()])),
+});
 
 /**
  * A created review returned from the WaniKani API.
@@ -169,7 +176,7 @@ export interface WKReviewData {
  * @category Parameters
  * @category Reviews
  */
-export interface WKReviewParameters extends WKCollectionParameters {
+export interface ReviewParameters extends CollectionParameters {
   /**
    * Only reviews where `data.assignment_id` matches one of the array values are returned.
    */
@@ -180,6 +187,12 @@ export interface WKReviewParameters extends WKCollectionParameters {
    */
   subject_ids?: number[];
 }
+export const ReviewParameters = extendCollectionParameters(
+  v.object({
+    assignment_ids: v.optional(v.array(v.number())),
+    subject_ids: v.optional(v.array(v.number())),
+  }),
+);
 
 /**
  * The review object used in the request to create a new review via the WaniKani API by Assignment ID.
@@ -187,7 +200,7 @@ export interface WKReviewParameters extends WKCollectionParameters {
  * @see {@link https://docs.api.wanikani.com/20170710/#create-a-review}
  * @category Reviews
  */
-export interface WKReviewObjectWithAssignmentId extends WKReviewObjectdBase {
+export interface ReviewObjectWithAssignmentId extends ReviewObjectdBase {
   /**
    * Unique identifier of the assignment. This or `subject_id` must be set.
    */
@@ -198,6 +211,13 @@ export interface WKReviewObjectWithAssignmentId extends WKReviewObjectdBase {
    */
   subject_id?: never;
 }
+export const ReviewObjectWithAssignmentId = v.intersect([
+  ReviewObjectdBase,
+  v.object({
+    assignment_id: v.number(),
+    subject_id: v.optional(v.never()),
+  }),
+]);
 
 /**
  * The review object used in the request to create a new review via the WaniKani API by Subject ID.
@@ -205,7 +225,7 @@ export interface WKReviewObjectWithAssignmentId extends WKReviewObjectdBase {
  * @see {@link https://docs.api.wanikani.com/20170710/#create-a-review}
  * @category Reviews
  */
-export interface WKReviewObjectWithSubjectId extends WKReviewObjectdBase {
+export interface ReviewObjectWithSubjectId extends ReviewObjectdBase {
   /**
    * Unique identifier of the subject. This or `assignment_id` must be set.
    */
@@ -216,6 +236,13 @@ export interface WKReviewObjectWithSubjectId extends WKReviewObjectdBase {
    */
   assignment_id?: never;
 }
+export const ReviewObjectWithSubjectId = v.intersect([
+  ReviewObjectdBase,
+  v.object({
+    subject_id: v.number(),
+    assignment_id: v.optional(v.never()),
+  }),
+]);
 
 /**
  * The payload used in the request to create a new review via the WaniKani API.
@@ -224,9 +251,12 @@ export interface WKReviewObjectWithSubjectId extends WKReviewObjectdBase {
  * @category Payloads
  * @category Reviews
  */
-export interface WKReviewPayload {
+export interface ReviewPayload {
   /**
    * A review object with either the `assignment_id` or `subject_id` specified.
    */
-  review: WKReviewObjectWithAssignmentId | WKReviewObjectWithSubjectId;
+  review: ReviewObjectWithAssignmentId | ReviewObjectWithSubjectId;
 }
+export const ReviewPayload = v.object({
+  review: v.union([ReviewObjectWithAssignmentId, ReviewObjectWithSubjectId]),
+});

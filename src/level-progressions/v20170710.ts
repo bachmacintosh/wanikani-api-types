@@ -1,4 +1,10 @@
-import type { DatableString, Level, WKCollection, WKCollectionParameters, WKResource } from "../base/v20170710.js";
+import {
+  CollectionParameters,
+  type DatableString,
+  type Level,
+  type WKCollection,
+  type WKResource,
+} from "../base/v20170710.js";
 
 /**
  * Level progressions contain information about a user's progress through the WaniKani levels.
@@ -98,4 +104,5 @@ export interface WKLevelProgressionData {
  * @category Level Progressions
  * @category Parameters
  */
-export type WKLevelProgressionParameters = WKCollectionParameters;
+export type LevelProgressionParameters = CollectionParameters;
+export const LevelProgressionParameters = CollectionParameters;

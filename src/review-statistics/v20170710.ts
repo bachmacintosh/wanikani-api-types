@@ -1,11 +1,13 @@
-import type {
-  DatableString,
+import * as v from "valibot";
+import {
+  type CollectionParameters,
+  type DatableString,
   SubjectTuple,
-  SubjectType,
-  WKCollection,
-  WKCollectionParameters,
-  WKResource,
+  type SubjectType,
+  type WKCollection,
+  type WKResource,
 } from "../base/v20170710.js";
+import { extendCollectionParameters } from "../internal/index.js";
 
 /**
  * Review statistics summarize the activity recorded in reviews. They contain sum the number of correct and incorrect
@@ -131,7 +133,7 @@ export interface WKReviewStatisticData {
  * @category Parameters
  * @category Review Statistics
  */
-export interface WKReviewStatisticParameters extends WKCollectionParameters {
+export interface ReviewStatisticParameters extends CollectionParameters {
   /**
    * Return review statistics with a matching value in the `hidden` attribute.
    */
@@ -158,3 +160,12 @@ export interface WKReviewStatisticParameters extends WKCollectionParameters {
    */
   subject_types?: SubjectTuple;
 }
+export const ReviewStatisticParameters = extendCollectionParameters(
+  v.object({
+    hidden: v.optional(v.boolean()),
+    percentages_greater_than: v.optional(v.number()),
+    percentages_less_than: v.optional(v.number()),
+    subject_ids: v.optional(v.array(v.number())),
+    subject_types: v.optional(SubjectTuple),
+  }),
+);

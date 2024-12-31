@@ -6,15 +6,10 @@ import type { DatableString, Level, WKResource } from "../base/v20170710.js";
  *
  * @category User
  */
-export type LessonBatchSizeNumber = v.Brand<"LessonBatchSizeNumber"> & number;
+export type LessonBatchSizeNumber = number & {};
 const MinLessonBatchSize = 3;
 const MaxLessonBatchSize = 10;
-export const LessonBatchSizeNumber = v.pipe(
-  v.number(),
-  v.minValue(MinLessonBatchSize),
-  v.maxValue(MaxLessonBatchSize),
-  v.brand("LessonBatchSizeNumber"),
-);
+export const LessonBatchSizeNumber = v.pipe(v.number(), v.minValue(MinLessonBatchSize), v.maxValue(MaxLessonBatchSize));
 
 /**
  * The minimum batch size for lessons in the WaniKani app; exported for use in lieu of a Magic Number.
@@ -29,6 +24,66 @@ export const MIN_LESSON_BATCH_SIZE: LessonBatchSizeNumber = v.parse(LessonBatchS
  * @category User
  */
 export const MAX_LESSON_BATCH_SIZE: LessonBatchSizeNumber = v.parse(LessonBatchSizeNumber, MaxLessonBatchSize);
+
+/**
+ * User settings specific to the WaniKani application.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#user}
+ * @category User
+ */
+export interface UserPreferences {
+  /**
+   * The voice actor to be used for lessons and reviews. The value is associated to
+   * `subject.pronunciation_audios.metadata.voice_actor_id`.
+   */
+  default_voice_actor_id: number;
+
+  /**
+   * Automatically play pronunciation audio for vocabulary during extra study.
+   */
+  extra_study_autoplay_audio: boolean;
+
+  /**
+   * Automatically play pronunciation audio for vocabulary during lessons.
+   */
+  lessons_autoplay_audio: boolean;
+
+  /**
+   * Number of subjects introduced to the user during lessons before quizzing.
+   */
+  lessons_batch_size: LessonBatchSizeNumber;
+
+  /**
+   * The order in which lessons are presented. The options are `ascending_level_then_subject`, `shuffled`, and
+   * `ascending_level_then_shuffled`. The default (and best experience) is `ascending_level_then_subject`.
+   */
+  lessons_presentation_order: "ascending_level_then_shuffled" | "ascending_level_then_subject" | "shuffled";
+
+  /**
+   * Automatically play pronunciation audio for vocabulary during reviews.
+   */
+  reviews_autoplay_audio: boolean;
+
+  /**
+   * Toggle for display SRS change indicator after a subject has been completely answered during review.
+   */
+  reviews_display_srs_indicator: boolean;
+
+  /**
+   * The order in which reviews are presented. The options are `lower_levels_first` and `shuffled`.
+   */
+  reviews_presentation_order: "lower_levels_first" | "shuffled";
+}
+export const UserPreferences = v.object({
+  default_voice_actor_id: v.number(),
+  extra_study_autoplay_audio: v.boolean(),
+  lessons_autoplay_audio: v.boolean(),
+  lessons_batch_size: LessonBatchSizeNumber,
+  lessons_presentation_order: v.picklist(["ascending_level_then_shuffled", "ascending_level_then_subject", "shuffled"]),
+  reviews_autoplay_audio: v.boolean(),
+  reviews_display_srs_indicator: v.boolean(),
+  reviews_presentation_order: v.picklist(["lower_levels_first", "shuffled"]),
+});
 
 /**
  * A user and their status/information on WaniKani.
@@ -78,7 +133,7 @@ export interface WKUserData {
   /**
    * User settings specific to the WaniKani application.
    */
-  preferences: WKUserPreferences;
+  preferences: UserPreferences;
 
   /**
    * The URL to the user's public facing profile page.
@@ -99,75 +154,6 @@ export interface WKUserData {
    * The user's username.
    */
   username: string;
-}
-
-/**
- * User settings specific to the WaniKani application.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#user}
- * @category User
- */
-export interface WKUserPreferences {
-  /**
-   * The voice actor to be used for lessons and reviews. The value is associated to
-   * `subject.pronunciation_audios.metadata.voice_actor_id`.
-   */
-  default_voice_actor_id: number;
-
-  /**
-   * Automatically play pronunciation audio for vocabulary during extra study.
-   */
-  extra_study_autoplay_audio: boolean;
-
-  /**
-   * Automatically play pronunciation audio for vocabulary during lessons.
-   */
-  lessons_autoplay_audio: boolean;
-
-  /**
-   * Number of subjects introduced to the user during lessons before quizzing.
-   */
-  lessons_batch_size: LessonBatchSizeNumber;
-
-  /**
-   * The order in which lessons are presented. The options are `ascending_level_then_subject`, `shuffled`, and
-   * `ascending_level_then_shuffled`. The default (and best experience) is `ascending_level_then_subject`.
-   */
-  lessons_presentation_order: "ascending_level_then_shuffled" | "ascending_level_then_subject" | "shuffled";
-
-  /**
-   * Automatically play pronunciation audio for vocabulary during reviews.
-   */
-  reviews_autoplay_audio: boolean;
-
-  /**
-   * Toggle for display SRS change indicator after a subject has been completely answered during review.
-   */
-  reviews_display_srs_indicator: boolean;
-
-  /**
-   * The order in which reviews are presented. The options are `lower_levels_first` and `shuffled`.
-   */
-  reviews_presentation_order: "lower_levels_first" | "shuffled";
-}
-
-/**
- * The payload sent to the WaniKani API to update a user's preferences.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#update-user-information}
- * @category Payloads
- * @category User
- */
-export interface WKUserPreferencesPayload {
-  /**
-   * The user object, as part of the payload.
-   */
-  user: {
-    /**
-     * The user preferences to be updated; only those specified in the object will be updated.
-     */
-    preferences: Partial<WKUserPreferences>;
-  };
 }
 
 /**
@@ -203,3 +189,27 @@ export interface WKUserSubscription {
    */
   type: "free" | "lifetime" | "recurring" | "unknown";
 }
+
+/**
+ * The payload sent to the WaniKani API to update a user's preferences.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#update-user-information}
+ * @category Payloads
+ * @category User
+ */
+export interface UserPreferencesPayload {
+  /**
+   * The user object, as part of the payload.
+   */
+  user: {
+    /**
+     * The user preferences to be updated; only those specified in the object will be updated.
+     */
+    preferences: Partial<UserPreferences>;
+  };
+}
+export const UserPreferencesPayload = v.object({
+  user: v.object({
+    preferences: v.partial(UserPreferences),
+  }),
+});

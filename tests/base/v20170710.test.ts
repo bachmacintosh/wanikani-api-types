@@ -2,6 +2,7 @@ import * as v from "valibot";
 import { expect, describe, test } from "vitest";
 import {
   ApiRevision,
+  CollectionParameters,
   DatableString,
   Level,
   ResourceType,
@@ -9,7 +10,10 @@ import {
   SubjectTuple,
   MAX_LEVEL,
   MIN_LEVEL,
+  stringifyParameters,
 } from "../../src/base/v20170710";
+import { AssignmentParameters } from "../../src/assignments/v20170710";
+import { SubjectParameters } from "../../src/subjects/v20170710";
 
 describe("Revision 20170710: Base", () => {
   test("ApiRevision", () => {
@@ -69,5 +73,78 @@ describe("Revision 20170710: Base", () => {
       "radical",
     ];
     expect(() => v.parse(SubjectTuple, repeatedSubjectTuple)).toThrow();
+  });
+  test("CollectionParameters", () => {
+    const params1: CollectionParameters = {};
+    const params2: CollectionParameters = {
+      ids: [],
+    };
+    const params3: CollectionParameters = {
+      ids: [1, 2, 3],
+      page_after_id: 1,
+      page_before_id: 1,
+    };
+    const params4: CollectionParameters = {
+      updated_after: new Date(),
+    };
+    const params5: CollectionParameters = {
+      updated_after: v.parse(DatableString, new Date().toISOString()),
+    };
+    expect(() => v.parse(CollectionParameters, params1)).not.toThrow();
+    expect(() => v.parse(CollectionParameters, params2)).not.toThrow();
+    expect(() => v.parse(CollectionParameters, params3)).not.toThrow();
+    expect(() => v.parse(CollectionParameters, params4)).not.toThrow();
+    expect(() => v.parse(CollectionParameters, params5)).not.toThrow();
+  });
+});
+
+describe("stringifyParameters", () => {
+  test("Properly stringifies empty objects", () => {
+    const params: AssignmentParameters = {};
+    expect(stringifyParameters(params)).toBe("");
+  });
+
+  test("Properly stringifies booleans", () => {
+    const params: AssignmentParameters = {
+      hidden: false,
+      burned: true,
+    };
+    const expectedString = "?hidden=false&burned=true";
+    expect(stringifyParameters(params)).toBe(expectedString);
+  });
+
+  test("Properly stringifies WaniKani API empty query parameters", () => {
+    const params: AssignmentParameters = {
+      immediately_available_for_lessons: true,
+      immediately_available_for_review: true,
+      in_review: true,
+    };
+    const expectedString = "?immediately_available_for_lessons&immediately_available_for_review&in_review";
+    expect(stringifyParameters(params)).toBe(expectedString);
+  });
+
+  test("Properly stringifies arrays", () => {
+    const params: SubjectParameters = {
+      ids: [1, 2, 3, 4],
+      types: ["radical", "kanji"],
+    };
+    const expectedString = "?ids=1,2,3,4&types=radical,kanji";
+    expect(stringifyParameters(params)).toBe(expectedString);
+  });
+
+  test("Properly stringifies dates", () => {
+    const datableString = v.parse(DatableString, "2022-10-31T12:00:00.000Z");
+    const params: AssignmentParameters = {
+      available_after: datableString,
+      available_before: new Date("2021-10-31T12:00:00.000000Z"),
+    };
+    const expectedString = "?available_after=2022-10-31T12:00:00.000Z&available_before=2021-10-31T12:00:00.000Z";
+    expect(stringifyParameters(params)).toBe(expectedString);
+  });
+
+  test("Throws an error when passed a non-object", () => {
+    const notAnObject = "not an object";
+    // @ts-expect-error
+    expect(() => stringifyParameters(notAnObject)).toThrow("Parameters must be expressed as an object.");
   });
 });

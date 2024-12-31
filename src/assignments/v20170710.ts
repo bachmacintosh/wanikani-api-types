@@ -1,13 +1,15 @@
-import type {
+import * as v from "valibot";
+import {
+  type CollectionParameters,
   DatableString,
   Level,
   SubjectTuple,
-  SubjectType,
-  WKCollection,
-  WKCollectionParameters,
-  WKResource,
+  type SubjectType,
+  type WKCollection,
+  type WKResource,
 } from "../base/v20170710.js";
-import type { SpacedRepetitionSystemStageNumber } from "../spaced-repetition-systems/v20170710.js";
+import { SpacedRepetitionSystemStageNumber } from "../spaced-repetition-systems/v20170710.js";
+import { extendCollectionParameters } from "../internal/index.js";
 
 /**
  * Assignments contain information about a user's progress on a particular subject, including their current state and
@@ -127,7 +129,7 @@ export interface WKAssignmentData {
  * @category Assignments
  * @category Parameters
  */
-export interface WKAssignmentParameters extends WKCollectionParameters {
+export interface AssignmentParameters extends CollectionParameters {
   /**
    * Only assignments available at or after this time are returned.
    */
@@ -199,6 +201,23 @@ export interface WKAssignmentParameters extends WKCollectionParameters {
    */
   unlocked?: boolean;
 }
+export const AssignmentParameters = extendCollectionParameters(
+  v.object({
+    available_after: v.optional(v.union([DatableString, v.date()])),
+    available_before: v.optional(v.union([DatableString, v.date()])),
+    burned: v.optional(v.boolean()),
+    hidden: v.optional(v.boolean()),
+    immediately_available_for_lessons: v.optional(v.boolean()),
+    immediately_available_for_review: v.optional(v.boolean()),
+    in_review: v.optional(v.boolean()),
+    levels: v.optional(v.array(Level)),
+    srs_stages: v.optional(v.array(SpacedRepetitionSystemStageNumber)),
+    started: v.optional(v.boolean()),
+    subject_ids: v.optional(v.array(v.number())),
+    subject_types: v.optional(SubjectTuple),
+    unlocked: v.optional(v.boolean()),
+  }),
+);
 
 /**
  * The optional payload used in the request to start a new assignment via the WaniKani API.
@@ -207,7 +226,7 @@ export interface WKAssignmentParameters extends WKCollectionParameters {
  * @category Assignments
  * @category Payloads
  */
-export interface WKAssignmentPayload {
+export interface AssignmentPayload {
   /**
    * Specify properties of the Assignment; currently only `started_at` is supported.
    */
@@ -218,3 +237,8 @@ export interface WKAssignmentPayload {
     started_at?: DatableString | Date;
   };
 }
+export const AssignmentPayload = v.object({
+  assignment: v.object({
+    started_at: v.optional(v.union([DatableString, v.date()])),
+  }),
+});

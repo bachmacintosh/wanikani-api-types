@@ -26,7 +26,7 @@
     }
   },
   "scripts": {
-    "build": "rimraf dist && tsup --dts --format esm --entry src/index.ts --entry src/v20170710.ts",
+    "build": "rimraf dist && tsup --entry src/index.ts --entry src/v20170710.ts --dts --format esm --treeshake",
     "build:docs": "typedoc",
     "lint": "eslint . && prettier --check .",
     "lint:fix": "eslint --fix . && prettier --write .",
