@@ -1,5 +1,5 @@
 import * as v from "valibot";
-import { type ApiRevision, stringifyParameters } from "../base/v20170710.js";
+import { ApiRevision, stringifyParameters } from "../base/v20170710.js";
 import { AssignmentParameters, AssignmentPayload } from "../assignments/v20170710.js";
 import { ReviewParameters, ReviewPayload } from "../reviews/v20170710.js";
 import {
@@ -616,9 +616,10 @@ export class ApiRequestFactory {
    * @returns The factory, with the newly set WaniKani API Revision.
    */
   public setApiRevision(revision: ApiRevision): this {
-    this._initHeaders["wanikani-revision"] = revision;
-    this._getHeaders["wanikani-revision"] = revision;
-    this._postPutHeaders["wanikani-revision"] = revision;
+    const validRevision = v.parse(ApiRevision, revision);
+    this._initHeaders["wanikani-revision"] = validRevision;
+    this._getHeaders["wanikani-revision"] = validRevision;
+    this._postPutHeaders["wanikani-revision"] = validRevision;
     return this;
   }
 

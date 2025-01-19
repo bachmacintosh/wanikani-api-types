@@ -3,14 +3,20 @@ import { describe, expect, test } from "vitest";
 import { SubjectParameters, WK_SUBJECT_MARKUP_MATCHERS } from "../../src/subjects/v20170710.js";
 import { DatableString } from "../../src/base/v20170710.js";
 
-describe("Revision 20170710: Subjects", () => {
-  test("SubjectParameters", () => {
+describe("SubjectParameters", () => {
+  test("Empty SubjectParameters", () => {
     const params1: SubjectParameters = {};
+    expect(() => v.parse(SubjectParameters, params1)).not.toThrow();
+  });
+  test("SubjectParameters with empty arrays", () => {
     const params2: SubjectParameters = {
       ids: [],
       levels: [],
       slugs: [],
     };
+    expect(() => v.parse(SubjectParameters, params2)).not.toThrow();
+  });
+  test("SubjectParameters with many options filled", () => {
     const params3: SubjectParameters = {
       ids: [1, 2, 3],
       levels: [1, 2, 3],
@@ -20,16 +26,18 @@ describe("Revision 20170710: Subjects", () => {
       page_after_id: 1,
       page_before_id: 1,
     };
+    expect(() => v.parse(SubjectParameters, params3)).not.toThrow();
+  });
+  test("SubjectParameters with Date objects", () => {
     const params4: SubjectParameters = {
       updated_after: new Date(),
     };
+    expect(() => v.parse(SubjectParameters, params4)).not.toThrow();
+  });
+  test("SubjectParameters with DatableString properties", () => {
     const params5: SubjectParameters = {
       updated_after: v.parse(DatableString, new Date().toISOString()),
     };
-    expect(() => v.parse(SubjectParameters, params1)).not.toThrow();
-    expect(() => v.parse(SubjectParameters, params2)).not.toThrow();
-    expect(() => v.parse(SubjectParameters, params3)).not.toThrow();
-    expect(() => v.parse(SubjectParameters, params4)).not.toThrow();
     expect(() => v.parse(SubjectParameters, params5)).not.toThrow();
   });
 });

@@ -14,8 +14,9 @@ import type { SubjectParameters } from "../../src/subjects/v20170710";
 import type { UserPreferencesPayload } from "../../src/user/v20170710";
 import type { VoiceActorParameters } from "../../src/voice-actors/v20170710";
 import { ApiRequestFactory, type ApiRequestOptions } from "../../src/requests/v20170710";
+import { factory } from "typescript";
 
-describe("Revision 20170710: ApiRequestFactory", () => {
+describe("ApiRequestFactory", () => {
   const getOptions: ApiRequestOptions = {
     customHeaders: {
       "x-forwarded-for": "192.168.1.1",
@@ -692,6 +693,17 @@ describe("Revision 20170710: ApiRequestFactory", () => {
     const factory = new ApiRequestFactory({ apiToken: "abc" });
     const request = factory.setApiToken("def").assignments.get(123);
     expect(request.headers).toStrictEqual(expectedHeaders);
+  });
+
+  test("Changes API Revision with setApiRevision()", () => {
+    const factory = new ApiRequestFactory({ apiToken: "abc" });
+    expect(() => factory.setApiRevision("20170710")).not.toThrow();
+  });
+
+  test("Throws when trying to set invalid API Revision", () => {
+    const factory = new ApiRequestFactory({ apiToken: "abc" });
+    // @ts-expect-error
+    expect(() => factory.setApiRevision("20990909")).toThrow();
   });
 
   test("Adds any new headers to requests using addCustomHeaders()", () => {
