@@ -7,21 +7,33 @@ import {
   MIN_LESSON_BATCH_SIZE,
 } from "../../src/user/v20170710";
 
-describe("Revision 20170710: User", () => {
-  test("LessonBatchSizeNumber", () => {
+describe("LessonBatchSizeNumber", () => {
+  test("Invalid Lesson Batch Size: 2", () => {
     expect(() => v.parse(LessonBatchSizeNumber, 2)).toThrow();
-    Array<number>(MAX_LESSON_BATCH_SIZE - 2)
-      .fill(MIN_LESSON_BATCH_SIZE)
-      .map((batchSize, batchSizeIdx) => batchSize + batchSizeIdx)
-      .forEach((batchSize) => expect(() => v.parse(LessonBatchSizeNumber, batchSize)).not.toThrow());
-    expect(() => v.parse(LessonBatchSizeNumber, 11)).toThrow();
   });
-  test("UserPreferencesPayload", () => {
+  Array<number>(MAX_LESSON_BATCH_SIZE - 2)
+    .fill(MIN_LESSON_BATCH_SIZE)
+    .map((batchSize, batchSizeIdx) => batchSize + batchSizeIdx)
+    .forEach((batchSize) => {
+      test(`Valid Lesson Batch Size: ${batchSize}`, () => {
+        expect(() => v.parse(LessonBatchSizeNumber, batchSize)).not.toThrow();
+      });
+    });
+  test(`Invalid Lesson Batch Size: ${MAX_LESSON_BATCH_SIZE + 1}`, () => {
+    expect(() => v.parse(LessonBatchSizeNumber, MAX_LESSON_BATCH_SIZE + 1)).toThrow();
+  });
+});
+
+describe("UserPreferencesPayload", () => {
+  test("Payload with required properties only", () => {
     const payload1: UserPreferencesPayload = {
       user: {
         preferences: {},
       },
     };
+    expect(() => v.parse(UserPreferencesPayload, payload1)).not.toThrow();
+  });
+  test("Payload with all properties", () => {
     const payload2: UserPreferencesPayload = {
       user: {
         preferences: {
@@ -36,7 +48,6 @@ describe("Revision 20170710: User", () => {
         },
       },
     };
-    expect(() => v.parse(UserPreferencesPayload, payload1)).not.toThrow();
     expect(() => v.parse(UserPreferencesPayload, payload2)).not.toThrow();
   });
 });
