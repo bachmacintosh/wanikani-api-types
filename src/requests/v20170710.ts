@@ -690,7 +690,7 @@ export interface ApiRequestHeaders {
   authorization: `Bearer ${string}`;
   /** The WaniKani API Revision. */
   "wanikani-revision": ApiRevision;
-  [customHeaders: string]: string;
+  [customHeaders: string]: string | undefined;
   /** The client should accept JSON as that is how the WaniKani API's response bodies are formatted. */
   accept?: "application/json";
   /** When making a POST or PUT request, the client should indicate they are sending a JSON request body. */
