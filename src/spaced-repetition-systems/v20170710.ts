@@ -1,5 +1,26 @@
 import * as v from "valibot";
-import { CollectionParameters, type DatableString, type WKCollection, type WKResource } from "../base/v20170710.js";
+import { BaseCollection, BaseResource, CollectionParameters, DatableString } from "../base/v20170710.js";
+
+/**
+ * The minimum SRS Stage Number used in WaniKani's SRS; exported for use in lieu of a Magic Number.
+ *
+ * @category Spaced Repetition Systems
+ */
+export const MIN_SRS_STAGE = 0;
+
+/**
+ * The maximum SRS Stage Number used in WaniKani's reviews; exported for use in lieu of a Magic Number.
+ *
+ * @category Spaced Repetition Systems
+ */
+export const MAX_SRS_REVIEW_STAGE = 8;
+
+/**
+ * The maximum SRS Stage Number used in WaniKani's SRS; exported for use in lieu of a Magic Number.
+ *
+ * @category Spaced Repetition Systems
+ */
+export const MAX_SRS_STAGE = 9;
 
 /**
  * A valid WaniKani Spaced Repetition System (SRS) Stage Number, based on the known SRS' on WaniKani and its API.
@@ -7,73 +28,39 @@ import { CollectionParameters, type DatableString, type WKCollection, type WKRes
  * @category Spaced Repetition Systems
  */
 export type SpacedRepetitionSystemStageNumber = number & {};
-const MinSrsStage = 0;
-const MaxSrsReviewStage = 8;
-const MaxSrsStage = 9;
-export const SpacedRepetitionSystemStageNumber = v.pipe(v.number(), v.minValue(MinSrsStage), v.maxValue(MaxSrsStage));
-
-/**
- * The minimum SRS Stage Number used in WaniKani's SRS; exported for use in lieu of a Magic Number.
- *
- * @category Spaced Repetition Systems
- */
-export const MIN_SRS_STAGE: SpacedRepetitionSystemStageNumber = v.parse(SpacedRepetitionSystemStageNumber, MinSrsStage);
-
-/**
- * The maximum SRS Stage Number used in WaniKani's reviews; exported for use in lieu of a Magic Number.
- *
- * @category Spaced Repetition Systems
- */
-export const MAX_SRS_REVIEW_STAGE: SpacedRepetitionSystemStageNumber = v.parse(
-  SpacedRepetitionSystemStageNumber,
-  MaxSrsReviewStage,
+export const SpacedRepetitionSystemStageNumber = v.pipe(
+  v.number(),
+  v.minValue(MIN_SRS_STAGE),
+  v.maxValue(MAX_SRS_STAGE),
 );
 
 /**
- * The maximum SRS Stage Number used in WaniKani's SRS; exported for use in lieu of a Magic Number.
- *
- * @category Spaced Repetition Systems
- */
-export const MAX_SRS_STAGE: SpacedRepetitionSystemStageNumber = v.parse(SpacedRepetitionSystemStageNumber, MaxSrsStage);
-
-/**
- * Available spaced repetition systems used for calculating `srs_stage` changes to Assignments and Reviews. Has
- * relationship with Subjects.
+ * An individual Spaced Repetition System (SRS) Stage.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#spaced-repetition-systems}
- * @category Resources
  * @category Spaced Repetition Systems
  */
-export interface WKSpacedRepetitionSystem extends WKResource {
+export interface SpacedRepetitionSystemStage {
   /**
-   * Data for the return Spaced Repetition System.
+   * The length of time added to the time of review registration, adjusted to the beginning of the hour.
    */
-  data: WKSpacedRepetitionSystemData;
+  interval: number | null;
 
   /**
-   * A unique number identifying the Spaced Repetition System.
+   * Unit of time. Can be the following: `milliseconds`, `seconds`, `minutes`, `hours`, `days`, and `weeks`.
    */
-  id: number;
+  interval_unit: "days" | "hours" | "milliseconds" | "minutes" | "seconds" | "weeks" | null;
 
   /**
-   * The kind of object returned.
+   * The position of the stage within the continuous order.
    */
-  object: "spaced_repetition_system";
+  position: SpacedRepetitionSystemStageNumber;
 }
-
-/**
- * A collection of Spaced Repetition Systems returned from the WaniKani API.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#get-all-spaced-repetition-systems}
- * @category Collections
- * @category Spaced Repetition Systems
- */
-export interface WKSpacedRepetitionSystemCollection extends WKCollection {
-  /**
-   * An array of returned Spaced Repetition Systems.
-   */
-  data: WKSpacedRepetitionSystem[];
-}
+export const SpacedRepetitionSystemStage = v.object({
+  interval: v.union([v.number(), v.null()]),
+  interval_unit: v.union([v.picklist(["days", "hours", "milliseconds", "minutes", "seconds", "weeks"]), v.null()]),
+  position: SpacedRepetitionSystemStageNumber,
+});
 
 /**
  * Data for a Spaced Repetition System returned from the WaniKani API.
@@ -82,7 +69,7 @@ export interface WKSpacedRepetitionSystemCollection extends WKCollection {
  * @category Data
  * @category Spaced Repetition Systems
  */
-export interface WKSpacedRepetitionSystemData {
+export interface SpacedRepetitionSystemData {
   /**
    * `position` of the burning stage.
    */
@@ -111,7 +98,7 @@ export interface WKSpacedRepetitionSystemData {
   /**
    * A collection of stages.
    */
-  stages: WKSpacedRepetitionSystemStage[];
+  stages: SpacedRepetitionSystemStage[];
 
   /**
    * `position` of the starting stage.
@@ -123,6 +110,65 @@ export interface WKSpacedRepetitionSystemData {
    */
   unlocking_stage_position: SpacedRepetitionSystemStageNumber;
 }
+export const SpacedRepetitionSystemData = v.object({
+  burning_stage_position: SpacedRepetitionSystemStageNumber,
+  created_at: DatableString,
+  description: v.string(),
+  name: v.string(),
+  passing_stage_position: SpacedRepetitionSystemStageNumber,
+  stages: v.array(SpacedRepetitionSystemStage),
+  starting_stage_position: SpacedRepetitionSystemStageNumber,
+  unlocking_stage_position: SpacedRepetitionSystemStageNumber,
+});
+
+/**
+ * Available spaced repetition systems used for calculating `srs_stage` changes to Assignments and Reviews. Has
+ * relationship with Subjects.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#spaced-repetition-systems}
+ * @category Resources
+ * @category Spaced Repetition Systems
+ */
+export interface SpacedRepetitionSystem extends BaseResource {
+  /**
+   * Data for the return Spaced Repetition System.
+   */
+  data: SpacedRepetitionSystemData;
+
+  /**
+   * A unique number identifying the Spaced Repetition System.
+   */
+  id: number;
+
+  /**
+   * The kind of object returned.
+   */
+  object: "spaced_repetition_system";
+}
+export const SpacedRepetitionSystem = v.object({
+  ...BaseResource.entries,
+  data: SpacedRepetitionSystemData,
+  id: v.number(),
+  object: v.literal("spaced_repetition_system"),
+});
+
+/**
+ * A collection of Spaced Repetition Systems returned from the WaniKani API.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#get-all-spaced-repetition-systems}
+ * @category Collections
+ * @category Spaced Repetition Systems
+ */
+export interface SpacedRepetitionSystemCollection extends BaseCollection {
+  /**
+   * An array of returned Spaced Repetition Systems.
+   */
+  data: SpacedRepetitionSystem[];
+}
+export const SpacedRepetitionSystemCollection = v.object({
+  ...BaseCollection.entries,
+  data: v.array(SpacedRepetitionSystem),
+});
 
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Spaced Repetition System Collection.
@@ -134,26 +180,3 @@ export interface WKSpacedRepetitionSystemData {
  */
 export type SpacedRepetitionSystemParameters = CollectionParameters;
 export const SpacedRepetitionSystemParameters = CollectionParameters;
-
-/**
- * An individual Spaced Repetition System (SRS) Stage.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#spaced-repetition-systems}
- * @category Spaced Repetition Systems
- */
-export interface WKSpacedRepetitionSystemStage {
-  /**
-   * The length of time added to the time of review registration, adjusted to the beginning of the hour.
-   */
-  interval: number | null;
-
-  /**
-   * Unit of time. Can be the following: `milliseconds`, `seconds`, `minutes`, `hours`, `days`, and `weeks`.
-   */
-  interval_unit: "days" | "hours" | "milliseconds" | "minutes" | "seconds" | "weeks" | null;
-
-  /**
-   * The position of the stage within the continuous order.
-   */
-  position: SpacedRepetitionSystemStageNumber;
-}

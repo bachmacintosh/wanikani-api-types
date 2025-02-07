@@ -1,5 +1,19 @@
 import * as v from "valibot";
-import type { DatableString, Level, WKResource } from "../base/v20170710.js";
+import { BaseResource, DatableString, Level } from "../base/v20170710.js";
+
+/**
+ * The minimum batch size for lessons in the WaniKani app; exported for use in lieu of a Magic Number.
+ *
+ * @category User
+ */
+export const MIN_LESSON_BATCH_SIZE = 3;
+
+/**
+ * The maximum batch size for lessons in the WaniKani app; exported for use in lieu of a Magic Number.
+ *
+ * @category User
+ */
+export const MAX_LESSON_BATCH_SIZE = 10;
 
 /**
  * A number representing a valid lesson batch size in WaniKani, from `3` to `10`.
@@ -7,23 +21,11 @@ import type { DatableString, Level, WKResource } from "../base/v20170710.js";
  * @category User
  */
 export type LessonBatchSizeNumber = number & {};
-const MinLessonBatchSize = 3;
-const MaxLessonBatchSize = 10;
-export const LessonBatchSizeNumber = v.pipe(v.number(), v.minValue(MinLessonBatchSize), v.maxValue(MaxLessonBatchSize));
-
-/**
- * The minimum batch size for lessons in the WaniKani app; exported for use in lieu of a Magic Number.
- *
- * @category User
- */
-export const MIN_LESSON_BATCH_SIZE: LessonBatchSizeNumber = v.parse(LessonBatchSizeNumber, MinLessonBatchSize);
-
-/**
- * The maximum batch size for lessons in the WaniKani app; exported for use in lieu of a Magic Number.
- *
- * @category User
- */
-export const MAX_LESSON_BATCH_SIZE: LessonBatchSizeNumber = v.parse(LessonBatchSizeNumber, MaxLessonBatchSize);
+export const LessonBatchSizeNumber = v.pipe(
+  v.number(),
+  v.minValue(MIN_LESSON_BATCH_SIZE),
+  v.maxValue(MAX_LESSON_BATCH_SIZE),
+);
 
 /**
  * User settings specific to the WaniKani application.
@@ -33,8 +35,8 @@ export const MAX_LESSON_BATCH_SIZE: LessonBatchSizeNumber = v.parse(LessonBatchS
  */
 export interface UserPreferences {
   /**
-   * The voice actor to be used for lessons and reviews. The value is associated to
-   * `subject.pronunciation_audios.metadata.voice_actor_id`.
+   * @deprecated This is a deprecated user preference. It will always return `1` and cannot be set. It exists only to
+   * ensure existing consumers of this API don't break.
    */
   default_voice_actor_id: number;
 
@@ -54,8 +56,8 @@ export interface UserPreferences {
   lessons_batch_size: LessonBatchSizeNumber;
 
   /**
-   * The order in which lessons are presented. The options are `ascending_level_then_subject`, `shuffled`, and
-   * `ascending_level_then_shuffled`. The default (and best experience) is `ascending_level_then_subject`.
+   * @deprecated This is a deprecated user preference. It always returns `ascending_level_then_subject`. Setting this
+   * preference will do nothing. It exists only to ensure existing consumers of this API don't break.
    */
   lessons_presentation_order: "ascending_level_then_shuffled" | "ascending_level_then_subject" | "shuffled";
 
@@ -86,25 +88,44 @@ export const UserPreferences = v.object({
 });
 
 /**
- * A user and their status/information on WaniKani.
+ * Details about the user's subscription state.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#user}
- * @category Resources
  * @category User
  */
-export interface WKUser extends WKResource {
+export interface UserSubscription {
   /**
-   * Data for the returned user.
+   * Whether or not the user currently has a paid subscription.
    */
-  data: WKUserData;
+  active: boolean;
 
   /**
-   * The kind of object returned.
+   * The maximum level of content accessible to the user for lessons, reviews, and content review. For unsubscribed/free
+   * users, the maximum level is `3`. For subscribed users, this is `60`.
+   *
+   * **Any application that uses data from the WaniKani API must respect these access limits.**
    */
-  object: "user";
+  max_level_granted: Level;
 
-  id?: never;
+  /**
+   * The date when the user's subscription period ends. If the user has subscription type `lifetime` or `free` then the
+   * value is `null`.
+   */
+  period_ends_at: DatableString | null;
+
+  /**
+   * The type of subscription the user has. Options are following: `free`, `recurring`, and `lifetime`. A type of
+   * `unknown` means the user subscription state isn't exactly known. This is a weird state on WaniKani, should be
+   * treated as `free`, and reported to the WaniKani developers.
+   */
+  type: "free" | "lifetime" | "recurring" | "unknown";
 }
+export const UserSubscription = v.object({
+  active: v.boolean(),
+  max_level_granted: Level,
+  period_ends_at: v.union([DatableString, v.null()]),
+  type: v.picklist(["free", "lifetime", "recurring", "unknown"]),
+});
 
 /**
  * Data for a user returned from the WaniKani API.
@@ -113,7 +134,7 @@ export interface WKUser extends WKResource {
  * @category Data
  * @category User
  */
-export interface WKUserData {
+export interface UserData {
   /**
    * If the user is on vacation, this will be the timestamp of when that vacation started. If the user is not on
    * vacation, this is `null`.
@@ -148,47 +169,47 @@ export interface WKUserData {
   /**
    * Details about the user's subscription state.
    */
-  subscription: WKUserSubscription;
+  subscription: UserSubscription;
 
   /**
    * The user's username.
    */
   username: string;
 }
+export const UserData = v.object({
+  current_vacation_started_at: v.union([DatableString, v.null()]),
+  id: v.string(),
+  level: Level,
+  preferences: UserPreferences,
+  profile_url: v.string(),
+  started_at: DatableString,
+  subscription: UserSubscription,
+  username: v.string(),
+});
 
 /**
- * Details about the user's subscription state.
+ * A user and their status/information on WaniKani.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#user}
+ * @category Resources
  * @category User
  */
-export interface WKUserSubscription {
+export interface User extends BaseResource {
   /**
-   * Whether or not the user currently has a paid subscription.
+   * Data for the returned user.
    */
-  active: boolean;
+  data: UserData;
 
   /**
-   * The maximum level of content accessible to the user for lessons, reviews, and content review. For unsubscribed/free
-   * users, the maximum level is `3`. For subscribed users, this is `60`.
-   *
-   * **Any application that uses data from the WaniKani API must respect these access limits.**
+   * The kind of object returned.
    */
-  max_level_granted: Level;
-
-  /**
-   * The date when the user's subscription period ends. If the user has subscription type `lifetime` or `free` then the
-   * value is `null`.
-   */
-  period_ends_at: DatableString | null;
-
-  /**
-   * The type of subscription the user has. Options are following: `free`, `recurring`, and `lifetime`. A type of
-   * `unknown` means the user subscription state isn't exactly known. This is a weird state on WaniKani, should be
-   * treated as `free`, and reported to the WaniKani developers.
-   */
-  type: "free" | "lifetime" | "recurring" | "unknown";
+  object: "user";
 }
+export const User = v.object({
+  ...BaseResource.entries,
+  data: UserData,
+  object: v.literal("user"),
+});
 
 /**
  * The payload sent to the WaniKani API to update a user's preferences.

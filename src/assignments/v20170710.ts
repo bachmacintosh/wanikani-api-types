@@ -1,55 +1,14 @@
 import * as v from "valibot";
 import {
-  type CollectionParameters,
+  BaseCollection,
+  BaseResource,
+  CollectionParameters,
   DatableString,
   Level,
   SubjectTuple,
-  type SubjectType,
-  type WKCollection,
-  type WKResource,
+  SubjectType,
 } from "../base/v20170710.js";
 import { SpacedRepetitionSystemStageNumber } from "../spaced-repetition-systems/v20170710.js";
-import { extendCollectionParameters } from "../internal/index.js";
-
-/**
- * Assignments contain information about a user's progress on a particular subject, including their current state and
- * timestamps for various progress milestones. Assignments are created when a user has passed all the components of the
- * given subject and the assignment is at or below their current level for the first time.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#assignments}
- * @category Assignments
- * @category Resources
- */
-export interface WKAssignment extends WKResource {
-  /**
-   * Date for the returned assignment.
-   */
-  data: WKAssignmentData;
-
-  /**
-   * A unique number identifying the assignment.
-   */
-  id: number;
-
-  /**
-   * The kind of object returned.
-   */
-  object: "assignment";
-}
-
-/**
- * A collection of assignments returned from the WaniKani API.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#get-all-assignments}
- * @category Assignments
- * @category Collections
- */
-export interface WKAssignmentCollection extends WKCollection {
-  /**
-   * An array of returned assignments.
-   */
-  data: WKAssignment[];
-}
 
 /**
  * Data for assignments returned from the WaniKani API.
@@ -58,7 +17,7 @@ export interface WKAssignmentCollection extends WKCollection {
  * @category Assignments
  * @category Data
  */
-export interface WKAssignmentData {
+export interface AssignmentData {
   /**
    * When the related subject will be available in the user's review queue.
    */
@@ -106,7 +65,7 @@ export interface WKAssignmentData {
   subject_id: number;
 
   /**
-   * The type of the associated subject, one of: `kanji`, `radical`, or `vocabulary`.
+   * The type of the associated subject.
    */
   subject_type: SubjectType;
 
@@ -119,6 +78,71 @@ export interface WKAssignmentData {
    */
   unlocked_at: DatableString | null;
 }
+export const AssignmentData = v.object({
+  available_at: v.union([DatableString, v.null()]),
+  burned_at: v.union([DatableString, v.null()]),
+  created_at: DatableString,
+  hidden: v.boolean(),
+  passed_at: v.union([DatableString, v.null()]),
+  resurrected_at: v.union([DatableString, v.null()]),
+  srs_stage: SpacedRepetitionSystemStageNumber,
+  started_at: v.union([DatableString, v.null()]),
+  subject_id: v.number(),
+  subject_type: SubjectType,
+  unlocked_at: v.union([DatableString, v.null()]),
+});
+
+/**
+ * Assignments contain information about a user's progress on a particular subject, including their current state and
+ * timestamps for various progress milestones. Assignments are created when a user has passed all the components of the
+ * given subject and the assignment is at or below their current level for the first time.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#assignments}
+ * @category Assignments
+ * @category Resources
+ */
+export interface Assignment extends BaseResource {
+  /**
+   * Data for the returned assignment.
+   */
+  data: AssignmentData;
+
+  /**
+   * A unique number identifying the assignment.
+   */
+  id: number;
+
+  /**
+   * The kind of object returned.
+   */
+  object: "assignment";
+}
+export const Assignment = v.object({
+  ...BaseResource.entries,
+  data: AssignmentData,
+  data_updated_at: DatableString,
+  id: v.number(),
+  object: v.literal("assignment"),
+  url: v.string(),
+});
+
+/**
+ * A collection of assignments returned from the WaniKani API.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#get-all-assignments}
+ * @category Assignments
+ * @category Collections
+ */
+export interface AssignmentCollection extends BaseCollection {
+  /**
+   * An array of returned assignments.
+   */
+  data: Assignment[];
+}
+export const AssignmentCollection = v.object({
+  ...BaseCollection.entries,
+  data: v.array(Assignment),
+});
 
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for an
@@ -190,8 +214,7 @@ export interface AssignmentParameters extends CollectionParameters {
   subject_ids?: number[];
 
   /**
-   * Only assignments where `data.subject_type` matches one of the array values are returned. Valid values are:
-   * `radical`, `kanji`, or `vocabulary`.
+   * Only assignments where `data.subject_type` matches one of the array values are returned.
    */
   subject_types?: SubjectTuple;
 
@@ -201,23 +224,22 @@ export interface AssignmentParameters extends CollectionParameters {
    */
   unlocked?: boolean;
 }
-export const AssignmentParameters = extendCollectionParameters(
-  v.object({
-    available_after: v.optional(v.union([DatableString, v.date()])),
-    available_before: v.optional(v.union([DatableString, v.date()])),
-    burned: v.optional(v.boolean()),
-    hidden: v.optional(v.boolean()),
-    immediately_available_for_lessons: v.optional(v.boolean()),
-    immediately_available_for_review: v.optional(v.boolean()),
-    in_review: v.optional(v.boolean()),
-    levels: v.optional(v.array(Level)),
-    srs_stages: v.optional(v.array(SpacedRepetitionSystemStageNumber)),
-    started: v.optional(v.boolean()),
-    subject_ids: v.optional(v.array(v.number())),
-    subject_types: v.optional(SubjectTuple),
-    unlocked: v.optional(v.boolean()),
-  }),
-);
+export const AssignmentParameters = v.object({
+  ...CollectionParameters.entries,
+  available_after: v.optional(v.union([DatableString, v.date()])),
+  available_before: v.optional(v.union([DatableString, v.date()])),
+  burned: v.optional(v.boolean()),
+  hidden: v.optional(v.boolean()),
+  immediately_available_for_lessons: v.optional(v.boolean()),
+  immediately_available_for_review: v.optional(v.boolean()),
+  in_review: v.optional(v.boolean()),
+  levels: v.optional(v.array(Level)),
+  srs_stages: v.optional(v.array(SpacedRepetitionSystemStageNumber)),
+  started: v.optional(v.boolean()),
+  subject_ids: v.optional(v.array(v.number())),
+  subject_types: v.optional(SubjectTuple),
+  unlocked: v.optional(v.boolean()),
+});
 
 /**
  * The optional payload used in the request to start a new assignment via the WaniKani API.

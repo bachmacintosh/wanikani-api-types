@@ -1,13 +1,12 @@
 import * as v from "valibot";
 import {
-  type CollectionParameters,
-  type DatableString,
+  BaseCollection,
+  BaseResource,
+  CollectionParameters,
+  DatableString,
   SubjectTuple,
-  type SubjectType,
-  type WKCollection,
-  type WKResource,
+  SubjectType,
 } from "../base/v20170710.js";
-import { extendCollectionParameters } from "../internal/index.js";
 
 /**
  * Data found in all study materials whether they are being created/updated, or received from the WaniKani API.
@@ -15,13 +14,13 @@ import { extendCollectionParameters } from "../internal/index.js";
  * @category Data
  * @category Study Materials
  * @remarks For creating study materials, use {@link StudyMaterialCreatePayload}; for updating study materials, use
- * {@link StudyMaterialUpdatePayload}; for study materials received from the API, use {@link WKStudyMaterialData}.
+ * {@link StudyMaterialUpdatePayload}; for study materials received from the API, use {@link StudyMaterialData}.
  */
 export interface StudyMaterialBaseData {
   /**
    * Free form note related to the meaning(s) of the associated subject.
    */
-  meaning_note: string | null;
+  meaning_note: string;
 
   /**
    * Synonyms for the meaning of the subject. These are used as additional correct answers during reviews.
@@ -31,12 +30,12 @@ export interface StudyMaterialBaseData {
   /**
    * Free form note related to the reading(s) of the associated subject.
    */
-  reading_note: string | null;
+  reading_note: string;
 }
 export const StudyMaterialBaseData = v.object({
-  meaning_note: v.union([v.string(), v.null()]),
+  meaning_note: v.string(),
   meaning_synonyms: v.array(v.string()),
-  reading_note: v.union([v.string(), v.null()]),
+  reading_note: v.string(),
 });
 
 /**
@@ -46,7 +45,7 @@ export const StudyMaterialBaseData = v.object({
  * @category Data
  * @category Study Materials
  */
-export interface WKStudyMaterialData extends StudyMaterialBaseData {
+export interface StudyMaterialData extends StudyMaterialBaseData {
   /**
    * Timestamp when the study material was created.
    */
@@ -63,10 +62,17 @@ export interface WKStudyMaterialData extends StudyMaterialBaseData {
   subject_id: number;
 
   /**
-   * The type of the associated subject, one of: `kanji`, `radical`, or `vocabulary`.
+   * The type of the associated subject.
    */
   subject_type: SubjectType;
 }
+export const StudyMaterialData = v.object({
+  ...StudyMaterialBaseData.entries,
+  created_at: DatableString,
+  hidden: v.boolean(),
+  subject_id: v.number(),
+  subject_type: SubjectType,
+});
 
 /**
  * Study materials store user-specific notes and synonyms for a given subject. The records are created as soon as the
@@ -76,11 +82,11 @@ export interface WKStudyMaterialData extends StudyMaterialBaseData {
  * @category Resources
  * @category Study Materials
  */
-export interface WKStudyMaterial extends WKResource {
+export interface StudyMaterial extends BaseResource {
   /**
    * Data for the returned study material.
    */
-  data: WKStudyMaterialData;
+  data: StudyMaterialData;
 
   /**
    * A unique number identifying the study material.
@@ -92,6 +98,12 @@ export interface WKStudyMaterial extends WKResource {
    */
   object: "study_material";
 }
+export const StudyMaterial = v.object({
+  ...BaseResource.entries,
+  data: StudyMaterialData,
+  id: v.number(),
+  object: v.literal("study_material"),
+});
 
 /**
  * A collection of study materials returned from the WaniKani API.
@@ -100,12 +112,16 @@ export interface WKStudyMaterial extends WKResource {
  * @category Collections
  * @category Study Materials
  */
-export interface WKStudyMaterialCollection extends WKCollection {
+export interface StudyMaterialCollection extends BaseCollection {
   /**
    * An array of returned study materials.
    */
-  data: WKStudyMaterial[];
+  data: StudyMaterial[];
 }
+export const StudyMaterialCollection = v.object({
+  ...BaseCollection.entries,
+  data: v.array(StudyMaterial),
+});
 
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Study Material Collection.
@@ -127,18 +143,16 @@ export interface StudyMaterialParameters extends CollectionParameters {
   subject_ids?: number[];
 
   /**
-   * Only study material records where `data.subject_type` matches one of the array values are returned. Valid values
-   * are: `radical`, `kanji`, or `vocabulary`.
+   * Only study material records where `data.subject_type` matches one of the array values are returned.
    */
   subject_types?: SubjectTuple;
 }
-export const StudyMaterialParameters = extendCollectionParameters(
-  v.object({
-    hidden: v.optional(v.boolean()),
-    subject_ids: v.optional(v.array(v.number())),
-    subject_types: v.optional(SubjectTuple),
-  }),
-);
+export const StudyMaterialParameters = v.object({
+  ...CollectionParameters.entries,
+  hidden: v.optional(v.boolean()),
+  subject_ids: v.optional(v.array(v.number())),
+  subject_types: v.optional(SubjectTuple),
+});
 
 /**
  * The payload sent to the WaniKani API when updating study materials.
@@ -163,9 +177,7 @@ export interface StudyMaterialCreatePayload extends StudyMaterialUpdatePayload {
    */
   subject_id: number;
 }
-export const StudyMaterialCreatePayload = v.intersect([
-  StudyMaterialUpdatePayload,
-  v.object({
-    subject_id: v.number(),
-  }),
-]);
+export const StudyMaterialCreatePayload = v.object({
+  ...StudyMaterialUpdatePayload.entries,
+  subject_id: v.number(),
+});
