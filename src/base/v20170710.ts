@@ -241,9 +241,7 @@ export const CollectionParameters = v.object({
  * @category Base
  */
 export function stringifyParameters(params: CollectionParameters): string {
-  if (typeof params !== "object") {
-    throw new TypeError("Parameters must be expressed as an object.");
-  }
+  v.assert(CollectionParameters, params);
   if (Object.keys(params).length === 0) {
     return "";
   }
