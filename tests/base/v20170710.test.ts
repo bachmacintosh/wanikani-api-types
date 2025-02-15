@@ -194,6 +194,8 @@ describe("stringifyParameters", () => {
   test("Throws an error when passed a non-object", () => {
     const notAnObject = "not an object";
     // @ts-expect-error
-    expect(() => stringifyParameters(notAnObject)).toThrow("Parameters must be expressed as an object.");
+    expect(() => stringifyParameters(notAnObject)).toThrow(
+      'Invalid type: Expected Object but received "not an object"',
+    );
   });
 });

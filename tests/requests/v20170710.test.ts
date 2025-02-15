@@ -36,7 +36,7 @@ describe("ApiRequestFactory", () => {
   test("Returns GET request for an Assignment Collection", () => {
     const expectedMethod = "GET";
     const expectedUrl1 = "https://api.wanikani.com/v2/assignments";
-    const expectedUrl2 = "https://api.wanikani.com/v2/assignments?hidden=false&unlocked=true";
+    const expectedUrl2 = "https://api.wanikani.com/v2/assignments?unlocked=true&hidden=false";
     const expectedHeaders1 = {
       authorization: "Bearer abc",
       "wanikani-revision": "20170710",
@@ -271,7 +271,7 @@ describe("ApiRequestFactory", () => {
     expect(request.body).toBe(expectedBody);
   });
 
-  test("Returns POST request for creating a Reviews", () => {
+  test("Returns POST request for creating a Review", () => {
     const expectedMethod = "POST";
     const expectedUrl = "https://api.wanikani.com/v2/reviews";
     const expectedHeaders = {
@@ -280,7 +280,7 @@ describe("ApiRequestFactory", () => {
       "content-type": "application/json",
       "x-forwarded-for": "192.168.1.1",
     };
-    const expectedBody = `{"review":{"incorrect_meaning_answers":0,"incorrect_reading_answers":0,"subject_id":123}}`;
+    const expectedBody = `{"review":{"subject_id":123,"incorrect_meaning_answers":0,"incorrect_reading_answers":0}}`;
 
     const payload: ReviewPayload = {
       review: {
@@ -301,7 +301,7 @@ describe("ApiRequestFactory", () => {
   test("Returns GET request for a Review Statistic Collection", () => {
     const expectedMethod = "GET";
     const expectedUrl1 = "https://api.wanikani.com/v2/review_statistics";
-    const expectedUrl2 = "https://api.wanikani.com/v2/review_statistics?percentages_greater_than=90&subject_ids=1,2,3";
+    const expectedUrl2 = "https://api.wanikani.com/v2/review_statistics?subject_ids=1,2,3&percentages_greater_than=90";
     const expectedHeaders1 = {
       authorization: "Bearer abc",
       "wanikani-revision": "20170710",
@@ -467,7 +467,7 @@ describe("ApiRequestFactory", () => {
       "content-type": "application/json",
       "x-forwarded-for": "192.168.1.1",
     };
-    const expectedBody = `{"meaning_note":"A note","meaning_synonyms":["one","two","three"],"reading_note":"B note","subject_id":123}`;
+    const expectedBody = `{"subject_id":123,"meaning_note":"A note","reading_note":"B note","meaning_synonyms":["one","two","three"]}`;
 
     const payload: StudyMaterialCreatePayload = {
       subject_id: 123,
@@ -493,7 +493,7 @@ describe("ApiRequestFactory", () => {
       "content-type": "application/json",
       "x-forwarded-for": "192.168.1.1",
     };
-    const expectedBody = `{"meaning_note":"A note","meaning_synonyms":["one","two","three"],"reading_note":"B note"}`;
+    const expectedBody = `{"meaning_note":"A note","reading_note":"B note","meaning_synonyms":["one","two","three"]}`;
 
     const payload: StudyMaterialUpdatePayload = {
       meaning_note: "A note",
@@ -512,7 +512,7 @@ describe("ApiRequestFactory", () => {
   test("Returns GET request for a Subject Collection", () => {
     const expectedMethod = "GET";
     const expectedUrl1 = "https://api.wanikani.com/v2/subjects";
-    const expectedUrl2 = "https://api.wanikani.com/v2/subjects?levels=1,2,3&types=radical,kanji";
+    const expectedUrl2 = "https://api.wanikani.com/v2/subjects?types=radical,kanji&levels=1,2,3";
     const expectedHeaders1 = {
       authorization: "Bearer abc",
       "wanikani-revision": "20170710",
