@@ -120,10 +120,8 @@ export interface Assignment extends BaseResource {
 export const Assignment = v.object({
   ...BaseResource.entries,
   data: AssignmentData,
-  data_updated_at: DatableString,
   id: v.number(),
   object: v.literal("assignment"),
-  url: v.string(),
 });
 
 /**
