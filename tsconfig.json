@@ -13,6 +13,6 @@
     "exactOptionalPropertyTypes": false,
     "noUncheckedIndexedAccess": true
   },
-  "include": ["src/**/*.ts", "vitest.config.ts"],
-  "exclude": ["dist/**", "tests/**", "node_modules/**"]
+  "include": ["src/**/*.ts", "tests", "vitest.config.ts"],
+  "exclude": ["dist/**", "node_modules/**"]
 }

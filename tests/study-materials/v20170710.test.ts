@@ -4,8 +4,8 @@ import {
   StudyMaterialParameters,
   StudyMaterialCreatePayload,
   StudyMaterialUpdatePayload,
-} from "../../src/study-materials/v20170710";
-import { DatableString } from "../../src/base/v20170710";
+} from "../../src/study-materials/v20170710.js";
+import { DatableString } from "../../src/base/v20170710.js";
 
 describe("StudyMaterialParameters", () => {
   test("Empty StudyMaterialParameters", () => {

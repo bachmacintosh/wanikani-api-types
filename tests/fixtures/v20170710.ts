@@ -1,28 +1,28 @@
 import * as v from "valibot";
-import { type CollectionParameters, DatableString } from "../../src/base/v20170710";
+import { type CollectionParameters, DatableString } from "../../src/base/v20170710.js";
 import { test } from "vitest";
 
 const emptyParams: CollectionParameters = {};
 
 const assignmentData = {
-  created_at: "2017-10-22T15:41:43.861883Z",
+  created_at: v.parse(DatableString, "2017-10-22T15:41:43.861883Z"),
   subject_id: 8761,
   subject_type: "radical",
   srs_stage: 9,
-  unlocked_at: "2021-07-22T21:03:22.905689Z",
-  started_at: "2021-07-30T15:11:42.594913Z",
-  passed_at: "2021-08-01T04:32:27.017606Z",
-  burned_at: "2022-01-20T20:03:37.269028Z",
+  unlocked_at: v.parse(DatableString, "2021-07-22T21:03:22.905689Z"),
+  started_at: v.parse(DatableString, "2021-07-30T15:11:42.594913Z"),
+  passed_at: v.parse(DatableString, "2021-08-01T04:32:27.017606Z"),
+  burned_at: v.parse(DatableString, "2022-01-20T20:03:37.269028Z"),
   available_at: null,
   resurrected_at: null,
   hidden: false,
-};
+} as const;
 
 const assignment = {
   id: 85041695,
   object: "assignment",
   url: "https://api.wanikani.com/v2/assignments/85041695",
-  data_updated_at: "2025-01-22T18:06:08.895692Z",
+  data_updated_at: v.parse(DatableString, "2025-01-22T18:06:08.895692Z"),
   data: assignmentData,
 };
 
@@ -35,7 +35,7 @@ const assignmentCollection = {
     previous_url: null,
   },
   total_count: 6055,
-  data_updated_at: "2025-02-15T22:19:50.167435Z",
+  data_updated_at: v.parse(DatableString, "2025-02-15T22:19:50.167435Z"),
   data: [assignment],
 };
 

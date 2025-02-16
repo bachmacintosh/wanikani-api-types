@@ -4,7 +4,7 @@ import {
   MAX_SRS_STAGE,
   MIN_SRS_STAGE,
   SpacedRepetitionSystemStageNumber,
-} from "../../src/spaced-repetition-systems/v20170710";
+} from "../../src/spaced-repetition-systems/v20170710.js";
 
 describe("SpacedRepetitionSystemStageNumber", () => {
   test("Invalid SRS Stage Number: -1", () => {

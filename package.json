@@ -30,7 +30,7 @@
     "build:docs": "typedoc",
     "lint": "eslint . && prettier --check .",
     "lint:fix": "eslint --fix . && prettier --write .",
-    "test": "vitest run --typecheck"
+    "test": "vitest run"
   },
   "files": [
     "dist/**/*.{js,d.ts}"

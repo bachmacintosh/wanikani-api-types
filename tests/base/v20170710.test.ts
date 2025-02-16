@@ -11,9 +11,9 @@ import {
   MAX_LEVEL,
   MIN_LEVEL,
   stringifyParameters,
-} from "../../src/base/v20170710";
-import { AssignmentParameters } from "../../src/assignments/v20170710";
-import { SubjectParameters } from "../../src/subjects/v20170710";
+} from "../../src/base/v20170710.js";
+import { AssignmentParameters } from "../../src/assignments/v20170710.js";
+import { SubjectParameters } from "../../src/subjects/v20170710.js";
 
 describe("ApiRevision", () => {
   test("Valid WaniKani API Revision", () => {
@@ -94,7 +94,7 @@ describe("SubjectType", () => {
 
 describe("SubjectTuple", () => {
   test("Empty SubjectTuple throws error", () => {
-    const emptySubjectTuple = [];
+    const emptySubjectTuple: unknown[] = [];
     expect(() => v.parse(SubjectTuple, emptySubjectTuple)).toThrow();
   });
   test("Full SubjectTuple is valid", () => {

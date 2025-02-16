@@ -5,7 +5,7 @@ import {
   UserPreferencesPayload,
   MAX_LESSON_BATCH_SIZE,
   MIN_LESSON_BATCH_SIZE,
-} from "../../src/user/v20170710";
+} from "../../src/user/v20170710.js";
 
 describe("LessonBatchSizeNumber", () => {
   test("Invalid Lesson Batch Size: 2", () => {

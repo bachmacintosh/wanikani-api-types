@@ -1,7 +1,7 @@
 import * as v from "valibot";
 import { describe, expect, test } from "vitest";
-import { DatableString } from "../../src/base/v20170710";
-import { ReviewStatisticParameters } from "../../src/review-statistics/v20170710";
+import { DatableString } from "../../src/base/v20170710.js";
+import { ReviewStatisticParameters } from "../../src/review-statistics/v20170710.js";
 
 describe("ReviewStatisticParameters", () => {
   test("Empty ReviewStatisticParameters", () => {

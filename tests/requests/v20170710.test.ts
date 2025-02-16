@@ -1,20 +1,19 @@
 import { describe, expect, test } from "vitest";
-import type { AssignmentParameters, AssignmentPayload } from "../../src/assignments/v20170710";
-import type { ReviewParameters, ReviewPayload } from "../../src/reviews/v20170710";
+import type { AssignmentParameters, AssignmentPayload } from "../../src/assignments/v20170710.js";
+import type { ReviewParameters, ReviewPayload } from "../../src/reviews/v20170710.js";
 import type {
   StudyMaterialCreatePayload,
   StudyMaterialParameters,
   StudyMaterialUpdatePayload,
-} from "../../src/study-materials/v20170710";
-import type { LevelProgressionParameters } from "../../src/level-progressions/v20170710";
-import type { ResetParameters } from "../../src/resets/v20170710";
-import type { ReviewStatisticParameters } from "../../src/review-statistics/v20170710";
-import type { SpacedRepetitionSystemParameters } from "../../src/spaced-repetition-systems/v20170710";
-import type { SubjectParameters } from "../../src/subjects/v20170710";
-import type { UserPreferencesPayload } from "../../src/user/v20170710";
-import type { VoiceActorParameters } from "../../src/voice-actors/v20170710";
-import { ApiRequestFactory, type ApiRequestOptions } from "../../src/requests/v20170710";
-import { factory } from "typescript";
+} from "../../src/study-materials/v20170710.js";
+import type { LevelProgressionParameters } from "../../src/level-progressions/v20170710.js";
+import type { ResetParameters } from "../../src/resets/v20170710.js";
+import type { ReviewStatisticParameters } from "../../src/review-statistics/v20170710.js";
+import type { SpacedRepetitionSystemParameters } from "../../src/spaced-repetition-systems/v20170710.js";
+import type { SubjectParameters } from "../../src/subjects/v20170710.js";
+import type { UserPreferencesPayload } from "../../src/user/v20170710.js";
+import type { VoiceActorParameters } from "../../src/voice-actors/v20170710.js";
+import { ApiRequestFactory, type ApiRequestOptions } from "../../src/requests/v20170710.js";
 
 describe("ApiRequestFactory", () => {
   const getOptions: ApiRequestOptions = {
