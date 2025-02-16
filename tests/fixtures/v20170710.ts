@@ -1,13 +1,17 @@
 import * as v from "valibot";
-import { type CollectionParameters, DatableString } from "../../src/base/v20170710.js";
+import { type CollectionParameters, DatableString, SubjectTuple } from "../../src/base/v20170710.js";
 import { test } from "vitest";
 
+// Base
+
 const emptyParams: CollectionParameters = {};
+
+// Assignments
 
 const assignmentData = {
   created_at: v.parse(DatableString, "2017-10-22T15:41:43.861883Z"),
   subject_id: 8761,
-  subject_type: "radical",
+  subject_type: "radical" as const,
   srs_stage: 9,
   unlocked_at: v.parse(DatableString, "2021-07-22T21:03:22.905689Z"),
   started_at: v.parse(DatableString, "2021-07-30T15:11:42.594913Z"),
@@ -16,18 +20,18 @@ const assignmentData = {
   available_at: null,
   resurrected_at: null,
   hidden: false,
-} as const;
+};
 
 const assignment = {
   id: 85041695,
-  object: "assignment",
+  object: "assignment" as const,
   url: "https://api.wanikani.com/v2/assignments/85041695",
   data_updated_at: v.parse(DatableString, "2025-01-22T18:06:08.895692Z"),
   data: assignmentData,
 };
 
 const assignmentCollection = {
-  object: "collection",
+  object: "collection" as const,
   url: "https://api.wanikani.com/v2/assignments",
   pages: {
     per_page: 500,
@@ -59,7 +63,7 @@ const assignmentParamsWithManyOptions = {
   srs_stages: [1, 2, 3],
   started: true,
   subject_ids: [1, 2, 3],
-  subject_types: ["kana_vocabulary", "vocabulary"],
+  subject_types: v.parse(SubjectTuple, ["kana_vocabulary", "vocabulary"]),
   unlocked: true,
 };
 
