@@ -7,7 +7,6 @@ import {
   AssignmentParameters,
   AssignmentPayload,
 } from "../../src/assignments/v20170710.js";
-import { DatableString } from "../../src/base/v20170710.js";
 import { testFor } from "../fixtures/v20170710.js";
 
 describe("AssignmentData", () => {
