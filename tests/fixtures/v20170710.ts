@@ -193,6 +193,69 @@ const levelProgressionCollection = {
 
 const requestFactory = new ApiRequestFactory({ apiToken: "abc", revision: "20170710" });
 
+// Review Statistics
+
+const reviewStatisticData = {
+  created_at: v.parse(DatableString, "2017-10-22T15:41:43.876100Z"),
+  subject_id: 8761,
+  subject_type: "radical" as const,
+  meaning_correct: 8,
+  meaning_incorrect: 0,
+  meaning_max_streak: 8,
+  meaning_current_streak: 8,
+  reading_correct: 8,
+  reading_incorrect: 0,
+  reading_max_streak: 8,
+  reading_current_streak: 8,
+  percentage_correct: 100,
+  hidden: false,
+};
+
+const reviewStatistic = {
+  id: 85040524,
+  object: "review_statistic" as const,
+  url: "https://api.wanikani.com/v2/review_statistics/85040524",
+  data_updated_at: v.parse(DatableString, "2025-01-22T18:06:07.048082Z"),
+  data: reviewStatisticData,
+};
+
+const reviewStatisticCollection = {
+  object: "collection" as const,
+  url: "https://api.wanikani.com/v2/review_statistics",
+  pages: {
+    per_page: 500,
+    next_url: null,
+    previous_url: null,
+  },
+  total_count: 5984,
+  data_updated_at: v.parse(DatableString, "2025-01-22T18:06:07.048082Z"),
+  data: [reviewStatistic],
+};
+
+const reviewStatisticParamsWithEmptyArrays = {
+  ids: [],
+  subject_ids: [],
+};
+
+const reviewStatisticParamsWithManyOptions = {
+  ids: [1, 2, 3],
+  page_after_id: 1,
+  page_before_id: 1,
+  hidden: false,
+  percentages_greater_than: 90,
+  percentages_less_than: 100,
+  subject_ids: [1, 2, 3],
+  subject_types: v.parse(SubjectTuple, ["kana_vocabulary", "vocabulary"]),
+};
+
+const reviewStatisticParamsWithDates = {
+  updated_after: new Date(),
+};
+
+const reviewStatisticParamsWithDatableStrings = {
+  updated_after: v.parse(DatableString, new Date().toISOString()),
+};
+
 export const testFor = test.extend({
   apiRevision,
   dateTimeUtcString,
@@ -224,4 +287,11 @@ export const testFor = test.extend({
   levelProgression,
   levelProgressionCollection,
   requestFactory,
+  reviewStatisticData,
+  reviewStatistic,
+  reviewStatisticCollection,
+  reviewStatisticParamsWithEmptyArrays,
+  reviewStatisticParamsWithManyOptions,
+  reviewStatisticParamsWithDates,
+  reviewStatisticParamsWithDatableStrings,
 });
