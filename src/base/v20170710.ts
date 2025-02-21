@@ -321,3 +321,7 @@ export interface ApiError {
    */
   error: string;
 }
+export const ApiError = v.object({
+  code: v.number(),
+  error: v.string(),
+});
