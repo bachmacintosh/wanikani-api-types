@@ -155,6 +155,39 @@ const assignmentPayloadWithDatableString = {
   },
 };
 
+// Level Progressions
+
+const levelProgressionData = {
+  created_at: v.parse(DatableString, "2017-10-22T15:41:43.832193Z"),
+  level: 1,
+  unlocked_at: v.parse(DatableString, "2017-10-22T15:41:43.830826Z"),
+  started_at: v.parse(DatableString, "2017-10-22T16:01:12.321365Z"),
+  passed_at: v.parse(DatableString, "2017-10-31T11:18:33.026476Z"),
+  completed_at: null,
+  abandoned_at: null,
+};
+
+const levelProgression = {
+  id: 188765,
+  object: "level_progression" as const,
+  url: "https://api.wanikani.com/v2/level_progressions/188765",
+  data_updated_at: v.parse(DatableString, "2017-10-31T11:18:33.036424Z"),
+  data: levelProgressionData,
+};
+
+const levelProgressionCollection = {
+  object: "collection" as const,
+  url: "https://api.wanikani.com/v2/level_progressions",
+  pages: {
+    per_page: 500,
+    next_url: null,
+    previous_url: null,
+  },
+  total_count: 50,
+  data_updated_at: v.parse(DatableString, "2025-02-20T02:00:33.397409Z"),
+  data: [levelProgression],
+};
+
 export const testFor = test.extend({
   apiRevision,
   dateTimeUtcString,
@@ -182,4 +215,7 @@ export const testFor = test.extend({
   assignmentPayloadWithNoTime,
   assignmentPayloadWithDate,
   assignmentPayloadWithDatableString,
+  levelProgressionData,
+  levelProgression,
+  levelProgressionCollection,
 });
