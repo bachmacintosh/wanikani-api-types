@@ -6,7 +6,7 @@ import type {
   StudyMaterialParameters,
   StudyMaterialUpdatePayload,
 } from "../../src/study-materials/v20170710.js";
-import { describe, expect, test } from "vitest";
+import { describe, expect } from "vitest";
 import type { LevelProgressionParameters } from "../../src/level-progressions/v20170710.js";
 import type { ResetParameters } from "../../src/resets/v20170710.js";
 import type { ReviewStatisticParameters } from "../../src/review-statistics/v20170710.js";
@@ -14,6 +14,7 @@ import type { SpacedRepetitionSystemParameters } from "../../src/spaced-repetiti
 import type { SubjectParameters } from "../../src/subjects/v20170710.js";
 import type { UserPreferencesPayload } from "../../src/user/v20170710.js";
 import type { VoiceActorParameters } from "../../src/voice-actors/v20170710.js";
+import { testFor } from "../fixtures/v20170710.js";
 
 describe("ApiRequestFactory", () => {
   const getOptions: ApiRequestOptions = {
@@ -30,9 +31,7 @@ describe("ApiRequestFactory", () => {
     },
   };
 
-  const wanikani = new ApiRequestFactory({ apiToken: "abc", revision: "20170710" });
-
-  test("Returns GET request for an Assignment Collection", () => {
+  testFor("Returns GET request for an Assignment Collection", ({ requestFactory }) => {
     const expectedMethod = "GET";
     const expectedUrl1 = "https://api.wanikani.com/v2/assignments";
     const expectedUrl2 = "https://api.wanikani.com/v2/assignments?unlocked=true&hidden=false";
@@ -54,8 +53,8 @@ describe("ApiRequestFactory", () => {
       hidden: false,
     };
 
-    const request1 = wanikani.assignments.get({}, getOptions);
-    const request2 = wanikani.assignments.get(params);
+    const request1 = requestFactory.assignments.get({}, getOptions);
+    const request2 = requestFactory.assignments.get(params);
 
     expect(request1.method).toBe(expectedMethod);
     expect(request1.url).toBe(expectedUrl1);
@@ -68,7 +67,7 @@ describe("ApiRequestFactory", () => {
     expect(request2.body).toBe(expectedBody);
   });
 
-  test("Returns GET request for an Assignment", () => {
+  testFor("Returns GET request for an Assignment", ({ requestFactory }) => {
     const expectedMethod = "GET";
     const expectedUrl = "https://api.wanikani.com/v2/assignments/123";
     const expectedHeaders = {
@@ -77,7 +76,7 @@ describe("ApiRequestFactory", () => {
     };
     const expectedBody = null;
 
-    const request = wanikani.assignments.get(123);
+    const request = requestFactory.assignments.get(123);
 
     expect(request.method).toBe(expectedMethod);
     expect(request.url).toBe(expectedUrl);
@@ -85,7 +84,7 @@ describe("ApiRequestFactory", () => {
     expect(request.body).toBe(expectedBody);
   });
 
-  test("Returns PUT request for starting an Assignment", () => {
+  testFor("Returns PUT request for starting an Assignment", ({ requestFactory }) => {
     const expectedMethod = "PUT";
     const expectedUrl = "https://api.wanikani.com/v2/assignments/123/start";
     const expectedHeaders = {
@@ -102,7 +101,7 @@ describe("ApiRequestFactory", () => {
       },
     };
 
-    const request = wanikani.assignments.start(123, payload, putPostOptions);
+    const request = requestFactory.assignments.start(123, payload, putPostOptions);
 
     expect(request.method).toBe(expectedMethod);
     expect(request.url).toBe(expectedUrl);
@@ -110,7 +109,7 @@ describe("ApiRequestFactory", () => {
     expect(request.body).toBe(expectedBody);
   });
 
-  test("Returns GET request for a Level Progression Collection", () => {
+  testFor("Returns GET request for a Level Progression Collection", ({ requestFactory }) => {
     const expectedMethod = "GET";
     const expectedUrl1 = "https://api.wanikani.com/v2/level_progressions";
     const expectedUrl2 =
@@ -133,8 +132,8 @@ describe("ApiRequestFactory", () => {
       updated_after: new Date("2023-03-01T12:00:00.000Z"),
     };
 
-    const request1 = wanikani.levelProgressions.get({}, getOptions);
-    const request2 = wanikani.levelProgressions.get(params);
+    const request1 = requestFactory.levelProgressions.get({}, getOptions);
+    const request2 = requestFactory.levelProgressions.get(params);
 
     expect(request1.method).toBe(expectedMethod);
     expect(request1.url).toBe(expectedUrl1);
@@ -147,7 +146,7 @@ describe("ApiRequestFactory", () => {
     expect(request2.body).toBe(expectedBody);
   });
 
-  test("Returns GET request for a Level Progression", () => {
+  testFor("Returns GET request for a Level Progression", ({ requestFactory }) => {
     const expectedMethod = "GET";
     const expectedUrl = "https://api.wanikani.com/v2/level_progressions/123";
     const expectedHeaders = {
@@ -156,7 +155,7 @@ describe("ApiRequestFactory", () => {
     };
     const expectedBody = null;
 
-    const request = wanikani.levelProgressions.get(123);
+    const request = requestFactory.levelProgressions.get(123);
 
     expect(request.method).toBe(expectedMethod);
     expect(request.url).toBe(expectedUrl);
@@ -164,7 +163,7 @@ describe("ApiRequestFactory", () => {
     expect(request.body).toBe(expectedBody);
   });
 
-  test("Returns GET request for a Reset Collection", () => {
+  testFor("Returns GET request for a Reset Collection", ({ requestFactory }) => {
     const expectedMethod = "GET";
     const expectedUrl1 = "https://api.wanikani.com/v2/resets";
     const expectedUrl2 = "https://api.wanikani.com/v2/resets?ids=1,2,3&updated_after=2023-03-01T12:00:00.000Z";
@@ -186,8 +185,8 @@ describe("ApiRequestFactory", () => {
       updated_after: new Date("2023-03-01T12:00:00.000Z"),
     };
 
-    const request1 = wanikani.resets.get({}, getOptions);
-    const request2 = wanikani.resets.get(params);
+    const request1 = requestFactory.resets.get({}, getOptions);
+    const request2 = requestFactory.resets.get(params);
 
     expect(request1.method).toBe(expectedMethod);
     expect(request1.url).toBe(expectedUrl1);
@@ -200,7 +199,7 @@ describe("ApiRequestFactory", () => {
     expect(request2.body).toBe(expectedBody);
   });
 
-  test("Returns GET request for a Reset", () => {
+  testFor("Returns GET request for a Reset", ({ requestFactory }) => {
     const expectedMethod = "GET";
     const expectedUrl = "https://api.wanikani.com/v2/resets/123";
     const expectedHeaders = {
@@ -209,7 +208,7 @@ describe("ApiRequestFactory", () => {
     };
     const expectedBody = null;
 
-    const request = wanikani.resets.get(123);
+    const request = requestFactory.resets.get(123);
 
     expect(request.method).toBe(expectedMethod);
     expect(request.url).toBe(expectedUrl);
@@ -217,7 +216,7 @@ describe("ApiRequestFactory", () => {
     expect(request.body).toBe(expectedBody);
   });
 
-  test("Returns GET request for a Review Collection", () => {
+  testFor("Returns GET request for a Review Collection", ({ requestFactory }) => {
     const expectedMethod = "GET";
     const expectedUrl1 = "https://api.wanikani.com/v2/reviews";
     const expectedUrl2 = "https://api.wanikani.com/v2/reviews?assignment_ids=1,2,3&subject_ids=4,5,6";
@@ -239,8 +238,8 @@ describe("ApiRequestFactory", () => {
       subject_ids: [4, 5, 6],
     };
 
-    const request1 = wanikani.reviews.get({}, getOptions);
-    const request2 = wanikani.reviews.get(params);
+    const request1 = requestFactory.reviews.get({}, getOptions);
+    const request2 = requestFactory.reviews.get(params);
 
     expect(request1.method).toBe(expectedMethod);
     expect(request1.url).toBe(expectedUrl1);
@@ -253,7 +252,7 @@ describe("ApiRequestFactory", () => {
     expect(request2.body).toBe(expectedBody);
   });
 
-  test("Returns GET request for a Review", () => {
+  testFor("Returns GET request for a Review", ({ requestFactory }) => {
     const expectedMethod = "GET";
     const expectedUrl = "https://api.wanikani.com/v2/reviews/123";
     const expectedHeaders = {
@@ -262,7 +261,7 @@ describe("ApiRequestFactory", () => {
     };
     const expectedBody = null;
 
-    const request = wanikani.reviews.get(123);
+    const request = requestFactory.reviews.get(123);
 
     expect(request.method).toBe(expectedMethod);
     expect(request.url).toBe(expectedUrl);
@@ -270,7 +269,7 @@ describe("ApiRequestFactory", () => {
     expect(request.body).toBe(expectedBody);
   });
 
-  test("Returns POST request for creating a Review", () => {
+  testFor("Returns POST request for creating a Review", ({ requestFactory }) => {
     const expectedMethod = "POST";
     const expectedUrl = "https://api.wanikani.com/v2/reviews";
     const expectedHeaders = {
@@ -289,7 +288,7 @@ describe("ApiRequestFactory", () => {
       },
     };
 
-    const request = wanikani.reviews.create(payload, putPostOptions);
+    const request = requestFactory.reviews.create(payload, putPostOptions);
 
     expect(request.method).toBe(expectedMethod);
     expect(request.url).toBe(expectedUrl);
@@ -297,7 +296,7 @@ describe("ApiRequestFactory", () => {
     expect(request.body).toBe(expectedBody);
   });
 
-  test("Returns GET request for a Review Statistic Collection", () => {
+  testFor("Returns GET request for a Review Statistic Collection", ({ requestFactory }) => {
     const expectedMethod = "GET";
     const expectedUrl1 = "https://api.wanikani.com/v2/review_statistics";
     const expectedUrl2 = "https://api.wanikani.com/v2/review_statistics?subject_ids=1,2,3&percentages_greater_than=90";
@@ -319,8 +318,8 @@ describe("ApiRequestFactory", () => {
       percentages_greater_than: 90,
     };
 
-    const request1 = wanikani.reviewStatistics.get({}, getOptions);
-    const request2 = wanikani.reviewStatistics.get(params);
+    const request1 = requestFactory.reviewStatistics.get({}, getOptions);
+    const request2 = requestFactory.reviewStatistics.get(params);
 
     expect(request1.method).toBe(expectedMethod);
     expect(request1.url).toBe(expectedUrl1);
@@ -333,7 +332,7 @@ describe("ApiRequestFactory", () => {
     expect(request2.body).toBe(expectedBody);
   });
 
-  test("Returns GET request for a Review Statistic", () => {
+  testFor("Returns GET request for a Review Statistic", ({ requestFactory }) => {
     const expectedMethod = "GET";
     const expectedUrl = "https://api.wanikani.com/v2/review_statistics/123";
     const expectedHeaders = {
@@ -342,7 +341,7 @@ describe("ApiRequestFactory", () => {
     };
     const expectedBody = null;
 
-    const request = wanikani.reviewStatistics.get(123);
+    const request = requestFactory.reviewStatistics.get(123);
 
     expect(request.method).toBe(expectedMethod);
     expect(request.url).toBe(expectedUrl);
@@ -350,7 +349,7 @@ describe("ApiRequestFactory", () => {
     expect(request.body).toBe(expectedBody);
   });
 
-  test("Returns GET request for a Spaced repetition System Collection", () => {
+  testFor("Returns GET request for a Spaced Repetition System Collection", ({ requestFactory }) => {
     const expectedMethod = "GET";
     const expectedUrl1 = "https://api.wanikani.com/v2/spaced_repetition_systems";
     const expectedUrl2 =
@@ -373,8 +372,8 @@ describe("ApiRequestFactory", () => {
       updated_after: new Date("2023-03-01T12:00:00.000Z"),
     };
 
-    const request1 = wanikani.spacedRepetitionSystems.get({}, getOptions);
-    const request2 = wanikani.spacedRepetitionSystems.get(params);
+    const request1 = requestFactory.spacedRepetitionSystems.get({}, getOptions);
+    const request2 = requestFactory.spacedRepetitionSystems.get(params);
 
     expect(request1.method).toBe(expectedMethod);
     expect(request1.url).toBe(expectedUrl1);
@@ -387,7 +386,7 @@ describe("ApiRequestFactory", () => {
     expect(request2.body).toBe(expectedBody);
   });
 
-  test("Returns GET request for a Spaced repetition System", () => {
+  testFor("Returns GET request for a Spaced Repetition System", ({ requestFactory }) => {
     const expectedMethod = "GET";
     const expectedUrl = "https://api.wanikani.com/v2/spaced_repetition_systems/123";
     const expectedHeaders = {
@@ -396,7 +395,7 @@ describe("ApiRequestFactory", () => {
     };
     const expectedBody = null;
 
-    const request1 = wanikani.spacedRepetitionSystems.get(123);
+    const request1 = requestFactory.spacedRepetitionSystems.get(123);
 
     expect(request1.method).toBe(expectedMethod);
     expect(request1.url).toBe(expectedUrl);
@@ -404,7 +403,7 @@ describe("ApiRequestFactory", () => {
     expect(request1.body).toBe(expectedBody);
   });
 
-  test("Returns GET request for a Study Material Collection", () => {
+  testFor("Returns GET request for a Study Material Collection", ({ requestFactory }) => {
     const expectedMethod = "GET";
     const expectedUrl1 = "https://api.wanikani.com/v2/study_materials";
     const expectedUrl2 = "https://api.wanikani.com/v2/study_materials?subject_ids=1,2,3&subject_types=kanji";
@@ -426,8 +425,8 @@ describe("ApiRequestFactory", () => {
       subject_types: ["kanji"],
     };
 
-    const request1 = wanikani.studyMaterials.get({}, getOptions);
-    const request2 = wanikani.studyMaterials.get(params);
+    const request1 = requestFactory.studyMaterials.get({}, getOptions);
+    const request2 = requestFactory.studyMaterials.get(params);
 
     expect(request1.method).toBe(expectedMethod);
     expect(request1.url).toBe(expectedUrl1);
@@ -440,7 +439,7 @@ describe("ApiRequestFactory", () => {
     expect(request2.body).toBe(expectedBody);
   });
 
-  test("Returns GET request for a Study Material", () => {
+  testFor("Returns GET request for a Study Material", ({ requestFactory }) => {
     const expectedMethod = "GET";
     const expectedUrl = "https://api.wanikani.com/v2/study_materials/123";
     const expectedHeaders = {
@@ -449,7 +448,7 @@ describe("ApiRequestFactory", () => {
     };
     const expectedBody = null;
 
-    const request = wanikani.studyMaterials.get(123);
+    const request = requestFactory.studyMaterials.get(123);
 
     expect(request.method).toBe(expectedMethod);
     expect(request.url).toBe(expectedUrl);
@@ -457,7 +456,7 @@ describe("ApiRequestFactory", () => {
     expect(request.body).toBe(expectedBody);
   });
 
-  test("Returns POST request for creating a Study Material", () => {
+  testFor("Returns POST request for creating a Study Material", ({ requestFactory }) => {
     const expectedMethod = "POST";
     const expectedUrl = "https://api.wanikani.com/v2/study_materials";
     const expectedHeaders = {
@@ -475,7 +474,7 @@ describe("ApiRequestFactory", () => {
       meaning_synonyms: ["one", "two", "three"],
     };
 
-    const request = wanikani.studyMaterials.create(payload, putPostOptions);
+    const request = requestFactory.studyMaterials.create(payload, putPostOptions);
 
     expect(request.method).toBe(expectedMethod);
     expect(request.url).toBe(expectedUrl);
@@ -483,7 +482,7 @@ describe("ApiRequestFactory", () => {
     expect(request.body).toBe(expectedBody);
   });
 
-  test("Returns PUT request for updating a Study Material", () => {
+  testFor("Returns PUT request for updating a Study Material", ({ requestFactory }) => {
     const expectedMethod = "PUT";
     const expectedUrl = "https://api.wanikani.com/v2/study_materials/123";
     const expectedHeaders = {
@@ -500,7 +499,7 @@ describe("ApiRequestFactory", () => {
       meaning_synonyms: ["one", "two", "three"],
     };
 
-    const request = wanikani.studyMaterials.update(123, payload, putPostOptions);
+    const request = requestFactory.studyMaterials.update(123, payload, putPostOptions);
 
     expect(request.method).toBe(expectedMethod);
     expect(request.url).toBe(expectedUrl);
@@ -508,7 +507,7 @@ describe("ApiRequestFactory", () => {
     expect(request.body).toBe(expectedBody);
   });
 
-  test("Returns GET request for a Subject Collection", () => {
+  testFor("Returns GET request for a Subject Collection", ({ requestFactory }) => {
     const expectedMethod = "GET";
     const expectedUrl1 = "https://api.wanikani.com/v2/subjects";
     const expectedUrl2 = "https://api.wanikani.com/v2/subjects?types=radical,kanji&levels=1,2,3";
@@ -530,8 +529,8 @@ describe("ApiRequestFactory", () => {
       levels: [1, 2, 3],
     };
 
-    const request1 = wanikani.subjects.get({}, getOptions);
-    const request2 = wanikani.subjects.get(params);
+    const request1 = requestFactory.subjects.get({}, getOptions);
+    const request2 = requestFactory.subjects.get(params);
 
     expect(request1.method).toBe(expectedMethod);
     expect(request1.url).toBe(expectedUrl1);
@@ -544,7 +543,7 @@ describe("ApiRequestFactory", () => {
     expect(request2.body).toBe(expectedBody);
   });
 
-  test("Returns GET request for a Subject", () => {
+  testFor("Returns GET request for a Subject", ({ requestFactory }) => {
     const expectedMethod = "GET";
     const expectedUrl = "https://api.wanikani.com/v2/subjects/123";
     const expectedHeaders = {
@@ -553,7 +552,7 @@ describe("ApiRequestFactory", () => {
     };
     const expectedBody = null;
 
-    const request = wanikani.subjects.get(123);
+    const request = requestFactory.subjects.get(123);
 
     expect(request.method).toBe(expectedMethod);
     expect(request.url).toBe(expectedUrl);
@@ -561,7 +560,7 @@ describe("ApiRequestFactory", () => {
     expect(request.body).toBe(expectedBody);
   });
 
-  test("Returns GET request for a Summary", () => {
+  testFor("Returns GET request for a Summary", ({ requestFactory }) => {
     const expectedMethod = "GET";
     const expectedUrl = "https://api.wanikani.com/v2/summary";
     const expectedHeaders = {
@@ -573,7 +572,7 @@ describe("ApiRequestFactory", () => {
     };
     const expectedBody = null;
 
-    const request = wanikani.summary.get(getOptions);
+    const request = requestFactory.summary.get(getOptions);
 
     expect(request.method).toBe(expectedMethod);
     expect(request.url).toBe(expectedUrl);
@@ -581,7 +580,7 @@ describe("ApiRequestFactory", () => {
     expect(request.body).toBe(expectedBody);
   });
 
-  test("Returns GET request for a User", () => {
+  testFor("Returns GET request for a User", ({ requestFactory }) => {
     const expectedMethod = "GET";
     const expectedUrl = "https://api.wanikani.com/v2/user";
     const expectedHeaders = {
@@ -593,7 +592,7 @@ describe("ApiRequestFactory", () => {
     };
     const expectedBody = null;
 
-    const request = wanikani.user.get(getOptions);
+    const request = requestFactory.user.get(getOptions);
 
     expect(request.method).toBe(expectedMethod);
     expect(request.url).toBe(expectedUrl);
@@ -601,7 +600,7 @@ describe("ApiRequestFactory", () => {
     expect(request.body).toBe(expectedBody);
   });
 
-  test("Returns PUT request for updating a User", () => {
+  testFor("Returns PUT request for updating a User", ({ requestFactory }) => {
     const expectedMethod = "PUT";
     const expectedUrl = "https://api.wanikani.com/v2/user";
     const expectedHeaders = {
@@ -622,7 +621,7 @@ describe("ApiRequestFactory", () => {
       },
     };
 
-    const request = wanikani.user.updatePreferences(payload, putPostOptions);
+    const request = requestFactory.user.updatePreferences(payload, putPostOptions);
 
     expect(request.method).toBe(expectedMethod);
     expect(request.url).toBe(expectedUrl);
@@ -630,7 +629,7 @@ describe("ApiRequestFactory", () => {
     expect(request.body).toBe(expectedBody);
   });
 
-  test("Returns GET request for a Voice Actor Collection", () => {
+  testFor("Returns GET request for a Voice Actor Collection", ({ requestFactory }) => {
     const expectedMethod = "GET";
     const expectedUrl1 = "https://api.wanikani.com/v2/voice_actors";
     const expectedUrl2 = "https://api.wanikani.com/v2/voice_actors?ids=1,2,3&updated_after=2023-03-01T12:00:00.000Z";
@@ -652,8 +651,8 @@ describe("ApiRequestFactory", () => {
       updated_after: new Date("2023-03-01T12:00:00.000Z"),
     };
 
-    const request1 = wanikani.voiceActors.get({}, getOptions);
-    const request2 = wanikani.voiceActors.get(params);
+    const request1 = requestFactory.voiceActors.get({}, getOptions);
+    const request2 = requestFactory.voiceActors.get(params);
 
     expect(request1.method).toBe(expectedMethod);
     expect(request1.url).toBe(expectedUrl1);
@@ -666,7 +665,7 @@ describe("ApiRequestFactory", () => {
     expect(request2.body).toBe(expectedBody);
   });
 
-  test("Returns GET request for a Voice Actor", () => {
+  testFor("Returns GET request for a Voice Actor", ({ requestFactory }) => {
     const expectedMethod = "GET";
     const expectedUrl = "https://api.wanikani.com/v2/voice_actors/123";
     const expectedHeaders = {
@@ -675,7 +674,7 @@ describe("ApiRequestFactory", () => {
     };
     const expectedBody = null;
 
-    const request = wanikani.voiceActors.get(123);
+    const request = requestFactory.voiceActors.get(123);
 
     expect(request.method).toBe(expectedMethod);
     expect(request.url).toBe(expectedUrl);
@@ -683,7 +682,7 @@ describe("ApiRequestFactory", () => {
     expect(request.body).toBe(expectedBody);
   });
 
-  test("Changes API Token using setApiToken()", () => {
+  testFor("Changes API Token using setApiToken()", () => {
     const expectedHeaders = {
       authorization: "Bearer def",
       "wanikani-revision": "20170710",
@@ -694,18 +693,18 @@ describe("ApiRequestFactory", () => {
     expect(request.headers).toStrictEqual(expectedHeaders);
   });
 
-  test("Changes API Revision with setApiRevision()", () => {
+  testFor("Changes API Revision with setApiRevision()", () => {
     const factory = new ApiRequestFactory({ apiToken: "abc" });
     expect(() => factory.setApiRevision("20170710")).not.toThrow();
   });
 
-  test("Throws when trying to set invalid API Revision", () => {
+  testFor("Throws when trying to set invalid API Revision", () => {
     const factory = new ApiRequestFactory({ apiToken: "abc" });
     // @ts-expect-error -- Setting an invalid API Revision
     expect(() => factory.setApiRevision("20990909")).toThrow();
   });
 
-  test("Adds any new headers to requests using addCustomHeaders()", () => {
+  testFor("Adds any new headers to requests using addCustomHeaders()", () => {
     const customHeaders1 = {
       "x-forwarded-for": "192.168.1.1",
     };
@@ -723,7 +722,7 @@ describe("ApiRequestFactory", () => {
     expect(request.headers).toStrictEqual(expectedHeaders);
   });
 
-  test("Replaces custom headers only wtesth setCustomHeaders()", () => {
+  testFor("Replaces custom headers only wtesth setCustomHeaders()", () => {
     const customHeaders1 = {
       "x-forwarded-for": "192.168.1.1",
     };
@@ -740,7 +739,7 @@ describe("ApiRequestFactory", () => {
     expect(request.headers).toStrictEqual(expectedHeaders);
   });
 
-  test("Throws when trying to set type-checked headers", () => {
+  testFor("Throws when trying to set type-checked headers", () => {
     const factory = new ApiRequestFactory({ apiToken: "abc" });
     expect(() => factory.addCustomHeaders({ authorization: "Cheese" })).toThrow(
       "WaniKani API Token should be set via setApiToken() method.",

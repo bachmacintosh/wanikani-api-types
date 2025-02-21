@@ -6,6 +6,7 @@ import {
   MIN_LEVEL,
   SubjectTuple,
 } from "../../src/base/v20170710.js";
+import { ApiRequestFactory } from "../../src/requests/v20170710.js";
 import { test } from "vitest";
 
 // Base
@@ -188,6 +189,10 @@ const levelProgressionCollection = {
   data: [levelProgression],
 };
 
+// Requests
+
+const requestFactory = new ApiRequestFactory({ apiToken: "abc", revision: "20170710" });
+
 export const testFor = test.extend({
   apiRevision,
   dateTimeUtcString,
@@ -218,4 +223,5 @@ export const testFor = test.extend({
   levelProgressionData,
   levelProgression,
   levelProgressionCollection,
+  requestFactory,
 });
