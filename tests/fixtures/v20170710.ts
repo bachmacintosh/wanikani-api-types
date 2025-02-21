@@ -1,10 +1,70 @@
 import * as v from "valibot";
-import { type CollectionParameters, DatableString, SubjectTuple } from "../../src/base/v20170710.js";
+import {
+  type CollectionParameters,
+  DatableString,
+  MAX_LEVEL,
+  MIN_LEVEL,
+  SubjectTuple,
+} from "../../src/base/v20170710.js";
 import { test } from "vitest";
 
 // Base
 
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+const apiRevision = "20170710" as const;
+
+const dateTimeUtcString = "2022-10-23T15:17:38.828455Z";
+
+const dateTimeOffsetString = "2022-10-23T15:17:38.828455+09:00";
+
+const dateIsoString = new Date().toISOString();
+
+const levels = Array<number>(MAX_LEVEL)
+  .fill(MIN_LEVEL)
+  .map((item, itemIdx) => item + itemIdx);
+
+const resourceTypes = [
+  "assignment" as const,
+  "level_progression" as const,
+  "reset" as const,
+  "review_statistic" as const,
+  "review" as const,
+  "spaced_repetition_system" as const,
+  "study_material" as const,
+  "user" as const,
+  "voice_actor" as const,
+];
+
+const subjectTypes = ["kana_vocabulary" as const, "kanji" as const, "radical" as const, "vocabulary" as const];
+
+// @ts-expect-error -- Intentionally empty tuple needed a type and can't use unknown[] with vitest fixtures
+const emptySubjectTuple: SubjectTuple = [];
+
+const partialSubjectTuple: SubjectTuple = ["kanji"];
+
+const fullSubjectTuple: SubjectTuple = ["kana_vocabulary", "kanji", "radical", "vocabulary"];
+
+const repeatedSubjectTuple = ["kana_vocabulary", "kanji", "radical", "kanji", "vocabulary", "radical"];
+
 const emptyParams: CollectionParameters = {};
+
+const collectionParamsWithEmptyArrays = {
+  ids: [],
+};
+
+const collectionParamsWithManyOptions = {
+  ids: [1, 2, 3],
+  page_after_id: 1,
+  page_before_id: 1,
+};
+
+const collectionParamsWithDates = {
+  updated_after: new Date(),
+};
+
+const collectionParamsWithDatableStrings = {
+  updated_after: v.parse(DatableString, new Date().toISOString()),
+};
 
 // Assignments
 
@@ -96,7 +156,22 @@ const assignmentPayloadWithDatableString = {
 };
 
 export const testFor = test.extend({
+  apiRevision,
+  dateTimeUtcString,
+  dateTimeOffsetString,
+  dateIsoString,
+  levels,
+  resourceTypes,
+  subjectTypes,
+  emptySubjectTuple,
+  partialSubjectTuple,
+  fullSubjectTuple,
+  repeatedSubjectTuple,
   emptyParams,
+  collectionParamsWithEmptyArrays,
+  collectionParamsWithManyOptions,
+  collectionParamsWithDates,
+  collectionParamsWithDatableStrings,
   assignmentData,
   assignment,
   assignmentCollection,
