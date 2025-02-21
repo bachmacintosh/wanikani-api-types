@@ -1,4 +1,3 @@
-import { assertType, describe } from "vitest";
 import type {
   Assignment,
   AssignmentCollection,
@@ -6,10 +5,11 @@ import type {
   AssignmentParameters,
   AssignmentPayload,
 } from "../../src/assignments/v20170710.js";
+import { assertType, describe } from "vitest";
 import { testFor } from "../fixtures/v20170710.js";
 
 describe("AssignmentData", () => {
-  testFor("Real AssignmentData", ({ assignmentData, assignment }) => {
+  testFor("Real AssignmentData", ({ assignmentData }) => {
     assertType<AssignmentData>(assignmentData);
   });
 });

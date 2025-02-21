@@ -6,7 +6,7 @@ import tseslint from "typescript-eslint";
 export default tseslint.config(
   {
     // Replace output folder if needed, e.g. "dist"
-    ignores: ["{coverage,docs,dist,tests}/**"],
+    ignores: ["{coverage,docs,dist}/**"],
   },
   eslint.configs.recommended,
   ...tseslint.configs.strictTypeChecked,
@@ -30,6 +30,13 @@ export default tseslint.config(
   {
     files: ["**/*.js"],
     ...bachmanDev({ language: "javascript-in-typescript" }),
+  },
+  {
+    files: ["tests/**/*.ts"],
+    rules: {
+      "@typescript-eslint/no-confusing-void-expression": ["off"],
+      "@typescript-eslint/no-magic-numbers": ["off"],
+    },
   },
   eslintConfigPrettier,
 );

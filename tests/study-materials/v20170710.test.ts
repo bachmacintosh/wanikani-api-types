@@ -1,10 +1,10 @@
 import * as v from "valibot";
-import { describe, expect, test } from "vitest";
 import {
-  StudyMaterialParameters,
   StudyMaterialCreatePayload,
+  StudyMaterialParameters,
   StudyMaterialUpdatePayload,
 } from "../../src/study-materials/v20170710.js";
+import { describe, expect, test } from "vitest";
 import { DatableString } from "../../src/base/v20170710.js";
 
 describe("StudyMaterialParameters", () => {

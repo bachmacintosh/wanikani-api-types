@@ -1,10 +1,10 @@
 import * as v from "valibot";
-import { expect, describe, test } from "vitest";
 import {
   MAX_SRS_STAGE,
   MIN_SRS_STAGE,
   SpacedRepetitionSystemStageNumber,
 } from "../../src/spaced-repetition-systems/v20170710.js";
+import { describe, expect, test } from "vitest";
 
 describe("SpacedRepetitionSystemStageNumber", () => {
   test("Invalid SRS Stage Number: -1", () => {

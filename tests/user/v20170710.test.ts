@@ -1,11 +1,11 @@
 import * as v from "valibot";
-import { expect, describe, test } from "vitest";
 import {
   LessonBatchSizeNumber,
-  UserPreferencesPayload,
   MAX_LESSON_BATCH_SIZE,
   MIN_LESSON_BATCH_SIZE,
+  UserPreferencesPayload,
 } from "../../src/user/v20170710.js";
+import { describe, expect, test } from "vitest";
 
 describe("LessonBatchSizeNumber", () => {
   test("Invalid Lesson Batch Size: 2", () => {

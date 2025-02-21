@@ -1,6 +1,6 @@
 import * as v from "valibot";
-import { describe, expect, test } from "vitest";
 import { SubjectParameters, WK_SUBJECT_MARKUP_MATCHERS } from "../../src/subjects/v20170710.js";
+import { describe, expect, test } from "vitest";
 import { DatableString } from "../../src/base/v20170710.js";
 
 describe("SubjectParameters", () => {

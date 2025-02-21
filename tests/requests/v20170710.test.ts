@@ -1,4 +1,4 @@
-import { describe, expect, test } from "vitest";
+import { ApiRequestFactory, type ApiRequestOptions } from "../../src/requests/v20170710.js";
 import type { AssignmentParameters, AssignmentPayload } from "../../src/assignments/v20170710.js";
 import type { ReviewParameters, ReviewPayload } from "../../src/reviews/v20170710.js";
 import type {
@@ -6,6 +6,7 @@ import type {
   StudyMaterialParameters,
   StudyMaterialUpdatePayload,
 } from "../../src/study-materials/v20170710.js";
+import { describe, expect, test } from "vitest";
 import type { LevelProgressionParameters } from "../../src/level-progressions/v20170710.js";
 import type { ResetParameters } from "../../src/resets/v20170710.js";
 import type { ReviewStatisticParameters } from "../../src/review-statistics/v20170710.js";
@@ -13,14 +14,13 @@ import type { SpacedRepetitionSystemParameters } from "../../src/spaced-repetiti
 import type { SubjectParameters } from "../../src/subjects/v20170710.js";
 import type { UserPreferencesPayload } from "../../src/user/v20170710.js";
 import type { VoiceActorParameters } from "../../src/voice-actors/v20170710.js";
-import { ApiRequestFactory, type ApiRequestOptions } from "../../src/requests/v20170710.js";
 
 describe("ApiRequestFactory", () => {
   const getOptions: ApiRequestOptions = {
     customHeaders: {
       "x-forwarded-for": "192.168.1.1",
       "if-modified-since": "Tue, 14 Mar 2023, 12:00:00 GMT",
-      "if-none-match": `W/"70abc5970f2ab8cd34adcfad015ffde6\"`,
+      "if-none-match": `W/"70abc5970f2ab8cd34adcfad015ffde6"`,
     },
   };
 
@@ -701,7 +701,7 @@ describe("ApiRequestFactory", () => {
 
   test("Throws when trying to set invalid API Revision", () => {
     const factory = new ApiRequestFactory({ apiToken: "abc" });
-    // @ts-expect-error
+    // @ts-expect-error -- Setting an invalid API Revision
     expect(() => factory.setApiRevision("20990909")).toThrow();
   });
 
