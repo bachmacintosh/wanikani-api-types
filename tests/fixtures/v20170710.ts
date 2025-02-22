@@ -193,6 +193,36 @@ const levelProgressionCollection = {
 
 const requestFactory = new ApiRequestFactory({ apiToken: "abc", revision: "20170710" });
 
+// Resets
+
+const resetData = {
+  created_at: v.parse(DatableString, "2018-01-08T13:37:58.223692Z"),
+  original_level: 5,
+  target_level: 4,
+  confirmed_at: v.parse(DatableString, "2018-01-08T13:39:28.083543Z"),
+};
+
+const reset = {
+  id: 5006,
+  object: "reset" as const,
+  url: "https://api.wanikani.com/v2/resets/5006",
+  data_updated_at: v.parse(DatableString, "2018-01-08T13:39:38.304561Z"),
+  data: resetData,
+};
+
+const resetCollection = {
+  object: "collection" as const,
+  url: "https://api.wanikani.com/v2/resets",
+  pages: {
+    per_page: 500,
+    next_url: null,
+    previous_url: null,
+  },
+  total_count: 4,
+  data_updated_at: v.parse(DatableString, "2021-09-06T19:05:52.132672Z"),
+  data: [reset],
+};
+
 // Review Statistics
 
 const reviewStatisticData = {
@@ -287,6 +317,9 @@ export const testFor = test.extend({
   levelProgression,
   levelProgressionCollection,
   requestFactory,
+  resetData,
+  reset,
+  resetCollection,
   reviewStatisticData,
   reviewStatistic,
   reviewStatisticCollection,
