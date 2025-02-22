@@ -286,6 +286,103 @@ const reviewStatisticParamsWithDatableStrings = {
   updated_after: v.parse(DatableString, new Date().toISOString()),
 };
 
+// Reviews
+
+/*
+ * N.b. The ReviewData, Review, and ReviewCollection fixtures are mock data; the Reviews endpoint is disabled as of
+ * writing.
+ */
+
+const reviewData = {
+  created_at: v.parse(DatableString, "2017-12-20T01:00:59.255427Z"),
+  assignment_id: 32132,
+  spaced_repetition_system_id: 1,
+  subject_id: 8,
+  starting_srs_stage: 4,
+  ending_srs_stage: 2,
+  incorrect_meaning_answers: 1,
+  incorrect_reading_answers: 0,
+};
+
+const review = {
+  id: 534342,
+  object: "review" as const,
+  url: "https://api.wanikani.com/v2/reviews/534342",
+  data_updated_at: v.parse(DatableString, "2017-12-20T01:00:59.255427Z"),
+  data: reviewData,
+};
+
+const reviewCollection = {
+  object: "collection" as const,
+  url: "https://api.wanikani.com/v2/reviews",
+  pages: {
+    per_page: 1000,
+    next_url: null,
+    previous_url: null,
+  },
+  total_count: 1,
+  data_updated_at: v.parse(DatableString, "2017-12-20T01:10:17.578705Z"),
+  data: [review],
+};
+
+const reviewParamsWithEmptyArrays = {
+  ids: [],
+  assignment_ids: [],
+  subject_ids: [],
+};
+
+const reviewParamsWithManyOptions = {
+  ids: [1, 2, 3],
+  assignment_ids: [1, 2, 3],
+  subject_ids: [1, 2, 3],
+  page_after_id: 1,
+  page_before_id: 1,
+};
+
+const reviewParamsWithDates = {
+  updated_after: new Date(),
+};
+
+const reviewParamsWithDatableStrings = {
+  updated_after: v.parse(DatableString, new Date().toISOString()),
+};
+
+const reviewPayloadWithAssignmentAndDate = {
+  review: {
+    assignment_id: 1,
+    created_at: new Date(),
+    incorrect_meaning_answers: 0,
+    incorrect_reading_answers: 0,
+  },
+};
+
+const reviewPayloadWithAssignmentAndDatableStrings = {
+  review: {
+    assignment_id: 1,
+    created_at: v.parse(DatableString, new Date().toISOString()),
+    incorrect_meaning_answers: 0,
+    incorrect_reading_answers: 0,
+  },
+};
+
+const reviewPayloadWithSubjectAndDate = {
+  review: {
+    subject_id: 1,
+    created_at: new Date(),
+    incorrect_meaning_answers: 0,
+    incorrect_reading_answers: 0,
+  },
+};
+
+const reviewPayloadWithSubjectAndDatableStrings = {
+  review: {
+    subject_id: 1,
+    created_at: v.parse(DatableString, new Date().toISOString()),
+    incorrect_meaning_answers: 0,
+    incorrect_reading_answers: 0,
+  },
+};
+
 export const testFor = test.extend({
   apiRevision,
   dateTimeUtcString,
@@ -327,4 +424,15 @@ export const testFor = test.extend({
   reviewStatisticParamsWithManyOptions,
   reviewStatisticParamsWithDates,
   reviewStatisticParamsWithDatableStrings,
+  reviewData,
+  review,
+  reviewCollection,
+  reviewParamsWithEmptyArrays,
+  reviewParamsWithManyOptions,
+  reviewParamsWithDates,
+  reviewParamsWithDatableStrings,
+  reviewPayloadWithAssignmentAndDate,
+  reviewPayloadWithAssignmentAndDatableStrings,
+  reviewPayloadWithSubjectAndDate,
+  reviewPayloadWithSubjectAndDatableStrings,
 });
