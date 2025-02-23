@@ -5,66 +5,6 @@ import type { ReviewStatistic } from "../review-statistics/v20170710.js";
 import { SpacedRepetitionSystemStageNumber } from "../spaced-repetition-systems/v20170710.js";
 
 /**
- * Review data shared between created and read reviews.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#reviews}
- * @category Data
- * @category Reviews
- */
-export interface ReviewData {
-  /**
-   * Unique identifier of the associated assignment.
-   */
-  assignment_id: number;
-
-  /**
-   * Timestamp when the review was created.
-   */
-  created_at: DatableString;
-
-  /**
-   * The SRS stage interval calculated from the number of correct and incorrect answers, with valid values ranging
-   * from `1` to `9`.
-   */
-  ending_srs_stage: SpacedRepetitionSystemStageNumber;
-
-  /**
-   * The number of times the user has answered the meaning incorrectly.
-   */
-  incorrect_meaning_answers: number;
-
-  /**
-   * The number of times the user has answered the reading incorrectly.
-   */
-  incorrect_reading_answers: number;
-
-  /**
-   * Unique identifier of the associated `spaced_repetition_system`.
-   */
-  spaced_repetition_system_id: number;
-
-  /**
-   * The starting SRS stage interval, with valid values ranging from `1` to `8`.
-   */
-  starting_srs_stage: SpacedRepetitionSystemStageNumber;
-
-  /**
-   * Unique identifier of the associated subject.
-   */
-  subject_id: number;
-}
-export const ReviewData = v.object({
-  assignment_id: v.number(),
-  created_at: DatableString,
-  ending_srs_stage: SpacedRepetitionSystemStageNumber,
-  incorrect_meaning_answers: v.number(),
-  incorrect_reading_answers: v.number(),
-  spaced_repetition_system_id: v.number(),
-  starting_srs_stage: SpacedRepetitionSystemStageNumber,
-  subject_id: v.number(),
-});
-
-/**
  * Reviews log all the correct and incorrect answers provided through the 'Reviews' section of WaniKani. Review records
  * are created when a user answers all the parts of a subject correctly once; some subjects have both meaning or reading
  * parts, and some only have one or the other. Note that reviews are not created for the quizzes in lessons.
@@ -77,7 +17,48 @@ export interface Review extends BaseResource {
   /**
    * Data for the returned review.
    */
-  data: ReviewData;
+  data: {
+    /**
+     * Unique identifier of the associated assignment.
+     */
+    assignment_id: number;
+
+    /**
+     * Timestamp when the review was created.
+     */
+    created_at: DatableString;
+
+    /**
+     * The SRS stage interval calculated from the number of correct and incorrect answers, with valid values ranging
+     * from `1` to `9`.
+     */
+    ending_srs_stage: SpacedRepetitionSystemStageNumber;
+
+    /**
+     * The number of times the user has answered the meaning incorrectly.
+     */
+    incorrect_meaning_answers: number;
+
+    /**
+     * The number of times the user has answered the reading incorrectly.
+     */
+    incorrect_reading_answers: number;
+
+    /**
+     * Unique identifier of the associated `spaced_repetition_system`.
+     */
+    spaced_repetition_system_id: number;
+
+    /**
+     * The starting SRS stage interval, with valid values ranging from `1` to `8`.
+     */
+    starting_srs_stage: SpacedRepetitionSystemStageNumber;
+
+    /**
+     * Unique identifier of the associated subject.
+     */
+    subject_id: number;
+  };
 
   /**
    * A unique number identifying the review.
@@ -91,7 +72,16 @@ export interface Review extends BaseResource {
 }
 export const Review = v.object({
   ...BaseResource.entries,
-  data: ReviewData,
+  data: v.object({
+    assignment_id: v.number(),
+    created_at: DatableString,
+    ending_srs_stage: SpacedRepetitionSystemStageNumber,
+    incorrect_meaning_answers: v.number(),
+    incorrect_reading_answers: v.number(),
+    spaced_repetition_system_id: v.number(),
+    starting_srs_stage: SpacedRepetitionSystemStageNumber,
+    subject_id: v.number(),
+  }),
   id: v.number(),
   object: v.literal("review"),
 });
@@ -140,83 +130,6 @@ export const ReviewParameters = v.object({
 });
 
 /**
- * The base object used in the request to create a new review via the WaniKani API.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#create-a-review}
- * @category Reviews
- * @internal
- */
-interface ReviewObjectdBase {
-  /**
-   * Must be zero or a positive number. This is the number of times the meaning was answered incorrectly.
-   */
-  incorrect_meaning_answers: number;
-
-  /**
-   * Must be zero or a positive number. This is the number of times the reading was answered incorrectly. Note that
-   * subjects with a type of `radical` do not quiz on readings. Thus, set this value to `0`.
-   */
-  incorrect_reading_answers: number;
-
-  /**
-   * Timestamp when the review was completed. Defaults to the time of the request if omitted from the request body.
-   * Must be in the past, but after `assignment.available_at`.
-   */
-  created_at?: DatableString | Date;
-}
-const ReviewObjectdBase = v.object({
-  incorrect_meaning_answers: v.number(),
-  incorrect_reading_answers: v.number(),
-  created_at: v.optional(v.union([DatableString, v.date()])),
-});
-
-/**
- * The review object used in the request to create a new review via the WaniKani API by Assignment ID.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#create-a-review}
- * @category Reviews
- */
-export interface ReviewObjectWithAssignmentId extends ReviewObjectdBase {
-  /**
-   * Unique identifier of the assignment. This or `subject_id` must be set.
-   */
-  assignment_id: number;
-
-  /**
-   * The `subject_id` should not be set at the same time as `assignment_id`.
-   */
-  subject_id?: never;
-}
-export const ReviewObjectWithAssignmentId = v.object({
-  ...ReviewObjectdBase.entries,
-  assignment_id: v.number(),
-  subject_id: v.optional(v.never()),
-});
-
-/**
- * The review object used in the request to create a new review via the WaniKani API by Subject ID.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#create-a-review}
- * @category Reviews
- */
-export interface ReviewObjectWithSubjectId extends ReviewObjectdBase {
-  /**
-   * Unique identifier of the subject. This or `assignment_id` must be set.
-   */
-  subject_id: number;
-
-  /**
-   * The `assignment_id` should never be set at the same time as `subject_id`.
-   */
-  assignment_id?: never;
-}
-export const ReviewObjectWithSubjectId = v.object({
-  ...ReviewObjectdBase.entries,
-  subject_id: v.number(),
-  assignment_id: v.optional(v.never()),
-});
-
-/**
  * The payload used in the request to create a new review via the WaniKani API.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#create-a-review}
@@ -227,10 +140,66 @@ export interface ReviewPayload {
   /**
    * A review object with either the `assignment_id` or `subject_id` specified.
    */
-  review: ReviewObjectWithAssignmentId | ReviewObjectWithSubjectId;
+  review: {
+    /**
+     * Must be zero or a positive number. This is the number of times the meaning was answered incorrectly.
+     */
+    incorrect_meaning_answers: number;
+
+    /**
+     * Must be zero or a positive number. This is the number of times the reading was answered incorrectly. Note that
+     * subjects with a type of `radical` do not quiz on readings. Thus, set this value to `0`.
+     */
+    incorrect_reading_answers: number;
+
+    /**
+     * Timestamp when the review was completed. Defaults to the time of the request if omitted from the request body.
+     * Must be in the past, but after `assignment.available_at`.
+     */
+    created_at?: DatableString | Date;
+  } & (
+    | {
+        /**
+         * Unique identifier of the assignment. This or `subject_id` must be set.
+         */
+        assignment_id: number;
+
+        /**
+         * The `subject_id` should not be set at the same time as `assignment_id`.
+         */
+        subject_id?: never;
+      }
+    | {
+        /**
+         * Unique identifier of the subject. This or `assignment_id` must be set.
+         */
+        subject_id: number;
+
+        /**
+         * The `assignment_id` should never be set at the same time as `subject_id`.
+         */
+        assignment_id?: never;
+      }
+  );
 }
 export const ReviewPayload = v.object({
-  review: v.union([ReviewObjectWithAssignmentId, ReviewObjectWithSubjectId]),
+  review: v.intersect([
+    v.object({
+      incorrect_meaning_answers: v.number(),
+      incorrect_reading_answers: v.number(),
+      created_at: v.optional(v.union([DatableString, v.date()])),
+    }),
+    v.union([
+      v.object({
+        assignment_id: v.number(),
+        subject_id: v.optional(v.never()),
+      }),
+      v.object({
+        subject_id: v.number(),
+        assignment_id: v.optional(v.never()),
+      }),
+    ]),
+  ]),
 });
 
 /**

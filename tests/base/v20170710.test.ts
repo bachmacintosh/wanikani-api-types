@@ -6,7 +6,6 @@ import {
   Level,
   MAX_LEVEL,
   MIN_LEVEL,
-  ResourceType,
   SubjectTuple,
   SubjectType,
   stringifyParameters,
@@ -49,21 +48,6 @@ describe("Level", () => {
   });
   testFor(`Invalid Level: ${MAX_LEVEL + 1}`, () => {
     expect(() => v.assert(Level, MAX_LEVEL + 1)).toThrow();
-  });
-});
-
-describe("ResourceType", () => {
-  testFor("Valid Resource Types", ({ resourceTypes }) => {
-    if (Array.isArray(resourceTypes)) {
-      resourceTypes.forEach((resource) => {
-        expect(() => v.assert(ResourceType, resource)).not.toThrow();
-      });
-    } else {
-      throw new TypeError("Expected resourceTypes to be an array");
-    }
-  });
-  testFor("Invalid Resource Type", () => {
-    expect(() => v.assert(ResourceType, "not real")).toThrow();
   });
 });
 

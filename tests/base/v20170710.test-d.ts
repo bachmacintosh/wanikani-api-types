@@ -4,7 +4,6 @@ import {
   type CollectionParameters,
   type DatableString,
   type Level,
-  type ResourceType,
   type SubjectTuple,
   type SubjectType,
   stringifyParameters,
@@ -32,18 +31,6 @@ describe("Level", () => {
       });
     } else {
       throw new TypeError("Expected levels to be an array");
-    }
-  });
-});
-
-describe("ResourceType", () => {
-  testFor("Valid Resources", ({ resourceTypes }) => {
-    if (Array.isArray(resourceTypes)) {
-      resourceTypes.forEach((resource) => {
-        assertType<ResourceType>(resource);
-      });
-    } else {
-      throw new TypeError("Expected resourceTypes to be an array");
     }
   });
 });

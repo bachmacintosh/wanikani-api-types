@@ -11,10 +11,9 @@ import {
 /**
  * Data found in all study materials whether they are being created/updated, or received from the WaniKani API.
  *
- * @category Data
  * @category Study Materials
  * @remarks For creating study materials, use {@link StudyMaterialCreatePayload}; for updating study materials, use
- * {@link StudyMaterialUpdatePayload}; for study materials received from the API, use {@link StudyMaterialData}.
+ * {@link StudyMaterialUpdatePayload}.
  */
 export interface StudyMaterialBaseData {
   /**
@@ -39,42 +38,6 @@ export const StudyMaterialBaseData = v.object({
 });
 
 /**
- * Data for study materials returned from the WaniKani API.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#study-materials}
- * @category Data
- * @category Study Materials
- */
-export interface StudyMaterialData extends StudyMaterialBaseData {
-  /**
-   * Timestamp when the study material was created.
-   */
-  created_at: DatableString;
-
-  /**
-   * Indicates if the associated subject has been hidden, preventing it from appearing in lessons or reviews.
-   */
-  hidden: boolean;
-
-  /**
-   * Unique identifier of the associated subject.
-   */
-  subject_id: number;
-
-  /**
-   * The type of the associated subject.
-   */
-  subject_type: SubjectType;
-}
-export const StudyMaterialData = v.object({
-  ...StudyMaterialBaseData.entries,
-  created_at: DatableString,
-  hidden: v.boolean(),
-  subject_id: v.number(),
-  subject_type: SubjectType,
-});
-
-/**
  * Study materials store user-specific notes and synonyms for a given subject. The records are created as soon as the
  * user enters any study information.
  *
@@ -86,7 +49,27 @@ export interface StudyMaterial extends BaseResource {
   /**
    * Data for the returned study material.
    */
-  data: StudyMaterialData;
+  data: StudyMaterialBaseData & {
+    /**
+     * Timestamp when the study material was created.
+     */
+    created_at: DatableString;
+
+    /**
+     * Indicates if the associated subject has been hidden, preventing it from appearing in lessons or reviews.
+     */
+    hidden: boolean;
+
+    /**
+     * Unique identifier of the associated subject.
+     */
+    subject_id: number;
+
+    /**
+     * The type of the associated subject.
+     */
+    subject_type: SubjectType;
+  };
 
   /**
    * A unique number identifying the study material.
@@ -100,7 +83,15 @@ export interface StudyMaterial extends BaseResource {
 }
 export const StudyMaterial = v.object({
   ...BaseResource.entries,
-  data: StudyMaterialData,
+  data: v.intersect([
+    StudyMaterialBaseData,
+    v.object({
+      created_at: DatableString,
+      hidden: v.boolean(),
+      subject_id: v.number(),
+      subject_type: SubjectType,
+    }),
+  ]),
   id: v.number(),
   object: v.literal("study_material"),
 });

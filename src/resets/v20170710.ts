@@ -2,41 +2,6 @@ import * as v from "valibot";
 import { BaseCollection, BaseResource, CollectionParameters, DatableString, Level } from "../base/v20170710.js";
 
 /**
- * Data for resets returned from the WaniKani API.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#resets}
- * @category Data
- * @category Resets
- */
-export interface ResetData {
-  /**
-   * Timestamp when the user confirmed the reset.
-   */
-  confirmed_at: DatableString | null;
-
-  /**
-   * Timestamp when the reset was created.
-   */
-  created_at: DatableString;
-
-  /**
-   * The user's level before the reset, from `1` to `60`.
-   */
-  original_level: Level;
-
-  /**
-   * The user's level after the reset, from `1` to `60`. It must be less than or equal to `original_level`.
-   */
-  target_level: Level;
-}
-export const ResetData = v.object({
-  confirmed_at: v.union([DatableString, v.null()]),
-  created_at: DatableString,
-  original_level: Level,
-  target_level: Level,
-});
-
-/**
  * Users can reset their progress back to any level at or below their current level. When they reset to a particular
  * level, all of the assignments and review_statistics at that level or higher are set back to their default state.
  *
@@ -50,7 +15,27 @@ export interface Reset extends BaseResource {
   /**
    * Data for the returned reset.
    */
-  data: ResetData;
+  data: {
+    /**
+     * Timestamp when the user confirmed the reset.
+     */
+    confirmed_at: DatableString | null;
+
+    /**
+     * Timestamp when the reset was created.
+     */
+    created_at: DatableString;
+
+    /**
+     * The user's level before the reset, from `1` to `60`.
+     */
+    original_level: Level;
+
+    /**
+     * The user's level after the reset, from `1` to `60`. It must be less than or equal to `original_level`.
+     */
+    target_level: Level;
+  };
 
   /**
    * A unique number identifying the reset.
@@ -64,7 +49,12 @@ export interface Reset extends BaseResource {
 }
 export const Reset = v.object({
   ...BaseResource.entries,
-  data: ResetData,
+  data: v.object({
+    confirmed_at: v.union([DatableString, v.null()]),
+    created_at: DatableString,
+    original_level: Level,
+    target_level: Level,
+  }),
   id: v.number(),
   object: v.literal("reset"),
 });

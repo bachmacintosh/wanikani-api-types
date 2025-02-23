@@ -67,7 +67,6 @@ export const SubjectMeaning = v.object({
  * definitions that extend this type definition.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
- * @category Data
  * @category Subjects
  */
 export interface SubjectBaseData {
@@ -215,7 +214,6 @@ export const RadicalCharacterImage = v.intersect([
  * Data returned only for radical subjects.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
- * @category Data
  * @category Subjects
  */
 export interface RadicalData extends SubjectBaseData {
@@ -332,7 +330,6 @@ export const KanjiReading = v.object({
  * Data returned only for kanji subjects.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
- * @category Data
  * @category Subjects
  */
 export interface KanjiData extends SubjectBaseData {
@@ -560,7 +557,6 @@ export const VocabularyReading = v.object({
  * Data returned only for vocabulary subjects.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
- * @category Data
  * @category Subjects
  */
 export interface VocabularyData extends SubjectBaseData {
@@ -667,7 +663,6 @@ export const VocabularyCollection = v.object({
  * Data returned only for kana-only vocabulary subjects.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
- * @category Data
  * @category Subjects
  */
 export interface KanaVocabularyData extends SubjectBaseData {

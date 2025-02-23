@@ -63,65 +63,6 @@ export const SpacedRepetitionSystemStage = v.object({
 });
 
 /**
- * Data for a Spaced Repetition System returned from the WaniKani API.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#spaced-repetition-systems}
- * @category Data
- * @category Spaced Repetition Systems
- */
-export interface SpacedRepetitionSystemData {
-  /**
-   * `position` of the burning stage.
-   */
-  burning_stage_position: SpacedRepetitionSystemStageNumber;
-
-  /**
-   * Timestamp when the `spaced_repetition_system` was created.
-   */
-  created_at: DatableString;
-
-  /**
-   * Details about the spaced repetition system.
-   */
-  description: string;
-
-  /**
-   * The name of the spaced repetition system.
-   */
-  name: string;
-
-  /**
-   * `position` of the passing stage.
-   */
-  passing_stage_position: SpacedRepetitionSystemStageNumber;
-
-  /**
-   * A collection of stages.
-   */
-  stages: SpacedRepetitionSystemStage[];
-
-  /**
-   * `position` of the starting stage.
-   */
-  starting_stage_position: SpacedRepetitionSystemStageNumber;
-
-  /**
-   * `position` of the unlocking stage.
-   */
-  unlocking_stage_position: SpacedRepetitionSystemStageNumber;
-}
-export const SpacedRepetitionSystemData = v.object({
-  burning_stage_position: SpacedRepetitionSystemStageNumber,
-  created_at: DatableString,
-  description: v.string(),
-  name: v.string(),
-  passing_stage_position: SpacedRepetitionSystemStageNumber,
-  stages: v.array(SpacedRepetitionSystemStage),
-  starting_stage_position: SpacedRepetitionSystemStageNumber,
-  unlocking_stage_position: SpacedRepetitionSystemStageNumber,
-});
-
-/**
  * Available spaced repetition systems used for calculating `srs_stage` changes to Assignments and Reviews. Has
  * relationship with Subjects.
  *
@@ -133,7 +74,47 @@ export interface SpacedRepetitionSystem extends BaseResource {
   /**
    * Data for the return Spaced Repetition System.
    */
-  data: SpacedRepetitionSystemData;
+  data: {
+    /**
+     * `position` of the burning stage.
+     */
+    burning_stage_position: SpacedRepetitionSystemStageNumber;
+
+    /**
+     * Timestamp when the `spaced_repetition_system` was created.
+     */
+    created_at: DatableString;
+
+    /**
+     * Details about the spaced repetition system.
+     */
+    description: string;
+
+    /**
+     * The name of the spaced repetition system.
+     */
+    name: string;
+
+    /**
+     * `position` of the passing stage.
+     */
+    passing_stage_position: SpacedRepetitionSystemStageNumber;
+
+    /**
+     * A collection of stages.
+     */
+    stages: SpacedRepetitionSystemStage[];
+
+    /**
+     * `position` of the starting stage.
+     */
+    starting_stage_position: SpacedRepetitionSystemStageNumber;
+
+    /**
+     * `position` of the unlocking stage.
+     */
+    unlocking_stage_position: SpacedRepetitionSystemStageNumber;
+  };
 
   /**
    * A unique number identifying the Spaced Repetition System.
@@ -147,7 +128,16 @@ export interface SpacedRepetitionSystem extends BaseResource {
 }
 export const SpacedRepetitionSystem = v.object({
   ...BaseResource.entries,
-  data: SpacedRepetitionSystemData,
+  data: v.object({
+    burning_stage_position: SpacedRepetitionSystemStageNumber,
+    created_at: DatableString,
+    description: v.string(),
+    name: v.string(),
+    passing_stage_position: SpacedRepetitionSystemStageNumber,
+    stages: v.array(SpacedRepetitionSystemStage),
+    starting_stage_position: SpacedRepetitionSystemStageNumber,
+    unlocking_stage_position: SpacedRepetitionSystemStageNumber,
+  }),
   id: v.number(),
   object: v.literal("spaced_repetition_system"),
 });

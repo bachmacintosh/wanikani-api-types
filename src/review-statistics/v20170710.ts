@@ -9,95 +9,6 @@ import {
 } from "../base/v20170710.js";
 
 /**
- * Data for a review statistic returned from the WaniKani API.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#review-statistics}
- * @category Data
- * @category Review Statistics
- */
-export interface ReviewStatisticData {
-  /**
-   * Timestamp when the review statistic was created.
-   */
-  created_at: DatableString;
-
-  /**
-   * Indicates if the associated subject has been hidden, preventing it from appearing in lessons or reviews.
-   */
-  hidden: boolean;
-
-  /**
-   * Total number of correct answers submitted for the meaning of the associated subject.
-   */
-  meaning_correct: number;
-
-  /**
-   * The current, uninterrupted series of correct answers given for the meaning of the associated subject.
-   */
-  meaning_current_streak: number;
-
-  /**
-   * Total number of incorrect answers submitted for the meaning of the associated subject.
-   */
-  meaning_incorrect: number;
-
-  /**
-   * The longest, uninterrupted series of correct answers ever given for the meaning of the associated subject.
-   */
-  meaning_max_streak: number;
-
-  /**
-   * The overall correct answer rate by the user for the subject, including both meaning and reading.
-   */
-  percentage_correct: number;
-
-  /**
-   * Total number of correct answers submitted for the reading of the associated subject.
-   */
-  reading_correct: number;
-
-  /**
-   * The current, uninterrupted series of correct answers given for the reading of the associated subject.
-   */
-  reading_current_streak: number;
-
-  /**
-   * Total number of incorrect answers submitted for the reading of the associated subject.
-   */
-  reading_incorrect: number;
-
-  /**
-   * The longest, uninterrupted series of correct answers ever given for the reading of the associated subject.
-   */
-  reading_max_streak: number;
-
-  /**
-   * Unique identifier of the associated subject.
-   */
-  subject_id: number;
-
-  /**
-   * The type of the associated subject.
-   */
-  subject_type: SubjectType;
-}
-export const ReviewStatisticData = v.object({
-  created_at: DatableString,
-  hidden: v.boolean(),
-  meaning_correct: v.number(),
-  meaning_current_streak: v.number(),
-  meaning_incorrect: v.number(),
-  meaning_max_streak: v.number(),
-  percentage_correct: v.number(),
-  reading_correct: v.number(),
-  reading_current_streak: v.number(),
-  reading_incorrect: v.number(),
-  reading_max_streak: v.number(),
-  subject_id: v.number(),
-  subject_type: SubjectType,
-});
-
-/**
  * Review statistics summarize the activity recorded in reviews. They contain sum the number of correct and incorrect
  * answers for both meaning and reading. They track current and maximum streaks of correct answers. They store the
  * overall percentage of correct answers versus total answers.
@@ -112,7 +23,72 @@ export interface ReviewStatistic extends BaseResource {
   /**
    * Data for the returned review statistic.
    */
-  data: ReviewStatisticData;
+  data: {
+    /**
+     * Timestamp when the review statistic was created.
+     */
+    created_at: DatableString;
+
+    /**
+     * Indicates if the associated subject has been hidden, preventing it from appearing in lessons or reviews.
+     */
+    hidden: boolean;
+
+    /**
+     * Total number of correct answers submitted for the meaning of the associated subject.
+     */
+    meaning_correct: number;
+
+    /**
+     * The current, uninterrupted series of correct answers given for the meaning of the associated subject.
+     */
+    meaning_current_streak: number;
+
+    /**
+     * Total number of incorrect answers submitted for the meaning of the associated subject.
+     */
+    meaning_incorrect: number;
+
+    /**
+     * The longest, uninterrupted series of correct answers ever given for the meaning of the associated subject.
+     */
+    meaning_max_streak: number;
+
+    /**
+     * The overall correct answer rate by the user for the subject, including both meaning and reading.
+     */
+    percentage_correct: number;
+
+    /**
+     * Total number of correct answers submitted for the reading of the associated subject.
+     */
+    reading_correct: number;
+
+    /**
+     * The current, uninterrupted series of correct answers given for the reading of the associated subject.
+     */
+    reading_current_streak: number;
+
+    /**
+     * Total number of incorrect answers submitted for the reading of the associated subject.
+     */
+    reading_incorrect: number;
+
+    /**
+     * The longest, uninterrupted series of correct answers ever given for the reading of the associated subject.
+     */
+    reading_max_streak: number;
+
+    /**
+     * Unique identifier of the associated subject.
+     */
+    subject_id: number;
+
+    /**
+     * The type of the associated subject.
+     */
+    subject_type: SubjectType;
+  };
 
   /**
    * A unique number identifying the review statistic.
@@ -126,7 +102,21 @@ export interface ReviewStatistic extends BaseResource {
 }
 export const ReviewStatistic = v.object({
   ...BaseResource.entries,
-  data: ReviewStatisticData,
+  data: v.object({
+    created_at: DatableString,
+    hidden: v.boolean(),
+    meaning_correct: v.number(),
+    meaning_current_streak: v.number(),
+    meaning_incorrect: v.number(),
+    meaning_max_streak: v.number(),
+    percentage_correct: v.number(),
+    reading_correct: v.number(),
+    reading_current_streak: v.number(),
+    reading_incorrect: v.number(),
+    reading_max_streak: v.number(),
+    subject_id: v.number(),
+    subject_type: SubjectType,
+  }),
   id: v.number(),
   object: v.literal("review_statistic"),
 });
