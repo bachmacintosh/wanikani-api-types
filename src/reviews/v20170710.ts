@@ -130,83 +130,6 @@ export const ReviewParameters = v.object({
 });
 
 /**
- * The base object used in the request to create a new review via the WaniKani API.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#create-a-review}
- * @category Reviews
- * @internal
- */
-interface ReviewObjectdBase {
-  /**
-   * Must be zero or a positive number. This is the number of times the meaning was answered incorrectly.
-   */
-  incorrect_meaning_answers: number;
-
-  /**
-   * Must be zero or a positive number. This is the number of times the reading was answered incorrectly. Note that
-   * subjects with a type of `radical` do not quiz on readings. Thus, set this value to `0`.
-   */
-  incorrect_reading_answers: number;
-
-  /**
-   * Timestamp when the review was completed. Defaults to the time of the request if omitted from the request body.
-   * Must be in the past, but after `assignment.available_at`.
-   */
-  created_at?: DatableString | Date;
-}
-const ReviewObjectdBase = v.object({
-  incorrect_meaning_answers: v.number(),
-  incorrect_reading_answers: v.number(),
-  created_at: v.optional(v.union([DatableString, v.date()])),
-});
-
-/**
- * The review object used in the request to create a new review via the WaniKani API by Assignment ID.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#create-a-review}
- * @category Reviews
- */
-export interface ReviewObjectWithAssignmentId extends ReviewObjectdBase {
-  /**
-   * Unique identifier of the assignment. This or `subject_id` must be set.
-   */
-  assignment_id: number;
-
-  /**
-   * The `subject_id` should not be set at the same time as `assignment_id`.
-   */
-  subject_id?: never;
-}
-export const ReviewObjectWithAssignmentId = v.object({
-  ...ReviewObjectdBase.entries,
-  assignment_id: v.number(),
-  subject_id: v.optional(v.never()),
-});
-
-/**
- * The review object used in the request to create a new review via the WaniKani API by Subject ID.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#create-a-review}
- * @category Reviews
- */
-export interface ReviewObjectWithSubjectId extends ReviewObjectdBase {
-  /**
-   * Unique identifier of the subject. This or `assignment_id` must be set.
-   */
-  subject_id: number;
-
-  /**
-   * The `assignment_id` should never be set at the same time as `subject_id`.
-   */
-  assignment_id?: never;
-}
-export const ReviewObjectWithSubjectId = v.object({
-  ...ReviewObjectdBase.entries,
-  subject_id: v.number(),
-  assignment_id: v.optional(v.never()),
-});
-
-/**
  * The payload used in the request to create a new review via the WaniKani API.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#create-a-review}
@@ -217,10 +140,66 @@ export interface ReviewPayload {
   /**
    * A review object with either the `assignment_id` or `subject_id` specified.
    */
-  review: ReviewObjectWithAssignmentId | ReviewObjectWithSubjectId;
+  review: {
+    /**
+     * Must be zero or a positive number. This is the number of times the meaning was answered incorrectly.
+     */
+    incorrect_meaning_answers: number;
+
+    /**
+     * Must be zero or a positive number. This is the number of times the reading was answered incorrectly. Note that
+     * subjects with a type of `radical` do not quiz on readings. Thus, set this value to `0`.
+     */
+    incorrect_reading_answers: number;
+
+    /**
+     * Timestamp when the review was completed. Defaults to the time of the request if omitted from the request body.
+     * Must be in the past, but after `assignment.available_at`.
+     */
+    created_at?: DatableString | Date;
+  } & (
+    | {
+        /**
+         * Unique identifier of the assignment. This or `subject_id` must be set.
+         */
+        assignment_id: number;
+
+        /**
+         * The `subject_id` should not be set at the same time as `assignment_id`.
+         */
+        subject_id?: never;
+      }
+    | {
+        /**
+         * Unique identifier of the subject. This or `assignment_id` must be set.
+         */
+        subject_id: number;
+
+        /**
+         * The `assignment_id` should never be set at the same time as `subject_id`.
+         */
+        assignment_id?: never;
+      }
+  );
 }
 export const ReviewPayload = v.object({
-  review: v.union([ReviewObjectWithAssignmentId, ReviewObjectWithSubjectId]),
+  review: v.intersect([
+    v.object({
+      incorrect_meaning_answers: v.number(),
+      incorrect_reading_answers: v.number(),
+      created_at: v.optional(v.union([DatableString, v.date()])),
+    }),
+    v.union([
+      v.object({
+        assignment_id: v.number(),
+        subject_id: v.optional(v.never()),
+      }),
+      v.object({
+        subject_id: v.number(),
+        assignment_id: v.optional(v.never()),
+      }),
+    ]),
+  ]),
 });
 
 /**
