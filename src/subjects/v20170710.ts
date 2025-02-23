@@ -153,6 +153,29 @@ export type RadicalCharacterImage = {
       /**
        * The content type of the image.
        */
+      content_type: "image/png";
+      /**
+       * Details about the image. Each `content_type` returns a uniquely structured object.
+       */
+      metadata: {
+        /**
+         * Color of the asset in hexadecimal
+         */
+        color: string;
+        /**
+         * Dimension of the asset in pixels
+         */
+        dimensions: string;
+        /**
+         * A name descriptor
+         */
+        style_name: string;
+      };
+    }
+  | {
+      /**
+       * The content type of the image.
+       */
       content_type: "image/svg+xml";
 
       /**
@@ -163,14 +186,6 @@ export type RadicalCharacterImage = {
          * The SVG asset contains built-in CSS styling.
          */
         inline_styles: boolean;
-      };
-    }
-  | {
-      content_type: "image/png";
-      metadata: {
-        color: string;
-        dimensions: string;
-        style_name: string;
       };
     }
 );
