@@ -6,6 +6,7 @@ import {
   MIN_LEVEL,
   SubjectTuple,
 } from "../../src/base/v20170710.js";
+import { MAX_LESSON_BATCH_SIZE, MIN_LESSON_BATCH_SIZE } from "../../src/user/v20170710.js";
 import { MAX_SRS_STAGE, MIN_SRS_STAGE } from "../../src/spaced-repetition-systems/v20170710.js";
 import { ApiRequestFactory } from "../../src/requests/v20170710.js";
 import { test } from "vitest";
@@ -969,6 +970,63 @@ const summary = {
   },
 };
 
+// User
+
+const lessonBatchSizeNumbers = Array<number>(MAX_LESSON_BATCH_SIZE - 2)
+  .fill(MIN_LESSON_BATCH_SIZE)
+  .map((batchSize, batchSizeIdx) => batchSize + batchSizeIdx);
+
+const user = {
+  object: "user" as const,
+  url: "https://api.wanikani.com/v2/user",
+  data_updated_at: v.parse(DatableString, "2025-02-20T02:00:33.354445Z"),
+  data: {
+    id: "d5809441-e17f-4e57-acb0-6a232b714538",
+    username: "BachMac",
+    level: 37,
+    profile_url: "https://www.wanikani.com/users/BachMac",
+    started_at: v.parse(DatableString, "2017-10-22T15:41:43.815029Z"),
+    subscription: {
+      active: true,
+      type: "lifetime" as const,
+      max_level_granted: 60,
+      period_ends_at: null,
+    },
+    current_vacation_started_at: null,
+    preferences: {
+      lessons_autoplay_audio: false,
+      lessons_batch_size: 10,
+      reviews_autoplay_audio: false,
+      reviews_display_srs_indicator: true,
+      extra_study_autoplay_audio: false,
+      reviews_presentation_order: "lower_levels_first" as const,
+      lessons_presentation_order: "ascending_level_then_subject" as const,
+      default_voice_actor_id: 1,
+    },
+  },
+};
+
+const userPayloadWithRequiredProperties = {
+  user: {
+    preferences: {},
+  },
+};
+
+const userPayloadWithAllProperties = {
+  user: {
+    preferences: {
+      default_voice_actor_id: 1,
+      extra_study_autoplay_audio: false,
+      lessons_autoplay_audio: false,
+      lessons_batch_size: 10,
+      lessons_presentation_order: "ascending_level_then_subject" as const,
+      reviews_autoplay_audio: false,
+      reviews_display_srs_indicator: true,
+      reviews_presentation_order: "shuffled" as const,
+    },
+  },
+};
+
 export const testFor = test.extend({
   apiRevision,
   dateTimeUtcString,
@@ -1033,4 +1091,8 @@ export const testFor = test.extend({
   subjectParamsWithDates,
   subjectParamsWithDatableStrings,
   summary,
+  lessonBatchSizeNumbers,
+  user,
+  userPayloadWithRequiredProperties,
+  userPayloadWithAllProperties,
 });
