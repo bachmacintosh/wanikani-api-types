@@ -1,37 +1,18 @@
 import type {
   KanaVocabulary,
   KanaVocabularyCollection,
-  KanaVocabularyData,
   Kanji,
   KanjiCollection,
-  KanjiData,
   Radical,
   RadicalCollection,
-  RadicalData,
   Subject,
   SubjectCollection,
   SubjectParameters,
   Vocabulary,
   VocabularyCollection,
-  VocabularyData,
 } from "../../src/subjects/v20170710.js";
 import { assertType, describe } from "vitest";
 import { testFor } from "../fixtures/v20170710.js";
-
-describe("Subject Data", () => {
-  testFor("Real RadicalData", ({ radicalData }) => {
-    assertType<RadicalData>(radicalData);
-  });
-  testFor("Real KanjiData", ({ kanjiData }) => {
-    assertType<KanjiData>(kanjiData);
-  });
-  testFor("Real VocabularyData", ({ vocabularyData }) => {
-    assertType<VocabularyData>(vocabularyData);
-  });
-  testFor("Real KanaVocabularyData", ({ kanaVocabularyData }) => {
-    assertType<KanaVocabularyData>(kanaVocabularyData);
-  });
-});
 
 describe("Subjects", () => {
   testFor("Real Radical", ({ radical }) => {

@@ -3,7 +3,6 @@ import {
   MAX_SRS_STAGE,
   SpacedRepetitionSystem,
   SpacedRepetitionSystemCollection,
-  SpacedRepetitionSystemData,
   SpacedRepetitionSystemStageNumber,
 } from "../../src/spaced-repetition-systems/v20170710.js";
 import { describe, expect } from "vitest";
@@ -24,12 +23,6 @@ describe("SpacedRepetitionSystemStageNumber", () => {
   });
   testFor(`Invalid SRS Stage Number: ${MAX_SRS_STAGE + 1}`, () => {
     expect(() => v.assert(SpacedRepetitionSystemStageNumber, MAX_SRS_STAGE + 1)).toThrow();
-  });
-});
-
-describe("SpacedRepetitionSystemData", () => {
-  testFor("Real SpacedRepetitionSystemData", ({ spacedRepetitionSystemData }) => {
-    expect(() => v.assert(SpacedRepetitionSystemData, spacedRepetitionSystemData)).not.toThrow();
   });
 });
 

@@ -2,38 +2,19 @@ import * as v from "valibot";
 import {
   KanaVocabulary,
   KanaVocabularyCollection,
-  KanaVocabularyData,
   Kanji,
   KanjiCollection,
-  KanjiData,
   Radical,
   RadicalCollection,
-  RadicalData,
   Subject,
   SubjectCollection,
   SubjectParameters,
   Vocabulary,
   VocabularyCollection,
-  VocabularyData,
   WK_SUBJECT_MARKUP_MATCHERS,
 } from "../../src/subjects/v20170710.js";
 import { describe, expect } from "vitest";
 import { testFor } from "../fixtures/v20170710.js";
-
-describe("Subject Data", () => {
-  testFor("Real RadicalData", ({ radicalData }) => {
-    expect(() => v.assert(RadicalData, radicalData)).not.toThrow();
-  });
-  testFor("Real KanjiData", ({ kanjiData }) => {
-    expect(() => v.assert(KanjiData, kanjiData)).not.toThrow();
-  });
-  testFor("Real VocabularyData", ({ vocabularyData }) => {
-    expect(() => v.assert(VocabularyData, vocabularyData)).not.toThrow();
-  });
-  testFor("Real KanaVocabularyData", ({ kanaVocabularyData }) => {
-    expect(() => v.assert(KanaVocabularyData, kanaVocabularyData)).not.toThrow();
-  });
-});
 
 describe("Subjects", () => {
   testFor("Real Radical", ({ radical }) => {

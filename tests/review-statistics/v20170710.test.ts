@@ -2,17 +2,10 @@ import * as v from "valibot";
 import {
   ReviewStatistic,
   ReviewStatisticCollection,
-  ReviewStatisticData,
   ReviewStatisticParameters,
 } from "../../src/review-statistics/v20170710.js";
 import { describe, expect } from "vitest";
 import { testFor } from "../fixtures/v20170710.js";
-
-describe("ReviewStatisticData", () => {
-  testFor("Real ReviewStatisticData", ({ reviewStatisticData }) => {
-    expect(() => v.parse(ReviewStatisticData, reviewStatisticData)).not.toThrow();
-  });
-});
 
 describe("ReviewStatistic", () => {
   testFor("Real ReviewStatistic", ({ reviewStatistic }) => {

@@ -1,17 +1,10 @@
 import type {
   ReviewStatistic,
   ReviewStatisticCollection,
-  ReviewStatisticData,
   ReviewStatisticParameters,
 } from "../../src/review-statistics/v20170710.js";
 import { assertType, describe } from "vitest";
 import { testFor } from "../fixtures/v20170710.js";
-
-describe("ReviewStatisticData", () => {
-  testFor("Real ReviewStatisticData", ({ reviewStatisticData }) => {
-    assertType<ReviewStatisticData>(reviewStatisticData);
-  });
-});
 
 describe("ReviewStatistic", () => {
   testFor("Real ReviewStatistic", ({ reviewStatistic }) => {

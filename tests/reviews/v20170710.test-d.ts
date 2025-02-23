@@ -1,18 +1,6 @@
-import type {
-  Review,
-  ReviewCollection,
-  ReviewData,
-  ReviewParameters,
-  ReviewPayload,
-} from "../../src/reviews/v20170710.js";
+import type { Review, ReviewCollection, ReviewParameters, ReviewPayload } from "../../src/reviews/v20170710.js";
 import { assertType, describe } from "vitest";
 import { testFor } from "../fixtures/v20170710.js";
-
-describe("ReviewData", () => {
-  testFor("ReviewData from WaniKani API Docs", ({ reviewData }) => {
-    assertType<ReviewData>(reviewData);
-  });
-});
 
 describe("Review", () => {
   testFor("Review from WaniKani API Docs", ({ review }) => {

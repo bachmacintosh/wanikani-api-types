@@ -2,18 +2,11 @@ import * as v from "valibot";
 import {
   Assignment,
   AssignmentCollection,
-  AssignmentData,
   AssignmentParameters,
   AssignmentPayload,
 } from "../../src/assignments/v20170710.js";
 import { describe, expect } from "vitest";
 import { testFor } from "../fixtures/v20170710.js";
-
-describe("AssignmentData", () => {
-  testFor("Real AssignmentData", ({ assignmentData }) => {
-    expect(() => v.assert(AssignmentData, assignmentData)).not.toThrow();
-  });
-});
 
 describe("Assignment", () => {
   testFor("Real Assignment", ({ assignment }) => {

@@ -1,7 +1,6 @@
 import type {
   SpacedRepetitionSystem,
   SpacedRepetitionSystemCollection,
-  SpacedRepetitionSystemData,
   SpacedRepetitionSystemStageNumber,
 } from "../../src/spaced-repetition-systems/v20170710.js";
 import { assertType, describe } from "vitest";
@@ -16,12 +15,6 @@ describe("SpacedRepetitionSystemStageNumber", () => {
     } else {
       throw new TypeError("Expected spacedRepetitionSystemStageNumbers to be an array");
     }
-  });
-});
-
-describe("SpacedRepetitionSystemData", () => {
-  testFor("Real SpacedRepetitionSystemData", ({ spacedRepetitionSystemData }) => {
-    assertType<SpacedRepetitionSystemData>(spacedRepetitionSystemData);
   });
 });
 
