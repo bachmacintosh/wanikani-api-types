@@ -955,6 +955,40 @@ const subjectParamsWithDatableStrings = {
   updated_after: v.parse(DatableString, new Date().toISOString()),
 };
 
+// Summary
+
+const summary = {
+  object: "report" as const,
+  url: "https://api.wanikani.com/v2/summary",
+  data_updated_at: v.parse(DatableString, "2025-02-23T11:00:00.000000Z"),
+  data: {
+    lessons: [
+      {
+        available_at: v.parse(DatableString, "2025-02-23T11:00:00.000000Z"),
+        subject_ids: [
+          1672, 5998, 5999, 5971, 5972, 5973, 6001, 6002, 5970, 5992, 5993, 5994, 9266, 6003, 6004, 6010, 5986, 5987,
+          5988, 6027, 5980, 5981, 6005, 6006, 6007, 6008, 7663, 5963, 5964, 5965, 364, 1657, 1664, 6048, 1665, 6047,
+          366, 1647, 365, 1670, 6040, 6581, 1645, 1649, 8862, 6034, 6041, 6029, 8556, 6031, 6038, 6042, 6033, 1667,
+          6039, 1644, 1653, 1654, 1660, 1662, 1673, 6036, 1659, 1651, 1663, 1648, 1668, 1674, 6032, 6035, 6043, 6045,
+          6080, 6049, 6044, 363, 395, 6046, 1655, 1661, 1650, 5966, 5967, 5968, 5969, 5956, 5957, 5958, 6037, 5996,
+          5997, 2384, 1669, 1656,
+        ],
+      },
+    ],
+    next_reviews_at: v.parse(DatableString, "2025-02-23T12:00:00.000000Z"),
+    reviews: [
+      {
+        available_at: v.parse(DatableString, "2025-02-23T11:00:00.000000Z"),
+        subject_ids: [],
+      },
+      {
+        available_at: v.parse(DatableString, "2025-02-23T12:00:00.000000Z"),
+        subject_ids: [6026, 5959, 5961, 5989, 5979, 5990, 7609, 5960, 5962, 5991],
+      },
+    ],
+  },
+};
+
 export const testFor = test.extend({
   apiRevision,
   dateTimeUtcString,
@@ -1028,4 +1062,5 @@ export const testFor = test.extend({
   subjectParamsWithManyOptions,
   subjectParamsWithDates,
   subjectParamsWithDatableStrings,
+  summary,
 });
