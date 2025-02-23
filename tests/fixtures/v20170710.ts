@@ -27,18 +27,6 @@ const levels = Array<number>(MAX_LEVEL)
   .fill(MIN_LEVEL)
   .map((item, itemIdx) => item + itemIdx);
 
-const resourceTypes = [
-  "assignment" as const,
-  "level_progression" as const,
-  "reset" as const,
-  "review_statistic" as const,
-  "review" as const,
-  "spaced_repetition_system" as const,
-  "study_material" as const,
-  "user" as const,
-  "voice_actor" as const,
-];
-
 const subjectTypes = ["kana_vocabulary" as const, "kanji" as const, "radical" as const, "vocabulary" as const];
 
 // @ts-expect-error -- Intentionally empty tuple needed a type and can't use unknown[] with vitest fixtures
@@ -1134,7 +1122,6 @@ export const testFor = test.extend({
   dateTimeOffsetString,
   dateIsoString,
   levels,
-  resourceTypes,
   subjectTypes,
   emptySubjectTuple,
   partialSubjectTuple,

@@ -49,34 +49,6 @@ export type Level = number & {};
 export const Level = v.pipe(v.number(), v.minValue(MIN_LEVEL), v.maxValue(MAX_LEVEL));
 
 /**
- * The types of resources used on WaniKani and its API.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#response-structure}
- * @category Base
- */
-export type ResourceType =
-  | "assignment"
-  | "level_progression"
-  | "reset"
-  | "review_statistic"
-  | "review"
-  | "spaced_repetition_system"
-  | "study_material"
-  | "user"
-  | "voice_actor";
-export const ResourceType = v.picklist([
-  "assignment",
-  "level_progression",
-  "reset",
-  "review_statistic",
-  "review",
-  "spaced_repetition_system",
-  "study_material",
-  "user",
-  "voice_actor",
-]);
-
-/**
  * The types of subjects used on WaniKani and its API.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
