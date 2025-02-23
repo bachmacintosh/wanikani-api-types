@@ -88,106 +88,6 @@ export const UserPreferences = v.object({
 });
 
 /**
- * Details about the user's subscription state.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#user}
- * @category User
- */
-export interface UserSubscription {
-  /**
-   * Whether or not the user currently has a paid subscription.
-   */
-  active: boolean;
-
-  /**
-   * The maximum level of content accessible to the user for lessons, reviews, and content review. For unsubscribed/free
-   * users, the maximum level is `3`. For subscribed users, this is `60`.
-   *
-   * **Any application that uses data from the WaniKani API must respect these access limits.**
-   */
-  max_level_granted: Level;
-
-  /**
-   * The date when the user's subscription period ends. If the user has subscription type `lifetime` or `free` then the
-   * value is `null`.
-   */
-  period_ends_at: DatableString | null;
-
-  /**
-   * The type of subscription the user has. Options are following: `free`, `recurring`, and `lifetime`. A type of
-   * `unknown` means the user subscription state isn't exactly known. This is a weird state on WaniKani, should be
-   * treated as `free`, and reported to the WaniKani developers.
-   */
-  type: "free" | "lifetime" | "recurring" | "unknown";
-}
-export const UserSubscription = v.object({
-  active: v.boolean(),
-  max_level_granted: Level,
-  period_ends_at: v.union([DatableString, v.null()]),
-  type: v.picklist(["free", "lifetime", "recurring", "unknown"]),
-});
-
-/**
- * Data for a user returned from the WaniKani API.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#user}
- * @category Data
- * @category User
- */
-export interface UserData {
-  /**
-   * If the user is on vacation, this will be the timestamp of when that vacation started. If the user is not on
-   * vacation, this is `null`.
-   */
-  current_vacation_started_at: DatableString | null;
-
-  /**
-   * A user's unique ID string.
-   */
-  id: string;
-
-  /**
-   * The current level of the user. This ignores subscription status.
-   */
-  level: Level;
-
-  /**
-   * User settings specific to the WaniKani application.
-   */
-  preferences: UserPreferences;
-
-  /**
-   * The URL to the user's public facing profile page.
-   */
-  profile_url: string;
-
-  /**
-   * The signup date for the user.
-   */
-  started_at: DatableString;
-
-  /**
-   * Details about the user's subscription state.
-   */
-  subscription: UserSubscription;
-
-  /**
-   * The user's username.
-   */
-  username: string;
-}
-export const UserData = v.object({
-  current_vacation_started_at: v.union([DatableString, v.null()]),
-  id: v.string(),
-  level: Level,
-  preferences: UserPreferences,
-  profile_url: v.string(),
-  started_at: DatableString,
-  subscription: UserSubscription,
-  username: v.string(),
-});
-
-/**
  * A user and their status/information on WaniKani.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#user}
@@ -198,7 +98,74 @@ export interface User extends BaseResource {
   /**
    * Data for the returned user.
    */
-  data: UserData;
+  data: {
+    /**
+     * If the user is on vacation, this will be the timestamp of when that vacation started. If the user is not on
+     * vacation, this is `null`.
+     */
+    current_vacation_started_at: DatableString | null;
+
+    /**
+     * A user's unique ID string.
+     */
+    id: string;
+
+    /**
+     * The current level of the user. This ignores subscription status.
+     */
+    level: Level;
+
+    /**
+     * User settings specific to the WaniKani application.
+     */
+    preferences: UserPreferences;
+
+    /**
+     * The URL to the user's public facing profile page.
+     */
+    profile_url: string;
+
+    /**
+     * The signup date for the user.
+     */
+    started_at: DatableString;
+
+    /**
+     * Details about the user's subscription state.
+     */
+    subscription: {
+      /**
+       * Whether or not the user currently has a paid subscription.
+       */
+      active: boolean;
+
+      /**
+       * The maximum level of content accessible to the user for lessons, reviews, and content review. For unsubscribed/free
+       * users, the maximum level is `3`. For subscribed users, this is `60`.
+       *
+       * **Any application that uses data from the WaniKani API must respect these access limits.**
+       */
+      max_level_granted: Level;
+
+      /**
+       * The date when the user's subscription period ends. If the user has subscription type `lifetime` or `free` then the
+       * value is `null`.
+       */
+      period_ends_at: DatableString | null;
+
+      /**
+       * The type of subscription the user has. Options are following: `free`, `recurring`, and `lifetime`. A type of
+       * `unknown` means the user subscription state isn't exactly known. This is a weird state on WaniKani, should be
+       * treated as `free`, and reported to the WaniKani developers.
+       */
+      type: "free" | "lifetime" | "recurring" | "unknown";
+    };
+
+    /**
+     * The user's username.
+     */
+    username: string;
+  };
 
   /**
    * The kind of object returned.
@@ -207,7 +174,21 @@ export interface User extends BaseResource {
 }
 export const User = v.object({
   ...BaseResource.entries,
-  data: UserData,
+  data: v.object({
+    current_vacation_started_at: v.union([DatableString, v.null()]),
+    id: v.string(),
+    level: Level,
+    preferences: UserPreferences,
+    profile_url: v.string(),
+    started_at: DatableString,
+    subscription: v.object({
+      active: v.boolean(),
+      max_level_granted: Level,
+      period_ends_at: v.union([DatableString, v.null()]),
+      type: v.picklist(["free", "lifetime", "recurring", "unknown"]),
+    }),
+    username: v.string(),
+  }),
   object: v.literal("user"),
 });
 

@@ -5,66 +5,6 @@ import type { ReviewStatistic } from "../review-statistics/v20170710.js";
 import { SpacedRepetitionSystemStageNumber } from "../spaced-repetition-systems/v20170710.js";
 
 /**
- * Review data shared between created and read reviews.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#reviews}
- * @category Data
- * @category Reviews
- */
-export interface ReviewData {
-  /**
-   * Unique identifier of the associated assignment.
-   */
-  assignment_id: number;
-
-  /**
-   * Timestamp when the review was created.
-   */
-  created_at: DatableString;
-
-  /**
-   * The SRS stage interval calculated from the number of correct and incorrect answers, with valid values ranging
-   * from `1` to `9`.
-   */
-  ending_srs_stage: SpacedRepetitionSystemStageNumber;
-
-  /**
-   * The number of times the user has answered the meaning incorrectly.
-   */
-  incorrect_meaning_answers: number;
-
-  /**
-   * The number of times the user has answered the reading incorrectly.
-   */
-  incorrect_reading_answers: number;
-
-  /**
-   * Unique identifier of the associated `spaced_repetition_system`.
-   */
-  spaced_repetition_system_id: number;
-
-  /**
-   * The starting SRS stage interval, with valid values ranging from `1` to `8`.
-   */
-  starting_srs_stage: SpacedRepetitionSystemStageNumber;
-
-  /**
-   * Unique identifier of the associated subject.
-   */
-  subject_id: number;
-}
-export const ReviewData = v.object({
-  assignment_id: v.number(),
-  created_at: DatableString,
-  ending_srs_stage: SpacedRepetitionSystemStageNumber,
-  incorrect_meaning_answers: v.number(),
-  incorrect_reading_answers: v.number(),
-  spaced_repetition_system_id: v.number(),
-  starting_srs_stage: SpacedRepetitionSystemStageNumber,
-  subject_id: v.number(),
-});
-
-/**
  * Reviews log all the correct and incorrect answers provided through the 'Reviews' section of WaniKani. Review records
  * are created when a user answers all the parts of a subject correctly once; some subjects have both meaning or reading
  * parts, and some only have one or the other. Note that reviews are not created for the quizzes in lessons.
@@ -77,7 +17,48 @@ export interface Review extends BaseResource {
   /**
    * Data for the returned review.
    */
-  data: ReviewData;
+  data: {
+    /**
+     * Unique identifier of the associated assignment.
+     */
+    assignment_id: number;
+
+    /**
+     * Timestamp when the review was created.
+     */
+    created_at: DatableString;
+
+    /**
+     * The SRS stage interval calculated from the number of correct and incorrect answers, with valid values ranging
+     * from `1` to `9`.
+     */
+    ending_srs_stage: SpacedRepetitionSystemStageNumber;
+
+    /**
+     * The number of times the user has answered the meaning incorrectly.
+     */
+    incorrect_meaning_answers: number;
+
+    /**
+     * The number of times the user has answered the reading incorrectly.
+     */
+    incorrect_reading_answers: number;
+
+    /**
+     * Unique identifier of the associated `spaced_repetition_system`.
+     */
+    spaced_repetition_system_id: number;
+
+    /**
+     * The starting SRS stage interval, with valid values ranging from `1` to `8`.
+     */
+    starting_srs_stage: SpacedRepetitionSystemStageNumber;
+
+    /**
+     * Unique identifier of the associated subject.
+     */
+    subject_id: number;
+  };
 
   /**
    * A unique number identifying the review.
@@ -91,7 +72,16 @@ export interface Review extends BaseResource {
 }
 export const Review = v.object({
   ...BaseResource.entries,
-  data: ReviewData,
+  data: v.object({
+    assignment_id: v.number(),
+    created_at: DatableString,
+    ending_srs_stage: SpacedRepetitionSystemStageNumber,
+    incorrect_meaning_answers: v.number(),
+    incorrect_reading_answers: v.number(),
+    spaced_repetition_system_id: v.number(),
+    starting_srs_stage: SpacedRepetitionSystemStageNumber,
+    subject_id: v.number(),
+  }),
   id: v.number(),
   object: v.literal("review"),
 });

@@ -11,88 +11,6 @@ import {
 import { SpacedRepetitionSystemStageNumber } from "../spaced-repetition-systems/v20170710.js";
 
 /**
- * Data for assignments returned from the WaniKani API.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#assignments}
- * @category Assignments
- * @category Data
- */
-export interface AssignmentData {
-  /**
-   * When the related subject will be available in the user's review queue.
-   */
-  available_at: DatableString | null;
-
-  /**
-   * When the user reaches SRS stage 9 the first time.
-   */
-  burned_at: DatableString | null;
-
-  /**
-   * When the assignment was created.
-   */
-  created_at: DatableString;
-
-  /**
-   * Indicates if the associated subject has been hidden, preventing it from appearing in lessons or reviews.
-   */
-  hidden: boolean;
-
-  /**
-   * When the user reaches SRS stage `5` for the first time.
-   */
-  passed_at: DatableString | null;
-
-  /**
-   * When the subject is resurrected and placed back in the user's review queue.
-   */
-  resurrected_at: DatableString | null;
-
-  /**
-   * The current SRS stage interval. The interval range is determined by the related subject's Spaced Repetition
-   * System.
-   */
-  srs_stage: SpacedRepetitionSystemStageNumber;
-
-  /**
-   * When the user completes the lesson for the related subject.
-   */
-  started_at: DatableString | null;
-
-  /**
-   * Unique identifier of the associated subject.
-   */
-  subject_id: number;
-
-  /**
-   * The type of the associated subject.
-   */
-  subject_type: SubjectType;
-
-  /**
-   * When the related subjects has its prerequisites satisfied and is made available in lessons.
-   *
-   * Prerequisites are:
-   * * The subject components have reached SRS stage 5 once (they have been “passed”).
-   * * The user's level is equal to or greater than the level of the assignment’s subject.
-   */
-  unlocked_at: DatableString | null;
-}
-export const AssignmentData = v.object({
-  available_at: v.union([DatableString, v.null()]),
-  burned_at: v.union([DatableString, v.null()]),
-  created_at: DatableString,
-  hidden: v.boolean(),
-  passed_at: v.union([DatableString, v.null()]),
-  resurrected_at: v.union([DatableString, v.null()]),
-  srs_stage: SpacedRepetitionSystemStageNumber,
-  started_at: v.union([DatableString, v.null()]),
-  subject_id: v.number(),
-  subject_type: SubjectType,
-  unlocked_at: v.union([DatableString, v.null()]),
-});
-
-/**
  * Assignments contain information about a user's progress on a particular subject, including their current state and
  * timestamps for various progress milestones. Assignments are created when a user has passed all the components of the
  * given subject and the assignment is at or below their current level for the first time.
@@ -105,7 +23,67 @@ export interface Assignment extends BaseResource {
   /**
    * Data for the returned assignment.
    */
-  data: AssignmentData;
+  data: {
+    /**
+     * When the related subject will be available in the user's review queue.
+     */
+    available_at: DatableString | null;
+
+    /**
+     * When the user reaches SRS stage 9 the first time.
+     */
+    burned_at: DatableString | null;
+
+    /**
+     * When the assignment was created.
+     */
+    created_at: DatableString;
+
+    /**
+     * Indicates if the associated subject has been hidden, preventing it from appearing in lessons or reviews.
+     */
+    hidden: boolean;
+
+    /**
+     * When the user reaches SRS stage `5` for the first time.
+     */
+    passed_at: DatableString | null;
+
+    /**
+     * When the subject is resurrected and placed back in the user's review queue.
+     */
+    resurrected_at: DatableString | null;
+
+    /**
+     * The current SRS stage interval. The interval range is determined by the related subject's Spaced Repetition
+     * System.
+     */
+    srs_stage: SpacedRepetitionSystemStageNumber;
+
+    /**
+     * When the user completes the lesson for the related subject.
+     */
+    started_at: DatableString | null;
+
+    /**
+     * Unique identifier of the associated subject.
+     */
+    subject_id: number;
+
+    /**
+     * The type of the associated subject.
+     */
+    subject_type: SubjectType;
+
+    /**
+     * When the related subjects has its prerequisites satisfied and is made available in lessons.
+     *
+     * Prerequisites are:
+     * * The subject components have reached SRS stage 5 once (they have been “passed”).
+     * * The user's level is equal to or greater than the level of the assignment’s subject.
+     */
+    unlocked_at: DatableString | null;
+  };
 
   /**
    * A unique number identifying the assignment.
@@ -119,7 +97,19 @@ export interface Assignment extends BaseResource {
 }
 export const Assignment = v.object({
   ...BaseResource.entries,
-  data: AssignmentData,
+  data: v.object({
+    available_at: v.union([DatableString, v.null()]),
+    burned_at: v.union([DatableString, v.null()]),
+    created_at: DatableString,
+    hidden: v.boolean(),
+    passed_at: v.union([DatableString, v.null()]),
+    resurrected_at: v.union([DatableString, v.null()]),
+    srs_stage: SpacedRepetitionSystemStageNumber,
+    started_at: v.union([DatableString, v.null()]),
+    subject_id: v.number(),
+    subject_type: SubjectType,
+    unlocked_at: v.union([DatableString, v.null()]),
+  }),
   id: v.number(),
   object: v.literal("assignment"),
 });

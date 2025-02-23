@@ -2,60 +2,6 @@ import * as v from "valibot";
 import { BaseCollection, BaseResource, CollectionParameters, DatableString, Level } from "../base/v20170710.js";
 
 /**
- * Data for level progressions returned from the WaniKani API.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#level-progressions}
- * @category Data
- * @category Level Progressions
- */
-export interface LevelProgressionData {
-  /**
-   * Timestamp when the user abandons the level. This is primarily used when the user initiates a reset.
-   */
-  abandoned_at: DatableString | null;
-
-  /**
-   * Timestamp when the user burns 100% of the assignments belonging to the associated subject's level.
-   */
-  completed_at: DatableString | null;
-
-  /**
-   * Timestamp when the level progression is created.
-   */
-  created_at: DatableString;
-
-  /**
-   * The level of the progression, with possible values from `1` to `60`.
-   */
-  level: Level;
-
-  /**
-   * Timestamp, in ISO-8601 format, when the user passes at least 90% of the assignments with a type of `kanji`
-   * belonging to the associated subject's level.
-   */
-  passed_at: DatableString | null;
-
-  /**
-   * Timestamp when the user starts their first lesson of a subject belonging to the level.
-   */
-  started_at: DatableString | null;
-
-  /**
-   * Timestamp when the user can access lessons and reviews for the `level`.
-   */
-  unlocked_at: DatableString | null;
-}
-export const LevelProgressionData = v.object({
-  abandoned_at: v.union([DatableString, v.null()]),
-  completed_at: v.union([DatableString, v.null()]),
-  created_at: DatableString,
-  level: Level,
-  passed_at: v.union([DatableString, v.null()]),
-  started_at: v.union([DatableString, v.null()]),
-  unlocked_at: v.union([DatableString, v.null()]),
-});
-
-/**
  * Level progressions contain information about a user's progress through the WaniKani levels.
  *
  * A level progression is created when a user has met the prerequisites for leveling up, which are:
@@ -73,7 +19,43 @@ export interface LevelProgression extends BaseResource {
   /**
    * Data for the returned level progression.
    */
-  data: LevelProgressionData;
+  data: {
+    /**
+     * Timestamp when the user abandons the level. This is primarily used when the user initiates a reset.
+     */
+    abandoned_at: DatableString | null;
+
+    /**
+     * Timestamp when the user burns 100% of the assignments belonging to the associated subject's level.
+     */
+    completed_at: DatableString | null;
+
+    /**
+     * Timestamp when the level progression is created.
+     */
+    created_at: DatableString;
+
+    /**
+     * The level of the progression, with possible values from `1` to `60`.
+     */
+    level: Level;
+
+    /**
+     * Timestamp, in ISO-8601 format, when the user passes at least 90% of the assignments with a type of `kanji`
+     * belonging to the associated subject's level.
+     */
+    passed_at: DatableString | null;
+
+    /**
+     * Timestamp when the user starts their first lesson of a subject belonging to the level.
+     */
+    started_at: DatableString | null;
+
+    /**
+     * Timestamp when the user can access lessons and reviews for the `level`.
+     */
+    unlocked_at: DatableString | null;
+  };
 
   /**
    * A unique number identifying the level progression.
@@ -87,7 +69,15 @@ export interface LevelProgression extends BaseResource {
 }
 export const LevelProgression = v.object({
   ...BaseResource.entries,
-  data: LevelProgressionData,
+  data: v.object({
+    abandoned_at: v.union([DatableString, v.null()]),
+    completed_at: v.union([DatableString, v.null()]),
+    created_at: DatableString,
+    level: Level,
+    passed_at: v.union([DatableString, v.null()]),
+    started_at: v.union([DatableString, v.null()]),
+    unlocked_at: v.union([DatableString, v.null()]),
+  }),
   id: v.number(),
   object: v.literal("level_progression"),
 });
