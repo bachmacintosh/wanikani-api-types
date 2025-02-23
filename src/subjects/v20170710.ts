@@ -143,34 +143,58 @@ export const SubjectBaseData = v.object({
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-export interface RadicalCharacterImage {
-  /**
-   * The content type of the image.
-   */
-  content_type: "image/svg+xml";
-
-  /**
-   * Details about the image. Each `content_type` returns a uniquely structured object.
-   */
-  metadata: {
-    /**
-     * The SVG asset contains built-in CSS styling.
-     */
-    inline_styles: boolean;
-  };
-
+export type RadicalCharacterImage = {
   /**
    * The location of the image.
    */
   url: string;
-}
-export const RadicalCharacterImage = v.object({
-  content_type: v.literal("image/svg+xml"),
-  metadata: v.object({
-    inline_styles: v.boolean(),
+} & (
+  | {
+      /**
+       * The content type of the image.
+       */
+      content_type: "image/svg+xml";
+
+      /**
+       * Details about the image. Each `content_type` returns a uniquely structured object.
+       */
+      metadata: {
+        /**
+         * The SVG asset contains built-in CSS styling.
+         */
+        inline_styles: boolean;
+      };
+    }
+  | {
+      content_type: "image/png";
+      metadata: {
+        color: string;
+        dimensions: string;
+        style_name: string;
+      };
+    }
+);
+export const RadicalCharacterImage = v.intersect([
+  v.object({
+    url: v.string(),
   }),
-  url: v.string(),
-});
+  v.variant("content_type", [
+    v.object({
+      content_type: v.literal("image/svg+xml"),
+      metadata: v.object({
+        inline_styles: v.boolean(),
+      }),
+    }),
+    v.object({
+      content_type: v.literal("image/png"),
+      metadata: v.object({
+        color: v.string(),
+        dimensions: v.string(),
+        style_name: v.string(),
+      }),
+    }),
+  ]),
+]);
 
 /**
  * Data returned only for radical subjects.
