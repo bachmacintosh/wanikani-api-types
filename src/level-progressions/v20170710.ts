@@ -1,55 +1,5 @@
-import {
-  CollectionParameters,
-  type DatableString,
-  type Level,
-  type WKCollection,
-  type WKResource,
-} from "../base/v20170710.js";
-
-/**
- * Level progressions contain information about a user's progress through the WaniKani levels.
- *
- * A level progression is created when a user has met the prerequisites for leveling up, which are:
- *
- * * Reach a 90% passing rate on assignments for a user's current level with a `subject_type` of `kanji`. Passed
- * assignments have `data.passed` equal to `true` and a `data.passed_at` that's in the past.
- * * Have access to the level. Under `/user`, the `data.level` must be less than or equal to
- * `data.subscription.max_level_granted`.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#level-progressions}
- * @category Level Progressions
- * @category Resources
- */
-export interface WKLevelProgression extends WKResource {
-  /**
-   * Data for the returned level progression.
-   */
-  data: WKLevelProgressionData;
-
-  /**
-   * A unique number identifying the level progression.
-   */
-  id: number;
-
-  /**
-   * The kind of object returned.
-   */
-  object: "level_progression";
-}
-
-/**
- * A collection of level progressions returned from the WaniKani API.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#get-all-level-progressions}
- * @category Collections
- * @category Level Progressions
- */
-export interface WKLevelProgressionCollection extends WKCollection {
-  /**
-   * An array of returned level progressions.
-   */
-  data: WKLevelProgression[];
-}
+import * as v from "valibot";
+import { BaseCollection, BaseResource, CollectionParameters, DatableString, Level } from "../base/v20170710.js";
 
 /**
  * Data for level progressions returned from the WaniKani API.
@@ -58,7 +8,7 @@ export interface WKLevelProgressionCollection extends WKCollection {
  * @category Data
  * @category Level Progressions
  */
-export interface WKLevelProgressionData {
+export interface LevelProgressionData {
   /**
    * Timestamp when the user abandons the level. This is primarily used when the user initiates a reset.
    */
@@ -95,6 +45,70 @@ export interface WKLevelProgressionData {
    */
   unlocked_at: DatableString | null;
 }
+export const LevelProgressionData = v.object({
+  abandoned_at: v.union([DatableString, v.null()]),
+  completed_at: v.union([DatableString, v.null()]),
+  created_at: DatableString,
+  level: Level,
+  passed_at: v.union([DatableString, v.null()]),
+  started_at: v.union([DatableString, v.null()]),
+  unlocked_at: v.union([DatableString, v.null()]),
+});
+
+/**
+ * Level progressions contain information about a user's progress through the WaniKani levels.
+ *
+ * A level progression is created when a user has met the prerequisites for leveling up, which are:
+ *
+ * * Reach a 90% passing rate on assignments for a user's current level with a `subject_type` of `kanji`. Passed
+ * assignments have `data.passed` equal to `true` and a `data.passed_at` that's in the past.
+ * * Have access to the level. Under `/user`, the `data.level` must be less than or equal to
+ * `data.subscription.max_level_granted`.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#level-progressions}
+ * @category Level Progressions
+ * @category Resources
+ */
+export interface LevelProgression extends BaseResource {
+  /**
+   * Data for the returned level progression.
+   */
+  data: LevelProgressionData;
+
+  /**
+   * A unique number identifying the level progression.
+   */
+  id: number;
+
+  /**
+   * The kind of object returned.
+   */
+  object: "level_progression";
+}
+export const LevelProgression = v.object({
+  ...BaseResource.entries,
+  data: LevelProgressionData,
+  id: v.number(),
+  object: v.literal("level_progression"),
+});
+
+/**
+ * A collection of level progressions returned from the WaniKani API.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#get-all-level-progressions}
+ * @category Collections
+ * @category Level Progressions
+ */
+export interface LevelProgressionCollection extends BaseCollection {
+  /**
+   * An array of returned level progressions.
+   */
+  data: LevelProgression[];
+}
+export const LevelProgressionCollection = v.object({
+  ...BaseCollection.entries,
+  data: v.array(LevelProgression),
+});
 
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Level Progression Collection.

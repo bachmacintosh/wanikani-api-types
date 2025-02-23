@@ -1,465 +1,12 @@
 import * as v from "valibot";
 import {
-  type CollectionParameters,
-  type DatableString,
+  BaseCollection,
+  BaseResource,
+  CollectionParameters,
+  DatableString,
   Level,
   SubjectTuple,
-  type WKCollection,
-  type WKResource,
 } from "../base/v20170710.js";
-import { extendCollectionParameters } from "../internal/index.js";
-
-/**
- * The exact structure of a subject depends on the subject type. The available subject types are `kana_vocabulary`,
- * `kanji`, `radical`, and `vocabulary`. Note that any attributes called out for the specific subject type behaves
- * differently than the common attribute of the same name.
- *
- * This type asserts the subject type is a kana-only vocabulary subject, and provides better type assertions requiring
- * less type checking in code.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
- * @category Resources
- * @category Subjects
- */
-export interface WKKanaVocabulary extends WKResource {
-  /**
-   * Data for the returned vocabulary.
-   */
-  data: WKKanaVocabularyData;
-
-  /**
-   * A unique number identifying the vocabulary.
-   */
-  id: number;
-
-  /**
-   * The kind of object returned.
-   */
-  object: "kana_vocabulary";
-}
-
-/**
- * A collection of kana-only vocabulary subjects returned from the WaniKani API.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#get-all-subjects}
- * @category Collections
- * @category Subjects
- */
-export interface WKKanaVocabularyCollection extends WKCollection {
-  /**
-   * An array of returned vocabulary subjects.
-   */
-  data: WKKanaVocabulary[];
-}
-
-/**
- * Data returned only for kana-only vocabulary subjects.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
- * @category Data
- * @category Subjects
- */
-export interface WKKanaVocabularyData extends WKSubjectData {
-  /**
-   * The UTF-8 characters for the subject, including kanji and hiragana.
-   */
-  characters: string;
-
-  /**
-   * A collection of context sentences.
-   */
-  context_sentences: WKVocabularyContextSentence[];
-
-  /**
-   * Parts of speech.
-   */
-  parts_of_speech: string[];
-
-  /**
-   * A collection of pronunciation audio.
-   */
-  pronunciation_audios: WKVocabularyPronunciationAudio[];
-
-  /**
-   * Kana-only Vocabulary subjects will never have an `amalgamation_subject_ids` property defined.
-   */
-  amalgamation_subject_ids?: never;
-
-  /**
-   * Kana-only Vocabulary subjects will never have a `character_images` property defined.
-   */
-  character_images?: never;
-
-  /**
-   * Kana-only Vocabulary subjects will never have a `component_subject_ids` property defined.
-   */
-  component_subject_ids?: never;
-
-  /**
-   * Kana-only Vocabulary subjects will never have a `meaning_hint` property defined.
-   */
-  meaning_hint?: never;
-
-  /**
-   * Kana-only Vocabulary subjects will never have a `reading_hint` property defined.
-   */
-  reading_hint?: never;
-
-  /**
-   * Kana-only Vocabulary subjects will never have a `reading_mnemonic` property defined.
-   */
-  reading_mnemonic?: never;
-
-  /**
-   * Kana-only Vocabulary subjects will never have a `readings` property defined.
-   */
-  readings?: never;
-
-  /**
-   * Kana-only Vocabulary subjects will never have a `visually_similar_subject_ids` property defined.
-   */
-  visually_similar_subject_ids?: never;
-}
-
-/**
- * The exact structure of a subject depends on the subject type. The available subject types are `kana_vocabulary`,
- * `kanji`, `radical`, and `vocabulary`. Note that any attributes called out for the specific subject type behaves
- * differently than the common attribute of the same name.
- *
- * This type asserts the subject type is a kanji, and provides better type assertions requiring less type checking in
- * code.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
- * @category Resources
- * @category Subjects
- */
-export interface WKKanji extends WKResource {
-  /**
-   * Data for the returned kanji.
-   */
-  data: WKKanjiData;
-
-  /**
-   * A unique number identifying the kanji.
-   */
-  id: number;
-
-  /**
-   * The kind of object returned.
-   */
-  object: "kanji";
-}
-
-/**
- * A collection of kanji subjects returned from the WaniKani API.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#get-all-subjects}
- * @category Collections
- * @category Subjects
- */
-export interface WKKanjiCollection extends WKCollection {
-  /**
-   * An array of returned kanji subjects.
-   */
-  data: WKKanji[];
-}
-
-/**
- * Data returned only for kanji subjects.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
- * @category Data
- * @category Subjects
- */
-export interface WKKanjiData extends WKSubjectData {
-  /**
-   * An array of numeric identifiers for the vocabulary that have the kanji as a component.
-   */
-  amalgamation_subject_ids: number[];
-
-  /**
-   * The UTF-8 characters for the subject, including kanji and hiragana.
-   */
-  characters: string;
-
-  /**
-   * An array of numeric identifiers for the radicals that make up this kanji. Note that these are the subjects that
-   * must have passed assignments in order to unlock this subject's assignment.
-   */
-  component_subject_ids: number[];
-
-  /**
-   * Meaning hint for the kanji.
-   */
-  meaning_hint: string | null;
-
-  /**
-   * Reading hint for the kanji.
-   */
-  reading_hint: string | null;
-
-  /**
-   * The kanji's reading mnemonic.
-   */
-  reading_mnemonic: string;
-
-  /**
-   * Selected readings for the kanji.
-   */
-  readings: WKKanjiReading[];
-
-  /**
-   * An array of numeric identifiers for kanji which are visually similar to the kanji in question.
-   */
-  visually_similar_subject_ids: number[];
-
-  /**
-   * Kanji subjects will never have a `character_images` property defined.
-   */
-  character_images?: never;
-
-  /**
-   * Kanji subjects will never have a `context_sentences` property defined.
-   */
-  context_sentences?: never;
-
-  /**
-   * Kanji subjects will never have a `parts_of_speech` property defined.
-   */
-  parts_of_speech?: never;
-
-  /**
-   * Kanji subjects will never have a `pronunciation_audios` property defined.
-   */
-  pronunciation_audios?: never;
-}
-
-/**
- * Information pertaining to a reading of a kanji subject.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
- * @category Subjects
- */
-export interface WKKanjiReading {
-  /**
-   * Indicates if the reading is used to evaluate user input for correctness.
-   */
-  accepted_answer: boolean;
-
-  /**
-   * Indicates priority in the WaniKani system.
-   */
-  primary: boolean;
-
-  /**
-   * A singular subject reading.
-   */
-  reading: string;
-
-  /**
-   * The kanji reading's classfication: `kunyomi`, `nanori`, or `onyomi`.
-   */
-  type: "kunyomi" | "nanori" | "onyomi";
-}
-
-/**
- * The exact structure of a subject depends on the subject type. The available subject types are `kana_vocabulary`,
- * `kanji`, `radical`, and `vocabulary`. Note that any attributes called out for the specific subject type behaves
- * differently than the common attribute of the same name.
- *
- * This type asserts the subject type is a radical, and provides better type assertions requiring less type checking in
- * code.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
- * @category Resources
- * @category Subjects
- */
-export interface WKRadical extends WKResource {
-  /**
-   * Data for the returned radical.
-   */
-  data: WKRadicalData;
-
-  /**
-   * A unique number identifying the radical.
-   */
-  id: number;
-
-  /**
-   * The kind of object returned.
-   */
-  object: "radical";
-}
-
-/**
- * An image representing a radical subject.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
- * @category Subjects
- */
-export interface WKRadicalCharacterImage {
-  /**
-   * The content type of the image. Currently the API delivers `image/png` and `image/svg+xml`.
-   */
-  content_type: "image/png" | "image/svg+xml";
-
-  /**
-   * Details about the image. Each `content_type` returns a uniquely structured object.
-   */
-  metadata: WKRadicalCharacterImagePngMetadata | WKRadicalCharacterImageSvgMetadata;
-
-  /**
-   * The location of the image.
-   */
-  url: string;
-}
-
-/**
- * Character image metadata for `image/png` type images.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
- * @category Subjects
- */
-export interface WKRadicalCharacterImagePngMetadata {
-  /**
-   * Color of the asset in hexadecimal.
-   */
-  color: string;
-
-  /**
-   * Dimension of the asset in pixels.
-   */
-  dimensions: string;
-
-  /**
-   * A name descriptor.
-   */
-  style_name: string;
-
-  /**
-   * A character image of type `image/png` will never have its `inline_styles` property defined.
-   */
-  inline_styles?: never;
-}
-
-/**
- * Character image metadata for `image/svg+xml` type images.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
- * @category Subjects
- */
-export interface WKRadicalCharacterImageSvgMetadata {
-  /**
-   * The SVG asset contains built-in CSS styling.
-   */
-  inline_styles: boolean;
-
-  /**
-   * A character image of type `image/svg+xml` will never have its `color` property defined.
-   */
-  color?: never;
-
-  /**
-   * A character image of type `image/svg+xml` will never have its `dimensions` property defined.
-   */
-  dimensions?: never;
-
-  /**
-   * A character image of type `image/svg+xml` will never have its `style_name` property defined.
-   */
-  style_name?: never;
-}
-
-/**
- * A collection of kanji subjects returned from the WaniKani API.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#get-all-subjects}
- * @category Collections
- * @category Subjects
- */
-export interface WKRadicalCollection extends WKCollection {
-  /**
-   * An array of returned radical subjects.
-   */
-  data: WKRadical[];
-}
-
-/**
- * Data returned only for radical subjects.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
- * @category Data
- * @category Subjects
- */
-export interface WKRadicalData extends WKSubjectData {
-  /**
-   * An array of numeric identifiers for the kanji that have the radical as a component.
-   */
-  amalgamation_subject_ids: number[];
-
-  /**
-   * A collection of images of the radical.
-   */
-  character_images: WKRadicalCharacterImage[];
-
-  /**
-   * Radical subjects will never have a `component_subject_ids` property defined.
-   */
-  component_subject_ids?: never;
-
-  /**
-   * Radical subjects will never have a `context_sentences` property defined.
-   */
-  context_sentences?: never;
-
-  /**
-   * Radical subjects will never have a `meaning_hint` property defined.
-   */
-  meaning_hint?: never;
-
-  /**
-   * Radical subjects will never have a `parts_of_speech` property defined.
-   */
-  parts_of_speech?: never;
-
-  /**
-   * Radical subjects will never have a `pronunciation_audios` property defined.
-   */
-  pronunciation_audios?: never;
-
-  /**
-   * Radical subjects will never have a `reading_hint` property defined.
-   */
-  reading_hint?: never;
-
-  /**
-   * Radical subjects will never have a `reading_mnemonic` property defined.
-   */
-  reading_mnemonic?: never;
-
-  /**
-   * Radical subjects will never have a `readings` property defined.
-   */
-  readings?: never;
-
-  /**
-   * Radical subjects will never have a `visually_similar_subject_ids` property defined.
-   */
-  visually_similar_subject_ids?: never;
-}
-
-/**
- * The exact structure of a subject depends on the subject type. The available subject types are `kana_vocabulary`,
- * `kanji`, `radical`, and `vocabulary`. Note that any attributes called out for the specific subject type behaves
- * differently than the common attribute of the same name.
- *
- * This type is for mixed or unknown subject types, and some items will require type checking in code.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
- * @category Resources
- * @category Subjects
- */
-export type WKSubject = WKKanaVocabulary | WKKanji | WKRadical | WKVocabulary;
 
 /**
  * A subject's auxilliary meanings.
@@ -467,7 +14,7 @@ export type WKSubject = WKKanaVocabulary | WKKanji | WKRadical | WKVocabulary;
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-export interface WKSubjectAuxiliaryMeaning {
+export interface SubjectAuxiliaryMeaning {
   /**
    * A singular subject meaning.
    */
@@ -479,20 +26,38 @@ export interface WKSubjectAuxiliaryMeaning {
    */
   type: "blacklist" | "whitelist";
 }
+export const SubjectAuxiliaryMeaning = v.object({
+  meaning: v.string(),
+  type: v.picklist(["blacklist", "whitelist"]),
+});
 
 /**
- * A collection of subjects of mixed or unknown types returned from the WaniKani API.
+ * Information pertaining to a subject's meaning.
  *
- * @see {@link https://docs.api.wanikani.com/20170710/#get-all-subjects}
- * @category Collections
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-export interface WKSubjectCollection extends WKCollection {
+export interface SubjectMeaning {
   /**
-   * An array of returned subjects of mixed or unknown type.
+   * Indicates if the meaning is used to evaluate user input for correctness.
    */
-  data: WKSubject[];
+  accepted_answer: boolean;
+
+  /**
+   * A singular subject meaning.
+   */
+  meaning: string;
+
+  /**
+   * Indicates priority in the WaniKani system.
+   */
+  primary: boolean;
 }
+export const SubjectMeaning = v.object({
+  accepted_answer: v.boolean(),
+  meaning: v.string(),
+  primary: v.boolean(),
+});
 
 /**
  * The common properties of all subjects on WaniKani.
@@ -505,19 +70,11 @@ export interface WKSubjectCollection extends WKCollection {
  * @category Data
  * @category Subjects
  */
-export interface WKSubjectData {
+export interface SubjectBaseData {
   /**
    * Collection of auxiliary meanings.
    */
-  auxiliary_meanings: WKSubjectAuxiliaryMeaning[];
-
-  /**
-   * The UTF-8 characters for the subject, including kanji and hiragana.
-   *
-   * Unlike kanji and vocabulary, radicals can have a null value for `characters`. Not all radicals have a UTF entry,
-   * so the radical must be visually represented with an image instead.
-   */
-  characters: string | null;
+  auxiliary_meanings: SubjectAuxiliaryMeaning[];
 
   /**
    * Timestamp when the subject was created.
@@ -554,7 +111,7 @@ export interface WKSubjectData {
   /**
    * The subject meanings.
    */
-  meanings: WKSubjectMeaning[];
+  meanings: SubjectMeaning[];
 
   /**
    * The string that is used when generating the document URL for the subject. Radicals use their meaning, downcased.
@@ -567,111 +124,322 @@ export interface WKSubjectData {
    */
   spaced_repetition_system_id: number;
 }
+export const SubjectBaseData = v.object({
+  auxiliary_meanings: v.array(SubjectAuxiliaryMeaning),
+  created_at: DatableString,
+  document_url: v.string(),
+  hidden_at: v.union([DatableString, v.null()]),
+  lesson_position: v.number(),
+  level: Level,
+  meaning_mnemonic: v.string(),
+  meanings: v.array(SubjectMeaning),
+  slug: v.string(),
+  spaced_repetition_system_id: v.number(),
+});
 
 /**
- * A set of regular expression literals that match to various markup patterns in a Subject's Meaning/Reading Mnemonics
- * and Hints.
+ * An image representing a radical subject.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-export const WK_SUBJECT_MARKUP_MATCHERS = {
+export type RadicalCharacterImage = {
   /**
-   * A regular expression literal that matches to Japanese text surrounded by `<ja>` tags.
+   * The location of the image.
    */
-  ja: /<ja>(?<innerText>.+?)<\/ja>/gu,
+  url: string;
+} & (
+  | {
+      /**
+       * The content type of the image.
+       */
+      content_type: "image/png";
+      /**
+       * Details about the image. Each `content_type` returns a uniquely structured object.
+       */
+      metadata: {
+        /**
+         * Color of the asset in hexadecimal
+         */
+        color: string;
+        /**
+         * Dimension of the asset in pixels
+         */
+        dimensions: string;
+        /**
+         * A name descriptor
+         */
+        style_name: string;
+      };
+    }
+  | {
+      /**
+       * The content type of the image.
+       */
+      content_type: "image/svg+xml";
 
-  /**
-   * A regular expression literal that matches to Japanese kanji surrounded by `<kanji>` tags.
-   */
-  kanji: /<kanji>(?<innerText>.+?)<\/kanji>/gu,
-
-  /**
-   * A regular expression literal that matches to a subject meaning surrounded by `<meaning>` tags.
-   */
-  meaning: /<meaning>(?<innerText>.+?)<\/meaning>/gu,
-
-  /**
-   * A regular expression literal that matches to WaniKani Radical names surrounded by `<radical>` tags.
-   */
-  radical: /<radical>(?<innerText>.+?)<\/radical>/gu,
-
-  /**
-   * A regular expression literal that matches to a kanji/vocabulary reading surrounded by `<reading>` tags.
-   */
-  reading: /<reading>(?<innerText>.+?)<\/reading>/gu,
-
-  /**
-   * A regular expression literal that matches to WaniKani Vocabulary surrounded by `<vocabulary>` tags.
-   */
-  vocabulary: /<vocabulary>(?<innerText>.+?)<\/vocabulary>/gu,
-} as const;
+      /**
+       * Details about the image. Each `content_type` returns a uniquely structured object.
+       */
+      metadata: {
+        /**
+         * The SVG asset contains built-in CSS styling.
+         */
+        inline_styles: boolean;
+      };
+    }
+);
+export const RadicalCharacterImage = v.intersect([
+  v.object({
+    url: v.string(),
+  }),
+  v.variant("content_type", [
+    v.object({
+      content_type: v.literal("image/svg+xml"),
+      metadata: v.object({
+        inline_styles: v.boolean(),
+      }),
+    }),
+    v.object({
+      content_type: v.literal("image/png"),
+      metadata: v.object({
+        color: v.string(),
+        dimensions: v.string(),
+        style_name: v.string(),
+      }),
+    }),
+  ]),
+]);
 
 /**
- * Information pertaining to a subject's meaning.
+ * Data returned only for radical subjects.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
+ * @category Data
  * @category Subjects
  */
-export interface WKSubjectMeaning {
+export interface RadicalData extends SubjectBaseData {
   /**
-   * Indicates if the meaning is used to evaluate user input for correctness.
+   * An array of numeric identifiers for the kanji that have the radical as a component.
    */
-  accepted_answer: boolean;
+  amalgamation_subject_ids: number[];
 
   /**
-   * A singular subject meaning.
+   * A collection of images of the radical.
    */
-  meaning: string;
+  character_images: RadicalCharacterImage[];
 
   /**
-   * Indicates priority in the WaniKani system.
+   * Unlike kanji and vocabulary, radicals can have a null value for characters. Not all radicals have a UTF entry, so
+   * the radical must be visually represented with an image instead.
    */
-  primary: boolean;
+  characters: string | null;
 }
+export const RadicalData = v.object({
+  ...SubjectBaseData.entries,
+  amalgamation_subject_ids: v.array(v.number()),
+  character_images: v.array(RadicalCharacterImage),
+  characters: v.union([v.string(), v.null()]),
+});
 
 /**
  * The exact structure of a subject depends on the subject type. The available subject types are `kana_vocabulary`,
  * `kanji`, `radical`, and `vocabulary`. Note that any attributes called out for the specific subject type behaves
  * differently than the common attribute of the same name.
  *
- * This type asserts the subject type is a vocabulary subject, and provides better type assertions requiring less type
- * checking in code.
+ * This type asserts the subject type is a radical.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Resources
  * @category Subjects
  */
-export interface WKVocabulary extends WKResource {
+export interface Radical extends BaseResource {
   /**
-   * Data for the returned vocabulary.
+   * Data for the returned radical.
    */
-  data: WKVocabularyData;
+  data: RadicalData;
 
   /**
-   * A unique number identifying the vocabulary.
+   * A unique number identifying the radical.
    */
   id: number;
 
   /**
    * The kind of object returned.
    */
-  object: "vocabulary";
+  object: "radical";
 }
+export const Radical = v.object({
+  ...BaseResource.entries,
+  data: RadicalData,
+  id: v.number(),
+  object: v.literal("radical"),
+});
 
 /**
- * A collection of vocabulary subjects returned from the WaniKani API.
+ * A collection of radical subjects returned from the WaniKani API.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-subjects}
  * @category Collections
  * @category Subjects
  */
-export interface WKVocabularyCollection extends WKCollection {
+export interface RadicalCollection extends BaseCollection {
   /**
-   * An array of returned vocabulary subjects.
+   * An array of returned radical subjects.
    */
-  data: WKVocabulary[];
+  data: Radical[];
 }
+export const RadicalCollection = v.object({
+  ...BaseCollection.entries,
+  data: v.array(Radical),
+});
+
+/**
+ * Information pertaining to a reading of a kanji subject.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
+ * @category Subjects
+ */
+export interface KanjiReading {
+  /**
+   * Indicates if the reading is used to evaluate user input for correctness.
+   */
+  accepted_answer: boolean;
+
+  /**
+   * Indicates priority in the WaniKani system.
+   */
+  primary: boolean;
+
+  /**
+   * A singular subject reading.
+   */
+  reading: string;
+
+  /**
+   * The kanji reading's classfication: `kunyomi`, `nanori`, or `onyomi`.
+   */
+  type: "kunyomi" | "nanori" | "onyomi";
+}
+export const KanjiReading = v.object({
+  accepted_answer: v.boolean(),
+  primary: v.boolean(),
+  reading: v.string(),
+  type: v.picklist(["kunyomi", "nanori", "onyomi"]),
+});
+
+/**
+ * Data returned only for kanji subjects.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
+ * @category Data
+ * @category Subjects
+ */
+export interface KanjiData extends SubjectBaseData {
+  /**
+   * An array of numeric identifiers for the vocabulary that have the kanji as a component.
+   */
+  amalgamation_subject_ids: number[];
+
+  /**
+   * The UTF-8 characters for the subject, including kanji and hiragana.
+   */
+  characters: string;
+
+  /**
+   * An array of numeric identifiers for the radicals that make up this kanji. Note that these are the subjects that
+   * must have passed assignments in order to unlock this subject's assignment.
+   */
+  component_subject_ids: number[];
+
+  /**
+   * Meaning hint for the kanji.
+   */
+  meaning_hint: string | null;
+
+  /**
+   * Reading hint for the kanji.
+   */
+  reading_hint: string | null;
+
+  /**
+   * The kanji's reading mnemonic.
+   */
+  reading_mnemonic: string;
+
+  /**
+   * Selected readings for the kanji.
+   */
+  readings: KanjiReading[];
+
+  /**
+   * An array of numeric identifiers for kanji which are visually similar to the kanji in question.
+   */
+  visually_similar_subject_ids: number[];
+}
+export const KanjiData = v.object({
+  ...SubjectBaseData.entries,
+  amalgamation_subject_ids: v.array(v.number()),
+  characters: v.string(),
+  component_subject_ids: v.array(v.number()),
+  meaning_hint: v.union([v.string(), v.null()]),
+  reading_hint: v.union([v.string(), v.null()]),
+  reading_mnemonic: v.string(),
+  readings: v.array(KanjiReading),
+  visually_similar_subject_ids: v.array(v.number()),
+});
+
+/**
+ * The exact structure of a subject depends on the subject type. The available subject types are `kana_vocabulary`,
+ * `kanji`, `radical`, and `vocabulary`. Note that any attributes called out for the specific subject type behaves
+ * differently than the common attribute of the same name.
+ *
+ * This type asserts the subject type is a kanji.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
+ * @category Resources
+ * @category Subjects
+ */
+export interface Kanji extends BaseResource {
+  /**
+   * Data for the returned kanji.
+   */
+  data: KanjiData;
+
+  /**
+   * A unique number identifying the kanji.
+   */
+  id: number;
+
+  /**
+   * The kind of object returned.
+   */
+  object: "kanji";
+}
+export const Kanji = v.object({
+  ...BaseResource.entries,
+  data: KanjiData,
+  id: v.number(),
+  object: v.literal("kanji"),
+});
+
+/**
+ * A collection of kanji subjects returned from the WaniKani API.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#get-all-subjects}
+ * @category Collections
+ * @category Subjects
+ */
+export interface KanjiCollection extends BaseCollection {
+  /**
+   * An array of returned kanji subjects.
+   */
+  data: Kanji[];
+}
+export const KanjiCollection = v.object({
+  ...BaseCollection.entries,
+  data: v.array(Kanji),
+});
 
 /**
  * Japanese context sentences for vocabulary, with a corresponding English translation.
@@ -679,7 +447,7 @@ export interface WKVocabularyCollection extends WKCollection {
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-export interface WKVocabularyContextSentence {
+export interface VocabularyContextSentence {
   /**
    * English translation of the sentence.
    */
@@ -690,76 +458,10 @@ export interface WKVocabularyContextSentence {
    */
   ja: string;
 }
-
-/**
- * Data returned only for vocabulary subjects.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
- * @category Data
- * @category Subjects
- */
-export interface WKVocabularyData extends WKSubjectData {
-  /**
-   * The UTF-8 characters for the subject, including kanji and hiragana.
-   */
-  characters: string;
-
-  /**
-   * An array of numeric identifiers for the kanji that make up this vocabulary. Note that these are the subjects that
-   * must be have passed assignments in order to unlock this subject's assignment.
-   */
-  component_subject_ids: number[];
-
-  /**
-   * A collection of context sentences.
-   */
-  context_sentences: WKVocabularyContextSentence[];
-
-  /**
-   * Parts of speech.
-   */
-  parts_of_speech: string[];
-
-  /**
-   * A collection of pronunciation audio.
-   */
-  pronunciation_audios: WKVocabularyPronunciationAudio[];
-
-  /**
-   * The vocabulary's reading mnemonic.
-   */
-  reading_mnemonic: string;
-
-  /**
-   * Selected readings for the vocabulary.
-   */
-  readings: WKVocabularyReading[];
-
-  /**
-   * Vocabulary subjects will never have an `amalgamation_subject_ids` property defined.
-   */
-  amalgamation_subject_ids?: never;
-
-  /**
-   * Vocabulary subjects will never have a `character_images` property defined.
-   */
-  character_images?: never;
-
-  /**
-   * Vocabulary subjects will never have a `meaning_hint` property defined.
-   */
-  meaning_hint?: never;
-
-  /**
-   * Vocabulary subjects will never have a `reading_hint` property defined.
-   */
-  reading_hint?: never;
-
-  /**
-   * Vocabulary subjects will never have a `visually_similar_subject_ids` property defined.
-   */
-  visually_similar_subject_ids?: never;
-}
+export const VocabularyContextSentence = v.object({
+  en: v.string(),
+  ja: v.string(),
+});
 
 /**
  * Information pertaining to pronunciation audio for a vocabulary subject.
@@ -767,7 +469,7 @@ export interface WKVocabularyData extends WKSubjectData {
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-export interface WKVocabularyPronunciationAudio {
+export interface VocabularyPronunciationAudio {
   /**
    * The content type of the audio. Currently the API delivers `audio/mpeg`, `audio/ogg`, and `audio/webm`.
    */
@@ -813,6 +515,18 @@ export interface WKVocabularyPronunciationAudio {
    */
   url: string;
 }
+export const VocabularyPronunciationAudio = v.object({
+  content_type: v.picklist(["audio/mpeg", "audio/ogg", "audio/webm"]),
+  metadata: v.object({
+    gender: v.picklist(["female", "male"]),
+    pronunciation: v.string(),
+    source_id: v.number(),
+    voice_actor_id: v.number(),
+    voice_actor_name: v.string(),
+    voice_description: v.string(),
+  }),
+  url: v.string(),
+});
 
 /**
  * Information pertaining to a reading of a vocabulary subject..
@@ -820,7 +534,7 @@ export interface WKVocabularyPronunciationAudio {
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-export interface WKVocabularyReading {
+export interface VocabularyReading {
   /**
    * Indicates if the reading is used to evaluate user input for correctness.
    */
@@ -835,12 +549,351 @@ export interface WKVocabularyReading {
    * A singular subject reading.
    */
   reading: string;
+}
+export const VocabularyReading = v.object({
+  accepted_answer: v.boolean(),
+  primary: v.boolean(),
+  reading: v.string(),
+});
+
+/**
+ * Data returned only for vocabulary subjects.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
+ * @category Data
+ * @category Subjects
+ */
+export interface VocabularyData extends SubjectBaseData {
+  /**
+   * The UTF-8 characters for the subject, including kanji and hiragana.
+   */
+  characters: string;
 
   /**
-   * Vocabulary readings will never have a reading `type`.
+   * An array of numeric identifiers for the kanji that make up this vocabulary. Note that these are the subjects that
+   * must be have passed assignments in order to unlock this subject's assignment.
    */
-  type?: never;
+  component_subject_ids: number[];
+
+  /**
+   * A collection of context sentences.
+   */
+  context_sentences: VocabularyContextSentence[];
+
+  /**
+   * Parts of speech.
+   */
+  parts_of_speech: string[];
+
+  /**
+   * A collection of pronunciation audio.
+   */
+  pronunciation_audios: VocabularyPronunciationAudio[];
+
+  /**
+   * The vocabulary's reading mnemonic.
+   */
+  reading_mnemonic: string;
+
+  /**
+   * Selected readings for the vocabulary.
+   */
+  readings: VocabularyReading[];
 }
+export const VocabularyData = v.object({
+  ...SubjectBaseData.entries,
+  characters: v.string(),
+  component_subject_ids: v.array(v.number()),
+  context_sentences: v.array(VocabularyContextSentence),
+  parts_of_speech: v.array(v.string()),
+  pronunciation_audios: v.array(VocabularyPronunciationAudio),
+  reading_mnemonic: v.string(),
+  readings: v.array(VocabularyReading),
+});
+
+/**
+ * The exact structure of a subject depends on the subject type. The available subject types are `kana_vocabulary`,
+ * `kanji`, `radical`, and `vocabulary`. Note that any attributes called out for the specific subject type behaves
+ * differently than the common attribute of the same name.
+ *
+ * This type asserts the subject type is a vocabulary subject.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
+ * @category Resources
+ * @category Subjects
+ */
+export interface Vocabulary extends BaseResource {
+  /**
+   * Data for the returned vocabulary.
+   */
+  data: VocabularyData;
+
+  /**
+   * A unique number identifying the vocabulary.
+   */
+  id: number;
+
+  /**
+   * The kind of object returned.
+   */
+  object: "vocabulary";
+}
+export const Vocabulary = v.object({
+  ...BaseResource.entries,
+  data: VocabularyData,
+  id: v.number(),
+  object: v.literal("vocabulary"),
+});
+
+/**
+ * A collection of vocabulary subjects returned from the WaniKani API.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#get-all-subjects}
+ * @category Collections
+ * @category Subjects
+ */
+export interface VocabularyCollection extends BaseCollection {
+  /**
+   * An array of returned vocabulary subjects.
+   */
+  data: Vocabulary[];
+}
+export const VocabularyCollection = v.object({
+  ...BaseCollection.entries,
+  data: v.array(Vocabulary),
+});
+
+/**
+ * Data returned only for kana-only vocabulary subjects.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
+ * @category Data
+ * @category Subjects
+ */
+export interface KanaVocabularyData extends SubjectBaseData {
+  /**
+   * The UTF-8 characters for the subject, including kanji and hiragana.
+   */
+  characters: string;
+
+  /**
+   * A collection of context sentences.
+   */
+  context_sentences: VocabularyContextSentence[];
+
+  /**
+   * Parts of speech.
+   */
+  parts_of_speech: string[];
+
+  /**
+   * A collection of pronunciation audio.
+   */
+  pronunciation_audios: VocabularyPronunciationAudio[];
+}
+export const KanaVocabularyData = v.object({
+  ...SubjectBaseData.entries,
+  characters: v.string(),
+  context_sentences: v.array(VocabularyContextSentence),
+  parts_of_speech: v.array(v.string()),
+  pronunciation_audios: v.array(VocabularyPronunciationAudio),
+});
+
+/**
+ * The exact structure of a subject depends on the subject type. The available subject types are `kana_vocabulary`,
+ * `kanji`, `radical`, and `vocabulary`. Note that any attributes called out for the specific subject type behaves
+ * differently than the common attribute of the same name.
+ *
+ * This type asserts the subject type is a kana-only vocabulary subject.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
+ * @category Resources
+ * @category Subjects
+ */
+export interface KanaVocabulary extends BaseResource {
+  /**
+   * Data for the returned kana-only vocabulary.
+   */
+  data: KanaVocabularyData;
+
+  /**
+   * A unique number identifying the kana-only vocabulary.
+   */
+  id: number;
+
+  /**
+   * The kind of object returned.
+   */
+  object: "kana_vocabulary";
+}
+export const KanaVocabulary = v.object({
+  ...BaseResource.entries,
+  data: KanaVocabularyData,
+  id: v.number(),
+  object: v.literal("kana_vocabulary"),
+});
+
+/**
+ * A collection of kana-only vocabulary subjects returned from the WaniKani API.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#get-all-subjects}
+ * @category Collections
+ * @category Subjects
+ */
+export interface KanaVocabularyCollection extends BaseCollection {
+  /**
+   * An array of returned vocabulary subjects.
+   */
+  data: KanaVocabulary[];
+}
+export const KanaVocabularyCollection = v.object({
+  ...BaseCollection.entries,
+  data: v.array(KanaVocabulary),
+});
+
+/**
+ * The exact structure of a subject depends on the subject type. The available subject types are `kana_vocabulary`,
+ * `kanji`, `radical`, and `vocabulary`. Note that any attributes called out for the specific subject type behaves
+ * differently than the common attribute of the same name.
+ *
+ * This type is for mixed or unknown subject types; it is a discriminated union based on the subject's `object` key.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
+ * @category Resources
+ * @category Subjects
+ */
+export type Subject = BaseResource & {
+  /**
+   * A unique number identifying the subject.
+   */
+  id: number;
+} & (
+    | {
+        /**
+         * Data for the returned kana-only vocabulary.
+         */
+        data: KanaVocabularyData;
+
+        /**
+         * The kind of object returned.
+         */
+        object: "kana_vocabulary";
+      }
+    | {
+        /**
+         * Data for the returned kanji.
+         */
+        data: KanjiData;
+
+        /**
+         * The kind of object returned.
+         */
+        object: "kanji";
+      }
+    | {
+        /**
+         * Data for the returned radical.
+         */
+        data: RadicalData;
+
+        /**
+         * The kind of object returned.
+         */
+        object: "radical";
+      }
+    | {
+        /**
+         * Data for the returned vocabulary.
+         */
+        data: VocabularyData;
+
+        /**
+         * The kind of object returned.
+         */
+        object: "vocabulary";
+      }
+  );
+export const Subject = v.intersect([
+  BaseResource,
+  v.object({
+    id: v.number(),
+  }),
+  v.variant("object", [
+    v.object({
+      data: KanaVocabularyData,
+      object: v.literal("kana_vocabulary"),
+    }),
+    v.object({
+      data: KanjiData,
+      object: v.literal("kanji"),
+    }),
+    v.object({
+      data: RadicalData,
+      object: v.literal("radical"),
+    }),
+    v.object({
+      data: VocabularyData,
+      object: v.literal("vocabulary"),
+    }),
+  ]),
+]);
+
+/**
+ * A collection of subjects of mixed or unknown types returned from the WaniKani API.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#get-all-subjects}
+ * @category Collections
+ * @category Subjects
+ */
+export interface SubjectCollection extends BaseCollection {
+  /**
+   * An array of returned subjects of mixed or unknown type.
+   */
+  data: Subject[];
+}
+export const SubjectCollection = v.object({
+  ...BaseCollection.entries,
+  data: v.array(Subject),
+});
+
+/**
+ * A set of regular expression literals that match to various markup patterns in a Subject's Meaning/Reading Mnemonics
+ * and Hints.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
+ * @category Subjects
+ */
+export const WK_SUBJECT_MARKUP_MATCHERS = {
+  /**
+   * A regular expression literal that matches to Japanese text surrounded by `<ja>` tags.
+   */
+  ja: /<ja>(?<innerText>.+?)<\/ja>/gu,
+
+  /**
+   * A regular expression literal that matches to Japanese kanji surrounded by `<kanji>` tags.
+   */
+  kanji: /<kanji>(?<innerText>.+?)<\/kanji>/gu,
+
+  /**
+   * A regular expression literal that matches to a subject meaning surrounded by `<meaning>` tags.
+   */
+  meaning: /<meaning>(?<innerText>.+?)<\/meaning>/gu,
+
+  /**
+   * A regular expression literal that matches to WaniKani Radical names surrounded by `<radical>` tags.
+   */
+  radical: /<radical>(?<innerText>.+?)<\/radical>/gu,
+
+  /**
+   * A regular expression literal that matches to a kanji/vocabulary reading surrounded by `<reading>` tags.
+   */
+  reading: /<reading>(?<innerText>.+?)<\/reading>/gu,
+
+  /**
+   * A regular expression literal that matches to WaniKani Vocabulary surrounded by `<vocabulary>` tags.
+   */
+  vocabulary: /<vocabulary>(?<innerText>.+?)<\/vocabulary>/gu,
+} as const;
 
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Subject Collection.
@@ -871,11 +924,10 @@ export interface SubjectParameters extends CollectionParameters {
    */
   types?: SubjectTuple;
 }
-export const SubjectParameters = extendCollectionParameters(
-  v.object({
-    hidden: v.optional(v.boolean()),
-    levels: v.optional(v.array(Level)),
-    slugs: v.optional(v.array(v.string())),
-    types: v.optional(SubjectTuple),
-  }),
-);
+export const SubjectParameters = v.object({
+  ...CollectionParameters.entries,
+  hidden: v.optional(v.boolean()),
+  levels: v.optional(v.array(Level)),
+  slugs: v.optional(v.array(v.string())),
+  types: v.optional(SubjectTuple),
+});

@@ -8,5 +8,9 @@ export default defineConfig({
       exclude: ["src/index.ts", "src/v20170710.ts", ...coverageConfigDefaults.exclude],
     },
     include: ["tests/**/*.{test,spec}.ts"],
+    typecheck: {
+      enabled: true,
+    },
+    pool: "threads",
   },
 });

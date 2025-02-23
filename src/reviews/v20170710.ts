@@ -1,122 +1,8 @@
 import * as v from "valibot";
-import { type CollectionParameters, DatableString, type WKCollection, type WKResource } from "../base/v20170710.js";
-import type { SpacedRepetitionSystemStageNumber } from "../spaced-repetition-systems/v20170710.js";
-import type { WKAssignment } from "../assignments/v20170710.js";
-import type { WKReviewStatistic } from "../review-statistics/v20170710.js";
-import { extendCollectionParameters } from "../internal/index.js";
-
-/**
- * The base object used in the request to create a new review via the WaniKani API.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#create-a-review}
- * @category Reviews
- * @internal
- */
-interface ReviewObjectdBase {
-  /**
-   * Must be zero or a positive number. This is the number of times the meaning was answered incorrectly.
-   */
-  incorrect_meaning_answers: number;
-
-  /**
-   * Must be zero or a positive number. This is the number of times the reading was answered incorrectly. Note that
-   * subjects with a type of `radical` do not quiz on readings. Thus, set this value to `0`.
-   */
-  incorrect_reading_answers: number;
-
-  /**
-   * Timestamp when the review was completed. Defaults to the time of the request if omitted from the request body.
-   * Must be in the past, but after `assignment.available_at`.
-   */
-  created_at?: DatableString | Date;
-}
-const ReviewObjectdBase = v.object({
-  incorrect_meaning_answers: v.number(),
-  incorrect_reading_answers: v.number(),
-  created_at: v.optional(v.union([DatableString, v.date()])),
-});
-
-/**
- * A created review returned from the WaniKani API.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#create-a-review}
- * @category Resources
- * @category Reviews
- */
-export interface WKCreatedReview extends WKResource {
-  /**
-   * Data for the created review.
-   * @see {@link https://docs.api.wanikani.com/20170710/#reviews}
-   */
-  data: WKReviewData;
-
-  /**
-   * A unique number identifying the review.
-   */
-  id: number;
-
-  /**
-   * The kind of object returned.
-   */
-  object: "review";
-
-  /**
-   * The resources updated alongside creating the review.
-   */
-  resources_updated: {
-    /**
-     * The updated assignment upon creating the review.
-     * @see {@link https://docs.api.wanikani.com/20170710/#assignments}
-     */
-    assignment: WKAssignment;
-
-    /**
-     * The updated review statistic upon creating the review.
-     * @see {@link https://docs.api.wanikani.com/20170710/#review-statistics}
-     */
-    review_statistic: WKReviewStatistic;
-  };
-}
-
-/**
- * Reviews log all the correct and incorrect answers provided through the 'Reviews' section of WaniKani. Review records
- * are created when a user answers all the parts of a subject correctly once; some subjects have both meaning or reading
- * parts, and some only have one or the other. Note that reviews are not created for the quizzes in lessons.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#reviews}
- * @category Resources
- * @category Reviews
- */
-export interface WKReview extends WKResource {
-  /**
-   * Data for the returned review.
-   */
-  data: WKReviewData;
-
-  /**
-   * A unique number identifying the review.
-   */
-  id: number;
-
-  /**
-   * The kind of object returned.
-   */
-  object: "review";
-}
-
-/**
- * A collection of reviews returned from the WaniKani API.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#get-all-reviews}
- * @category Collections
- * @category Reviews
- */
-export interface WKReviewCollection extends WKCollection {
-  /**
-   * An array of returned reviews.
-   */
-  data: WKReview[];
-}
+import { BaseCollection, BaseResource, CollectionParameters, DatableString } from "../base/v20170710.js";
+import type { Assignment } from "../assignments/v20170710.js";
+import type { ReviewStatistic } from "../review-statistics/v20170710.js";
+import { SpacedRepetitionSystemStageNumber } from "../spaced-repetition-systems/v20170710.js";
 
 /**
  * Review data shared between created and read reviews.
@@ -125,7 +11,7 @@ export interface WKReviewCollection extends WKCollection {
  * @category Data
  * @category Reviews
  */
-export interface WKReviewData {
+export interface ReviewData {
   /**
    * Unique identifier of the associated assignment.
    */
@@ -167,6 +53,66 @@ export interface WKReviewData {
    */
   subject_id: number;
 }
+export const ReviewData = v.object({
+  assignment_id: v.number(),
+  created_at: DatableString,
+  ending_srs_stage: SpacedRepetitionSystemStageNumber,
+  incorrect_meaning_answers: v.number(),
+  incorrect_reading_answers: v.number(),
+  spaced_repetition_system_id: v.number(),
+  starting_srs_stage: SpacedRepetitionSystemStageNumber,
+  subject_id: v.number(),
+});
+
+/**
+ * Reviews log all the correct and incorrect answers provided through the 'Reviews' section of WaniKani. Review records
+ * are created when a user answers all the parts of a subject correctly once; some subjects have both meaning or reading
+ * parts, and some only have one or the other. Note that reviews are not created for the quizzes in lessons.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#reviews}
+ * @category Resources
+ * @category Reviews
+ */
+export interface Review extends BaseResource {
+  /**
+   * Data for the returned review.
+   */
+  data: ReviewData;
+
+  /**
+   * A unique number identifying the review.
+   */
+  id: number;
+
+  /**
+   * The kind of object returned.
+   */
+  object: "review";
+}
+export const Review = v.object({
+  ...BaseResource.entries,
+  data: ReviewData,
+  id: v.number(),
+  object: v.literal("review"),
+});
+
+/**
+ * A collection of reviews returned from the WaniKani API.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#get-all-reviews}
+ * @category Collections
+ * @category Reviews
+ */
+export interface ReviewCollection extends BaseCollection {
+  /**
+   * An array of returned reviews.
+   */
+  data: Review[];
+}
+export const ReviewCollection = v.object({
+  ...BaseCollection.entries,
+  data: v.array(Review),
+});
 
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Review Collection.
@@ -187,12 +133,42 @@ export interface ReviewParameters extends CollectionParameters {
    */
   subject_ids?: number[];
 }
-export const ReviewParameters = extendCollectionParameters(
-  v.object({
-    assignment_ids: v.optional(v.array(v.number())),
-    subject_ids: v.optional(v.array(v.number())),
-  }),
-);
+export const ReviewParameters = v.object({
+  ...CollectionParameters.entries,
+  assignment_ids: v.optional(v.array(v.number())),
+  subject_ids: v.optional(v.array(v.number())),
+});
+
+/**
+ * The base object used in the request to create a new review via the WaniKani API.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#create-a-review}
+ * @category Reviews
+ * @internal
+ */
+interface ReviewObjectdBase {
+  /**
+   * Must be zero or a positive number. This is the number of times the meaning was answered incorrectly.
+   */
+  incorrect_meaning_answers: number;
+
+  /**
+   * Must be zero or a positive number. This is the number of times the reading was answered incorrectly. Note that
+   * subjects with a type of `radical` do not quiz on readings. Thus, set this value to `0`.
+   */
+  incorrect_reading_answers: number;
+
+  /**
+   * Timestamp when the review was completed. Defaults to the time of the request if omitted from the request body.
+   * Must be in the past, but after `assignment.available_at`.
+   */
+  created_at?: DatableString | Date;
+}
+const ReviewObjectdBase = v.object({
+  incorrect_meaning_answers: v.number(),
+  incorrect_reading_answers: v.number(),
+  created_at: v.optional(v.union([DatableString, v.date()])),
+});
 
 /**
  * The review object used in the request to create a new review via the WaniKani API by Assignment ID.
@@ -211,13 +187,11 @@ export interface ReviewObjectWithAssignmentId extends ReviewObjectdBase {
    */
   subject_id?: never;
 }
-export const ReviewObjectWithAssignmentId = v.intersect([
-  ReviewObjectdBase,
-  v.object({
-    assignment_id: v.number(),
-    subject_id: v.optional(v.never()),
-  }),
-]);
+export const ReviewObjectWithAssignmentId = v.object({
+  ...ReviewObjectdBase.entries,
+  assignment_id: v.number(),
+  subject_id: v.optional(v.never()),
+});
 
 /**
  * The review object used in the request to create a new review via the WaniKani API by Subject ID.
@@ -236,13 +210,11 @@ export interface ReviewObjectWithSubjectId extends ReviewObjectdBase {
    */
   assignment_id?: never;
 }
-export const ReviewObjectWithSubjectId = v.intersect([
-  ReviewObjectdBase,
-  v.object({
-    subject_id: v.number(),
-    assignment_id: v.optional(v.never()),
-  }),
-]);
+export const ReviewObjectWithSubjectId = v.object({
+  ...ReviewObjectdBase.entries,
+  subject_id: v.number(),
+  assignment_id: v.optional(v.never()),
+});
 
 /**
  * The payload used in the request to create a new review via the WaniKani API.
@@ -260,3 +232,29 @@ export interface ReviewPayload {
 export const ReviewPayload = v.object({
   review: v.union([ReviewObjectWithAssignmentId, ReviewObjectWithSubjectId]),
 });
+
+/**
+ * A created review returned from the WaniKani API.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#create-a-review}
+ * @category Resources
+ * @category Reviews
+ */
+export interface CreatedReview extends Review {
+  /**
+   * The resources updated alongside creating the review.
+   */
+  resources_updated: {
+    /**
+     * The updated assignment upon creating the review.
+     * @see {@link https://docs.api.wanikani.com/20170710/#assignments}
+     */
+    assignment: Assignment;
+
+    /**
+     * The updated review statistic upon creating the review.
+     * @see {@link https://docs.api.wanikani.com/20170710/#review-statistics}
+     */
+    review_statistic: ReviewStatistic;
+  };
+}

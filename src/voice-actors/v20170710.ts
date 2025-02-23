@@ -1,4 +1,40 @@
-import { CollectionParameters, type DatableString, type WKCollection, type WKResource } from "../base/v20170710.js";
+import * as v from "valibot";
+import { BaseCollection, BaseResource, CollectionParameters, DatableString } from "../base/v20170710.js";
+
+/**
+ * Data for a voice actor returned from the WaniKani API.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#voice-actors}
+ * @category Data
+ * @category Voice Actors
+ */
+export interface VoiceActorData {
+  /**
+   * Timestamp for when the voice actor was added to WaniKani.
+   */
+  created_at: DatableString;
+
+  /**
+   * Details about the voice actor.
+   */
+  description: string;
+
+  /**
+   * The voice actor's gender, either `male` or `female`.
+   */
+  gender: "female" | "male";
+
+  /**
+   * The voice actor's name.
+   */
+  name: string;
+}
+export const VoiceActorData = v.object({
+  created_at: DatableString,
+  description: v.string(),
+  gender: v.picklist(["female", "male"]),
+  name: v.string(),
+});
 
 /**
  * Available voice actors used for vocabulary reading pronunciation audio.
@@ -7,11 +43,11 @@ import { CollectionParameters, type DatableString, type WKCollection, type WKRes
  * @category Resources
  * @category Voice Actors
  */
-export interface WKVoiceActor extends WKResource {
+export interface VoiceActor extends BaseResource {
   /**
    * Data for the returned voice actor.
    */
-  data: WKVoiceActorData;
+  data: VoiceActorData;
 
   /**
    * A unique number identifying the voice actor.
@@ -23,6 +59,12 @@ export interface WKVoiceActor extends WKResource {
    */
   object: "voice_actor";
 }
+export const VoiceActor = v.object({
+  ...BaseResource.entries,
+  data: VoiceActorData,
+  id: v.number(),
+  object: v.literal("voice_actor"),
+});
 
 /**
  * A collection of voice actors returned from the WaniKani API.
@@ -31,40 +73,16 @@ export interface WKVoiceActor extends WKResource {
  * @category Collections
  * @category Voice Actors
  */
-export interface WKVoiceActorCollection extends WKCollection {
+export interface VoiceActorCollection extends BaseCollection {
   /**
    * An array of returned voice actors.
    */
-  data: WKVoiceActor[];
+  data: VoiceActor[];
 }
-
-/**
- * Data for a voice actor returned from the WaniKani API.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#voice-actors}
- * @category Data
- * @category Voice Actors
- */
-export interface WKVoiceActorData {
-  /**
-   * Timestamp for when the voice actor was added to WaniKani.
-   */
-  created_at: DatableString;
-
-  /**
-   * Details about the voice actor.
-   */
-  description: string;
-  /**
-   * The voice actor's gender, either `male` or `female`.
-   */
-  gender: "female" | "male";
-
-  /**
-   * The voice actor's name.
-   */
-  name: string;
-}
+export const VoiceActorCollection = v.object({
+  ...BaseCollection.entries,
+  data: v.array(VoiceActor),
+});
 
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Voice Actor Collection.

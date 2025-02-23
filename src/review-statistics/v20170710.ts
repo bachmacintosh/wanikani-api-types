@@ -1,55 +1,12 @@
 import * as v from "valibot";
 import {
-  type CollectionParameters,
-  type DatableString,
+  BaseCollection,
+  BaseResource,
+  CollectionParameters,
+  DatableString,
   SubjectTuple,
-  type SubjectType,
-  type WKCollection,
-  type WKResource,
+  SubjectType,
 } from "../base/v20170710.js";
-import { extendCollectionParameters } from "../internal/index.js";
-
-/**
- * Review statistics summarize the activity recorded in reviews. They contain sum the number of correct and incorrect
- * answers for both meaning and reading. They track current and maximum streaks of correct answers. They store the
- * overall percentage of correct answers versus total answers.
- *
- * A review statistic is created when the user has done their first review on the related subject.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#review-statistics}
- * @category Resources
- * @category Review Statistics
- */
-export interface WKReviewStatistic extends WKResource {
-  /**
-   * Data for the returned review statistic.
-   */
-  data: WKReviewStatisticData;
-
-  /**
-   * A unique number identifying the review statistic.
-   */
-  id: number;
-
-  /**
-   * The kind of object returned.
-   */
-  object: "review_statistic";
-}
-
-/**
- * A collection of review statistics returned from the WaniKani API.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#get-all-review-statistics}
- * @category Collections
- * @category Review Statistics
- */
-export interface WKReviewStatisticCollection extends WKCollection {
-  /**
-   * An array of returned review statistics.
-   */
-  data: WKReviewStatistic[];
-}
 
 /**
  * Data for a review statistic returned from the WaniKani API.
@@ -58,7 +15,7 @@ export interface WKReviewStatisticCollection extends WKCollection {
  * @category Data
  * @category Review Statistics
  */
-export interface WKReviewStatisticData {
+export interface ReviewStatisticData {
   /**
    * Timestamp when the review statistic was created.
    */
@@ -120,10 +77,77 @@ export interface WKReviewStatisticData {
   subject_id: number;
 
   /**
-   * The type of the associated subject, one of: `kanji`, `radical`, or `vocabulary`.
+   * The type of the associated subject.
    */
   subject_type: SubjectType;
 }
+export const ReviewStatisticData = v.object({
+  created_at: DatableString,
+  hidden: v.boolean(),
+  meaning_correct: v.number(),
+  meaning_current_streak: v.number(),
+  meaning_incorrect: v.number(),
+  meaning_max_streak: v.number(),
+  percentage_correct: v.number(),
+  reading_correct: v.number(),
+  reading_current_streak: v.number(),
+  reading_incorrect: v.number(),
+  reading_max_streak: v.number(),
+  subject_id: v.number(),
+  subject_type: SubjectType,
+});
+
+/**
+ * Review statistics summarize the activity recorded in reviews. They contain sum the number of correct and incorrect
+ * answers for both meaning and reading. They track current and maximum streaks of correct answers. They store the
+ * overall percentage of correct answers versus total answers.
+ *
+ * A review statistic is created when the user has done their first review on the related subject.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#review-statistics}
+ * @category Resources
+ * @category Review Statistics
+ */
+export interface ReviewStatistic extends BaseResource {
+  /**
+   * Data for the returned review statistic.
+   */
+  data: ReviewStatisticData;
+
+  /**
+   * A unique number identifying the review statistic.
+   */
+  id: number;
+
+  /**
+   * The kind of object returned.
+   */
+  object: "review_statistic";
+}
+export const ReviewStatistic = v.object({
+  ...BaseResource.entries,
+  data: ReviewStatisticData,
+  id: v.number(),
+  object: v.literal("review_statistic"),
+});
+
+/**
+ * A collection of review statistics returned from the WaniKani API.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#get-all-review-statistics}
+ * @category Collections
+ * @category Review Statistics
+ */
+export interface ReviewStatisticCollection extends BaseCollection {
+  /**
+   * An array of returned review statistics.
+   */
+  data: ReviewStatistic[];
+}
+export const ReviewStatisticCollection = v.object({
+  ...BaseCollection.entries,
+  data: v.array(ReviewStatistic),
+});
 
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Review Statistic Collection.
@@ -155,17 +179,15 @@ export interface ReviewStatisticParameters extends CollectionParameters {
   subject_ids?: number[];
 
   /**
-   * Only review statistics where `data.subject_type` matches one of the array values are returned. Valid values are:
-   * `radical`, `kanji`, or `vocabulary`.
+   * Only review statistics where `data.subject_type` matches one of the array values are returned.
    */
   subject_types?: SubjectTuple;
 }
-export const ReviewStatisticParameters = extendCollectionParameters(
-  v.object({
-    hidden: v.optional(v.boolean()),
-    percentages_greater_than: v.optional(v.number()),
-    percentages_less_than: v.optional(v.number()),
-    subject_ids: v.optional(v.array(v.number())),
-    subject_types: v.optional(SubjectTuple),
-  }),
-);
+export const ReviewStatisticParameters = v.object({
+  ...CollectionParameters.entries,
+  hidden: v.optional(v.boolean()),
+  percentages_greater_than: v.optional(v.number()),
+  percentages_less_than: v.optional(v.number()),
+  subject_ids: v.optional(v.array(v.number())),
+  subject_types: v.optional(SubjectTuple),
+});

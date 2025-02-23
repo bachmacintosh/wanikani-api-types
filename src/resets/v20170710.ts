@@ -1,51 +1,5 @@
-import {
-  CollectionParameters,
-  type DatableString,
-  type Level,
-  type WKCollection,
-  type WKResource,
-} from "../base/v20170710.js";
-
-/**
- * Users can reset their progress back to any level at or below their current level. When they reset to a particular
- * level, all of the assignments and review_statistics at that level or higher are set back to their default state.
- *
- * Resets contain information about when those resets happen, the starting level, and the target level.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#resets}
- * @category Resets
- * @category Resources
- */
-export interface WKReset extends WKResource {
-  /**
-   * Data for the returned reset.
-   */
-  data: WKResetData;
-
-  /**
-   * A unique number identifying the reset.
-   */
-  id: number;
-
-  /**
-   * The kind of object returned.
-   */
-  object: "reset";
-}
-
-/**
- * A collection of resets returned from the WaniKani API.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#get-all-resets}
- * @category Collections
- * @category Resets
- */
-export interface WKResetCollection extends WKCollection {
-  /**
-   * An array of returned resets.
-   */
-  data: WKReset[];
-}
+import * as v from "valibot";
+import { BaseCollection, BaseResource, CollectionParameters, DatableString, Level } from "../base/v20170710.js";
 
 /**
  * Data for resets returned from the WaniKani API.
@@ -54,7 +8,7 @@ export interface WKResetCollection extends WKCollection {
  * @category Data
  * @category Resets
  */
-export interface WKResetData {
+export interface ResetData {
   /**
    * Timestamp when the user confirmed the reset.
    */
@@ -75,6 +29,63 @@ export interface WKResetData {
    */
   target_level: Level;
 }
+export const ResetData = v.object({
+  confirmed_at: v.union([DatableString, v.null()]),
+  created_at: DatableString,
+  original_level: Level,
+  target_level: Level,
+});
+
+/**
+ * Users can reset their progress back to any level at or below their current level. When they reset to a particular
+ * level, all of the assignments and review_statistics at that level or higher are set back to their default state.
+ *
+ * Resets contain information about when those resets happen, the starting level, and the target level.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#resets}
+ * @category Resets
+ * @category Resources
+ */
+export interface Reset extends BaseResource {
+  /**
+   * Data for the returned reset.
+   */
+  data: ResetData;
+
+  /**
+   * A unique number identifying the reset.
+   */
+  id: number;
+
+  /**
+   * The kind of object returned.
+   */
+  object: "reset";
+}
+export const Reset = v.object({
+  ...BaseResource.entries,
+  data: ResetData,
+  id: v.number(),
+  object: v.literal("reset"),
+});
+
+/**
+ * A collection of resets returned from the WaniKani API.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#get-all-resets}
+ * @category Collections
+ * @category Resets
+ */
+export interface ResetCollection extends BaseCollection {
+  /**
+   * An array of returned resets.
+   */
+  data: Reset[];
+}
+export const ResetCollection = v.object({
+  ...BaseCollection.entries,
+  data: v.array(Reset),
+});
 
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Reset Collection.

@@ -1,51 +1,50 @@
-import * as v from "valibot";
-import {
+import type {
   Assignment,
   AssignmentCollection,
   AssignmentParameters,
   AssignmentPayload,
 } from "../../src/assignments/v20170710.js";
-import { describe, expect } from "vitest";
+import { assertType, describe } from "vitest";
 import { testFor } from "../fixtures/v20170710.js";
 
 describe("Assignment", () => {
   testFor("Real Assignment", ({ assignment }) => {
-    expect(() => v.assert(Assignment, assignment)).not.toThrow();
+    assertType<Assignment>(assignment);
   });
 });
 
 describe("AssignmentCollection", () => {
   testFor("Real AssignmentCollection", ({ assignmentCollection }) => {
-    expect(() => v.assert(AssignmentCollection, assignmentCollection)).not.toThrow();
+    assertType<AssignmentCollection>(assignmentCollection);
   });
 });
 
 describe("AssignmentParameters", () => {
   testFor("Empty AssignmentParameters", ({ emptyParams }) => {
-    expect(() => v.assert(AssignmentParameters, emptyParams)).not.toThrow();
+    assertType<AssignmentParameters>(emptyParams);
   });
   testFor("AssignmentParameters with empty arrays", ({ assignmentParamsWithEmptyArrays }) => {
-    expect(() => v.assert(AssignmentParameters, assignmentParamsWithEmptyArrays)).not.toThrow();
+    assertType<AssignmentParameters>(assignmentParamsWithEmptyArrays);
   });
   testFor("AssignmentParameters with many options filled", ({ assignmentParamsWithManyOptions }) => {
-    expect(() => v.assert(AssignmentParameters, assignmentParamsWithManyOptions)).not.toThrow();
+    assertType<AssignmentParameters>(assignmentParamsWithManyOptions);
   });
   testFor("AssignmentParameters with Date objects", ({ assignmentParamsWithDates }) => {
-    expect(() => v.assert(AssignmentParameters, assignmentParamsWithDates)).not.toThrow();
+    assertType<AssignmentParameters>(assignmentParamsWithDates);
   });
   testFor("AssignmentParameters with DatableString properties", ({ assignmentParamsWithDatableStrings }) => {
-    expect(() => v.assert(AssignmentParameters, assignmentParamsWithDatableStrings)).not.toThrow();
+    assertType<AssignmentParameters>(assignmentParamsWithDatableStrings);
   });
 });
 
 describe("AssignmentPayload", () => {
   testFor("AssignmentPayload with empty assignment property", ({ assignmentPayloadWithNoTime }) => {
-    expect(() => v.assert(AssignmentPayload, assignmentPayloadWithNoTime)).not.toThrow();
+    assertType<AssignmentPayload>(assignmentPayloadWithNoTime);
   });
   testFor("AssignmentPayload with JS Date started_at property", ({ assignmentPayloadWithDate }) => {
-    expect(() => v.assert(AssignmentPayload, assignmentPayloadWithDate)).not.toThrow();
+    assertType<AssignmentPayload>(assignmentPayloadWithDate);
   });
   testFor("AssignmentPayload with DatableString started_at property", ({ assignmentPayloadWithDatableString }) => {
-    expect(() => v.assert(AssignmentPayload, assignmentPayloadWithDatableString)).not.toThrow();
+    assertType<AssignmentPayload>(assignmentPayloadWithDatableString);
   });
 });

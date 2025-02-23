@@ -66,8 +66,8 @@ export class ApiRequestFactory {
       if (typeof idOrParams === "number") {
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
-        const validatedParameters = v.parse(AssignmentParameters, idOrParams);
-        request.url += stringifyParameters(validatedParameters);
+        v.assert(AssignmentParameters, idOrParams);
+        request.url += stringifyParameters(idOrParams);
       }
       return request;
     },
@@ -80,7 +80,7 @@ export class ApiRequestFactory {
      * @returns A Start Assignment Request usable in any HTTP API/Library.
      */
     start: (assignmentId: number, payload: AssignmentPayload, options?: ApiRequestOptions): ApiRequest => {
-      const validatedPayload = v.parse(AssignmentPayload, payload);
+      v.assert(AssignmentPayload, payload);
       const headers = { ...this._postPutHeaders };
       if (typeof options?.customHeaders !== "undefined") {
         for (const [key, value] of Object.entries(options.customHeaders)) {
@@ -89,7 +89,7 @@ export class ApiRequestFactory {
         }
       }
       const request: ApiRequest = {
-        body: JSON.stringify(validatedPayload),
+        body: JSON.stringify(payload),
         headers,
         method: "PUT",
         url: `${this.baseUrl}/assignments/${assignmentId}/start`,
@@ -129,8 +129,8 @@ export class ApiRequestFactory {
       if (typeof idOrParams === "number") {
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
-        const validatedParameters = v.parse(LevelProgressionParameters, idOrParams);
-        request.url += stringifyParameters(validatedParameters);
+        v.assert(LevelProgressionParameters, idOrParams);
+        request.url += stringifyParameters(idOrParams);
       }
       return request;
     },
@@ -163,8 +163,8 @@ export class ApiRequestFactory {
       if (typeof idOrParams === "number") {
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
-        const validatedParameters = v.parse(ResetParameters, idOrParams);
-        request.url += stringifyParameters(validatedParameters);
+        v.assert(ResetParameters, idOrParams);
+        request.url += stringifyParameters(idOrParams);
       }
       return request;
     },
@@ -198,8 +198,8 @@ export class ApiRequestFactory {
       if (typeof idOrParams === "number") {
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
-        const validatedParameters = v.parse(ReviewStatisticParameters, idOrParams);
-        request.url += stringifyParameters(validatedParameters);
+        v.assert(ReviewStatisticParameters, idOrParams);
+        request.url += stringifyParameters(idOrParams);
       }
       return request;
     },
@@ -216,7 +216,7 @@ export class ApiRequestFactory {
      * @returns A Create Review Request usabile in any HTTP API/Library.
      */
     create: (payload: ReviewPayload, options?: ApiRequestOptions): ApiRequest => {
-      const validatedPayload = v.parse(ReviewPayload, payload);
+      v.assert(ReviewPayload, payload);
       const headers = { ...this._postPutHeaders };
       if (typeof options !== "undefined") {
         if (typeof options.customHeaders !== "undefined") {
@@ -227,7 +227,7 @@ export class ApiRequestFactory {
         }
       }
       const request: ApiRequest = {
-        body: JSON.stringify(validatedPayload),
+        body: JSON.stringify(payload),
         headers,
         method: "POST",
         url: `${this.baseUrl}/reviews`,
@@ -258,8 +258,8 @@ export class ApiRequestFactory {
       if (typeof idOrParams === "number") {
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
-        const validatedParameters = v.parse(ReviewParameters, idOrParams);
-        request.url += stringifyParameters(validatedParameters);
+        v.assert(ReviewParameters, idOrParams);
+        request.url += stringifyParameters(idOrParams);
       }
       return request;
     },
@@ -293,8 +293,8 @@ export class ApiRequestFactory {
       if (typeof idOrParams === "number") {
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
-        const validatedParameters = v.parse(SpacedRepetitionSystemParameters, idOrParams);
-        request.url += stringifyParameters(validatedParameters);
+        v.assert(SpacedRepetitionSystemParameters, idOrParams);
+        request.url += stringifyParameters(idOrParams);
       }
       return request;
     },
@@ -328,8 +328,8 @@ export class ApiRequestFactory {
       if (typeof idOrParams === "number") {
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
-        const validatedParameters = v.parse(StudyMaterialParameters, idOrParams);
-        request.url += stringifyParameters(validatedParameters);
+        v.assert(StudyMaterialParameters, idOrParams);
+        request.url += stringifyParameters(idOrParams);
       }
       return request;
     },
@@ -341,7 +341,7 @@ export class ApiRequestFactory {
      * @returns A Create Study Material Request usabile in any HTTP API/Library.
      */
     create: (payload: StudyMaterialCreatePayload, options?: ApiRequestOptions): ApiRequest => {
-      const validatedPayload = v.parse(StudyMaterialCreatePayload, payload);
+      v.assert(StudyMaterialCreatePayload, payload);
       const headers = { ...this._postPutHeaders };
       if (typeof options !== "undefined") {
         if (typeof options.customHeaders !== "undefined") {
@@ -352,7 +352,7 @@ export class ApiRequestFactory {
         }
       }
       const request: ApiRequest = {
-        body: JSON.stringify(validatedPayload),
+        body: JSON.stringify(payload),
         headers,
         method: "POST",
         url: `${this.baseUrl}/study_materials`,
@@ -368,7 +368,7 @@ export class ApiRequestFactory {
      * @returns An Update Study Material Request usabile in any HTTP API/Library.
      */
     update: (studyMaterialId: number, payload: StudyMaterialUpdatePayload, options?: ApiRequestOptions): ApiRequest => {
-      const validatedPayload = v.parse(StudyMaterialUpdatePayload, payload);
+      v.assert(StudyMaterialUpdatePayload, payload);
       const headers = { ...this._postPutHeaders };
       if (typeof options !== "undefined") {
         if (typeof options.customHeaders !== "undefined") {
@@ -379,7 +379,7 @@ export class ApiRequestFactory {
         }
       }
       const request: ApiRequest = {
-        body: JSON.stringify(validatedPayload),
+        body: JSON.stringify(payload),
         headers,
         method: "PUT",
         url: `${this.baseUrl}/study_materials/${studyMaterialId}`,
@@ -415,8 +415,8 @@ export class ApiRequestFactory {
       if (typeof idOrParams === "number") {
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
-        const validatedParameters = v.parse(SubjectParameters, idOrParams);
-        request.url += stringifyParameters(validatedParameters);
+        v.assert(SubjectParameters, idOrParams);
+        request.url += stringifyParameters(idOrParams);
       }
       return request;
     },
@@ -485,7 +485,7 @@ export class ApiRequestFactory {
      * @returns An Update User Preferences Request usabile in any HTTP API/Library.
      */
     updatePreferences: (payload: UserPreferencesPayload, options?: ApiRequestOptions): ApiRequest => {
-      const validatedPayload = v.parse(UserPreferencesPayload, payload);
+      v.assert(UserPreferencesPayload, payload);
       const headers = { ...this._postPutHeaders };
       if (typeof options !== "undefined") {
         if (typeof options.customHeaders !== "undefined") {
@@ -496,7 +496,7 @@ export class ApiRequestFactory {
         }
       }
       const request: ApiRequest = {
-        body: JSON.stringify(validatedPayload),
+        body: JSON.stringify(payload),
         headers,
         method: "PUT",
         url: `${this.baseUrl}/user`,
@@ -532,8 +532,8 @@ export class ApiRequestFactory {
       if (typeof idOrParams === "number") {
         request.url += `/${idOrParams}`;
       } else if (typeof idOrParams !== "undefined") {
-        const validatedParameters = v.parse(VoiceActorParameters, idOrParams);
-        request.url += stringifyParameters(validatedParameters);
+        v.assert(VoiceActorParameters, idOrParams);
+        request.url += stringifyParameters(idOrParams);
       }
       return request;
     },

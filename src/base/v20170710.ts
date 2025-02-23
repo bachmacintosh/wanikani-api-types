@@ -1,25 +1,4 @@
 import * as v from "valibot";
-import type { WKAssignment, WKAssignmentData } from "../assignments/v20170710.js";
-import type {
-  WKKanaVocabulary,
-  WKKanaVocabularyData,
-  WKKanji,
-  WKKanjiData,
-  WKRadical,
-  WKRadicalData,
-  WKSubject,
-  WKVocabulary,
-  WKVocabularyData,
-} from "../subjects/v20170710.js";
-import type { WKLevelProgression, WKLevelProgressionData } from "../level-progressions/v20170710.js";
-import type { WKReset, WKResetData } from "../resets/v20170710.js";
-import type { WKReview, WKReviewData } from "../reviews/v20170710.js";
-import type { WKReviewStatistic, WKReviewStatisticData } from "../review-statistics/v20170710.js";
-import type { WKSpacedRepetitionSystem, WKSpacedRepetitionSystemData } from "../spaced-repetition-systems/v20170710.js";
-import type { WKStudyMaterial, WKStudyMaterialData } from "../study-materials/v20170710.js";
-import type { WKVoiceActor, WKVoiceActorData } from "../voice-actors/v20170710.js";
-import type { WKSummaryData } from "../summary/v20170710.js";
-import type { WKUserData } from "../user/v20170710.js";
 
 /**
  * All known WaniKani API revisions, created when breaking changes are introduced to the WaniKani API.
@@ -48,27 +27,26 @@ export type DatableString = v.Brand<"DatableString"> & string;
 export const DatableString = v.pipe(v.string(), v.isoTimestamp(), v.brand("DatableString"));
 
 /**
- * A number representing a level in WaniKani, from `1` to `60`.
- *
- * @category Base
- */
-export type Level = number & {};
-const MaxLevel = 60;
-export const Level = v.pipe(v.number(), v.minValue(1), v.maxValue(MaxLevel));
-
-/**
  * The minimum level provided by WaniKani; exported for use in lieu of a Magic Number.
  *
  * @category Base
  */
-export const MIN_LEVEL: Level = v.parse(Level, 1);
+export const MIN_LEVEL = 1;
 
 /**
  * The maximum level provided by WaniKani; exported for use in lieu of a Magic Number.
  *
  * @category Base
  */
-export const MAX_LEVEL: Level = v.parse(Level, MaxLevel);
+export const MAX_LEVEL = 60;
+
+/**
+ * A number representing a level in WaniKani, from `1` to `60`.
+ *
+ * @category Base
+ */
+export type Level = number & {};
+export const Level = v.pipe(v.number(), v.minValue(MIN_LEVEL), v.maxValue(MAX_LEVEL));
 
 /**
  * The types of resources used on WaniKani and its API.
@@ -126,31 +104,41 @@ export const SubjectTuple = v.pipe(
 );
 
 /**
+ * The common properties across all Resources from the WaniKani API.
+ *
+ * @remarks This is a partial interface; most use cases involve using a reource that extends it.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#response-structure}
+ *
+ * @category Base
+ * @category Resources
+ */
+export interface BaseResource {
+  /**
+   * For a resource, this is the last time that particular resource was updated.
+   */
+  data_updated_at: DatableString;
+
+  /**
+   * The URL of the requested resource.
+   */
+  url: string;
+}
+export const BaseResource = v.object({
+  data_updated_at: DatableString,
+  url: v.string(),
+});
+
+/**
  * The common properties across all Collection items from the WaniKani API.
+ *
+ * @remarks This is a partial interface; most use cases involve using a reource that extends it.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#response-structure}
  * @category Base
  * @category Collections
  */
-export interface WKCollection {
-  /**
-   * The resource's data, dependent on the collection's resource type.
-   */
-  data:
-    | WKAssignment[]
-    | WKKanaVocabulary[]
-    | WKKanji[]
-    | WKLevelProgression[]
-    | WKRadical[]
-    | WKReset[]
-    | WKReview[]
-    | WKReviewStatistic[]
-    | WKSpacedRepetitionSystem[]
-    | WKStudyMaterial[]
-    | WKSubject[]
-    | WKVocabulary[]
-    | WKVoiceActor[];
-
+export interface BaseCollection {
   /**
    * For collections, this is the timestamp of the most recently updated resource in the specified scope and is not
    * limited by pagination. If no items were returned for the specified scope, then this will be `null`.
@@ -192,17 +180,18 @@ export interface WKCollection {
    * The URL of the request. For collections, that will contain all the filters and options you've passed to the API.
    */
   url: string;
-
-  /**
-   * A collection will never have a `code` property.
-   */
-  code?: never;
-
-  /**
-   * A collection will never have an `error` property.
-   */
-  error?: never;
 }
+export const BaseCollection = v.object({
+  data_updated_at: v.union([DatableString, v.null()]),
+  object: v.literal("collection"),
+  pages: v.object({
+    next_url: v.union([v.string(), v.null()]),
+    per_page: v.number(),
+    previous_url: v.union([v.string(), v.null()]),
+  }),
+  total_count: v.number(),
+  url: v.string(),
+});
 
 /**
  * Query string parameters that can be sent to any WaniKani API collection endpoint.
@@ -244,157 +233,6 @@ export const CollectionParameters = v.object({
 });
 
 /**
- * An error response returned by the WaniKani API.
- *
- * @category Base
- */
-export interface WKError {
-  /**
-   * An HTTP status code indicating the type of error.
-   */
-  code: number;
-
-  /**
-   * A message string that describes the error.
-   */
-  error: string;
-
-  /**
-   * An error will never include a `data` property.
-   */
-  data?: never;
-
-  /**
-   * An error will never include a `data_updated_at` property.
-   */
-  data_updated_at?: never;
-
-  /**
-   * An error will never include an `id` property.
-   */
-  id?: never;
-
-  /**
-   * An error will never include an `object` property.
-   */
-  object?: never;
-
-  /**
-   * An error will never include a `pages` property.
-   */
-  pages?: never;
-
-  /**
-   * An error will never include a `total_count` property.
-   */
-  total_count?: never;
-
-  /**
-   * An error will never include a `url` property.
-   */
-  url?: never;
-}
-
-/**
- * The common properties across all Reports from the WaniKani API
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#response-structure}
- *
- * @category Base
- * @category Reports
- */
-export interface WKReport {
-  /**
-   * The report's data, dependent on the particular report.
-   */
-  data: WKSummaryData;
-
-  /**
-   * The last time the report was updated.
-   */
-  data_updated_at: DatableString;
-
-  /**
-   * The kind of object returned.
-   */
-  object: "report";
-
-  /**
-   * The URL of the requested report.
-   */
-  url: string;
-
-  /**
-   * A report will never have a `code` property.
-   */
-  code?: never;
-
-  /**
-   * A report will never have an `error` property.
-   */
-  error?: never;
-}
-
-/**
- * The common properties across all Resources from the WaniKani API
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#response-structure}
- *
- * @category Base
- * @category Resources
- */
-export interface WKResource {
-  /**
-   * The resource's data, dependent on the particular type of resource.
-   */
-  data:
-    | WKAssignmentData
-    | WKKanaVocabularyData
-    | WKKanjiData
-    | WKLevelProgressionData
-    | WKRadicalData
-    | WKResetData
-    | WKReviewData
-    | WKReviewStatisticData
-    | WKSpacedRepetitionSystemData
-    | WKStudyMaterialData
-    | WKUserData
-    | WKVocabularyData
-    | WKVoiceActorData;
-
-  /**
-   * For a resource, this is the last time that particular resource was updated.
-   */
-  data_updated_at: DatableString;
-
-  /**
-   * The kind of object returned.
-   */
-  object: ResourceType | SubjectType;
-
-  /**
-   * The URL of the requested resource.
-   */
-  url: string;
-
-  /**
-   * A resource will never have a `code` property.
-   */
-  code?: never;
-
-  /**
-   * A resource will never have an `error` property.
-   */
-  error?: never;
-
-  /**
-   * A unique identifying number present on all Resources except a User
-   * resource, where it is present the `data` object.
-   */
-  id?: number;
-}
-
-/**
  * Parses a parameter object, for use with the WaniKani API.
  *
  * @param params -- An object containing the query string parameters to parse.
@@ -403,9 +241,7 @@ export interface WKResource {
  * @category Base
  */
 export function stringifyParameters(params: CollectionParameters): string {
-  if (typeof params !== "object") {
-    throw new TypeError("Parameters must be expressed as an object.");
-  }
+  v.assert(CollectionParameters, params);
   if (Object.keys(params).length === 0) {
     return "";
   }
@@ -436,3 +272,56 @@ export function stringifyParameters(params: CollectionParameters): string {
   }
   return queryString;
 }
+
+/**
+ * The common properties across all Reports from the WaniKani API
+ *
+ * @remarks This is a partial interface; most use cases involve using a reource that extends it.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#response-structure}
+ *
+ * @category Base
+ * @category Reports
+ */
+export interface BaseReport {
+  /**
+   * The last time the report was updated.
+   */
+  data_updated_at: DatableString;
+
+  /**
+   * The kind of object returned.
+   */
+  object: "report";
+
+  /**
+   * The URL of the requested report.
+   */
+  url: string;
+}
+export const BaseReport = v.object({
+  data_updated_at: DatableString,
+  object: v.literal("report"),
+  url: v.string(),
+});
+
+/**
+ * An error response returned by the WaniKani API.
+ *
+ * @category Base
+ */
+export interface ApiError {
+  /**
+   * An HTTP status code indicating the type of error.
+   */
+  code: number;
+
+  /**
+   * A message string that describes the error.
+   */
+  error: string;
+}
+export const ApiError = v.object({
+  code: v.number(),
+  error: v.string(),
+});

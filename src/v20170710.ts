@@ -8,7 +8,6 @@ export * from "./reviews/v20170710.js";
 export * from "./spaced-repetition-systems/v20170710.js";
 export * from "./study-materials/v20170710.js";
 export * from "./subjects/v20170710.js";
-// TODO: Review if anything besides types needs exporting
-export type * from "./summary/v20170710.js";
+export * from "./summary/v20170710.js";
 export * from "./user/v20170710.js";
 export * from "./voice-actors/v20170710.js";

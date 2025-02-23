@@ -1,38 +1,37 @@
-import * as v from "valibot";
-import {
+import type {
   ReviewStatistic,
   ReviewStatisticCollection,
   ReviewStatisticParameters,
 } from "../../src/review-statistics/v20170710.js";
-import { describe, expect } from "vitest";
+import { assertType, describe } from "vitest";
 import { testFor } from "../fixtures/v20170710.js";
 
 describe("ReviewStatistic", () => {
   testFor("Real ReviewStatistic", ({ reviewStatistic }) => {
-    expect(() => v.assert(ReviewStatistic, reviewStatistic)).not.toThrow();
+    assertType<ReviewStatistic>(reviewStatistic);
   });
 });
 
 describe("ReviewStatisticCollection", () => {
   testFor("Real ReviewStatisticCollection", ({ reviewStatisticCollection }) => {
-    expect(() => v.assert(ReviewStatisticCollection, reviewStatisticCollection)).not.toThrow();
+    assertType<ReviewStatisticCollection>(reviewStatisticCollection);
   });
 });
 
 describe("ReviewStatisticParameters", () => {
   testFor("Empty ReviewStatisticParameters", ({ emptyParams }) => {
-    expect(() => v.assert(ReviewStatisticParameters, emptyParams)).not.toThrow();
+    assertType<ReviewStatisticParameters>(emptyParams);
   });
   testFor("ReviewStatisticParameters with empty arrays", ({ reviewStatisticParamsWithEmptyArrays }) => {
-    expect(() => v.assert(ReviewStatisticParameters, reviewStatisticParamsWithEmptyArrays)).not.toThrow();
+    assertType<ReviewStatisticParameters>(reviewStatisticParamsWithEmptyArrays);
   });
   testFor("ReviewStatisticParameters with many options filled", ({ reviewStatisticParamsWithManyOptions }) => {
-    expect(() => v.assert(ReviewStatisticParameters, reviewStatisticParamsWithManyOptions)).not.toThrow();
+    assertType<ReviewStatisticParameters>(reviewStatisticParamsWithManyOptions);
   });
   testFor("ReviewStatisticParameters with Date objects", ({ reviewStatisticParamsWithDates }) => {
-    expect(() => v.assert(ReviewStatisticParameters, reviewStatisticParamsWithDates)).not.toThrow();
+    assertType<ReviewStatisticParameters>(reviewStatisticParamsWithDates);
   });
   testFor("ReviewStatisticParameters with DatableString properties", ({ reviewStatisticParamsWithDatableStrings }) => {
-    expect(() => v.assert(ReviewStatisticParameters, reviewStatisticParamsWithDatableStrings)).not.toThrow();
+    assertType<ReviewStatisticParameters>(reviewStatisticParamsWithDatableStrings);
   });
 });
