@@ -9,6 +9,7 @@ import {
 import { MAX_LESSON_BATCH_SIZE, MIN_LESSON_BATCH_SIZE } from "../../src/user/v20170710.js";
 import { MAX_SRS_STAGE, MIN_SRS_STAGE } from "../../src/spaced-repetition-systems/v20170710.js";
 import { ApiRequestFactory } from "../../src/requests/v20170710.js";
+import type { StudyMaterialUpdatePayload } from "../../src/v20170710.js";
 import { test } from "vitest";
 
 // Base
@@ -460,6 +461,78 @@ const spacedRepetitionSystemCollection = {
   total_count: 2,
   data_updated_at: v.parse(DatableString, "2020-06-09T03:38:01.007395Z"),
   data: [spacedRepetitionSystem],
+};
+
+// Study Materials
+
+const studyMaterial = {
+  id: 10089088,
+  object: "study_material" as const,
+  url: "https://api.wanikani.com/v2/study_materials/10089088",
+  data_updated_at: v.parse(DatableString, "2022-10-31T15:56:51.781056Z"),
+  data: {
+    created_at: v.parse(DatableString, "2022-10-31T15:49:19.637077Z"),
+    subject_id: 1,
+    subject_type: "radical" as const,
+    meaning_note: "It's one of a kind! Get it?",
+    reading_note: "",
+    meaning_synonyms: [],
+    hidden: false,
+  },
+};
+
+const studyMaterialCollection = {
+  object: "collection" as const,
+  url: "https://api.wanikani.com/v2/study_materials",
+  pages: {
+    per_page: 500,
+    next_url: null,
+    previous_url: null,
+  },
+  total_count: 3,
+  data_updated_at: v.parse(DatableString, "2025-01-16T17:05:46.992219Z"),
+  data: [studyMaterial],
+};
+
+const studyMaterialParamsWithEmptyArrays = {
+  ids: [],
+  subject_ids: [],
+};
+
+const studyMaterialParamsWithManyOptions = {
+  ids: [1, 2, 3],
+  subject_ids: [1, 2, 3],
+  subject_types: v.parse(SubjectTuple, ["kana_vocabulary", "vocabulary"]),
+  hidden: false,
+  page_after_id: 1,
+  page_before_id: 1,
+};
+
+const studyMaterialParamsWithDates = {
+  updated_after: new Date(),
+};
+
+const studyMaterialParamsWithDatableStrings = {
+  updated_after: v.parse(DatableString, new Date().toISOString()),
+};
+
+const emptyStudyMaterialUpdatePayload: StudyMaterialUpdatePayload = {};
+
+const fullStudyMaterialUpdatePayload = {
+  meaning_note: "Meaning note",
+  reading_note: "Reading Note",
+  meaning_synonyms: ["one", "two"],
+};
+
+const minimalStudyMaterialCreatePayload = {
+  subject_id: 1,
+};
+
+const fullStudyMaterialCreatePayload = {
+  subject_id: 1,
+  meaning_note: "Meaning note",
+  reading_note: "Reading Note",
+  meaning_synonyms: ["one", "two"],
 };
 
 // Subjects
@@ -1105,6 +1178,16 @@ export const testFor = test.extend({
   spacedRepetitionSystemStageNumbers,
   spacedRepetitionSystem,
   spacedRepetitionSystemCollection,
+  studyMaterial,
+  studyMaterialCollection,
+  studyMaterialParamsWithEmptyArrays,
+  studyMaterialParamsWithManyOptions,
+  studyMaterialParamsWithDates,
+  studyMaterialParamsWithDatableStrings,
+  emptyStudyMaterialUpdatePayload,
+  fullStudyMaterialUpdatePayload,
+  minimalStudyMaterialCreatePayload,
+  fullStudyMaterialCreatePayload,
   radical,
   kanji,
   vocabulary,

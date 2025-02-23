@@ -1,58 +1,57 @@
-import * as v from "valibot";
-import {
+import type {
   StudyMaterial,
   StudyMaterialCollection,
   StudyMaterialCreatePayload,
   StudyMaterialParameters,
   StudyMaterialUpdatePayload,
 } from "../../src/study-materials/v20170710.js";
-import { describe, expect } from "vitest";
+import { assertType, describe } from "vitest";
 import { testFor } from "../fixtures/v20170710.js";
 
 describe("StudyMaterial", () => {
   testFor("Real StudyMaterial", ({ studyMaterial }) => {
-    expect(() => v.assert(StudyMaterial, studyMaterial)).not.toThrow();
+    assertType<StudyMaterial>(studyMaterial);
   });
 });
 
 describe("StudyMaterialCollection", () => {
   testFor("Real StudyMaterialCollection", ({ studyMaterialCollection }) => {
-    expect(() => v.assert(StudyMaterialCollection, studyMaterialCollection)).not.toThrow();
+    assertType<StudyMaterialCollection>(studyMaterialCollection);
   });
 });
 
 describe("StudyMaterialParameters", () => {
   testFor("Empty StudyMaterialParameters", ({ emptyParams }) => {
-    expect(() => v.assert(StudyMaterialParameters, emptyParams)).not.toThrow();
+    assertType<StudyMaterialParameters>(emptyParams);
   });
   testFor("StudyMaterialParameters with empty arrays", ({ studyMaterialParamsWithEmptyArrays }) => {
-    expect(() => v.assert(StudyMaterialParameters, studyMaterialParamsWithEmptyArrays)).not.toThrow();
+    assertType<StudyMaterialParameters>(studyMaterialParamsWithEmptyArrays);
   });
   testFor("StudyMaterialParameters with many options filled", ({ studyMaterialParamsWithManyOptions }) => {
-    expect(() => v.assert(StudyMaterialParameters, studyMaterialParamsWithManyOptions)).not.toThrow();
+    assertType<StudyMaterialParameters>(studyMaterialParamsWithManyOptions);
   });
   testFor("StudyMaterialParameters with Date objects", ({ studyMaterialParamsWithDates }) => {
-    expect(() => v.assert(StudyMaterialParameters, studyMaterialParamsWithDates)).not.toThrow();
+    assertType<StudyMaterialParameters>(studyMaterialParamsWithDates);
   });
   testFor("StudyMaterialParameters with DatableString properties", ({ studyMaterialParamsWithDatableStrings }) => {
-    expect(() => v.assert(StudyMaterialParameters, studyMaterialParamsWithDatableStrings)).not.toThrow();
+    assertType<StudyMaterialParameters>(studyMaterialParamsWithDatableStrings);
   });
 });
 
 describe("StudyMaterialUpdatePayload", () => {
   testFor("Empty payload", ({ emptyStudyMaterialUpdatePayload }) => {
-    expect(() => v.assert(StudyMaterialUpdatePayload, emptyStudyMaterialUpdatePayload)).not.toThrow();
+    assertType<StudyMaterialUpdatePayload>(emptyStudyMaterialUpdatePayload);
   });
   testFor("Payload with all properties", ({ fullStudyMaterialUpdatePayload }) => {
-    expect(() => v.assert(StudyMaterialUpdatePayload, fullStudyMaterialUpdatePayload)).not.toThrow();
+    assertType<StudyMaterialUpdatePayload>(fullStudyMaterialUpdatePayload);
   });
 });
 
 describe("StudyMaterialCreatePayload", () => {
   testFor("Payload with required properties only", ({ minimalStudyMaterialCreatePayload }) => {
-    expect(() => v.assert(StudyMaterialCreatePayload, minimalStudyMaterialCreatePayload)).not.toThrow();
+    assertType<StudyMaterialCreatePayload>(minimalStudyMaterialCreatePayload);
   });
   testFor("Payload with all properties", ({ fullStudyMaterialCreatePayload }) => {
-    expect(() => v.assert(StudyMaterialCreatePayload, fullStudyMaterialCreatePayload)).not.toThrow();
+    assertType<StudyMaterialCreatePayload>(fullStudyMaterialCreatePayload);
   });
 });
