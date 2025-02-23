@@ -383,6 +383,488 @@ const reviewPayloadWithSubjectAndDatableStrings = {
   },
 };
 
+// Subjects
+
+const radicalData = {
+  created_at: v.parse(DatableString, "2012-02-27T18:08:16.000000Z"),
+  level: 1,
+  slug: "ground",
+  hidden_at: null,
+  document_url: "https://www.wanikani.com/radicals/ground",
+  characters: "一",
+  character_images: [
+    {
+      url: "https://example.com",
+      metadata: {
+        inline_styles: true,
+      },
+      content_type: "image/svg+xml" as const,
+    },
+    {
+      url: "https://example.com",
+      metadata: {
+        color: "#000000",
+        dimensions: "1024x1024",
+        style_name: "original",
+      },
+      content_type: "image/png" as const,
+    },
+    {
+      url: "https://example.com",
+      metadata: {
+        color: "#000000",
+        dimensions: "1024x1024",
+        style_name: "1024px",
+      },
+      content_type: "image/png" as const,
+    },
+    {
+      url: "https://example.com",
+      metadata: {
+        color: "#000000",
+        dimensions: "512x512",
+        style_name: "512px",
+      },
+      content_type: "image/png" as const,
+    },
+    {
+      url: "https://example.com",
+      metadata: {
+        color: "#000000",
+        dimensions: "256x256",
+        style_name: "256px",
+      },
+      content_type: "image/png" as const,
+    },
+    {
+      url: "https://example.com",
+      metadata: {
+        color: "#000000",
+        dimensions: "128x128",
+        style_name: "128px",
+      },
+      content_type: "image/png" as const,
+    },
+    {
+      url: "https://example.com",
+      metadata: {
+        color: "#000000",
+        dimensions: "64x64",
+        style_name: "64px",
+      },
+      content_type: "image/png" as const,
+    },
+    {
+      url: "https://example.com",
+      metadata: {
+        color: "#000000",
+        dimensions: "32x32",
+        style_name: "32px",
+      },
+      content_type: "image/png" as const,
+    },
+  ],
+  meanings: [
+    {
+      meaning: "Ground",
+      primary: true,
+      accepted_answer: true,
+    },
+  ],
+  auxiliary_meanings: [],
+  amalgamation_subject_ids: [
+    440, 449, 450, 451, 468, 488, 531, 533, 568, 590, 609, 633, 635, 709, 710, 724, 783, 808, 885, 913, 932, 965, 971,
+    1000, 1020, 1085, 1119, 1126, 1137, 1178, 1198, 1241, 1249, 1310, 1326, 1340, 1367, 1372, 1376, 1379, 1428, 1431,
+    1463, 1491, 1521, 1547, 1559, 1591, 1655, 1769, 1851, 1852, 1855, 1868, 1869, 1888, 2085, 2104, 2128, 2138, 2148,
+    2171, 2172, 2182, 2212, 2277, 2334, 2375, 2419, 2437,
+  ],
+  meaning_mnemonic: "<snip>",
+  lesson_position: 0,
+  spaced_repetition_system_id: 2,
+};
+
+const kanjiData = {
+  created_at: v.parse(DatableString, "2012-02-27T19:55:19.000000Z"),
+  level: 1,
+  slug: "一",
+  hidden_at: null,
+  document_url: "https://www.wanikani.com/kanji/%E4%B8%80",
+  characters: "一",
+  meanings: [
+    {
+      meaning: "One",
+      primary: true,
+      accepted_answer: true,
+    },
+  ],
+  auxiliary_meanings: [
+    {
+      meaning: "1",
+      type: "whitelist" as const,
+    },
+  ],
+  readings: [
+    {
+      reading: "いち",
+      primary: true,
+      accepted_answer: true,
+      type: "onyomi" as const,
+    },
+    {
+      reading: "いつ",
+      primary: false,
+      accepted_answer: true,
+      type: "onyomi" as const,
+    },
+    {
+      reading: "ひと",
+      primary: false,
+      accepted_answer: false,
+      type: "kunyomi" as const,
+    },
+    {
+      reading: "かず",
+      primary: false,
+      accepted_answer: false,
+      type: "nanori" as const,
+    },
+  ],
+  component_subject_ids: [1],
+  amalgamation_subject_ids: [
+    2467, 2468, 2477, 2510, 2544, 2588, 2627, 2660, 2665, 2672, 2679, 2721, 2730, 2751, 2959, 3048, 3256, 3335, 3348,
+    3349, 3372, 3481, 3527, 3528, 3656, 3663, 4133, 4173, 4258, 4282, 4563, 4615, 4701, 4823, 4906, 5050, 5224, 5237,
+    5349, 5362, 5838, 6010, 6029, 6150, 6169, 6209, 6210, 6346, 6584, 6614, 6723, 6811, 6851, 7037, 7293, 7305, 7451,
+    7561, 7617, 7734, 7780, 7927, 8209, 8214, 8414, 8456, 8583, 8709, 8896, 8921, 9056, 9103, 9268, 9286, 9305, 9306,
+    9331,
+  ],
+  visually_similar_subject_ids: [],
+  meaning_mnemonic: "<snip>",
+  meaning_hint: "<snip>",
+  reading_mnemonic: "<snip>",
+  reading_hint: "<snip>",
+  lesson_position: 25,
+  spaced_repetition_system_id: 2,
+};
+
+const vocabularyData = {
+  created_at: v.parse(DatableString, "2012-02-28T08:04:47.000000Z"),
+  level: 1,
+  slug: "一",
+  hidden_at: null,
+  document_url: "https://www.wanikani.com/vocabulary/%E4%B8%80",
+  characters: "一",
+  meanings: [
+    {
+      meaning: "One",
+      primary: true,
+      accepted_answer: true,
+    },
+  ],
+  auxiliary_meanings: [
+    {
+      meaning: "1",
+      type: "whitelist" as const,
+    },
+  ],
+  readings: [
+    {
+      reading: "いち",
+      primary: true,
+      accepted_answer: true,
+    },
+  ],
+  parts_of_speech: ["numeral"],
+  component_subject_ids: [440],
+  meaning_mnemonic: "<snip>",
+  reading_mnemonic: "<snip>",
+  context_sentences: [
+    {
+      en: "<snip>",
+      ja: "<snip>",
+    },
+  ],
+  pronunciation_audios: [
+    {
+      url: "https://example.com",
+      metadata: {
+        gender: "male" as const,
+        source_id: 2711,
+        pronunciation: "いち",
+        voice_actor_id: 2,
+        voice_actor_name: "Kenichi",
+        voice_description: "Tokyo accent",
+      },
+      content_type: "audio/webm" as const,
+    },
+    {
+      url: "https://example.com",
+      metadata: {
+        gender: "female" as const,
+        source_id: 21630,
+        pronunciation: "いち",
+        voice_actor_id: 1,
+        voice_actor_name: "Kyoko",
+        voice_description: "Tokyo accent",
+      },
+      content_type: "audio/webm" as const,
+    },
+    {
+      url: "https://example.com",
+      metadata: {
+        gender: "female" as const,
+        source_id: 21630,
+        pronunciation: "いち",
+        voice_actor_id: 1,
+        voice_actor_name: "Kyoko",
+        voice_description: "Tokyo accent",
+      },
+      content_type: "audio/mpeg" as const,
+    },
+    {
+      url: "https://example.com",
+      metadata: {
+        gender: "male" as const,
+        source_id: 2711,
+        pronunciation: "いち",
+        voice_actor_id: 2,
+        voice_actor_name: "Kenichi",
+        voice_description: "Tokyo accent",
+      },
+      content_type: "audio/mpeg" as const,
+    },
+  ],
+  lesson_position: 43,
+  spaced_repetition_system_id: 2,
+};
+
+const kanaVocabularyData = {
+  created_at: v.parse(DatableString, "2022-09-14T11:39:10.684981Z"),
+  level: 10,
+  slug: "ちょっと",
+  hidden_at: null,
+  document_url: "https://www.wanikani.com/vocabulary/%E3%81%A1%E3%82%87%E3%81%A3%E3%81%A8",
+  characters: "ちょっと",
+  meanings: [
+    {
+      meaning: "A Little",
+      primary: true,
+      accepted_answer: true,
+    },
+    {
+      meaning: "A Moment",
+      primary: false,
+      accepted_answer: true,
+    },
+  ],
+  auxiliary_meanings: [
+    {
+      meaning: "A Bit",
+      type: "whitelist" as const,
+    },
+    {
+      meaning: "A Few",
+      type: "whitelist" as const,
+    },
+    {
+      meaning: "For A Moment",
+      type: "whitelist" as const,
+    },
+    {
+      meaning: "A Minute",
+      type: "whitelist" as const,
+    },
+    {
+      meaning: "For A Minute",
+      type: "whitelist" as const,
+    },
+    {
+      meaning: "Some",
+      type: "whitelist" as const,
+    },
+  ],
+  parts_of_speech: ["adverb"],
+  meaning_mnemonic: "<snip>",
+  context_sentences: [
+    {
+      en: "<snip>",
+      ja: "<snip>",
+    },
+  ],
+  pronunciation_audios: [
+    {
+      url: "https://example.com",
+      metadata: {
+        gender: "female" as const,
+        source_id: 44712,
+        pronunciation: "ちょっと",
+        voice_actor_id: 1,
+        voice_actor_name: "Kyoko",
+        voice_description: "Tokyo accent",
+      },
+      content_type: "audio/webm" as const,
+    },
+    {
+      url: "https://example.com",
+      metadata: {
+        gender: "female" as const,
+        source_id: 44712,
+        pronunciation: "ちょっと",
+        voice_actor_id: 1,
+        voice_actor_name: "Kyoko",
+        voice_description: "Tokyo accent",
+      },
+      content_type: "audio/mpeg" as const,
+    },
+    {
+      url: "https://example.com",
+      metadata: {
+        gender: "male" as const,
+        source_id: 44771,
+        pronunciation: "ちょっと",
+        voice_actor_id: 2,
+        voice_actor_name: "Kenichi",
+        voice_description: "Tokyo accent",
+      },
+      content_type: "audio/webm" as const,
+    },
+    {
+      url: "https://example.com",
+      metadata: {
+        gender: "male" as const,
+        source_id: 44771,
+        pronunciation: "ちょっと",
+        voice_actor_id: 2,
+        voice_actor_name: "Kenichi",
+        voice_description: "Tokyo accent",
+      },
+      content_type: "audio/mpeg" as const,
+    },
+  ],
+  lesson_position: 59,
+  spaced_repetition_system_id: 1,
+};
+
+const radical = {
+  id: 1,
+  object: "radical" as const,
+  url: "https://api.wanikani.com/v2/subjects/1",
+  data_updated_at: v.parse(DatableString, "2025-01-16T17:11:09.063973Z"),
+  data: radicalData,
+};
+
+const kanji = {
+  id: 440,
+  object: "kanji" as const,
+  url: "https://api.wanikani.com/v2/subjects/440",
+  data_updated_at: v.parse(DatableString, "2025-01-21T15:25:03.362576Z"),
+  data: kanjiData,
+};
+
+const vocabulary = {
+  id: 2467,
+  object: "vocabulary" as const,
+  url: "https://api.wanikani.com/v2/subjects/2467",
+  data_updated_at: v.parse(DatableString, "2024-10-15T22:13:34.087679Z"),
+  data: vocabularyData,
+};
+
+const kanaVocabulary = {
+  id: 9176,
+  object: "kana_vocabulary" as const,
+  url: "https://api.wanikani.com/v2/subjects/9176",
+  data_updated_at: v.parse(DatableString, "2024-10-15T22:19:11.286457Z"),
+  data: kanaVocabularyData,
+};
+
+const radicalCollection = {
+  object: "collection" as const,
+  url: "https://api.wanikani.com/v2/subjects?types=radical",
+  pages: {
+    per_page: 1000,
+    next_url: null,
+    previous_url: null,
+  },
+  total_count: 499,
+  data_updated_at: v.parse(DatableString, "2025-02-21T20:51:23.378189Z"),
+  data: [radical],
+};
+
+const kanjiCollection = {
+  object: "collection" as const,
+  url: "https://api.wanikani.com/v2/subjects?types=kanji",
+  pages: {
+    per_page: 1000,
+    next_url: "https://api.wanikani.com/v2/subjects?page_after_id=1439&types=kanji",
+    previous_url: null,
+  },
+  total_count: 2080,
+  data_updated_at: v.parse(DatableString, "2025-02-23T04:24:12.403083Z"),
+  data: [kanji],
+};
+
+const vocabularyCollection = {
+  object: "collection" as const,
+  url: "https://api.wanikani.com/v2/subjects?types=vocabulary",
+  pages: {
+    per_page: 1000,
+    next_url: "https://api.wanikani.com/v2/subjects?page_after_id=3468&types=vocabulary",
+    previous_url: null,
+  },
+  total_count: 6630,
+  data_updated_at: v.parse(DatableString, "2025-02-23T04:24:12.372546Z"),
+  data: [vocabulary],
+};
+
+const kanaVocabularyCollection = {
+  object: "collection" as const,
+  url: "https://api.wanikani.com/v2/subjects?types=kana_vocabulary",
+  pages: {
+    per_page: 1000,
+    next_url: null,
+    previous_url: null,
+  },
+  total_count: 60,
+  data_updated_at: v.parse(DatableString, "2025-01-31T00:42:02.755193Z"),
+  data: [kanaVocabulary],
+};
+
+const subjectCollection = {
+  object: "collection" as const,
+  url: "https://api.wanikani.com/v2/subjects",
+  pages: {
+    per_page: 1000,
+    next_url: "https://api.wanikani.com/v2/subjects?page_after_id=1000",
+    previous_url: null,
+  },
+  total_count: 9269,
+  data_updated_at: v.parse(DatableString, "2025-02-23T04:24:12.403083Z"),
+  data: [radical, kanji, vocabulary, kanaVocabulary],
+};
+
+const subjectParamsWithEmptyArrays = {
+  ids: [],
+  levels: [],
+  slugs: [],
+};
+
+const subjectParamsWithManyOptions = {
+  ids: [1, 2, 3],
+  levels: [1, 2, 3],
+  slugs: ["one", "two", "three"],
+  types: v.parse(SubjectTuple, ["radical", "kanji"]),
+  hidden: false,
+  page_after_id: 1,
+  page_before_id: 1,
+};
+
+const subjectParamsWithDates = {
+  updated_after: new Date(),
+};
+
+const subjectParamsWithDatableStrings = {
+  updated_after: v.parse(DatableString, new Date().toISOString()),
+};
+
 export const testFor = test.extend({
   apiRevision,
   dateTimeUtcString,
@@ -435,4 +917,21 @@ export const testFor = test.extend({
   reviewPayloadWithAssignmentAndDatableStrings,
   reviewPayloadWithSubjectAndDate,
   reviewPayloadWithSubjectAndDatableStrings,
+  radicalData,
+  kanjiData,
+  vocabularyData,
+  kanaVocabularyData,
+  radical,
+  kanji,
+  vocabulary,
+  kanaVocabulary,
+  radicalCollection,
+  kanjiCollection,
+  vocabularyCollection,
+  kanaVocabularyCollection,
+  subjectCollection,
+  subjectParamsWithEmptyArrays,
+  subjectParamsWithManyOptions,
+  subjectParamsWithDates,
+  subjectParamsWithDatableStrings,
 });
