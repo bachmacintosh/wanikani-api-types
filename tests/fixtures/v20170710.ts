@@ -1027,6 +1027,34 @@ const userPayloadWithAllProperties = {
   },
 };
 
+// Voice Actors
+
+const voiceActor = {
+  id: 1,
+  object: "voice_actor" as const,
+  url: "https://api.wanikani.com/v2/voice_actors/1",
+  data_updated_at: v.parse(DatableString, "2024-11-25T00:39:22.591103Z"),
+  data: {
+    created_at: v.parse(DatableString, "2018-09-11T18:30:27.096474Z"),
+    name: "Kyoko",
+    gender: "female" as const,
+    description: "Tokyo accent",
+  },
+};
+
+const voiceActorCollection = {
+  object: "collection" as const,
+  url: "https://api.wanikani.com/v2/voice_actors",
+  pages: {
+    per_page: 500,
+    next_url: null,
+    previous_url: null,
+  },
+  total_count: 3,
+  data_updated_at: v.parse(DatableString, "2024-11-25T00:39:22.591103Z"),
+  data: [voiceActor],
+};
+
 export const testFor = test.extend({
   apiRevision,
   dateTimeUtcString,
@@ -1095,4 +1123,6 @@ export const testFor = test.extend({
   user,
   userPayloadWithRequiredProperties,
   userPayloadWithAllProperties,
+  voiceActor,
+  voiceActorCollection,
 });
