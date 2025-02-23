@@ -9,13 +9,13 @@ import { testFor } from "../fixtures/v20170710.js";
 
 describe("ReviewStatistic", () => {
   testFor("Real ReviewStatistic", ({ reviewStatistic }) => {
-    expect(() => v.parse(ReviewStatistic, reviewStatistic)).not.toThrow();
+    expect(() => v.assert(ReviewStatistic, reviewStatistic)).not.toThrow();
   });
 });
 
 describe("ReviewStatisticCollection", () => {
   testFor("Real ReviewStatisticCollection", ({ reviewStatisticCollection }) => {
-    expect(() => v.parse(ReviewStatisticCollection, reviewStatisticCollection)).not.toThrow();
+    expect(() => v.assert(ReviewStatisticCollection, reviewStatisticCollection)).not.toThrow();
   });
 });
 
