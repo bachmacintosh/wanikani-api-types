@@ -6,6 +6,7 @@ import {
   MIN_LEVEL,
   SubjectTuple,
 } from "../../src/base/v20170710.js";
+import { MAX_SRS_STAGE, MIN_SRS_STAGE } from "../../src/spaced-repetition-systems/v20170710.js";
 import { ApiRequestFactory } from "../../src/requests/v20170710.js";
 import { test } from "vitest";
 
@@ -381,6 +382,95 @@ const reviewPayloadWithSubjectAndDatableStrings = {
     incorrect_meaning_answers: 0,
     incorrect_reading_answers: 0,
   },
+};
+
+// Spaced Repetition Systems
+
+const spacedRepetitionSystemStageNumbers = Array<number>(MAX_SRS_STAGE)
+  .fill(MIN_SRS_STAGE)
+  .map((stage, stageIdx) => stage + stageIdx);
+
+const spacedRepetitionSystemData = {
+  created_at: v.parse(DatableString, "2020-05-21T20:46:06.464460Z"),
+  name: "Default system for dictionary subjects",
+  description: "The original spaced repetition system",
+  unlocking_stage_position: 0,
+  starting_stage_position: 1,
+  passing_stage_position: 5,
+  burning_stage_position: 9,
+  stages: [
+    {
+      position: 0,
+      interval: null,
+      interval_unit: "seconds" as const,
+    },
+    {
+      position: 1,
+      interval: 14400,
+      interval_unit: "seconds" as const,
+    },
+    {
+      position: 2,
+      interval: 28800,
+      interval_unit: "seconds" as const,
+    },
+    {
+      position: 3,
+      interval: 82800,
+      interval_unit: "seconds" as const,
+    },
+    {
+      position: 4,
+      interval: 169200,
+      interval_unit: "seconds" as const,
+    },
+    {
+      position: 5,
+      interval: 601200,
+      interval_unit: "seconds" as const,
+    },
+    {
+      position: 6,
+      interval: 1206000,
+      interval_unit: "seconds" as const,
+    },
+    {
+      position: 7,
+      interval: 2588400,
+      interval_unit: "seconds" as const,
+    },
+    {
+      position: 8,
+      interval: 10364400,
+      interval_unit: "seconds" as const,
+    },
+    {
+      position: 9,
+      interval: null,
+      interval_unit: "seconds" as const,
+    },
+  ],
+};
+
+const spacedRepetitionSystem = {
+  id: 1,
+  object: "spaced_repetition_system" as const,
+  url: "https://api.wanikani.com/v2/spaced_repetition_systems/1",
+  data_updated_at: v.parse(DatableString, "2020-06-09T03:36:51.134752Z"),
+  data: spacedRepetitionSystemData,
+};
+
+const spacedRepetitionSystemCollection = {
+  object: "collection" as const,
+  url: "https://api.wanikani.com/v2/spaced_repetition_systems",
+  pages: {
+    per_page: 500,
+    next_url: null,
+    previous_url: null,
+  },
+  total_count: 2,
+  data_updated_at: v.parse(DatableString, "2020-06-09T03:38:01.007395Z"),
+  data: [spacedRepetitionSystem],
 };
 
 // Subjects
@@ -917,6 +1007,10 @@ export const testFor = test.extend({
   reviewPayloadWithAssignmentAndDatableStrings,
   reviewPayloadWithSubjectAndDate,
   reviewPayloadWithSubjectAndDatableStrings,
+  spacedRepetitionSystemStageNumbers,
+  spacedRepetitionSystemData,
+  spacedRepetitionSystem,
+  spacedRepetitionSystemCollection,
   radicalData,
   kanjiData,
   vocabularyData,
