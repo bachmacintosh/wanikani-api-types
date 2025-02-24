@@ -245,66 +245,6 @@ export const RadicalData = v.object(
 );
 
 /**
- * The exact structure of a subject depends on the subject type. The available subject types are `kana_vocabulary`,
- * `kanji`, `radical`, and `vocabulary`. Note that any attributes called out for the specific subject type behaves
- * differently than the common attribute of the same name.
- *
- * This type asserts the subject type is a radical.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
- * @category Resources
- * @category Subjects
- */
-export interface Radical extends BaseResource {
-  /**
-   * Data for the returned radical.
-   */
-  data: RadicalData;
-
-  /**
-   * A unique number identifying the radical.
-   */
-  id: number;
-
-  /**
-   * The kind of object returned.
-   */
-  object: "radical";
-}
-export const Radical = v.object(
-  v.entriesFromObjects([
-    BaseResource,
-    v.object({
-      data: RadicalData,
-      id: v.number(),
-      object: v.literal("radical"),
-    }),
-  ]),
-);
-
-/**
- * A collection of radical subjects returned from the WaniKani API.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#get-all-subjects}
- * @category Collections
- * @category Subjects
- */
-export interface RadicalCollection extends BaseCollection {
-  /**
-   * An array of returned radical subjects.
-   */
-  data: Radical[];
-}
-export const RadicalCollection = v.object(
-  v.entriesFromObjects([
-    BaseCollection,
-    v.object({
-      data: v.array(Radical),
-    }),
-  ]),
-);
-
-/**
  * Information pertaining to a reading of a kanji subject.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
@@ -398,66 +338,6 @@ export const KanjiData = v.object(
       reading_mnemonic: v.string(),
       readings: v.array(KanjiReading),
       visually_similar_subject_ids: v.array(v.number()),
-    }),
-  ]),
-);
-
-/**
- * The exact structure of a subject depends on the subject type. The available subject types are `kana_vocabulary`,
- * `kanji`, `radical`, and `vocabulary`. Note that any attributes called out for the specific subject type behaves
- * differently than the common attribute of the same name.
- *
- * This type asserts the subject type is a kanji.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
- * @category Resources
- * @category Subjects
- */
-export interface Kanji extends BaseResource {
-  /**
-   * Data for the returned kanji.
-   */
-  data: KanjiData;
-
-  /**
-   * A unique number identifying the kanji.
-   */
-  id: number;
-
-  /**
-   * The kind of object returned.
-   */
-  object: "kanji";
-}
-export const Kanji = v.object(
-  v.entriesFromObjects([
-    BaseResource,
-    v.object({
-      data: KanjiData,
-      id: v.number(),
-      object: v.literal("kanji"),
-    }),
-  ]),
-);
-
-/**
- * A collection of kanji subjects returned from the WaniKani API.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#get-all-subjects}
- * @category Collections
- * @category Subjects
- */
-export interface KanjiCollection extends BaseCollection {
-  /**
-   * An array of returned kanji subjects.
-   */
-  data: Kanji[];
-}
-export const KanjiCollection = v.object(
-  v.entriesFromObjects([
-    BaseCollection,
-    v.object({
-      data: v.array(Kanji),
     }),
   ]),
 );
@@ -636,66 +516,6 @@ export const VocabularyData = v.object(
 );
 
 /**
- * The exact structure of a subject depends on the subject type. The available subject types are `kana_vocabulary`,
- * `kanji`, `radical`, and `vocabulary`. Note that any attributes called out for the specific subject type behaves
- * differently than the common attribute of the same name.
- *
- * This type asserts the subject type is a vocabulary subject.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
- * @category Resources
- * @category Subjects
- */
-export interface Vocabulary extends BaseResource {
-  /**
-   * Data for the returned vocabulary.
-   */
-  data: VocabularyData;
-
-  /**
-   * A unique number identifying the vocabulary.
-   */
-  id: number;
-
-  /**
-   * The kind of object returned.
-   */
-  object: "vocabulary";
-}
-export const Vocabulary = v.object(
-  v.entriesFromObjects([
-    BaseResource,
-    v.object({
-      data: VocabularyData,
-      id: v.number(),
-      object: v.literal("vocabulary"),
-    }),
-  ]),
-);
-
-/**
- * A collection of vocabulary subjects returned from the WaniKani API.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#get-all-subjects}
- * @category Collections
- * @category Subjects
- */
-export interface VocabularyCollection extends BaseCollection {
-  /**
-   * An array of returned vocabulary subjects.
-   */
-  data: Vocabulary[];
-}
-export const VocabularyCollection = v.object(
-  v.entriesFromObjects([
-    BaseCollection,
-    v.object({
-      data: v.array(Vocabulary),
-    }),
-  ]),
-);
-
-/**
  * Data returned only for kana-only vocabulary subjects.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
@@ -730,66 +550,6 @@ export const KanaVocabularyData = v.object(
       context_sentences: v.array(VocabularyContextSentence),
       parts_of_speech: v.array(v.string()),
       pronunciation_audios: v.array(VocabularyPronunciationAudio),
-    }),
-  ]),
-);
-
-/**
- * The exact structure of a subject depends on the subject type. The available subject types are `kana_vocabulary`,
- * `kanji`, `radical`, and `vocabulary`. Note that any attributes called out for the specific subject type behaves
- * differently than the common attribute of the same name.
- *
- * This type asserts the subject type is a kana-only vocabulary subject.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
- * @category Resources
- * @category Subjects
- */
-export interface KanaVocabulary extends BaseResource {
-  /**
-   * Data for the returned kana-only vocabulary.
-   */
-  data: KanaVocabularyData;
-
-  /**
-   * A unique number identifying the kana-only vocabulary.
-   */
-  id: number;
-
-  /**
-   * The kind of object returned.
-   */
-  object: "kana_vocabulary";
-}
-export const KanaVocabulary = v.object(
-  v.entriesFromObjects([
-    BaseResource,
-    v.object({
-      data: KanaVocabularyData,
-      id: v.number(),
-      object: v.literal("kana_vocabulary"),
-    }),
-  ]),
-);
-
-/**
- * A collection of kana-only vocabulary subjects returned from the WaniKani API.
- *
- * @see {@link https://docs.api.wanikani.com/20170710/#get-all-subjects}
- * @category Collections
- * @category Subjects
- */
-export interface KanaVocabularyCollection extends BaseCollection {
-  /**
-   * An array of returned vocabulary subjects.
-   */
-  data: KanaVocabulary[];
-}
-export const KanaVocabularyCollection = v.object(
-  v.entriesFromObjects([
-    BaseCollection,
-    v.object({
-      data: v.array(KanaVocabulary),
     }),
   ]),
 );

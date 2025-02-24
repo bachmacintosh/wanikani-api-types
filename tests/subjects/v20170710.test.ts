@@ -1,16 +1,8 @@
 import * as v from "valibot";
 import {
-  KanaVocabulary,
-  KanaVocabularyCollection,
-  Kanji,
-  KanjiCollection,
-  Radical,
-  RadicalCollection,
   Subject,
   SubjectCollection,
   SubjectParameters,
-  Vocabulary,
-  VocabularyCollection,
   WK_SUBJECT_MARKUP_MATCHERS,
 } from "../../src/subjects/v20170710.js";
 import { describe, expect } from "vitest";
@@ -18,38 +10,30 @@ import { testFor } from "../fixtures/v20170710.js";
 
 describe("Subjects", () => {
   testFor("Real Radical", ({ radical }) => {
-    expect(() => v.assert(Radical, radical)).not.toThrow();
     expect(() => v.assert(Subject, radical)).not.toThrow();
   });
   testFor("Real Kanji", ({ kanji }) => {
-    expect(() => v.assert(Kanji, kanji)).not.toThrow();
     expect(() => v.assert(Subject, kanji)).not.toThrow();
   });
   testFor("Real Vocabulary", ({ vocabulary }) => {
-    expect(() => v.assert(Vocabulary, vocabulary)).not.toThrow();
     expect(() => v.assert(Subject, vocabulary)).not.toThrow();
   });
-  testFor("Real KanaVocabulary", ({ kanaVocabulary }) => {
-    expect(() => v.assert(KanaVocabulary, kanaVocabulary)).not.toThrow();
+  testFor("Real Kana-Only Vocabulary", ({ kanaVocabulary }) => {
     expect(() => v.assert(Subject, kanaVocabulary)).not.toThrow();
   });
 });
 
 describe("Subject Collections", () => {
-  testFor("Real RadicalCollection", ({ radicalCollection }) => {
-    expect(() => v.assert(RadicalCollection, radicalCollection)).not.toThrow();
+  testFor("Collection of Radicals", ({ radicalCollection }) => {
     expect(() => v.assert(SubjectCollection, radicalCollection)).not.toThrow();
   });
-  testFor("Real KanjiCollection", ({ kanjiCollection }) => {
-    expect(() => v.assert(KanjiCollection, kanjiCollection)).not.toThrow();
+  testFor("Collection of Kanji", ({ kanjiCollection }) => {
     expect(() => v.assert(SubjectCollection, kanjiCollection)).not.toThrow();
   });
-  testFor("Real VocabularyCollection", ({ vocabularyCollection }) => {
-    expect(() => v.assert(VocabularyCollection, vocabularyCollection)).not.toThrow();
+  testFor("Collection of Vocabulary", ({ vocabularyCollection }) => {
     expect(() => v.assert(SubjectCollection, vocabularyCollection)).not.toThrow();
   });
-  testFor("Real KanaVocabularyCollection", ({ kanaVocabularyCollection }) => {
-    expect(() => v.assert(KanaVocabularyCollection, kanaVocabularyCollection)).not.toThrow();
+  testFor("Collection of Kana-Only Vocabulary", ({ kanaVocabularyCollection }) => {
     expect(() => v.assert(SubjectCollection, kanaVocabularyCollection)).not.toThrow();
   });
   testFor("Real SubjectCollection", ({ subjectCollection }) => {
