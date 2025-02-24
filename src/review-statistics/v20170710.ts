@@ -100,26 +100,30 @@ export interface ReviewStatistic extends BaseResource {
    */
   object: "review_statistic";
 }
-export const ReviewStatistic = v.object({
-  ...BaseResource.entries,
-  data: v.object({
-    created_at: DatableString,
-    hidden: v.boolean(),
-    meaning_correct: v.number(),
-    meaning_current_streak: v.number(),
-    meaning_incorrect: v.number(),
-    meaning_max_streak: v.number(),
-    percentage_correct: v.number(),
-    reading_correct: v.number(),
-    reading_current_streak: v.number(),
-    reading_incorrect: v.number(),
-    reading_max_streak: v.number(),
-    subject_id: v.number(),
-    subject_type: SubjectType,
-  }),
-  id: v.number(),
-  object: v.literal("review_statistic"),
-});
+export const ReviewStatistic = v.object(
+  v.entriesFromObjects([
+    BaseResource,
+    v.object({
+      data: v.object({
+        created_at: DatableString,
+        hidden: v.boolean(),
+        meaning_correct: v.number(),
+        meaning_current_streak: v.number(),
+        meaning_incorrect: v.number(),
+        meaning_max_streak: v.number(),
+        percentage_correct: v.number(),
+        reading_correct: v.number(),
+        reading_current_streak: v.number(),
+        reading_incorrect: v.number(),
+        reading_max_streak: v.number(),
+        subject_id: v.number(),
+        subject_type: SubjectType,
+      }),
+      id: v.number(),
+      object: v.literal("review_statistic"),
+    }),
+  ]),
+);
 
 /**
  * A collection of review statistics returned from the WaniKani API.
@@ -134,10 +138,14 @@ export interface ReviewStatisticCollection extends BaseCollection {
    */
   data: ReviewStatistic[];
 }
-export const ReviewStatisticCollection = v.object({
-  ...BaseCollection.entries,
-  data: v.array(ReviewStatistic),
-});
+export const ReviewStatisticCollection = v.object(
+  v.entriesFromObjects([
+    BaseCollection,
+    v.object({
+      data: v.array(ReviewStatistic),
+    }),
+  ]),
+);
 
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Review Statistic Collection.
@@ -173,11 +181,15 @@ export interface ReviewStatisticParameters extends CollectionParameters {
    */
   subject_types?: SubjectTuple;
 }
-export const ReviewStatisticParameters = v.object({
-  ...CollectionParameters.entries,
-  hidden: v.optional(v.boolean()),
-  percentages_greater_than: v.optional(v.number()),
-  percentages_less_than: v.optional(v.number()),
-  subject_ids: v.optional(v.array(v.number())),
-  subject_types: v.optional(SubjectTuple),
-});
+export const ReviewStatisticParameters = v.object(
+  v.entriesFromObjects([
+    CollectionParameters,
+    v.object({
+      hidden: v.optional(v.boolean()),
+      percentages_greater_than: v.optional(v.number()),
+      percentages_less_than: v.optional(v.number()),
+      subject_ids: v.optional(v.array(v.number())),
+      subject_types: v.optional(SubjectTuple),
+    }),
+  ]),
+);

@@ -44,17 +44,21 @@ export interface VoiceActor extends BaseResource {
    */
   object: "voice_actor";
 }
-export const VoiceActor = v.object({
-  ...BaseResource.entries,
-  data: v.object({
-    created_at: DatableString,
-    description: v.string(),
-    gender: v.picklist(["female", "male"]),
-    name: v.string(),
-  }),
-  id: v.number(),
-  object: v.literal("voice_actor"),
-});
+export const VoiceActor = v.object(
+  v.entriesFromObjects([
+    BaseResource,
+    v.object({
+      data: v.object({
+        created_at: DatableString,
+        description: v.string(),
+        gender: v.picklist(["female", "male"]),
+        name: v.string(),
+      }),
+      id: v.number(),
+      object: v.literal("voice_actor"),
+    }),
+  ]),
+);
 
 /**
  * A collection of voice actors returned from the WaniKani API.
@@ -69,10 +73,14 @@ export interface VoiceActorCollection extends BaseCollection {
    */
   data: VoiceActor[];
 }
-export const VoiceActorCollection = v.object({
-  ...BaseCollection.entries,
-  data: v.array(VoiceActor),
-});
+export const VoiceActorCollection = v.object(
+  v.entriesFromObjects([
+    BaseCollection,
+    v.object({
+      data: v.array(VoiceActor),
+    }),
+  ]),
+);
 
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Voice Actor Collection.

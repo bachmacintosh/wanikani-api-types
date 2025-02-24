@@ -67,20 +67,24 @@ export interface LevelProgression extends BaseResource {
    */
   object: "level_progression";
 }
-export const LevelProgression = v.object({
-  ...BaseResource.entries,
-  data: v.object({
-    abandoned_at: v.union([DatableString, v.null()]),
-    completed_at: v.union([DatableString, v.null()]),
-    created_at: DatableString,
-    level: Level,
-    passed_at: v.union([DatableString, v.null()]),
-    started_at: v.union([DatableString, v.null()]),
-    unlocked_at: v.union([DatableString, v.null()]),
-  }),
-  id: v.number(),
-  object: v.literal("level_progression"),
-});
+export const LevelProgression = v.object(
+  v.entriesFromObjects([
+    BaseResource,
+    v.object({
+      data: v.object({
+        abandoned_at: v.union([DatableString, v.null()]),
+        completed_at: v.union([DatableString, v.null()]),
+        created_at: DatableString,
+        level: Level,
+        passed_at: v.union([DatableString, v.null()]),
+        started_at: v.union([DatableString, v.null()]),
+        unlocked_at: v.union([DatableString, v.null()]),
+      }),
+      id: v.number(),
+      object: v.literal("level_progression"),
+    }),
+  ]),
+);
 
 /**
  * A collection of level progressions returned from the WaniKani API.
@@ -95,10 +99,14 @@ export interface LevelProgressionCollection extends BaseCollection {
    */
   data: LevelProgression[];
 }
-export const LevelProgressionCollection = v.object({
-  ...BaseCollection.entries,
-  data: v.array(LevelProgression),
-});
+export const LevelProgressionCollection = v.object(
+  v.entriesFromObjects([
+    BaseCollection,
+    v.object({
+      data: v.array(LevelProgression),
+    }),
+  ]),
+);
 
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Level Progression Collection.

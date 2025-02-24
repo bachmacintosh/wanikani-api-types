@@ -81,20 +81,24 @@ export interface StudyMaterial extends BaseResource {
    */
   object: "study_material";
 }
-export const StudyMaterial = v.object({
-  ...BaseResource.entries,
-  data: v.intersect([
-    StudyMaterialBaseData,
+export const StudyMaterial = v.object(
+  v.entriesFromObjects([
+    BaseResource,
     v.object({
-      created_at: DatableString,
-      hidden: v.boolean(),
-      subject_id: v.number(),
-      subject_type: SubjectType,
+      data: v.intersect([
+        StudyMaterialBaseData,
+        v.object({
+          created_at: DatableString,
+          hidden: v.boolean(),
+          subject_id: v.number(),
+          subject_type: SubjectType,
+        }),
+      ]),
+      id: v.number(),
+      object: v.literal("study_material"),
     }),
   ]),
-  id: v.number(),
-  object: v.literal("study_material"),
-});
+);
 
 /**
  * A collection of study materials returned from the WaniKani API.
@@ -109,10 +113,14 @@ export interface StudyMaterialCollection extends BaseCollection {
    */
   data: StudyMaterial[];
 }
-export const StudyMaterialCollection = v.object({
-  ...BaseCollection.entries,
-  data: v.array(StudyMaterial),
-});
+export const StudyMaterialCollection = v.object(
+  v.entriesFromObjects([
+    BaseCollection,
+    v.object({
+      data: v.array(StudyMaterial),
+    }),
+  ]),
+);
 
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Study Material Collection.
@@ -138,12 +146,16 @@ export interface StudyMaterialParameters extends CollectionParameters {
    */
   subject_types?: SubjectTuple;
 }
-export const StudyMaterialParameters = v.object({
-  ...CollectionParameters.entries,
-  hidden: v.optional(v.boolean()),
-  subject_ids: v.optional(v.array(v.number())),
-  subject_types: v.optional(SubjectTuple),
-});
+export const StudyMaterialParameters = v.object(
+  v.entriesFromObjects([
+    CollectionParameters,
+    v.object({
+      hidden: v.optional(v.boolean()),
+      subject_ids: v.optional(v.array(v.number())),
+      subject_types: v.optional(SubjectTuple),
+    }),
+  ]),
+);
 
 /**
  * The payload sent to the WaniKani API when updating study materials.
@@ -168,7 +180,11 @@ export interface StudyMaterialCreatePayload extends StudyMaterialUpdatePayload {
    */
   subject_id: number;
 }
-export const StudyMaterialCreatePayload = v.object({
-  ...StudyMaterialUpdatePayload.entries,
-  subject_id: v.number(),
-});
+export const StudyMaterialCreatePayload = v.object(
+  v.entriesFromObjects([
+    StudyMaterialUpdatePayload,
+    v.object({
+      subject_id: v.number(),
+    }),
+  ]),
+);

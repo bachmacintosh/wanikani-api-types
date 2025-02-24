@@ -172,25 +172,29 @@ export interface User extends BaseResource {
    */
   object: "user";
 }
-export const User = v.object({
-  ...BaseResource.entries,
-  data: v.object({
-    current_vacation_started_at: v.union([DatableString, v.null()]),
-    id: v.string(),
-    level: Level,
-    preferences: UserPreferences,
-    profile_url: v.string(),
-    started_at: DatableString,
-    subscription: v.object({
-      active: v.boolean(),
-      max_level_granted: Level,
-      period_ends_at: v.union([DatableString, v.null()]),
-      type: v.picklist(["free", "lifetime", "recurring", "unknown"]),
+export const User = v.object(
+  v.entriesFromObjects([
+    BaseResource,
+    v.object({
+      data: v.object({
+        current_vacation_started_at: v.union([DatableString, v.null()]),
+        id: v.string(),
+        level: Level,
+        preferences: UserPreferences,
+        profile_url: v.string(),
+        started_at: DatableString,
+        subscription: v.object({
+          active: v.boolean(),
+          max_level_granted: Level,
+          period_ends_at: v.union([DatableString, v.null()]),
+          type: v.picklist(["free", "lifetime", "recurring", "unknown"]),
+        }),
+        username: v.string(),
+      }),
+      object: v.literal("user"),
     }),
-    username: v.string(),
-  }),
-  object: v.literal("user"),
-});
+  ]),
+);
 
 /**
  * The payload sent to the WaniKani API to update a user's preferences.
