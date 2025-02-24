@@ -53,11 +53,15 @@ export interface Summary extends BaseReport {
     reviews: SummaryInterval[];
   };
 }
-export const Summary = v.object({
-  ...BaseReport.entries,
-  data: v.object({
-    lessons: v.array(SummaryInterval),
-    next_reviews_at: v.union([DatableString, v.null()]),
-    reviews: v.array(SummaryInterval),
-  }),
-});
+export const Summary = v.object(
+  v.entriesFromObjects([
+    BaseReport,
+    v.object({
+      data: v.object({
+        lessons: v.array(SummaryInterval),
+        next_reviews_at: v.union([DatableString, v.null()]),
+        reviews: v.array(SummaryInterval),
+      }),
+    }),
+  ]),
+);

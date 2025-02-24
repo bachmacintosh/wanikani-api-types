@@ -126,21 +126,25 @@ export interface SpacedRepetitionSystem extends BaseResource {
    */
   object: "spaced_repetition_system";
 }
-export const SpacedRepetitionSystem = v.object({
-  ...BaseResource.entries,
-  data: v.object({
-    burning_stage_position: SpacedRepetitionSystemStageNumber,
-    created_at: DatableString,
-    description: v.string(),
-    name: v.string(),
-    passing_stage_position: SpacedRepetitionSystemStageNumber,
-    stages: v.array(SpacedRepetitionSystemStage),
-    starting_stage_position: SpacedRepetitionSystemStageNumber,
-    unlocking_stage_position: SpacedRepetitionSystemStageNumber,
-  }),
-  id: v.number(),
-  object: v.literal("spaced_repetition_system"),
-});
+export const SpacedRepetitionSystem = v.object(
+  v.entriesFromObjects([
+    BaseResource,
+    v.object({
+      data: v.object({
+        burning_stage_position: SpacedRepetitionSystemStageNumber,
+        created_at: DatableString,
+        description: v.string(),
+        name: v.string(),
+        passing_stage_position: SpacedRepetitionSystemStageNumber,
+        stages: v.array(SpacedRepetitionSystemStage),
+        starting_stage_position: SpacedRepetitionSystemStageNumber,
+        unlocking_stage_position: SpacedRepetitionSystemStageNumber,
+      }),
+      id: v.number(),
+      object: v.literal("spaced_repetition_system"),
+    }),
+  ]),
+);
 
 /**
  * A collection of Spaced Repetition Systems returned from the WaniKani API.
@@ -155,10 +159,14 @@ export interface SpacedRepetitionSystemCollection extends BaseCollection {
    */
   data: SpacedRepetitionSystem[];
 }
-export const SpacedRepetitionSystemCollection = v.object({
-  ...BaseCollection.entries,
-  data: v.array(SpacedRepetitionSystem),
-});
+export const SpacedRepetitionSystemCollection = v.object(
+  v.entriesFromObjects([
+    BaseCollection,
+    v.object({
+      data: v.array(SpacedRepetitionSystem),
+    }),
+  ]),
+);
 
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Spaced Repetition System Collection.

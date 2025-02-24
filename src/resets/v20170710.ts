@@ -47,17 +47,21 @@ export interface Reset extends BaseResource {
    */
   object: "reset";
 }
-export const Reset = v.object({
-  ...BaseResource.entries,
-  data: v.object({
-    confirmed_at: v.union([DatableString, v.null()]),
-    created_at: DatableString,
-    original_level: Level,
-    target_level: Level,
-  }),
-  id: v.number(),
-  object: v.literal("reset"),
-});
+export const Reset = v.object(
+  v.entriesFromObjects([
+    BaseResource,
+    v.object({
+      data: v.object({
+        confirmed_at: v.union([DatableString, v.null()]),
+        created_at: DatableString,
+        original_level: Level,
+        target_level: Level,
+      }),
+      id: v.number(),
+      object: v.literal("reset"),
+    }),
+  ]),
+);
 
 /**
  * A collection of resets returned from the WaniKani API.
@@ -72,10 +76,14 @@ export interface ResetCollection extends BaseCollection {
    */
   data: Reset[];
 }
-export const ResetCollection = v.object({
-  ...BaseCollection.entries,
-  data: v.array(Reset),
-});
+export const ResetCollection = v.object(
+  v.entriesFromObjects([
+    BaseCollection,
+    v.object({
+      data: v.array(Reset),
+    }),
+  ]),
+);
 
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Reset Collection.

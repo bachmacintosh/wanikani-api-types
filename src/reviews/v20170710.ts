@@ -70,21 +70,25 @@ export interface Review extends BaseResource {
    */
   object: "review";
 }
-export const Review = v.object({
-  ...BaseResource.entries,
-  data: v.object({
-    assignment_id: v.number(),
-    created_at: DatableString,
-    ending_srs_stage: SpacedRepetitionSystemStageNumber,
-    incorrect_meaning_answers: v.number(),
-    incorrect_reading_answers: v.number(),
-    spaced_repetition_system_id: v.number(),
-    starting_srs_stage: SpacedRepetitionSystemStageNumber,
-    subject_id: v.number(),
-  }),
-  id: v.number(),
-  object: v.literal("review"),
-});
+export const Review = v.object(
+  v.entriesFromObjects([
+    BaseResource,
+    v.object({
+      data: v.object({
+        assignment_id: v.number(),
+        created_at: DatableString,
+        ending_srs_stage: SpacedRepetitionSystemStageNumber,
+        incorrect_meaning_answers: v.number(),
+        incorrect_reading_answers: v.number(),
+        spaced_repetition_system_id: v.number(),
+        starting_srs_stage: SpacedRepetitionSystemStageNumber,
+        subject_id: v.number(),
+      }),
+      id: v.number(),
+      object: v.literal("review"),
+    }),
+  ]),
+);
 
 /**
  * A collection of reviews returned from the WaniKani API.
@@ -99,10 +103,14 @@ export interface ReviewCollection extends BaseCollection {
    */
   data: Review[];
 }
-export const ReviewCollection = v.object({
-  ...BaseCollection.entries,
-  data: v.array(Review),
-});
+export const ReviewCollection = v.object(
+  v.entriesFromObjects([
+    BaseCollection,
+    v.object({
+      data: v.array(Review),
+    }),
+  ]),
+);
 
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Review Collection.
@@ -123,11 +131,15 @@ export interface ReviewParameters extends CollectionParameters {
    */
   subject_ids?: number[];
 }
-export const ReviewParameters = v.object({
-  ...CollectionParameters.entries,
-  assignment_ids: v.optional(v.array(v.number())),
-  subject_ids: v.optional(v.array(v.number())),
-});
+export const ReviewParameters = v.object(
+  v.entriesFromObjects([
+    CollectionParameters,
+    v.object({
+      assignment_ids: v.optional(v.array(v.number())),
+      subject_ids: v.optional(v.array(v.number())),
+    }),
+  ]),
+);
 
 /**
  * The payload used in the request to create a new review via the WaniKani API.

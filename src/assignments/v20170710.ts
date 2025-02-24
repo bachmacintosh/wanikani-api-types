@@ -95,24 +95,28 @@ export interface Assignment extends BaseResource {
    */
   object: "assignment";
 }
-export const Assignment = v.object({
-  ...BaseResource.entries,
-  data: v.object({
-    available_at: v.union([DatableString, v.null()]),
-    burned_at: v.union([DatableString, v.null()]),
-    created_at: DatableString,
-    hidden: v.boolean(),
-    passed_at: v.union([DatableString, v.null()]),
-    resurrected_at: v.union([DatableString, v.null()]),
-    srs_stage: SpacedRepetitionSystemStageNumber,
-    started_at: v.union([DatableString, v.null()]),
-    subject_id: v.number(),
-    subject_type: SubjectType,
-    unlocked_at: v.union([DatableString, v.null()]),
-  }),
-  id: v.number(),
-  object: v.literal("assignment"),
-});
+export const Assignment = v.object(
+  v.entriesFromObjects([
+    BaseResource,
+    v.object({
+      data: v.object({
+        available_at: v.union([DatableString, v.null()]),
+        burned_at: v.union([DatableString, v.null()]),
+        created_at: DatableString,
+        hidden: v.boolean(),
+        passed_at: v.union([DatableString, v.null()]),
+        resurrected_at: v.union([DatableString, v.null()]),
+        srs_stage: SpacedRepetitionSystemStageNumber,
+        started_at: v.union([DatableString, v.null()]),
+        subject_id: v.number(),
+        subject_type: SubjectType,
+        unlocked_at: v.union([DatableString, v.null()]),
+      }),
+      id: v.number(),
+      object: v.literal("assignment"),
+    }),
+  ]),
+);
 
 /**
  * A collection of assignments returned from the WaniKani API.
@@ -127,10 +131,14 @@ export interface AssignmentCollection extends BaseCollection {
    */
   data: Assignment[];
 }
-export const AssignmentCollection = v.object({
-  ...BaseCollection.entries,
-  data: v.array(Assignment),
-});
+export const AssignmentCollection = v.object(
+  v.entriesFromObjects([
+    BaseCollection,
+    v.object({
+      data: v.array(Assignment),
+    }),
+  ]),
+);
 
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for an
@@ -212,22 +220,26 @@ export interface AssignmentParameters extends CollectionParameters {
    */
   unlocked?: boolean;
 }
-export const AssignmentParameters = v.object({
-  ...CollectionParameters.entries,
-  available_after: v.optional(v.union([DatableString, v.date()])),
-  available_before: v.optional(v.union([DatableString, v.date()])),
-  burned: v.optional(v.boolean()),
-  hidden: v.optional(v.boolean()),
-  immediately_available_for_lessons: v.optional(v.boolean()),
-  immediately_available_for_review: v.optional(v.boolean()),
-  in_review: v.optional(v.boolean()),
-  levels: v.optional(v.array(Level)),
-  srs_stages: v.optional(v.array(SpacedRepetitionSystemStageNumber)),
-  started: v.optional(v.boolean()),
-  subject_ids: v.optional(v.array(v.number())),
-  subject_types: v.optional(SubjectTuple),
-  unlocked: v.optional(v.boolean()),
-});
+export const AssignmentParameters = v.object(
+  v.entriesFromObjects([
+    CollectionParameters,
+    v.object({
+      available_after: v.optional(v.union([DatableString, v.date()])),
+      available_before: v.optional(v.union([DatableString, v.date()])),
+      burned: v.optional(v.boolean()),
+      hidden: v.optional(v.boolean()),
+      immediately_available_for_lessons: v.optional(v.boolean()),
+      immediately_available_for_review: v.optional(v.boolean()),
+      in_review: v.optional(v.boolean()),
+      levels: v.optional(v.array(Level)),
+      srs_stages: v.optional(v.array(SpacedRepetitionSystemStageNumber)),
+      started: v.optional(v.boolean()),
+      subject_ids: v.optional(v.array(v.number())),
+      subject_types: v.optional(SubjectTuple),
+      unlocked: v.optional(v.boolean()),
+    }),
+  ]),
+);
 
 /**
  * The optional payload used in the request to start a new assignment via the WaniKani API.

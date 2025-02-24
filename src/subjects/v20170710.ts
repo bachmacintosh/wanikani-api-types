@@ -233,12 +233,16 @@ export interface RadicalData extends SubjectBaseData {
    */
   characters: string | null;
 }
-export const RadicalData = v.object({
-  ...SubjectBaseData.entries,
-  amalgamation_subject_ids: v.array(v.number()),
-  character_images: v.array(RadicalCharacterImage),
-  characters: v.union([v.string(), v.null()]),
-});
+export const RadicalData = v.object(
+  v.entriesFromObjects([
+    SubjectBaseData,
+    v.object({
+      amalgamation_subject_ids: v.array(v.number()),
+      character_images: v.array(RadicalCharacterImage),
+      characters: v.union([v.string(), v.null()]),
+    }),
+  ]),
+);
 
 /**
  * The exact structure of a subject depends on the subject type. The available subject types are `kana_vocabulary`,
@@ -267,12 +271,16 @@ export interface Radical extends BaseResource {
    */
   object: "radical";
 }
-export const Radical = v.object({
-  ...BaseResource.entries,
-  data: RadicalData,
-  id: v.number(),
-  object: v.literal("radical"),
-});
+export const Radical = v.object(
+  v.entriesFromObjects([
+    BaseResource,
+    v.object({
+      data: RadicalData,
+      id: v.number(),
+      object: v.literal("radical"),
+    }),
+  ]),
+);
 
 /**
  * A collection of radical subjects returned from the WaniKani API.
@@ -287,10 +295,14 @@ export interface RadicalCollection extends BaseCollection {
    */
   data: Radical[];
 }
-export const RadicalCollection = v.object({
-  ...BaseCollection.entries,
-  data: v.array(Radical),
-});
+export const RadicalCollection = v.object(
+  v.entriesFromObjects([
+    BaseCollection,
+    v.object({
+      data: v.array(Radical),
+    }),
+  ]),
+);
 
 /**
  * Information pertaining to a reading of a kanji subject.
@@ -374,17 +386,21 @@ export interface KanjiData extends SubjectBaseData {
    */
   visually_similar_subject_ids: number[];
 }
-export const KanjiData = v.object({
-  ...SubjectBaseData.entries,
-  amalgamation_subject_ids: v.array(v.number()),
-  characters: v.string(),
-  component_subject_ids: v.array(v.number()),
-  meaning_hint: v.union([v.string(), v.null()]),
-  reading_hint: v.union([v.string(), v.null()]),
-  reading_mnemonic: v.string(),
-  readings: v.array(KanjiReading),
-  visually_similar_subject_ids: v.array(v.number()),
-});
+export const KanjiData = v.object(
+  v.entriesFromObjects([
+    SubjectBaseData,
+    v.object({
+      amalgamation_subject_ids: v.array(v.number()),
+      characters: v.string(),
+      component_subject_ids: v.array(v.number()),
+      meaning_hint: v.union([v.string(), v.null()]),
+      reading_hint: v.union([v.string(), v.null()]),
+      reading_mnemonic: v.string(),
+      readings: v.array(KanjiReading),
+      visually_similar_subject_ids: v.array(v.number()),
+    }),
+  ]),
+);
 
 /**
  * The exact structure of a subject depends on the subject type. The available subject types are `kana_vocabulary`,
@@ -413,12 +429,16 @@ export interface Kanji extends BaseResource {
    */
   object: "kanji";
 }
-export const Kanji = v.object({
-  ...BaseResource.entries,
-  data: KanjiData,
-  id: v.number(),
-  object: v.literal("kanji"),
-});
+export const Kanji = v.object(
+  v.entriesFromObjects([
+    BaseResource,
+    v.object({
+      data: KanjiData,
+      id: v.number(),
+      object: v.literal("kanji"),
+    }),
+  ]),
+);
 
 /**
  * A collection of kanji subjects returned from the WaniKani API.
@@ -433,10 +453,14 @@ export interface KanjiCollection extends BaseCollection {
    */
   data: Kanji[];
 }
-export const KanjiCollection = v.object({
-  ...BaseCollection.entries,
-  data: v.array(Kanji),
-});
+export const KanjiCollection = v.object(
+  v.entriesFromObjects([
+    BaseCollection,
+    v.object({
+      data: v.array(Kanji),
+    }),
+  ]),
+);
 
 /**
  * Japanese context sentences for vocabulary, with a corresponding English translation.
@@ -596,16 +620,20 @@ export interface VocabularyData extends SubjectBaseData {
    */
   readings: VocabularyReading[];
 }
-export const VocabularyData = v.object({
-  ...SubjectBaseData.entries,
-  characters: v.string(),
-  component_subject_ids: v.array(v.number()),
-  context_sentences: v.array(VocabularyContextSentence),
-  parts_of_speech: v.array(v.string()),
-  pronunciation_audios: v.array(VocabularyPronunciationAudio),
-  reading_mnemonic: v.string(),
-  readings: v.array(VocabularyReading),
-});
+export const VocabularyData = v.object(
+  v.entriesFromObjects([
+    SubjectBaseData,
+    v.object({
+      characters: v.string(),
+      component_subject_ids: v.array(v.number()),
+      context_sentences: v.array(VocabularyContextSentence),
+      parts_of_speech: v.array(v.string()),
+      pronunciation_audios: v.array(VocabularyPronunciationAudio),
+      reading_mnemonic: v.string(),
+      readings: v.array(VocabularyReading),
+    }),
+  ]),
+);
 
 /**
  * The exact structure of a subject depends on the subject type. The available subject types are `kana_vocabulary`,
@@ -634,12 +662,16 @@ export interface Vocabulary extends BaseResource {
    */
   object: "vocabulary";
 }
-export const Vocabulary = v.object({
-  ...BaseResource.entries,
-  data: VocabularyData,
-  id: v.number(),
-  object: v.literal("vocabulary"),
-});
+export const Vocabulary = v.object(
+  v.entriesFromObjects([
+    BaseResource,
+    v.object({
+      data: VocabularyData,
+      id: v.number(),
+      object: v.literal("vocabulary"),
+    }),
+  ]),
+);
 
 /**
  * A collection of vocabulary subjects returned from the WaniKani API.
@@ -654,10 +686,14 @@ export interface VocabularyCollection extends BaseCollection {
    */
   data: Vocabulary[];
 }
-export const VocabularyCollection = v.object({
-  ...BaseCollection.entries,
-  data: v.array(Vocabulary),
-});
+export const VocabularyCollection = v.object(
+  v.entriesFromObjects([
+    BaseCollection,
+    v.object({
+      data: v.array(Vocabulary),
+    }),
+  ]),
+);
 
 /**
  * Data returned only for kana-only vocabulary subjects.
@@ -686,13 +722,17 @@ export interface KanaVocabularyData extends SubjectBaseData {
    */
   pronunciation_audios: VocabularyPronunciationAudio[];
 }
-export const KanaVocabularyData = v.object({
-  ...SubjectBaseData.entries,
-  characters: v.string(),
-  context_sentences: v.array(VocabularyContextSentence),
-  parts_of_speech: v.array(v.string()),
-  pronunciation_audios: v.array(VocabularyPronunciationAudio),
-});
+export const KanaVocabularyData = v.object(
+  v.entriesFromObjects([
+    SubjectBaseData,
+    v.object({
+      characters: v.string(),
+      context_sentences: v.array(VocabularyContextSentence),
+      parts_of_speech: v.array(v.string()),
+      pronunciation_audios: v.array(VocabularyPronunciationAudio),
+    }),
+  ]),
+);
 
 /**
  * The exact structure of a subject depends on the subject type. The available subject types are `kana_vocabulary`,
@@ -721,12 +761,16 @@ export interface KanaVocabulary extends BaseResource {
    */
   object: "kana_vocabulary";
 }
-export const KanaVocabulary = v.object({
-  ...BaseResource.entries,
-  data: KanaVocabularyData,
-  id: v.number(),
-  object: v.literal("kana_vocabulary"),
-});
+export const KanaVocabulary = v.object(
+  v.entriesFromObjects([
+    BaseResource,
+    v.object({
+      data: KanaVocabularyData,
+      id: v.number(),
+      object: v.literal("kana_vocabulary"),
+    }),
+  ]),
+);
 
 /**
  * A collection of kana-only vocabulary subjects returned from the WaniKani API.
@@ -741,10 +785,14 @@ export interface KanaVocabularyCollection extends BaseCollection {
    */
   data: KanaVocabulary[];
 }
-export const KanaVocabularyCollection = v.object({
-  ...BaseCollection.entries,
-  data: v.array(KanaVocabulary),
-});
+export const KanaVocabularyCollection = v.object(
+  v.entriesFromObjects([
+    BaseCollection,
+    v.object({
+      data: v.array(KanaVocabulary),
+    }),
+  ]),
+);
 
 /**
  * The exact structure of a subject depends on the subject type. The available subject types are `kana_vocabulary`,
@@ -846,10 +894,14 @@ export interface SubjectCollection extends BaseCollection {
    */
   data: Subject[];
 }
-export const SubjectCollection = v.object({
-  ...BaseCollection.entries,
-  data: v.array(Subject),
-});
+export const SubjectCollection = v.object(
+  v.entriesFromObjects([
+    BaseCollection,
+    v.object({
+      data: v.array(Subject),
+    }),
+  ]),
+);
 
 /**
  * A set of regular expression literals that match to various markup patterns in a Subject's Meaning/Reading Mnemonics
@@ -919,10 +971,14 @@ export interface SubjectParameters extends CollectionParameters {
    */
   types?: SubjectTuple;
 }
-export const SubjectParameters = v.object({
-  ...CollectionParameters.entries,
-  hidden: v.optional(v.boolean()),
-  levels: v.optional(v.array(Level)),
-  slugs: v.optional(v.array(v.string())),
-  types: v.optional(SubjectTuple),
-});
+export const SubjectParameters = v.object(
+  v.entriesFromObjects([
+    CollectionParameters,
+    v.object({
+      hidden: v.optional(v.boolean()),
+      levels: v.optional(v.array(Level)),
+      slugs: v.optional(v.array(v.string())),
+      types: v.optional(SubjectTuple),
+    }),
+  ]),
+);
