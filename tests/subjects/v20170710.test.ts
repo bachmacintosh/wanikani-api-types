@@ -3,10 +3,42 @@ import {
   Subject,
   SubjectCollection,
   SubjectParameters,
+  SubjectTuple,
+  SubjectType,
   WK_SUBJECT_MARKUP_MATCHERS,
 } from "../../src/subjects/v20170710.js";
 import { describe, expect } from "vitest";
 import { testFor } from "../fixtures/v20170710.js";
+
+describe("SubjectType", () => {
+  testFor("Valid Subject Types", ({ subjectTypes }) => {
+    if (Array.isArray(subjectTypes)) {
+      subjectTypes.forEach((subject) => {
+        expect(() => v.assert(SubjectType, subject)).not.toThrow();
+      });
+    } else {
+      throw new TypeError("Expected subjectTypes to be an array");
+    }
+  });
+  testFor("Invalid Subject Type", () => {
+    expect(() => v.assert(SubjectType, "not real")).toThrow();
+  });
+});
+
+describe("SubjectTuple", () => {
+  testFor("Empty SubjectTuple throws error", ({ emptySubjectTuple }) => {
+    expect(() => v.assert(SubjectTuple, emptySubjectTuple)).toThrow();
+  });
+  testFor("Partial SubjectTuple is valid", ({ partialSubjectTuple }) => {
+    expect(() => v.assert(SubjectTuple, partialSubjectTuple)).not.toThrow();
+  });
+  testFor("Full SubjectTuple is valid", ({ fullSubjectTuple }) => {
+    expect(() => v.assert(SubjectTuple, fullSubjectTuple)).not.toThrow();
+  });
+  testFor("SubjectTuple with repeated items throws error", ({ repeatedSubjectTuple }) => {
+    expect(() => v.assert(SubjectTuple, repeatedSubjectTuple)).toThrow();
+  });
+});
 
 describe("Subjects", () => {
   testFor("Real Radical", ({ radical }) => {

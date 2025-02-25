@@ -1,12 +1,6 @@
 import * as v from "valibot";
-import {
-  BaseCollection,
-  BaseResource,
-  CollectionParameters,
-  DatableString,
-  SubjectTuple,
-  SubjectType,
-} from "../base/v20170710.js";
+import { BaseCollection, BaseResource, CollectionParameters, DatableString } from "../base/v20170710.js";
+import { SubjectTuple, SubjectType } from "../subjects/v20170710.js";
 
 /**
  * Review statistics summarize the activity recorded in reviews. They contain sum the number of correct and incorrect

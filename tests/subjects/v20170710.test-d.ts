@@ -1,6 +1,34 @@
-import type { Subject, SubjectCollection, SubjectParameters } from "../../src/subjects/v20170710.js";
+import type {
+  Subject,
+  SubjectCollection,
+  SubjectParameters,
+  SubjectTuple,
+  SubjectType,
+} from "../../src/subjects/v20170710.js";
 import { assertType, describe } from "vitest";
 import { testFor } from "../fixtures/v20170710.js";
+
+describe("SubjectType", () => {
+  testFor("Valid Subject Types", ({ subjectTypes }) => {
+    if (Array.isArray(subjectTypes)) {
+      subjectTypes.forEach((subject) => {
+        assertType<SubjectType>(subject);
+      });
+    } else {
+      throw new TypeError("Expected subjectTypes to be an array");
+    }
+  });
+});
+
+describe("SubjectTuple", () => {
+  // These tests are kinda redundant, but we'll leave them here for completeness' sake
+  testFor("Partial SubjectTuple is Valid", ({ partialSubjectTuple }) => {
+    assertType<SubjectTuple>(partialSubjectTuple);
+  });
+  testFor("Full SubjectTuple is valid", ({ fullSubjectTuple }) => {
+    assertType<SubjectTuple>(fullSubjectTuple);
+  });
+});
 
 describe("Subjects", () => {
   testFor("Real Radical", ({ radical }) => {

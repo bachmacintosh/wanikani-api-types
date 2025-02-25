@@ -1,15 +1,10 @@
 import * as v from "valibot";
-import {
-  type CollectionParameters,
-  DatableString,
-  MAX_LEVEL,
-  MIN_LEVEL,
-  SubjectTuple,
-} from "../../src/base/v20170710.js";
+import { type CollectionParameters, DatableString, MAX_LEVEL, MIN_LEVEL } from "../../src/base/v20170710.js";
 import { MAX_LESSON_BATCH_SIZE, MIN_LESSON_BATCH_SIZE } from "../../src/user/v20170710.js";
 import { MAX_SRS_STAGE, MIN_SRS_STAGE } from "../../src/spaced-repetition-systems/v20170710.js";
 import { ApiRequestFactory } from "../../src/requests/v20170710.js";
-import type { StudyMaterialUpdatePayload } from "../../src/v20170710.js";
+import type { StudyMaterialUpdatePayload } from "../../src/study-materials/v20170710.js";
+import { SubjectTuple } from "../../src/subjects/v20170710.js";
 import { test } from "vitest";
 
 // Base
@@ -26,17 +21,6 @@ const dateIsoString = new Date().toISOString();
 const levels = Array<number>(MAX_LEVEL)
   .fill(MIN_LEVEL)
   .map((item, itemIdx) => item + itemIdx);
-
-const subjectTypes = ["kana_vocabulary" as const, "kanji" as const, "radical" as const, "vocabulary" as const];
-
-// @ts-expect-error -- Intentionally empty tuple needed a type and can't use unknown[] with vitest fixtures
-const emptySubjectTuple: SubjectTuple = [];
-
-const partialSubjectTuple: SubjectTuple = ["kanji"];
-
-const fullSubjectTuple: SubjectTuple = ["kana_vocabulary", "kanji", "radical", "vocabulary"];
-
-const repeatedSubjectTuple = ["kana_vocabulary", "kanji", "radical", "kanji", "vocabulary", "radical"];
 
 const emptyParams: CollectionParameters = {};
 
@@ -524,6 +508,17 @@ const fullStudyMaterialCreatePayload = {
 };
 
 // Subjects
+
+const subjectTypes = ["kana_vocabulary" as const, "kanji" as const, "radical" as const, "vocabulary" as const];
+
+// @ts-expect-error -- Intentionally empty tuple needed a type and can't use unknown[] with vitest fixtures
+const emptySubjectTuple: SubjectTuple = [];
+
+const partialSubjectTuple: SubjectTuple = ["kanji"];
+
+const fullSubjectTuple: SubjectTuple = ["kana_vocabulary", "kanji", "radical", "vocabulary"];
+
+const repeatedSubjectTuple = ["kana_vocabulary", "kanji", "radical", "kanji", "vocabulary", "radical"];
 
 const radical = {
   id: 1,
@@ -1122,11 +1117,6 @@ export const testFor = test.extend({
   dateTimeOffsetString,
   dateIsoString,
   levels,
-  subjectTypes,
-  emptySubjectTuple,
-  partialSubjectTuple,
-  fullSubjectTuple,
-  repeatedSubjectTuple,
   emptyParams,
   collectionParamsWithEmptyArrays,
   collectionParamsWithManyOptions,
@@ -1175,6 +1165,11 @@ export const testFor = test.extend({
   fullStudyMaterialUpdatePayload,
   minimalStudyMaterialCreatePayload,
   fullStudyMaterialCreatePayload,
+  subjectTypes,
+  emptySubjectTuple,
+  partialSubjectTuple,
+  fullSubjectTuple,
+  repeatedSubjectTuple,
   radical,
   kanji,
   vocabulary,
