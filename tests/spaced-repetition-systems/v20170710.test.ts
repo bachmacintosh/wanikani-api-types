@@ -24,6 +24,9 @@ describe("SpacedRepetitionSystemStageNumber", () => {
   testFor(`Invalid SRS Stage Number: ${MAX_SRS_STAGE + 1}`, () => {
     expect(() => v.assert(SpacedRepetitionSystemStageNumber, MAX_SRS_STAGE + 1)).toThrow();
   });
+  testFor("Invalid SRS Stage: Non-Integer", () => {
+    expect(() => v.assert(SpacedRepetitionSystemStageNumber, 1.23)).toThrow();
+  });
 });
 
 describe("SpacedRepetitionSystem", () => {

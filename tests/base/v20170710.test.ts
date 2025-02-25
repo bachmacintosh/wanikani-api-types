@@ -47,6 +47,9 @@ describe("Level", () => {
   testFor(`Invalid Level: ${MAX_LEVEL + 1}`, () => {
     expect(() => v.assert(Level, MAX_LEVEL + 1)).toThrow();
   });
+  testFor("Invalid Level: Non-Integer", () => {
+    expect(() => v.assert(Level, 1.23)).toThrow();
+  });
 });
 
 describe("CollectionParameters", () => {

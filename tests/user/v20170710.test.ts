@@ -24,6 +24,9 @@ describe("LessonBatchSizeNumber", () => {
   testFor(`Invalid Lesson Batch Size: ${MAX_LESSON_BATCH_SIZE + 1}`, () => {
     expect(() => v.assert(LessonBatchSizeNumber, MAX_LESSON_BATCH_SIZE + 1)).toThrow();
   });
+  testFor("Invalid Lesson Batch Size: Non-Integer", () => {
+    expect(() => v.assert(LessonBatchSizeNumber, 3.45)).toThrow();
+  });
 });
 
 describe("User", () => {

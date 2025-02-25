@@ -23,6 +23,7 @@ export const MAX_LESSON_BATCH_SIZE = 10;
 export type LessonBatchSizeNumber = number & {};
 export const LessonBatchSizeNumber = v.pipe(
   v.number(),
+  v.integer(),
   v.minValue(MIN_LESSON_BATCH_SIZE),
   v.maxValue(MAX_LESSON_BATCH_SIZE),
 );

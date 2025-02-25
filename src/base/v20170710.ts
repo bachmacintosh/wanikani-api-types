@@ -46,7 +46,7 @@ export const MAX_LEVEL = 60;
  * @category Base
  */
 export type Level = number & {};
-export const Level = v.pipe(v.number(), v.minValue(MIN_LEVEL), v.maxValue(MAX_LEVEL));
+export const Level = v.pipe(v.number(), v.integer(), v.minValue(MIN_LEVEL), v.maxValue(MAX_LEVEL));
 
 /**
  * The common properties across all Resources from the WaniKani API.

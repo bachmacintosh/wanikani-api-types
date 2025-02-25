@@ -30,6 +30,7 @@ export const MAX_SRS_STAGE = 9;
 export type SpacedRepetitionSystemStageNumber = number & {};
 export const SpacedRepetitionSystemStageNumber = v.pipe(
   v.number(),
+  v.integer(),
   v.minValue(MIN_SRS_STAGE),
   v.maxValue(MAX_SRS_STAGE),
 );
