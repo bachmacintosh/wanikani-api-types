@@ -5,6 +5,8 @@ import {
   StudyMaterialCreatePayload,
   StudyMaterialParameters,
   StudyMaterialUpdatePayload,
+  isStudyMaterial,
+  isStudyMaterialCollection,
 } from "../../src/study-materials/v20170710.js";
 import { describe, expect } from "vitest";
 import { testFor } from "../fixtures/v20170710.js";
@@ -12,12 +14,14 @@ import { testFor } from "../fixtures/v20170710.js";
 describe("StudyMaterial", () => {
   testFor("Real StudyMaterial", ({ studyMaterial }) => {
     expect(() => v.assert(StudyMaterial, studyMaterial)).not.toThrow();
+    expect(isStudyMaterial(studyMaterial)).toBe(true);
   });
 });
 
 describe("StudyMaterialCollection", () => {
   testFor("Real StudyMaterialCollection", ({ studyMaterialCollection }) => {
     expect(() => v.assert(StudyMaterialCollection, studyMaterialCollection)).not.toThrow();
+    expect(isStudyMaterialCollection(studyMaterialCollection)).toBe(true);
   });
 });
 

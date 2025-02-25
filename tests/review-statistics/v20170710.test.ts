@@ -3,6 +3,8 @@ import {
   ReviewStatistic,
   ReviewStatisticCollection,
   ReviewStatisticParameters,
+  isReviewStatistic,
+  isReviewStatisticCollection,
 } from "../../src/review-statistics/v20170710.js";
 import { describe, expect } from "vitest";
 import { testFor } from "../fixtures/v20170710.js";
@@ -10,12 +12,14 @@ import { testFor } from "../fixtures/v20170710.js";
 describe("ReviewStatistic", () => {
   testFor("Real ReviewStatistic", ({ reviewStatistic }) => {
     expect(() => v.assert(ReviewStatistic, reviewStatistic)).not.toThrow();
+    expect(isReviewStatistic(reviewStatistic)).toBe(true);
   });
 });
 
 describe("ReviewStatisticCollection", () => {
   testFor("Real ReviewStatisticCollection", ({ reviewStatisticCollection }) => {
     expect(() => v.assert(ReviewStatisticCollection, reviewStatisticCollection)).not.toThrow();
+    expect(isReviewStatisticCollection(reviewStatisticCollection)).toBe(true);
   });
 });
 

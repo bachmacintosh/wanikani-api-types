@@ -1,11 +1,17 @@
 import * as v from "valibot";
 import {
+  ApiError,
   ApiRevision,
   CollectionParameters,
   DatableString,
   Level,
   MAX_LEVEL,
   MIN_LEVEL,
+  datableString,
+  isApiError,
+  isApiRevision,
+  isDatableString,
+  isLevel,
   stringifyParameters,
 } from "../../src/base/v20170710.js";
 import { describe, expect } from "vitest";
@@ -16,29 +22,38 @@ import { testFor } from "../fixtures/v20170710.js";
 describe("ApiRevision", () => {
   testFor("Valid WaniKani API Revision", ({ apiRevision }) => {
     expect(() => v.assert(ApiRevision, apiRevision)).not.toThrow();
+    expect(isApiRevision(apiRevision)).toBe(true);
   });
 });
 
 describe("DatableString", () => {
   testFor("Valid UTC timestamp string", ({ dateTimeUtcString }) => {
     expect(() => v.assert(DatableString, dateTimeUtcString)).not.toThrow();
+    expect(() => datableString(dateTimeUtcString)).not.toThrow();
+    expect(isDatableString(dateTimeUtcString)).toBe(true);
   });
   testFor("Valid offset timestamp string", ({ dateTimeOffsetString }) => {
     expect(() => v.assert(DatableString, dateTimeOffsetString)).not.toThrow();
+    expect(() => datableString(dateTimeOffsetString)).not.toThrow();
+    expect(isDatableString(dateTimeOffsetString)).toBe(true);
   });
   testFor("String created from Date.toISOString", ({ dateIsoString }) => {
     expect(() => v.assert(DatableString, dateIsoString)).not.toThrow();
+    expect(() => datableString(dateIsoString)).not.toThrow();
+    expect(isDatableString(dateIsoString)).toBe(true);
   });
 });
 
 describe("Level", () => {
   testFor(`Invalid Level: ${MIN_LEVEL - 1}`, () => {
     expect(() => v.assert(Level, MIN_LEVEL - 1)).toThrow();
+    expect(isLevel(MIN_LEVEL - 1)).toBe(false);
   });
   testFor("Valid Levels", ({ levels }) => {
     if (Array.isArray(levels)) {
       levels.forEach((level) => {
         expect(() => v.assert(Level, level)).not.toThrow();
+        expect(isLevel(level)).toBe(true);
       });
     } else {
       throw new TypeError("Expected levels to be an array");
@@ -46,9 +61,11 @@ describe("Level", () => {
   });
   testFor(`Invalid Level: ${MAX_LEVEL + 1}`, () => {
     expect(() => v.assert(Level, MAX_LEVEL + 1)).toThrow();
+    expect(isLevel(MAX_LEVEL + 1)).toBe(false);
   });
   testFor("Invalid Level: Non-Integer", () => {
     expect(() => v.assert(Level, 1.23)).toThrow();
+    expect(isLevel(1.23)).toBe(false);
   });
 });
 
@@ -105,9 +122,9 @@ describe("stringifyParameters", () => {
   });
 
   testFor("Properly stringifies dates", () => {
-    const datableString = v.parse(DatableString, "2022-10-31T12:00:00.000Z");
+    const dateString = v.parse(DatableString, "2022-10-31T12:00:00.000Z");
     const params: AssignmentParameters = {
-      available_after: datableString,
+      available_after: dateString,
       available_before: new Date("2021-10-31T12:00:00.000000Z"),
     };
     const expectedString = "?available_after=2022-10-31T12:00:00.000Z&available_before=2021-10-31T12:00:00.000Z";
@@ -120,5 +137,12 @@ describe("stringifyParameters", () => {
     expect(() => stringifyParameters(notAnObject)).toThrow(
       'Invalid type: Expected Object but received "not an object"',
     );
+  });
+});
+
+describe("ApiError", () => {
+  testFor("Real ApiError", ({ apiError }) => {
+    expect(() => v.assert(ApiError, apiError)).not.toThrow();
+    expect(isApiError(apiError)).toBe(true);
   });
 });

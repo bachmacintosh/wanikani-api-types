@@ -6,6 +6,10 @@ import {
   SubjectTuple,
   SubjectType,
   WK_SUBJECT_MARKUP_MATCHERS,
+  isSubject,
+  isSubjectCollection,
+  isSubjectTuple,
+  isSubjectType,
 } from "../../src/subjects/v20170710.js";
 import { describe, expect } from "vitest";
 import { testFor } from "../fixtures/v20170710.js";
@@ -15,6 +19,7 @@ describe("SubjectType", () => {
     if (Array.isArray(subjectTypes)) {
       subjectTypes.forEach((subject) => {
         expect(() => v.assert(SubjectType, subject)).not.toThrow();
+        expect(isSubjectType(subject)).toBe(true);
       });
     } else {
       throw new TypeError("Expected subjectTypes to be an array");
@@ -22,54 +27,68 @@ describe("SubjectType", () => {
   });
   testFor("Invalid Subject Type", () => {
     expect(() => v.assert(SubjectType, "not real")).toThrow();
+    expect(isSubjectType("not real")).toBe(false);
   });
 });
 
 describe("SubjectTuple", () => {
   testFor("Empty SubjectTuple throws error", ({ emptySubjectTuple }) => {
     expect(() => v.assert(SubjectTuple, emptySubjectTuple)).toThrow();
+    expect(isSubjectTuple(emptySubjectTuple)).toBe(false);
   });
   testFor("Partial SubjectTuple is valid", ({ partialSubjectTuple }) => {
     expect(() => v.assert(SubjectTuple, partialSubjectTuple)).not.toThrow();
+    expect(isSubjectTuple(partialSubjectTuple)).toBe(true);
   });
   testFor("Full SubjectTuple is valid", ({ fullSubjectTuple }) => {
     expect(() => v.assert(SubjectTuple, fullSubjectTuple)).not.toThrow();
+    expect(isSubjectTuple(fullSubjectTuple)).toBe(true);
   });
   testFor("SubjectTuple with repeated items throws error", ({ repeatedSubjectTuple }) => {
     expect(() => v.assert(SubjectTuple, repeatedSubjectTuple)).toThrow();
+    expect(isSubjectTuple(repeatedSubjectTuple)).toBe(false);
   });
 });
 
 describe("Subjects", () => {
   testFor("Real Radical", ({ radical }) => {
     expect(() => v.assert(Subject, radical)).not.toThrow();
+    expect(isSubject(radical)).toBe(true);
   });
   testFor("Real Kanji", ({ kanji }) => {
     expect(() => v.assert(Subject, kanji)).not.toThrow();
+    expect(isSubject(kanji)).toBe(true);
   });
   testFor("Real Vocabulary", ({ vocabulary }) => {
     expect(() => v.assert(Subject, vocabulary)).not.toThrow();
+    expect(isSubject(vocabulary)).toBe(true);
   });
   testFor("Real Kana-Only Vocabulary", ({ kanaVocabulary }) => {
     expect(() => v.assert(Subject, kanaVocabulary)).not.toThrow();
+    expect(isSubject(kanaVocabulary)).toBe(true);
   });
 });
 
 describe("Subject Collections", () => {
   testFor("Collection of Radicals", ({ radicalCollection }) => {
     expect(() => v.assert(SubjectCollection, radicalCollection)).not.toThrow();
+    expect(isSubjectCollection(radicalCollection)).toBe(true);
   });
   testFor("Collection of Kanji", ({ kanjiCollection }) => {
     expect(() => v.assert(SubjectCollection, kanjiCollection)).not.toThrow();
+    expect(isSubjectCollection(kanjiCollection)).toBe(true);
   });
   testFor("Collection of Vocabulary", ({ vocabularyCollection }) => {
     expect(() => v.assert(SubjectCollection, vocabularyCollection)).not.toThrow();
+    expect(isSubjectCollection(vocabularyCollection)).toBe(true);
   });
   testFor("Collection of Kana-Only Vocabulary", ({ kanaVocabularyCollection }) => {
     expect(() => v.assert(SubjectCollection, kanaVocabularyCollection)).not.toThrow();
+    expect(isSubjectCollection(kanaVocabularyCollection)).toBe(true);
   });
   testFor("Real SubjectCollection", ({ subjectCollection }) => {
     expect(() => v.assert(SubjectCollection, subjectCollection)).not.toThrow();
+    expect(isSubjectCollection(subjectCollection)).toBe(true);
   });
 });
 
