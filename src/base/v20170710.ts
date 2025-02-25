@@ -42,6 +42,7 @@ export const DatableString = v.pipe(v.string(), v.isoTimestamp(), v.brand("Datab
  *
  * @param value The string you wish to parse and validate
  * @returns A string that can be used for date filtering in the WaniKani API
+ * @category Base
  */
 export function datableString(value: string): DatableString {
   return v.parse(DatableString, value);
