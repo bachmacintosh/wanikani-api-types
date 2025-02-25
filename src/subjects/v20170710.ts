@@ -5,7 +5,6 @@ import { BaseCollection, BaseResource, CollectionParameters, DatableString, Leve
  * The types of subjects used on WaniKani and its API.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
- * @category Base
  * @category Subjects
  */
 export type SubjectType = "kana_vocabulary" | "kanji" | "radical" | "vocabulary";
@@ -15,7 +14,6 @@ export const SubjectType = v.picklist(["kana_vocabulary", "kanji", "radical", "v
  * A non-empty array of WaniKani subject types.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
- * @category Base
  * @category Subjects
  */
 export type SubjectTuple = [SubjectType, ...SubjectType[]];
