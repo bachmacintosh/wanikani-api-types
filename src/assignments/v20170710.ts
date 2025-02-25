@@ -112,6 +112,17 @@ export const Assignment = v.object(
 );
 
 /**
+ * A type guard that checks if the given value matches the type predicate.
+ *
+ * @category Assignments
+ * @category Type Guards
+ */
+// @__NO_SIDE_EFFECTS__
+export function isAssignment(value: unknown): value is Assignment {
+  return v.is(Assignment, value);
+}
+
+/**
  * A collection of assignments returned from the WaniKani API.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-assignments}
@@ -132,6 +143,17 @@ export const AssignmentCollection = v.object(
     }),
   ]),
 );
+
+/**
+ * A type guard that checks if the given value matches the type predicate.
+ *
+ * @category Assignments
+ * @category Type Guards
+ */
+// @__NO_SIDE_EFFECTS__
+export function isAssignmentCollection(value: unknown): value is AssignmentCollection {
+  return v.is(AssignmentCollection, value);
+}
 
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for an

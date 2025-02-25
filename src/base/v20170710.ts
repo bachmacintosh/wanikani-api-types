@@ -19,12 +19,44 @@ export const ApiRevision = v.literal("20170710");
 export const API_REVISION: ApiRevision = "20170710";
 
 /**
+ * A type guard that checks if the given value matches the type predicate.
+ *
+ * @category Base
+ * @category Type Guards
+ */
+// @__NO_SIDE_EFFECTS__
+export function isApiRevision(value: unknown): value is ApiRevision {
+  return v.is(ApiRevision, value);
+}
+
+/**
  * A `string` sent to/returned from the WaniKani API that can be converted into a JavaScript `Date` object.
  *
  * @category Base
  */
 export type DatableString = v.Brand<"DatableString"> & string;
 export const DatableString = v.pipe(v.string(), v.isoTimestamp(), v.brand("DatableString"));
+
+/**
+ * Validates that a string is a well-formatted ISO-8601 dat string.
+ *
+ * @param value The string you wish to parse and validate
+ * @returns A string that can be used for date filtering in the WaniKani API
+ */
+export function datableString(value: string): DatableString {
+  return v.parse(DatableString, value);
+}
+
+/**
+ * A type guard that checks if the given value matches the type predicate.
+ *
+ * @category Base
+ * @category Type Guards
+ */
+// @__NO_SIDE_EFFECTS__
+export function isDatableString(value: unknown): value is DatableString {
+  return v.is(DatableString, value);
+}
 
 /**
  * The minimum level provided by WaniKani; exported for use in lieu of a Magic Number.
@@ -47,6 +79,17 @@ export const MAX_LEVEL = 60;
  */
 export type Level = number & {};
 export const Level = v.pipe(v.number(), v.integer(), v.minValue(MIN_LEVEL), v.maxValue(MAX_LEVEL));
+
+/**
+ * A type guard that checks if the given value matches the type predicate.
+ *
+ * @category Base
+ * @category Type Guards
+ */
+// @__NO_SIDE_EFFECTS__
+export function isLevel(value: unknown): value is Level {
+  return v.is(Level, value);
+}
 
 /**
  * The common properties across all Resources from the WaniKani API.
@@ -270,3 +313,14 @@ export const ApiError = v.object({
   code: v.number(),
   error: v.string(),
 });
+
+/**
+ * A type guard that checks if the given value matches the type predicate.
+ *
+ * @category Base
+ * @category Type Guards
+ */
+// @__NO_SIDE_EFFECTS__
+export function isApiError(value: unknown): value is ApiError {
+  return v.is(ApiError, value);
+}

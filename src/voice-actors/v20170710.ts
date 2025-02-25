@@ -61,6 +61,17 @@ export const VoiceActor = v.object(
 );
 
 /**
+ * A type guard that checks if the given value matches the type predicate.
+ *
+ * @category Voice Actors
+ * @category Type Guards
+ */
+// @__NO_SIDE_EFFECTS__
+export function isVoiceActor(value: unknown): value is VoiceActor {
+  return v.is(VoiceActor, value);
+}
+
+/**
  * A collection of voice actors returned from the WaniKani API.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-voice-actors}
@@ -81,6 +92,17 @@ export const VoiceActorCollection = v.object(
     }),
   ]),
 );
+
+/**
+ * A type guard that checks if the given value matches the type predicate.
+ *
+ * @category Voice Actors
+ * @category Type Guards
+ */
+// @__NO_SIDE_EFFECTS__
+export function isVoiceActorCollection(value: unknown): value is VoiceActorCollection {
+  return v.is(VoiceActorCollection, value);
+}
 
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Voice Actor Collection.

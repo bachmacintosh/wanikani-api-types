@@ -65,3 +65,14 @@ export const Summary = v.object(
     }),
   ]),
 );
+
+/**
+ * A type guard that checks if the given value matches the type predicate.
+ *
+ * @category Summary
+ * @category Type Guards
+ */
+// @__NO_SIDE_EFFECTS__
+export function isSummary(value: unknown): value is Summary {
+  return v.is(Summary, value);
+}
