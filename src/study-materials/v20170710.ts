@@ -1,12 +1,6 @@
 import * as v from "valibot";
-import {
-  BaseCollection,
-  BaseResource,
-  CollectionParameters,
-  DatableString,
-  SubjectTuple,
-  SubjectType,
-} from "../base/v20170710.js";
+import { BaseCollection, BaseResource, CollectionParameters, DatableString } from "../base/v20170710.js";
+import { SubjectTuple, SubjectType } from "../subjects/v20170710.js";
 
 /**
  * Data found in all study materials whether they are being created/updated, or received from the WaniKani API.

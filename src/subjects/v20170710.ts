@@ -1,12 +1,32 @@
 import * as v from "valibot";
-import {
-  BaseCollection,
-  BaseResource,
-  CollectionParameters,
-  DatableString,
-  Level,
-  SubjectTuple,
-} from "../base/v20170710.js";
+import { BaseCollection, BaseResource, CollectionParameters, DatableString, Level } from "../base/v20170710.js";
+
+/**
+ * The types of subjects used on WaniKani and its API.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
+ * @category Base
+ * @category Subjects
+ */
+export type SubjectType = "kana_vocabulary" | "kanji" | "radical" | "vocabulary";
+export const SubjectType = v.picklist(["kana_vocabulary", "kanji", "radical", "vocabulary"]);
+
+/**
+ * A non-empty array of WaniKani subject types.
+ *
+ * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
+ * @category Base
+ * @category Subjects
+ */
+export type SubjectTuple = [SubjectType, ...SubjectType[]];
+export const SubjectTuple = v.pipe(
+  v.tupleWithRest([SubjectType], SubjectType),
+  v.nonEmpty(),
+  v.checkItems(
+    (item, index, array) => array.indexOf(item) === index,
+    "Duplicate Subject Type detected in Subject Tuple",
+  ),
+);
 
 /**
  * A subject's auxilliary meanings.

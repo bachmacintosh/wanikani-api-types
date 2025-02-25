@@ -6,8 +6,6 @@ import {
   Level,
   MAX_LEVEL,
   MIN_LEVEL,
-  SubjectTuple,
-  SubjectType,
   stringifyParameters,
 } from "../../src/base/v20170710.js";
 import { describe, expect } from "vitest";
@@ -48,36 +46,6 @@ describe("Level", () => {
   });
   testFor(`Invalid Level: ${MAX_LEVEL + 1}`, () => {
     expect(() => v.assert(Level, MAX_LEVEL + 1)).toThrow();
-  });
-});
-
-describe("SubjectType", () => {
-  testFor("Valid Subject Types", ({ subjectTypes }) => {
-    if (Array.isArray(subjectTypes)) {
-      subjectTypes.forEach((subject) => {
-        expect(() => v.assert(SubjectType, subject)).not.toThrow();
-      });
-    } else {
-      throw new TypeError("Expected subjectTypes to be an array");
-    }
-  });
-  testFor("Invalid Subject Type", () => {
-    expect(() => v.assert(SubjectType, "not real")).toThrow();
-  });
-});
-
-describe("SubjectTuple", () => {
-  testFor("Empty SubjectTuple throws error", ({ emptySubjectTuple }) => {
-    expect(() => v.assert(SubjectTuple, emptySubjectTuple)).toThrow();
-  });
-  testFor("Partial SubjectTuple is valid", ({ partialSubjectTuple }) => {
-    expect(() => v.assert(SubjectTuple, partialSubjectTuple)).not.toThrow();
-  });
-  testFor("Full SubjectTuple is valid", ({ fullSubjectTuple }) => {
-    expect(() => v.assert(SubjectTuple, fullSubjectTuple)).not.toThrow();
-  });
-  testFor("SubjectTuple with repeated items throws error", ({ repeatedSubjectTuple }) => {
-    expect(() => v.assert(SubjectTuple, repeatedSubjectTuple)).toThrow();
   });
 });
 

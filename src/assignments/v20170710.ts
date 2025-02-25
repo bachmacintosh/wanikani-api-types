@@ -1,13 +1,6 @@
 import * as v from "valibot";
-import {
-  BaseCollection,
-  BaseResource,
-  CollectionParameters,
-  DatableString,
-  Level,
-  SubjectTuple,
-  SubjectType,
-} from "../base/v20170710.js";
+import { BaseCollection, BaseResource, CollectionParameters, DatableString, Level } from "../base/v20170710.js";
+import { SubjectTuple, SubjectType } from "../subjects/v20170710.js";
 import { SpacedRepetitionSystemStageNumber } from "../spaced-repetition-systems/v20170710.js";
 
 /**
