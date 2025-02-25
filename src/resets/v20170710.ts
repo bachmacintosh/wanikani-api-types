@@ -64,6 +64,17 @@ export const Reset = v.object(
 );
 
 /**
+ * A type guard that checks if the given value matches the type predicate.
+ *
+ * @category Resets
+ * @category Type Guards
+ */
+// @__NO_SIDE_EFFECTS__
+export function isReset(value: unknown): value is Reset {
+  return v.is(Reset, value);
+}
+
+/**
  * A collection of resets returned from the WaniKani API.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-resets}
@@ -84,6 +95,17 @@ export const ResetCollection = v.object(
     }),
   ]),
 );
+
+/**
+ * A type guard that checks if the given value matches the type predicate.
+ *
+ * @category Resets
+ * @category Type Guards
+ */
+// @__NO_SIDE_EFFECTS__
+export function isResetCollection(value: unknown): value is ResetCollection {
+  return v.is(ResetCollection, value);
+}
 
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Reset Collection.

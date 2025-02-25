@@ -11,6 +11,17 @@ export type SubjectType = "kana_vocabulary" | "kanji" | "radical" | "vocabulary"
 export const SubjectType = v.picklist(["kana_vocabulary", "kanji", "radical", "vocabulary"]);
 
 /**
+ * A type guard that checks if the given value matches the type predicate.
+ *
+ * @category Subjects
+ * @category Type Guards
+ */
+// @__NO_SIDE_EFFECTS__
+export function isSubjectType(value: unknown): value is SubjectType {
+  return v.is(SubjectType, value);
+}
+
+/**
  * A non-empty array of WaniKani subject types.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
@@ -25,6 +36,17 @@ export const SubjectTuple = v.pipe(
     "Duplicate Subject Type detected in Subject Tuple",
   ),
 );
+
+/**
+ * A type guard that checks if the given value matches the type predicate.
+ *
+ * @category Subjects
+ * @category Type Guards
+ */
+// @__NO_SIDE_EFFECTS__
+export function isSubjectTuple(value: unknown): value is SubjectTuple {
+  return v.is(SubjectTuple, value);
+}
 
 /**
  * A subject's auxilliary meanings.
@@ -660,6 +682,17 @@ export const Subject = v.intersect([
 ]);
 
 /**
+ * A type guard that checks if the given value matches the type predicate.
+ *
+ * @category Subjects
+ * @category Type Guards
+ */
+// @__NO_SIDE_EFFECTS__
+export function isSubject(value: unknown): value is Subject {
+  return v.is(Subject, value);
+}
+
+/**
  * A collection of subjects of mixed or unknown types returned from the WaniKani API.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-subjects}
@@ -680,6 +713,17 @@ export const SubjectCollection = v.object(
     }),
   ]),
 );
+
+/**
+ * A type guard that checks if the given value matches the type predicate.
+ *
+ * @category Subjects
+ * @category Type Guards
+ */
+// @__NO_SIDE_EFFECTS__
+export function isSubjectCollection(value: unknown): value is SubjectCollection {
+  return v.is(SubjectCollection, value);
+}
 
 /**
  * A set of regular expression literals that match to various markup patterns in a Subject's Meaning/Reading Mnemonics

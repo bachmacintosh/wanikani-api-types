@@ -1,7 +1,7 @@
 import * as v from "valibot";
 import { BaseCollection, BaseResource, CollectionParameters, DatableString } from "../base/v20170710.js";
-import type { Assignment } from "../assignments/v20170710.js";
-import type { ReviewStatistic } from "../review-statistics/v20170710.js";
+import { Assignment } from "../assignments/v20170710.js";
+import { ReviewStatistic } from "../review-statistics/v20170710.js";
 import { SpacedRepetitionSystemStageNumber } from "../spaced-repetition-systems/v20170710.js";
 
 /**
@@ -91,6 +91,17 @@ export const Review = v.object(
 );
 
 /**
+ * A type guard that checks if the given value matches the type predicate.
+ *
+ * @category Reviews
+ * @category Type Guards
+ */
+// @__NO_SIDE_EFFECTS__
+export function isReview(value: unknown): value is Review {
+  return v.is(Review, value);
+}
+
+/**
  * A collection of reviews returned from the WaniKani API.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-reviews}
@@ -111,6 +122,17 @@ export const ReviewCollection = v.object(
     }),
   ]),
 );
+
+/**
+ * A type guard that checks if the given value matches the type predicate.
+ *
+ * @category Reviews
+ * @category Type Guards
+ */
+// @__NO_SIDE_EFFECTS__
+export function isReviewCollection(value: unknown): value is ReviewCollection {
+  return v.is(ReviewCollection, value);
+}
 
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Review Collection.
@@ -238,4 +260,26 @@ export interface CreatedReview extends Review {
      */
     review_statistic: ReviewStatistic;
   };
+}
+export const CreatedReview = v.object(
+  v.entriesFromObjects([
+    Review,
+    v.object({
+      resources_updated: v.object({
+        assignment: Assignment,
+        review_statistic: ReviewStatistic,
+      }),
+    }),
+  ]),
+);
+
+/**
+ * A type guard that checks if the given value matches the type predicate.
+ *
+ * @category Reviews
+ * @category Type Guards
+ */
+// @__NO_SIDE_EFFECTS__
+export function isCreatedReview(value: unknown): value is CreatedReview {
+  return v.is(CreatedReview, value);
 }

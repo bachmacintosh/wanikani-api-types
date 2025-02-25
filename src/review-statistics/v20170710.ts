@@ -120,6 +120,17 @@ export const ReviewStatistic = v.object(
 );
 
 /**
+ * A type guard that checks if the given value matches the type predicate.
+ *
+ * @category Review Statistics
+ * @category Type Guards
+ */
+// @__NO_SIDE_EFFECTS__
+export function isReviewStatistic(value: unknown): value is ReviewStatistic {
+  return v.is(ReviewStatistic, value);
+}
+
+/**
  * A collection of review statistics returned from the WaniKani API.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-review-statistics}
@@ -140,6 +151,17 @@ export const ReviewStatisticCollection = v.object(
     }),
   ]),
 );
+
+/**
+ * A type guard that checks if the given value matches the type predicate.
+ *
+ * @category Review Statistics
+ * @category Type Guards
+ */
+// @__NO_SIDE_EFFECTS__
+export function isReviewStatisticCollection(value: unknown): value is ReviewStatisticCollection {
+  return v.is(ReviewStatisticCollection, value);
+}
 
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Review Statistic Collection.

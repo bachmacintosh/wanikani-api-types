@@ -29,6 +29,17 @@ export const LessonBatchSizeNumber = v.pipe(
 );
 
 /**
+ * A type guard that checks if the given value matches the type predicate.
+ *
+ * @category User
+ * @category Type Guards
+ */
+// @__NO_SIDE_EFFECTS__
+export function isLessonBatchSizeNumber(value: unknown): value is LessonBatchSizeNumber {
+  return v.is(LessonBatchSizeNumber, value);
+}
+
+/**
  * User settings specific to the WaniKani application.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#user}
@@ -196,6 +207,17 @@ export const User = v.object(
     }),
   ]),
 );
+
+/**
+ * A type guard that checks if the given value matches the type predicate.
+ *
+ * @category User
+ * @category Type Guards
+ */
+// @__NO_SIDE_EFFECTS__
+export function isUser(value: unknown): value is User {
+  return v.is(User, value);
+}
 
 /**
  * The payload sent to the WaniKani API to update a user's preferences.

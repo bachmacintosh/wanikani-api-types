@@ -42,6 +42,11 @@ const collectionParamsWithDatableStrings = {
   updated_after: v.parse(DatableString, new Date().toISOString()),
 };
 
+const apiError = {
+  error: "Not found",
+  code: 404,
+};
+
 // Assignments
 
 const assignment = {
@@ -345,6 +350,65 @@ const reviewPayloadWithSubjectAndDatableStrings = {
     created_at: v.parse(DatableString, new Date().toISOString()),
     incorrect_meaning_answers: 0,
     incorrect_reading_answers: 0,
+  },
+};
+
+const createdReview = {
+  id: 2880695203,
+  object: "review" as const,
+  url: "https://api.wanikani.com/v2/reviews/2880695203",
+  data_updated_at: v.parse(DatableString, "2022-10-30T19:57:42.293840Z"),
+  data: {
+    created_at: v.parse(DatableString, "2022-10-30T19:57:42.264637Z"),
+    assignment_id: 306239913,
+    subject_id: 3521,
+    spaced_repetition_system_id: 1,
+    starting_srs_stage: 1,
+    ending_srs_stage: 2,
+    incorrect_meaning_answers: 0,
+    incorrect_reading_answers: 0,
+  },
+  resources_updated: {
+    assignment: {
+      id: 306239913,
+      object: "assignment" as const,
+      url: "https://api.wanikani.com/v2/assignments/306239913",
+      data_updated_at: v.parse(DatableString, "2022-10-30T19:57:42.289791Z"),
+      data: {
+        created_at: v.parse(DatableString, "2022-09-09T01:00:41.286804Z"),
+        subject_id: 3521,
+        subject_type: "vocabulary" as const,
+        srs_stage: 2,
+        unlocked_at: v.parse(DatableString, "2022-09-09T01:00:41.282491Z"),
+        started_at: v.parse(DatableString, "2022-10-30T12:21:36.202761Z"),
+        passed_at: null,
+        burned_at: null,
+        available_at: v.parse(DatableString, "2022-10-31T03:00:00.000000Z"),
+        resurrected_at: null,
+        hidden: false,
+      },
+    },
+    review_statistic: {
+      id: 289182396,
+      object: "review_statistic" as const,
+      url: "https://api.wanikani.com/v2/review_statistics/289182396",
+      data_updated_at: v.parse(DatableString, "2022-10-30T19:57:42.300555Z"),
+      data: {
+        created_at: v.parse(DatableString, "2022-10-30T12:21:36.226528Z"),
+        subject_id: 3521,
+        subject_type: "vocabulary" as const,
+        meaning_correct: 1,
+        meaning_incorrect: 0,
+        meaning_max_streak: 1,
+        meaning_current_streak: 1,
+        reading_correct: 1,
+        reading_incorrect: 0,
+        reading_max_streak: 1,
+        reading_current_streak: 1,
+        percentage_correct: 100,
+        hidden: false,
+      },
+    },
   },
 };
 
@@ -1122,6 +1186,7 @@ export const testFor = test.extend({
   collectionParamsWithManyOptions,
   collectionParamsWithDates,
   collectionParamsWithDatableStrings,
+  apiError,
   assignment,
   assignmentCollection,
   assignmentParamsWithEmptyArrays,
@@ -1152,6 +1217,7 @@ export const testFor = test.extend({
   reviewPayloadWithAssignmentAndDatableStrings,
   reviewPayloadWithSubjectAndDate,
   reviewPayloadWithSubjectAndDatableStrings,
+  createdReview,
   spacedRepetitionSystemStageNumbers,
   spacedRepetitionSystem,
   spacedRepetitionSystemCollection,

@@ -1,17 +1,28 @@
 import * as v from "valibot";
-import { Review, ReviewCollection, ReviewParameters, ReviewPayload } from "../../src/reviews/v20170710.js";
+import {
+  CreatedReview,
+  Review,
+  ReviewCollection,
+  ReviewParameters,
+  ReviewPayload,
+  isCreatedReview,
+  isReview,
+  isReviewCollection,
+} from "../../src/reviews/v20170710.js";
 import { describe, expect } from "vitest";
 import { testFor } from "../fixtures/v20170710.js";
 
 describe("Review", () => {
   testFor("Review from WaniKani API Docs", ({ review }) => {
     expect(() => v.assert(Review, review)).not.toThrow();
+    expect(isReview(review)).toBe(true);
   });
 });
 
 describe("ReviewCollection", () => {
   testFor("ReviewCollection from WaniKani API Docs", ({ reviewCollection }) => {
     expect(() => v.assert(ReviewCollection, reviewCollection)).not.toThrow();
+    expect(isReviewCollection(reviewCollection)).toBe(true);
   });
 });
 
@@ -45,5 +56,12 @@ describe("ReviewPayload", () => {
   });
   testFor("ReviewPayload with Subject ID and DatableString", ({ reviewPayloadWithSubjectAndDatableStrings }) => {
     expect(() => v.assert(ReviewPayload, reviewPayloadWithSubjectAndDatableStrings)).not.toThrow();
+  });
+});
+
+describe("CreatedReview", () => {
+  testFor("Real CreatedReview", ({ createdReview }) => {
+    expect(() => v.assert(CreatedReview, createdReview)).not.toThrow();
+    expect(isCreatedReview(createdReview)).toBe(true);
   });
 });

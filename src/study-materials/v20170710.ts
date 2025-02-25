@@ -95,6 +95,17 @@ export const StudyMaterial = v.object(
 );
 
 /**
+ * A type guard that checks if the given value matches the type predicate.
+ *
+ * @category Study Materials
+ * @category Type Guards
+ */
+// @__NO_SIDE_EFFECTS__
+export function isStudyMaterial(value: unknown): value is StudyMaterial {
+  return v.is(StudyMaterial, value);
+}
+
+/**
  * A collection of study materials returned from the WaniKani API.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-study-materials}
@@ -115,6 +126,17 @@ export const StudyMaterialCollection = v.object(
     }),
   ]),
 );
+
+/**
+ * A type guard that checks if the given value matches the type predicate.
+ *
+ * @category Study Materials
+ * @category Type Guards
+ */
+// @__NO_SIDE_EFFECTS__
+export function isStudyMaterialCollection(value: unknown): value is StudyMaterialCollection {
+  return v.is(StudyMaterialCollection, value);
+}
 
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Study Material Collection.

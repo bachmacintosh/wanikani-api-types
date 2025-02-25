@@ -87,6 +87,17 @@ export const LevelProgression = v.object(
 );
 
 /**
+ * A type guard that checks if the given value matches the type predicate.
+ *
+ * @category Level Progressions
+ * @category Type Guards
+ */
+// @__NO_SIDE_EFFECTS__
+export function isLevelProgression(value: unknown): value is LevelProgression {
+  return v.is(LevelProgression, value);
+}
+
+/**
  * A collection of level progressions returned from the WaniKani API.
  *
  * @see {@link https://docs.api.wanikani.com/20170710/#get-all-level-progressions}
@@ -107,6 +118,17 @@ export const LevelProgressionCollection = v.object(
     }),
   ]),
 );
+
+/**
+ * A type guard that checks if the given value matches the type predicate.
+ *
+ * @category Level Progressions
+ * @category Type Guards
+ */
+// @__NO_SIDE_EFFECTS__
+export function isLevelProgressionCollection(value: unknown): value is LevelProgressionCollection {
+  return v.is(LevelProgressionCollection, value);
+}
 
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Level Progression Collection.

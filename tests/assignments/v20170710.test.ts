@@ -4,6 +4,8 @@ import {
   AssignmentCollection,
   AssignmentParameters,
   AssignmentPayload,
+  isAssignment,
+  isAssignmentCollection,
 } from "../../src/assignments/v20170710.js";
 import { describe, expect } from "vitest";
 import { testFor } from "../fixtures/v20170710.js";
@@ -11,12 +13,14 @@ import { testFor } from "../fixtures/v20170710.js";
 describe("Assignment", () => {
   testFor("Real Assignment", ({ assignment }) => {
     expect(() => v.assert(Assignment, assignment)).not.toThrow();
+    expect(isAssignment(assignment)).toBe(true);
   });
 });
 
 describe("AssignmentCollection", () => {
   testFor("Real AssignmentCollection", ({ assignmentCollection }) => {
     expect(() => v.assert(AssignmentCollection, assignmentCollection)).not.toThrow();
+    expect(isAssignmentCollection(assignmentCollection)).toBe(true);
   });
 });
 
