@@ -7,7 +7,17 @@
   "cleanOutputDir": true,
   "includeVersion": true,
   "categorizeByGroup": false,
-  "categoryOrder": ["Base", "Collections", "Parameters", "Payloads", "Reports", "Requests", "Resources", "*"],
+  "categoryOrder": [
+    "Base",
+    "Collections",
+    "Parameters",
+    "Payloads",
+    "Reports",
+    "Requests",
+    "Resources",
+    "Type Guards",
+    "*"
+  ],
   "navigation": {
     "includeCategories": true
   },
