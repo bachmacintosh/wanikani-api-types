@@ -36,5 +36,5 @@ Or some other information pertaining to the PR like breaking tests, etc.
 
 I understand that by submitting this Pull Request:
 
-- I agree to the terms outlined in the [Contribution Guidelines](https://github.com/bachmacintosh/wanikani-api-types/blob/main/CONTRIBUTING.md) and [Code of Conduct](https://github.com/bachmacintosh/wanikani-api-types/blob/main/CODE_OF_CONDUCT.md)
-- My code will be licensed for use in this repository per its [LICENSE](https://github.com/bachmacintosh/wanikani-api-types/blob/main/LICENSE), and that I have the right to license this code -- per GitHub's [Terms of Service](https://docs.github.com/en/site-policy/github-terms/github-terms-of-service#6-contributions-under-repository-license)
+- I agree to the terms outlined in the [Contribution Guidelines](https://github.com/bachman-dev/wanikani-api-types/blob/main/CONTRIBUTING.md) and [Code of Conduct](https://github.com/bachman-dev/wanikani-api-types/blob/main/CODE_OF_CONDUCT.md)
+- My code will be licensed for use in this repository per its [LICENSE](https://github.com/bachman-dev/wanikani-api-types/blob/main/LICENSE), and that I have the right to license this code -- per GitHub's [Terms of Service](https://docs.github.com/en/site-policy/github-terms/github-terms-of-service#6-contributions-under-repository-license)
