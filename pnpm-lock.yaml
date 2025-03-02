@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       valibot:
-        specifier: 1.0.0-rc.2
-        version: 1.0.0-rc.2(typescript@5.7.3)
+        specifier: 1.0.0-rc.3
+        version: 1.0.0-rc.3(typescript@5.7.3)
     devDependencies:
       '@bachman-dev/eslint-config':
         specifier: 2.2.0
@@ -1712,8 +1712,8 @@ packages:
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
 
-  valibot@1.0.0-rc.2:
-    resolution: {integrity: sha512-Tnnp7dydpihvoUbJiaxuYfsCAgAFKuFMex7PTaI25XSjRWkU70DmJPlAO1W6sF1/WUx4RNWyM2hdmBSMIUSZFA==}
+  valibot@1.0.0-rc.3:
+    resolution: {integrity: sha512-LT0REa7Iqx4QGcaHLiTiTkcmJqJ9QdpOy89HALFFBJgejTS64GQFRIbDF7e4f6pauQbo/myfKGmWXCLhMeM6+g==}
     peerDependencies:
       typescript: '>=5'
     peerDependenciesMeta:
@@ -3411,7 +3411,7 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
-  valibot@1.0.0-rc.2(typescript@5.7.3):
+  valibot@1.0.0-rc.3(typescript@5.7.3):
     optionalDependencies:
       typescript: 5.7.3
 

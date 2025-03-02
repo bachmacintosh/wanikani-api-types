@@ -40,7 +40,7 @@
     "url": "https://github.com/bachmacintosh/wanikani-api-types"
   },
   "dependencies": {
-    "valibot": "1.0.0-rc.2"
+    "valibot": "1.0.0-rc.3"
   },
   "devDependencies": {
     "@bachman-dev/eslint-config": "2.2.0",
