@@ -79,7 +79,7 @@ body:
     id: terms
     attributes:
       label: Agree to Contributing Terms
-      description: By submitting this issue, you agree to follow our [Contributing Guidelines](CONTRIBUTING.md) and [Code of Conduct](CODE_OF_CONDUCT.md)
+      description: By submitting this issue, you agree to follow our [Contributing Guidelines](https://github.com/bachman-dev/wanikani-api-types/blob/main/CONTRIBUTING.md) and [Code of Conduct](https://github.com/bachman-dev/wanikani-api-types/blob/main/CODE_OF_CONDUCT.md)
       options:
         - label: I agree to follow this project's Contributing Guidelines and Code of Conduct
           required: true
