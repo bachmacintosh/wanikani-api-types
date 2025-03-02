@@ -1,7 +1,7 @@
 # @bachmacintosh/wanikani-api-types
 
-[![Tests (Main)](https://github.com/bachmacintosh/wanikani-api-types/actions/workflows/push.yml/badge.svg)](https://github.com/bachmacintosh/wanikani-api-types/actions/workflows/push.yml)
-[![codecov](https://codecov.io/gh/bachmacintosh/wanikani-api-types/branch/main/graph/badge.svg?token=CCVBE1UM9M)](https://codecov.io/gh/bachmacintosh/wanikani-api-types)
+[![Tests (Main)](https://github.com/bachman-dev/wanikani-api-types/actions/workflows/push.yml/badge.svg)](https://github.com/bachman-dev/wanikani-api-types/actions/workflows/push.yml)
+[![codecov](https://codecov.io/gh/bachman-dev/wanikani-api-types/branch/main/graph/badge.svg?token=CCVBE1UM9M)](https://codecov.io/gh/bachman-dev/wanikani-api-types)
 
 Regularly updated type definitions for the [WaniKani API](https://docs.api.wanikani.com/20170710/)
 
@@ -167,7 +167,7 @@ When working with WaniKani's Subjects, you may want to stylize/highlight the mar
 
 ### Examples
 
-See [EXAMPLES.md](https://github.com/bachmacintosh/wanikani-api-types/blob/main/EXAMPLES.md) for examples using this library.
+See [EXAMPLES.md](EXAMPLES.md) for examples using this library.
 
 ## Need Help? Want to Contribute?
 
@@ -177,7 +177,7 @@ That said, if you have any questions or encounter any problems with this package
 
 We welcome any contributions to help improve this library. Please see the following documents:
 
-- [CONTRIBUTING.md](https://github.com/bachmacintosh/wanikani-api-types/blob/main/CONTRIBUTING.md)
-- [CODE_OF_CONDUCT.md](https://github.com/bachmacintosh/wanikani-api-types/blob/main/CODE_OF_CONDUCT.md)
+- [CONTRIBUTING.md](CONTRIBUTING.md)
+- [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
 
 Thank you in advance for your contribution(s)!
