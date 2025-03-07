@@ -35,7 +35,7 @@ export function isApiRevision(value: unknown): value is ApiRevision {
  * @category Base
  */
 export type DatableString = v.Brand<"DatableString"> & string;
-export const DatableString = v.pipe(v.string(), v.isoTimestamp(), v.brand("DatableString"));
+export const DatableString = v.pipe(v.string(), v.trim(), v.isoTimestamp(), v.brand("DatableString"));
 
 /**
  * Validates that a string is a well-formatted ISO-8601 dat string.
