@@ -3,4 +3,4 @@ This file exports all the types available in the recommended API revision. There
 Try sticking to imports from a specific revision.
 */
 
-export * from "./v20170710.js";
+export * from "./v20170710/index.js";

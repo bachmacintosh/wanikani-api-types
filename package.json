@@ -20,13 +20,13 @@
     },
     "./v20170710": {
       "import": {
-        "types": "./dist/v20170710.d.ts",
-        "default": "./dist/v20170710.js"
+        "types": "./dist/v20170710/index.d.ts",
+        "default": "./dist/v20170710/index.js"
       }
     }
   },
   "scripts": {
-    "build": "rimraf dist && tsup --entry src/index.ts --entry src/v20170710.ts --dts --format esm --treeshake",
+    "build": "rimraf dist && tsup --entry src/index.ts --entry src/v20170710/index.ts --dts --format esm --treeshake",
     "build:docs": "typedoc",
     "lint": "eslint . && prettier --check .",
     "lint:fix": "eslint --fix . && prettier --write .",

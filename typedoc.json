@@ -1,6 +1,6 @@
 {
   "$schema": "https://typedoc.org/schema.json",
-  "entryPoints": ["./src/v20170710.ts", "./src/index.ts"],
+  "entryPoints": ["./src/v20170710/index.ts", "./src/index.ts"],
   "out": "docs",
   "plugin": ["./typedoc/plugin.js"],
   "sourceLinkTemplate": "https://github.com/bachman-dev/wanikani-api-types/blob/{gitRevision}/{path}#L{line}",
