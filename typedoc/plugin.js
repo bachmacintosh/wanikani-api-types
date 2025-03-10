@@ -2,25 +2,13 @@
 import { Application, Converter, KindRouter, ReflectionKind } from "typedoc";
 
 class CloudflareRouter extends KindRouter {
-  /** @type Map<ReflectionKind, string> */
-  directories = new Map([
-    [ReflectionKind.Class, "classes"],
-    [ReflectionKind.Interface, "interfaces"],
-    [ReflectionKind.Enum, "enums"],
-    [ReflectionKind.Namespace, "modules"],
-    [ReflectionKind.Module, "modules"],
-    [ReflectionKind.TypeAlias, "types"],
-    [ReflectionKind.Function, "methods"],
-    [ReflectionKind.Variable, "variables"],
-    [ReflectionKind.Document, "documents"],
-  ]);
-
   /**
    *
    * @param {Application} app
    */
   constructor(app) {
     super(app);
+    this.directories.set(ReflectionKind.Function, "methods");
     this.application.logger.info("Using Cloudflare Router");
   }
 }
