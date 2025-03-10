@@ -732,7 +732,7 @@ export function isSubjectCollection(value: unknown): value is SubjectCollection 
  * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-export const WK_SUBJECT_MARKUP_MATCHERS = {
+export const SUBJECT_MARKUP_MATCHERS = {
   /**
    * A regular expression literal that matches to Japanese text surrounded by `<ja>` tags.
    */
