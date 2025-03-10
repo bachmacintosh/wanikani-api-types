@@ -3,7 +3,6 @@ import { Application, Converter, KindRouter, ReflectionKind } from "typedoc";
 
 class CloudflareRouter extends KindRouter {
   /**
-   *
    * @param {Application} app
    */
   constructor(app) {
