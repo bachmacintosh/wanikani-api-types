@@ -4,43 +4,7 @@ import { test } from "vitest";
 
 // Base
 
-// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-const apiRevision = "20170710" as const;
-
-const dateTimeUtcString = "2022-10-23T15:17:38.828455Z";
-
-const dateTimeOffsetString = "2022-10-23T15:17:38.828455+09:00";
-
-const dateIsoString = new Date().toISOString();
-
-const levels = Array<number>(WK.MAX_LEVEL)
-  .fill(WK.MIN_LEVEL)
-  .map((item, itemIdx) => item + itemIdx);
-
 const emptyParams: WK.CollectionParameters = {};
-
-const collectionParamsWithEmptyArrays = {
-  ids: [],
-};
-
-const collectionParamsWithManyOptions = {
-  ids: [1, 2, 3],
-  page_after_id: 1,
-  page_before_id: 1,
-};
-
-const collectionParamsWithDates = {
-  updated_after: new Date(),
-};
-
-const collectionParamsWithDatableStrings = {
-  updated_after: v.parse(WK.DatableString, new Date().toISOString()),
-};
-
-const apiError = {
-  error: "Not found",
-  code: 404,
-};
 
 // Assignments
 
@@ -64,71 +28,6 @@ const assignment = {
   },
 };
 
-const assignmentCollection = {
-  object: "collection" as const,
-  url: "https://api.wanikani.com/v2/assignments",
-  pages: {
-    per_page: 500,
-    next_url: "https://api.wanikani.com/v2/assignments?page_after_id=87485638",
-    previous_url: null,
-  },
-  total_count: 6055,
-  data_updated_at: v.parse(WK.DatableString, "2025-02-15T22:19:50.167435Z"),
-  data: [assignment],
-};
-
-const assignmentParamsWithEmptyArrays = {
-  ids: [],
-  levels: [],
-  srs_stages: [],
-  subject_ids: [],
-};
-
-const assignmentParamsWithManyOptions = {
-  ids: [1, 2, 3],
-  page_after_id: 1,
-  page_before_id: 1,
-  burned: true,
-  hidden: false,
-  immediately_available_for_lessons: true,
-  immediately_available_for_review: false,
-  in_review: true,
-  levels: [1, 2, 3],
-  srs_stages: [1, 2, 3],
-  started: true,
-  subject_ids: [1, 2, 3],
-  subject_types: v.parse(WK.SubjectTuple, ["kana_vocabulary", "vocabulary"]),
-  unlocked: true,
-};
-
-const assignmentParamsWithDates = {
-  available_after: new Date(),
-  available_before: new Date(),
-  updated_after: new Date(),
-};
-
-const assignmentParamsWithDatableStrings = {
-  available_after: v.parse(WK.DatableString, new Date().toISOString()),
-  available_before: v.parse(WK.DatableString, new Date().toISOString()),
-  updated_after: v.parse(WK.DatableString, new Date().toISOString()),
-};
-
-const assignmentPayloadWithNoTime = {
-  assignment: {},
-};
-
-const assignmentPayloadWithDate = {
-  assignment: {
-    started_at: new Date(),
-  },
-};
-
-const assignmentPayloadWithDatableString = {
-  assignment: {
-    started_at: v.parse(WK.DatableString, "2024-12-27T15:32:23.000Z"),
-  },
-};
-
 // Level Progressions
 
 const levelProgression = {
@@ -147,23 +46,6 @@ const levelProgression = {
   },
 };
 
-const levelProgressionCollection = {
-  object: "collection" as const,
-  url: "https://api.wanikani.com/v2/level_progressions",
-  pages: {
-    per_page: 500,
-    next_url: null,
-    previous_url: null,
-  },
-  total_count: 50,
-  data_updated_at: v.parse(WK.DatableString, "2025-02-20T02:00:33.397409Z"),
-  data: [levelProgression],
-};
-
-// Requests
-
-const requestFactory = new WK.ApiRequestFactory({ apiToken: "abc", revision: "20170710" });
-
 // Resets
 
 const reset = {
@@ -177,19 +59,6 @@ const reset = {
     target_level: 4,
     confirmed_at: v.parse(WK.DatableString, "2018-01-08T13:39:28.083543Z"),
   },
-};
-
-const resetCollection = {
-  object: "collection" as const,
-  url: "https://api.wanikani.com/v2/resets",
-  pages: {
-    per_page: 500,
-    next_url: null,
-    previous_url: null,
-  },
-  total_count: 4,
-  data_updated_at: v.parse(WK.DatableString, "2021-09-06T19:05:52.132672Z"),
-  data: [reset],
 };
 
 // Review Statistics
@@ -216,43 +85,6 @@ const reviewStatistic = {
   },
 };
 
-const reviewStatisticCollection = {
-  object: "collection" as const,
-  url: "https://api.wanikani.com/v2/review_statistics",
-  pages: {
-    per_page: 500,
-    next_url: null,
-    previous_url: null,
-  },
-  total_count: 5984,
-  data_updated_at: v.parse(WK.DatableString, "2025-01-22T18:06:07.048082Z"),
-  data: [reviewStatistic],
-};
-
-const reviewStatisticParamsWithEmptyArrays = {
-  ids: [],
-  subject_ids: [],
-};
-
-const reviewStatisticParamsWithManyOptions = {
-  ids: [1, 2, 3],
-  page_after_id: 1,
-  page_before_id: 1,
-  hidden: false,
-  percentages_greater_than: 90,
-  percentages_less_than: 100,
-  subject_ids: [1, 2, 3],
-  subject_types: v.parse(WK.SubjectTuple, ["kana_vocabulary", "vocabulary"]),
-};
-
-const reviewStatisticParamsWithDates = {
-  updated_after: new Date(),
-};
-
-const reviewStatisticParamsWithDatableStrings = {
-  updated_after: v.parse(WK.DatableString, new Date().toISOString()),
-};
-
 // Reviews
 
 /*
@@ -277,141 +109,7 @@ const review = {
   },
 };
 
-const reviewCollection = {
-  object: "collection" as const,
-  url: "https://api.wanikani.com/v2/reviews",
-  pages: {
-    per_page: 1000,
-    next_url: null,
-    previous_url: null,
-  },
-  total_count: 1,
-  data_updated_at: v.parse(WK.DatableString, "2017-12-20T01:10:17.578705Z"),
-  data: [review],
-};
-
-const reviewParamsWithEmptyArrays = {
-  ids: [],
-  assignment_ids: [],
-  subject_ids: [],
-};
-
-const reviewParamsWithManyOptions = {
-  ids: [1, 2, 3],
-  assignment_ids: [1, 2, 3],
-  subject_ids: [1, 2, 3],
-  page_after_id: 1,
-  page_before_id: 1,
-};
-
-const reviewParamsWithDates = {
-  updated_after: new Date(),
-};
-
-const reviewParamsWithDatableStrings = {
-  updated_after: v.parse(WK.DatableString, new Date().toISOString()),
-};
-
-const reviewPayloadWithAssignmentAndDate = {
-  review: {
-    assignment_id: 1,
-    created_at: new Date(),
-    incorrect_meaning_answers: 0,
-    incorrect_reading_answers: 0,
-  },
-};
-
-const reviewPayloadWithAssignmentAndDatableStrings = {
-  review: {
-    assignment_id: 1,
-    created_at: v.parse(WK.DatableString, new Date().toISOString()),
-    incorrect_meaning_answers: 0,
-    incorrect_reading_answers: 0,
-  },
-};
-
-const reviewPayloadWithSubjectAndDate = {
-  review: {
-    subject_id: 1,
-    created_at: new Date(),
-    incorrect_meaning_answers: 0,
-    incorrect_reading_answers: 0,
-  },
-};
-
-const reviewPayloadWithSubjectAndDatableStrings = {
-  review: {
-    subject_id: 1,
-    created_at: v.parse(WK.DatableString, new Date().toISOString()),
-    incorrect_meaning_answers: 0,
-    incorrect_reading_answers: 0,
-  },
-};
-
-const createdReview = {
-  id: 2880695203,
-  object: "review" as const,
-  url: "https://api.wanikani.com/v2/reviews/2880695203",
-  data_updated_at: v.parse(WK.DatableString, "2022-10-30T19:57:42.293840Z"),
-  data: {
-    created_at: v.parse(WK.DatableString, "2022-10-30T19:57:42.264637Z"),
-    assignment_id: 306239913,
-    subject_id: 3521,
-    spaced_repetition_system_id: 1,
-    starting_srs_stage: 1,
-    ending_srs_stage: 2,
-    incorrect_meaning_answers: 0,
-    incorrect_reading_answers: 0,
-  },
-  resources_updated: {
-    assignment: {
-      id: 306239913,
-      object: "assignment" as const,
-      url: "https://api.wanikani.com/v2/assignments/306239913",
-      data_updated_at: v.parse(WK.DatableString, "2022-10-30T19:57:42.289791Z"),
-      data: {
-        created_at: v.parse(WK.DatableString, "2022-09-09T01:00:41.286804Z"),
-        subject_id: 3521,
-        subject_type: "vocabulary" as const,
-        srs_stage: 2,
-        unlocked_at: v.parse(WK.DatableString, "2022-09-09T01:00:41.282491Z"),
-        started_at: v.parse(WK.DatableString, "2022-10-30T12:21:36.202761Z"),
-        passed_at: null,
-        burned_at: null,
-        available_at: v.parse(WK.DatableString, "2022-10-31T03:00:00.000000Z"),
-        resurrected_at: null,
-        hidden: false,
-      },
-    },
-    review_statistic: {
-      id: 289182396,
-      object: "review_statistic" as const,
-      url: "https://api.wanikani.com/v2/review_statistics/289182396",
-      data_updated_at: v.parse(WK.DatableString, "2022-10-30T19:57:42.300555Z"),
-      data: {
-        created_at: v.parse(WK.DatableString, "2022-10-30T12:21:36.226528Z"),
-        subject_id: 3521,
-        subject_type: "vocabulary" as const,
-        meaning_correct: 1,
-        meaning_incorrect: 0,
-        meaning_max_streak: 1,
-        meaning_current_streak: 1,
-        reading_correct: 1,
-        reading_incorrect: 0,
-        reading_max_streak: 1,
-        reading_current_streak: 1,
-        percentage_correct: 100,
-        hidden: false,
-      },
-    },
-  },
-};
-
 // Spaced Repetition Systems
-
-const spacedRepetitionSystemStageNumbers = Array<number>(WK.MAX_SRS_STAGE)
-  .fill(WK.MIN_SRS_STAGE)
-  .map((stage, stageIdx) => stage + stageIdx);
 
 const spacedRepetitionSystem = {
   id: 1,
@@ -481,19 +179,6 @@ const spacedRepetitionSystem = {
   },
 };
 
-const spacedRepetitionSystemCollection = {
-  object: "collection" as const,
-  url: "https://api.wanikani.com/v2/spaced_repetition_systems",
-  pages: {
-    per_page: 500,
-    next_url: null,
-    previous_url: null,
-  },
-  total_count: 2,
-  data_updated_at: v.parse(WK.DatableString, "2020-06-09T03:38:01.007395Z"),
-  data: [spacedRepetitionSystem],
-};
-
 // Study Materials
 
 const studyMaterial = {
@@ -512,63 +197,9 @@ const studyMaterial = {
   },
 };
 
-const studyMaterialCollection = {
-  object: "collection" as const,
-  url: "https://api.wanikani.com/v2/study_materials",
-  pages: {
-    per_page: 500,
-    next_url: null,
-    previous_url: null,
-  },
-  total_count: 3,
-  data_updated_at: v.parse(WK.DatableString, "2025-01-16T17:05:46.992219Z"),
-  data: [studyMaterial],
-};
-
-const studyMaterialParamsWithEmptyArrays = {
-  ids: [],
-  subject_ids: [],
-};
-
-const studyMaterialParamsWithManyOptions = {
-  ids: [1, 2, 3],
-  subject_ids: [1, 2, 3],
-  subject_types: v.parse(WK.SubjectTuple, ["kana_vocabulary", "vocabulary"]),
-  hidden: false,
-  page_after_id: 1,
-  page_before_id: 1,
-};
-
-const studyMaterialParamsWithDates = {
-  updated_after: new Date(),
-};
-
-const studyMaterialParamsWithDatableStrings = {
-  updated_after: v.parse(WK.DatableString, new Date().toISOString()),
-};
-
 const emptyStudyMaterialUpdatePayload: WK.StudyMaterialUpdatePayload = {};
 
-const fullStudyMaterialUpdatePayload = {
-  meaning_note: "Meaning note",
-  reading_note: "Reading Note",
-  meaning_synonyms: ["one", "two"],
-};
-
-const minimalStudyMaterialCreatePayload = {
-  subject_id: 1,
-};
-
-const fullStudyMaterialCreatePayload = {
-  subject_id: 1,
-  meaning_note: "Meaning note",
-  reading_note: "Reading Note",
-  meaning_synonyms: ["one", "two"],
-};
-
 // Subjects
-
-const subjectTypes = ["kana_vocabulary" as const, "kanji" as const, "radical" as const, "vocabulary" as const];
 
 // @ts-expect-error -- Intentionally empty tuple needed a type and can't use unknown[] with vitest fixtures
 const emptySubjectTuple: WK.SubjectTuple = [];
@@ -576,8 +207,6 @@ const emptySubjectTuple: WK.SubjectTuple = [];
 const partialSubjectTuple: WK.SubjectTuple = ["kanji"];
 
 const fullSubjectTuple: WK.SubjectTuple = ["kana_vocabulary", "kanji", "radical", "vocabulary"];
-
-const repeatedSubjectTuple = ["kana_vocabulary", "kanji", "radical", "kanji", "vocabulary", "radical"];
 
 const radical = {
   id: 1,
@@ -962,186 +591,6 @@ const kanaVocabulary = {
   },
 };
 
-const radicalCollection = {
-  object: "collection" as const,
-  url: "https://api.wanikani.com/v2/subjects?types=radical",
-  pages: {
-    per_page: 1000,
-    next_url: null,
-    previous_url: null,
-  },
-  total_count: 499,
-  data_updated_at: v.parse(WK.DatableString, "2025-02-21T20:51:23.378189Z"),
-  data: [radical],
-};
-
-const kanjiCollection = {
-  object: "collection" as const,
-  url: "https://api.wanikani.com/v2/subjects?types=kanji",
-  pages: {
-    per_page: 1000,
-    next_url: "https://api.wanikani.com/v2/subjects?page_after_id=1439&types=kanji",
-    previous_url: null,
-  },
-  total_count: 2080,
-  data_updated_at: v.parse(WK.DatableString, "2025-02-23T04:24:12.403083Z"),
-  data: [kanji],
-};
-
-const vocabularyCollection = {
-  object: "collection" as const,
-  url: "https://api.wanikani.com/v2/subjects?types=vocabulary",
-  pages: {
-    per_page: 1000,
-    next_url: "https://api.wanikani.com/v2/subjects?page_after_id=3468&types=vocabulary",
-    previous_url: null,
-  },
-  total_count: 6630,
-  data_updated_at: v.parse(WK.DatableString, "2025-02-23T04:24:12.372546Z"),
-  data: [vocabulary],
-};
-
-const kanaVocabularyCollection = {
-  object: "collection" as const,
-  url: "https://api.wanikani.com/v2/subjects?types=kana_vocabulary",
-  pages: {
-    per_page: 1000,
-    next_url: null,
-    previous_url: null,
-  },
-  total_count: 60,
-  data_updated_at: v.parse(WK.DatableString, "2025-01-31T00:42:02.755193Z"),
-  data: [kanaVocabulary],
-};
-
-const subjectCollection = {
-  object: "collection" as const,
-  url: "https://api.wanikani.com/v2/subjects",
-  pages: {
-    per_page: 1000,
-    next_url: "https://api.wanikani.com/v2/subjects?page_after_id=1000",
-    previous_url: null,
-  },
-  total_count: 9269,
-  data_updated_at: v.parse(WK.DatableString, "2025-02-23T04:24:12.403083Z"),
-  data: [radical, kanji, vocabulary, kanaVocabulary],
-};
-
-const subjectParamsWithEmptyArrays = {
-  ids: [],
-  levels: [],
-  slugs: [],
-};
-
-const subjectParamsWithManyOptions = {
-  ids: [1, 2, 3],
-  levels: [1, 2, 3],
-  slugs: ["one", "two", "three"],
-  types: v.parse(WK.SubjectTuple, ["radical", "kanji"]),
-  hidden: false,
-  page_after_id: 1,
-  page_before_id: 1,
-};
-
-const subjectParamsWithDates = {
-  updated_after: new Date(),
-};
-
-const subjectParamsWithDatableStrings = {
-  updated_after: v.parse(WK.DatableString, new Date().toISOString()),
-};
-
-// Summary
-
-const summary = {
-  object: "report" as const,
-  url: "https://api.wanikani.com/v2/summary",
-  data_updated_at: v.parse(WK.DatableString, "2025-02-23T11:00:00.000000Z"),
-  data: {
-    lessons: [
-      {
-        available_at: v.parse(WK.DatableString, "2025-02-23T11:00:00.000000Z"),
-        subject_ids: [
-          1672, 5998, 5999, 5971, 5972, 5973, 6001, 6002, 5970, 5992, 5993, 5994, 9266, 6003, 6004, 6010, 5986, 5987,
-          5988, 6027, 5980, 5981, 6005, 6006, 6007, 6008, 7663, 5963, 5964, 5965, 364, 1657, 1664, 6048, 1665, 6047,
-          366, 1647, 365, 1670, 6040, 6581, 1645, 1649, 8862, 6034, 6041, 6029, 8556, 6031, 6038, 6042, 6033, 1667,
-          6039, 1644, 1653, 1654, 1660, 1662, 1673, 6036, 1659, 1651, 1663, 1648, 1668, 1674, 6032, 6035, 6043, 6045,
-          6080, 6049, 6044, 363, 395, 6046, 1655, 1661, 1650, 5966, 5967, 5968, 5969, 5956, 5957, 5958, 6037, 5996,
-          5997, 2384, 1669, 1656,
-        ],
-      },
-    ],
-    next_reviews_at: v.parse(WK.DatableString, "2025-02-23T12:00:00.000000Z"),
-    reviews: [
-      {
-        available_at: v.parse(WK.DatableString, "2025-02-23T11:00:00.000000Z"),
-        subject_ids: [],
-      },
-      {
-        available_at: v.parse(WK.DatableString, "2025-02-23T12:00:00.000000Z"),
-        subject_ids: [6026, 5959, 5961, 5989, 5979, 5990, 7609, 5960, 5962, 5991],
-      },
-    ],
-  },
-};
-
-// User
-
-const lessonBatchSizeNumbers = Array<number>(WK.MAX_LESSON_BATCH_SIZE - 2)
-  .fill(WK.MIN_LESSON_BATCH_SIZE)
-  .map((batchSize, batchSizeIdx) => batchSize + batchSizeIdx);
-
-const user = {
-  object: "user" as const,
-  url: "https://api.wanikani.com/v2/user",
-  data_updated_at: v.parse(WK.DatableString, "2025-02-20T02:00:33.354445Z"),
-  data: {
-    id: "d5809441-e17f-4e57-acb0-6a232b714538",
-    username: "BachMac",
-    level: 37,
-    profile_url: "https://www.wanikani.com/users/BachMac",
-    started_at: v.parse(WK.DatableString, "2017-10-22T15:41:43.815029Z"),
-    subscription: {
-      active: true,
-      type: "lifetime" as const,
-      max_level_granted: 60,
-      period_ends_at: null,
-    },
-    current_vacation_started_at: null,
-    preferences: {
-      lessons_autoplay_audio: false,
-      lessons_batch_size: 10,
-      reviews_autoplay_audio: false,
-      reviews_display_srs_indicator: true,
-      extra_study_autoplay_audio: false,
-      reviews_presentation_order: "lower_levels_first" as const,
-      lessons_presentation_order: "ascending_level_then_subject" as const,
-      default_voice_actor_id: 1,
-    },
-  },
-};
-
-const userPayloadWithRequiredProperties = {
-  user: {
-    preferences: {},
-  },
-};
-
-const userPayloadWithAllProperties = {
-  user: {
-    preferences: {
-      default_voice_actor_id: 1,
-      extra_study_autoplay_audio: false,
-      lessons_autoplay_audio: false,
-      lessons_batch_size: 10,
-      lessons_presentation_order: "ascending_level_then_subject" as const,
-      reviews_autoplay_audio: false,
-      reviews_display_srs_indicator: true,
-      reviews_presentation_order: "shuffled" as const,
-    },
-  },
-};
-
 // Voice Actors
 
 const voiceActor = {
@@ -1157,98 +606,490 @@ const voiceActor = {
   },
 };
 
-const voiceActorCollection = {
-  object: "collection" as const,
-  url: "https://api.wanikani.com/v2/voice_actors",
-  pages: {
-    per_page: 500,
-    next_url: null,
-    previous_url: null,
-  },
-  total_count: 3,
-  data_updated_at: v.parse(WK.DatableString, "2024-11-25T00:39:22.591103Z"),
-  data: [voiceActor],
-};
-
 export const testFor = test.extend({
-  apiRevision,
-  dateTimeUtcString,
-  dateTimeOffsetString,
-  dateIsoString,
-  levels,
+  // Base
+  apiRevision: "20170710" as const,
+  dateTimeUtcString: "2022-10-23T15:17:38.828455Z",
+  dateTimeOffsetString: "2022-10-23T15:17:38.828455+09:00",
+  dateIsoString: new Date().toISOString(),
+  levels: Array<number>(WK.MAX_LEVEL)
+    .fill(WK.MIN_LEVEL)
+    .map((item, itemIdx) => item + itemIdx),
   emptyParams,
-  collectionParamsWithEmptyArrays,
-  collectionParamsWithManyOptions,
-  collectionParamsWithDates,
-  collectionParamsWithDatableStrings,
-  apiError,
+  collectionParamsWithEmptyArrays: {
+    ids: [],
+  },
+  collectionParamsWithManyOptions: {
+    ids: [1, 2, 3],
+    page_after_id: 1,
+    page_before_id: 1,
+  },
+  collectionParamsWithDates: {
+    updated_after: new Date(),
+  },
+  collectionParamsWithDatableStrings: {
+    updated_after: v.parse(WK.DatableString, new Date().toISOString()),
+  },
+  apiError: {
+    error: "Not found",
+    code: 404,
+  },
+
+  // Assignments
   assignment,
-  assignmentCollection,
-  assignmentParamsWithEmptyArrays,
-  assignmentParamsWithManyOptions,
-  assignmentParamsWithDates,
-  assignmentParamsWithDatableStrings,
-  assignmentPayloadWithNoTime,
-  assignmentPayloadWithDate,
-  assignmentPayloadWithDatableString,
+  assignmentCollection: {
+    object: "collection" as const,
+    url: "https://api.wanikani.com/v2/assignments",
+    pages: {
+      per_page: 500,
+      next_url: "https://api.wanikani.com/v2/assignments?page_after_id=87485638",
+      previous_url: null,
+    },
+    total_count: 6055,
+    data_updated_at: v.parse(WK.DatableString, "2025-02-15T22:19:50.167435Z"),
+    data: [assignment],
+  },
+  assignmentParamsWithEmptyArrays: {
+    ids: [],
+    levels: [],
+    srs_stages: [],
+    subject_ids: [],
+  },
+  assignmentParamsWithManyOptions: {
+    ids: [1, 2, 3],
+    page_after_id: 1,
+    page_before_id: 1,
+    burned: true,
+    hidden: false,
+    immediately_available_for_lessons: true,
+    immediately_available_for_review: false,
+    in_review: true,
+    levels: [1, 2, 3],
+    srs_stages: [1, 2, 3],
+    started: true,
+    subject_ids: [1, 2, 3],
+    subject_types: v.parse(WK.SubjectTuple, ["kana_vocabulary", "vocabulary"]),
+    unlocked: true,
+  },
+  assignmentParamsWithDates: {
+    available_after: new Date(),
+    available_before: new Date(),
+    updated_after: new Date(),
+  },
+  assignmentParamsWithDatableStrings: {
+    available_after: v.parse(WK.DatableString, new Date().toISOString()),
+    available_before: v.parse(WK.DatableString, new Date().toISOString()),
+    updated_after: v.parse(WK.DatableString, new Date().toISOString()),
+  },
+  assignmentPayloadWithNoTime: {
+    assignment: {},
+  },
+  assignmentPayloadWithDate: {
+    assignment: {
+      started_at: new Date(),
+    },
+  },
+  assignmentPayloadWithDatableString: {
+    assignment: {
+      started_at: v.parse(WK.DatableString, "2024-12-27T15:32:23.000Z"),
+    },
+  },
+
+  // Level Progressions
   levelProgression,
-  levelProgressionCollection,
-  requestFactory,
+  levelProgressionCollection: {
+    object: "collection" as const,
+    url: "https://api.wanikani.com/v2/level_progressions",
+    pages: {
+      per_page: 500,
+      next_url: null,
+      previous_url: null,
+    },
+    total_count: 50,
+    data_updated_at: v.parse(WK.DatableString, "2025-02-20T02:00:33.397409Z"),
+    data: [levelProgression],
+  },
+
+  // Requests
+  requestFactory: new WK.ApiRequestFactory({ apiToken: "abc", revision: "20170710" }),
+
+  // Resets
   reset,
-  resetCollection,
+  resetCollection: {
+    object: "collection" as const,
+    url: "https://api.wanikani.com/v2/resets",
+    pages: {
+      per_page: 500,
+      next_url: null,
+      previous_url: null,
+    },
+    total_count: 4,
+    data_updated_at: v.parse(WK.DatableString, "2021-09-06T19:05:52.132672Z"),
+    data: [reset],
+  },
+
+  // Review Statistics
   reviewStatistic,
-  reviewStatisticCollection,
-  reviewStatisticParamsWithEmptyArrays,
-  reviewStatisticParamsWithManyOptions,
-  reviewStatisticParamsWithDates,
-  reviewStatisticParamsWithDatableStrings,
+  reviewStatisticCollection: {
+    object: "collection" as const,
+    url: "https://api.wanikani.com/v2/review_statistics",
+    pages: {
+      per_page: 500,
+      next_url: null,
+      previous_url: null,
+    },
+    total_count: 5984,
+    data_updated_at: v.parse(WK.DatableString, "2025-01-22T18:06:07.048082Z"),
+    data: [reviewStatistic],
+  },
+  reviewStatisticParamsWithEmptyArrays: {
+    ids: [],
+    subject_ids: [],
+  },
+  reviewStatisticParamsWithManyOptions: {
+    ids: [1, 2, 3],
+    page_after_id: 1,
+    page_before_id: 1,
+    hidden: false,
+    percentages_greater_than: 90,
+    percentages_less_than: 100,
+    subject_ids: [1, 2, 3],
+    subject_types: v.parse(WK.SubjectTuple, ["kana_vocabulary", "vocabulary"]),
+  },
+  reviewStatisticParamsWithDates: {
+    updated_after: new Date(),
+  },
+  reviewStatisticParamsWithDatableStrings: {
+    updated_after: v.parse(WK.DatableString, new Date().toISOString()),
+  },
+
+  // Reviews
   review,
-  reviewCollection,
-  reviewParamsWithEmptyArrays,
-  reviewParamsWithManyOptions,
-  reviewParamsWithDates,
-  reviewParamsWithDatableStrings,
-  reviewPayloadWithAssignmentAndDate,
-  reviewPayloadWithAssignmentAndDatableStrings,
-  reviewPayloadWithSubjectAndDate,
-  reviewPayloadWithSubjectAndDatableStrings,
-  createdReview,
-  spacedRepetitionSystemStageNumbers,
+  reviewCollection: {
+    object: "collection" as const,
+    url: "https://api.wanikani.com/v2/reviews",
+    pages: {
+      per_page: 1000,
+      next_url: null,
+      previous_url: null,
+    },
+    total_count: 1,
+    data_updated_at: v.parse(WK.DatableString, "2017-12-20T01:10:17.578705Z"),
+    data: [review],
+  },
+  reviewParamsWithEmptyArrays: {
+    ids: [],
+    assignment_ids: [],
+    subject_ids: [],
+  },
+  reviewParamsWithManyOptions: {
+    ids: [1, 2, 3],
+    assignment_ids: [1, 2, 3],
+    subject_ids: [1, 2, 3],
+    page_after_id: 1,
+    page_before_id: 1,
+  },
+  reviewParamsWithDates: {
+    updated_after: new Date(),
+  },
+  reviewParamsWithDatableStrings: {
+    updated_after: v.parse(WK.DatableString, new Date().toISOString()),
+  },
+  reviewPayloadWithAssignmentAndDate: {
+    review: {
+      assignment_id: 1,
+      created_at: new Date(),
+      incorrect_meaning_answers: 0,
+      incorrect_reading_answers: 0,
+    },
+  },
+  reviewPayloadWithAssignmentAndDatableStrings: {
+    review: {
+      assignment_id: 1,
+      created_at: v.parse(WK.DatableString, new Date().toISOString()),
+      incorrect_meaning_answers: 0,
+      incorrect_reading_answers: 0,
+    },
+  },
+  reviewPayloadWithSubjectAndDate: {
+    review: {
+      subject_id: 1,
+      created_at: new Date(),
+      incorrect_meaning_answers: 0,
+      incorrect_reading_answers: 0,
+    },
+  },
+  reviewPayloadWithSubjectAndDatableStrings: {
+    review: {
+      subject_id: 1,
+      created_at: v.parse(WK.DatableString, new Date().toISOString()),
+      incorrect_meaning_answers: 0,
+      incorrect_reading_answers: 0,
+    },
+  },
+  createdReview: {
+    ...review,
+    resources_updated: {
+      assignment,
+      review_statistic: reviewStatistic,
+    },
+  },
+
+  // Spaced Repetition Systems
+  spacedRepetitionSystemStageNumbers: Array<number>(WK.MAX_SRS_STAGE)
+    .fill(WK.MIN_SRS_STAGE)
+    .map((stage, stageIdx) => stage + stageIdx),
   spacedRepetitionSystem,
-  spacedRepetitionSystemCollection,
+  spacedRepetitionSystemCollection: {
+    object: "collection" as const,
+    url: "https://api.wanikani.com/v2/spaced_repetition_systems",
+    pages: {
+      per_page: 500,
+      next_url: null,
+      previous_url: null,
+    },
+    total_count: 2,
+    data_updated_at: v.parse(WK.DatableString, "2020-06-09T03:38:01.007395Z"),
+    data: [spacedRepetitionSystem],
+  },
+
+  // Study Materials
   studyMaterial,
-  studyMaterialCollection,
-  studyMaterialParamsWithEmptyArrays,
-  studyMaterialParamsWithManyOptions,
-  studyMaterialParamsWithDates,
-  studyMaterialParamsWithDatableStrings,
+  studyMaterialCollection: {
+    object: "collection" as const,
+    url: "https://api.wanikani.com/v2/study_materials",
+    pages: {
+      per_page: 500,
+      next_url: null,
+      previous_url: null,
+    },
+    total_count: 3,
+    data_updated_at: v.parse(WK.DatableString, "2025-01-16T17:05:46.992219Z"),
+    data: [studyMaterial],
+  },
+  studyMaterialParamsWithEmptyArrays: {
+    ids: [],
+    subject_ids: [],
+  },
+  studyMaterialParamsWithManyOptions: {
+    ids: [1, 2, 3],
+    subject_ids: [1, 2, 3],
+    subject_types: v.parse(WK.SubjectTuple, ["kana_vocabulary", "vocabulary"]),
+    hidden: false,
+    page_after_id: 1,
+    page_before_id: 1,
+  },
+  studyMaterialParamsWithDates: {
+    updated_after: new Date(),
+  },
+  studyMaterialParamsWithDatableStrings: {
+    updated_after: v.parse(WK.DatableString, new Date().toISOString()),
+  },
   emptyStudyMaterialUpdatePayload,
-  fullStudyMaterialUpdatePayload,
-  minimalStudyMaterialCreatePayload,
-  fullStudyMaterialCreatePayload,
-  subjectTypes,
+  fullStudyMaterialUpdatePayload: {
+    meaning_note: "Meaning note",
+    reading_note: "Reading Note",
+    meaning_synonyms: ["one", "two"],
+  },
+  minimalStudyMaterialCreatePayload: {
+    subject_id: 1,
+  },
+  fullStudyMaterialCreatePayload: {
+    subject_id: 1,
+    meaning_note: "Meaning note",
+    reading_note: "Reading Note",
+    meaning_synonyms: ["one", "two"],
+  },
+
+  // Subjects
+  subjectTypes: ["kana_vocabulary" as const, "kanji" as const, "radical" as const, "vocabulary" as const],
   emptySubjectTuple,
   partialSubjectTuple,
   fullSubjectTuple,
-  repeatedSubjectTuple,
+  repeatedSubjectTuple: ["kana_vocabulary", "kanji", "radical", "kanji", "vocabulary", "radical"],
   radical,
   kanji,
   vocabulary,
   kanaVocabulary,
-  radicalCollection,
-  kanjiCollection,
-  vocabularyCollection,
-  kanaVocabularyCollection,
-  subjectCollection,
-  subjectParamsWithEmptyArrays,
-  subjectParamsWithManyOptions,
-  subjectParamsWithDates,
-  subjectParamsWithDatableStrings,
-  summary,
-  lessonBatchSizeNumbers,
-  user,
-  userPayloadWithRequiredProperties,
-  userPayloadWithAllProperties,
+  radicalCollection: {
+    object: "collection" as const,
+    url: "https://api.wanikani.com/v2/subjects?types=radical",
+    pages: {
+      per_page: 1000,
+      next_url: null,
+      previous_url: null,
+    },
+    total_count: 499,
+    data_updated_at: v.parse(WK.DatableString, "2025-02-21T20:51:23.378189Z"),
+    data: [radical],
+  },
+  kanjiCollection: {
+    object: "collection" as const,
+    url: "https://api.wanikani.com/v2/subjects?types=kanji",
+    pages: {
+      per_page: 1000,
+      next_url: "https://api.wanikani.com/v2/subjects?page_after_id=1439&types=kanji",
+      previous_url: null,
+    },
+    total_count: 2080,
+    data_updated_at: v.parse(WK.DatableString, "2025-02-23T04:24:12.403083Z"),
+    data: [kanji],
+  },
+  vocabularyCollection: {
+    object: "collection" as const,
+    url: "https://api.wanikani.com/v2/subjects?types=vocabulary",
+    pages: {
+      per_page: 1000,
+      next_url: "https://api.wanikani.com/v2/subjects?page_after_id=3468&types=vocabulary",
+      previous_url: null,
+    },
+    total_count: 6630,
+    data_updated_at: v.parse(WK.DatableString, "2025-02-23T04:24:12.372546Z"),
+    data: [vocabulary],
+  },
+  kanaVocabularyCollection: {
+    object: "collection" as const,
+    url: "https://api.wanikani.com/v2/subjects?types=kana_vocabulary",
+    pages: {
+      per_page: 1000,
+      next_url: null,
+      previous_url: null,
+    },
+    total_count: 60,
+    data_updated_at: v.parse(WK.DatableString, "2025-01-31T00:42:02.755193Z"),
+    data: [kanaVocabulary],
+  },
+  subjectCollection: {
+    object: "collection" as const,
+    url: "https://api.wanikani.com/v2/subjects",
+    pages: {
+      per_page: 1000,
+      next_url: "https://api.wanikani.com/v2/subjects?page_after_id=1000",
+      previous_url: null,
+    },
+    total_count: 9269,
+    data_updated_at: v.parse(WK.DatableString, "2025-02-23T04:24:12.403083Z"),
+    data: [radical, kanji, vocabulary, kanaVocabulary],
+  },
+  subjectParamsWithEmptyArrays: {
+    ids: [],
+    levels: [],
+    slugs: [],
+  },
+  subjectParamsWithManyOptions: {
+    ids: [1, 2, 3],
+    levels: [1, 2, 3],
+    slugs: ["one", "two", "three"],
+    types: v.parse(WK.SubjectTuple, ["radical", "kanji"]),
+    hidden: false,
+    page_after_id: 1,
+    page_before_id: 1,
+  },
+  subjectParamsWithDates: {
+    updated_after: new Date(),
+  },
+  subjectParamsWithDatableStrings: {
+    updated_after: v.parse(WK.DatableString, new Date().toISOString()),
+  },
+
+  // Summary
+  summary: {
+    object: "report" as const,
+    url: "https://api.wanikani.com/v2/summary",
+    data_updated_at: v.parse(WK.DatableString, "2025-02-23T11:00:00.000000Z"),
+    data: {
+      lessons: [
+        {
+          available_at: v.parse(WK.DatableString, "2025-02-23T11:00:00.000000Z"),
+          subject_ids: [
+            1672, 5998, 5999, 5971, 5972, 5973, 6001, 6002, 5970, 5992, 5993, 5994, 9266, 6003, 6004, 6010, 5986, 5987,
+            5988, 6027, 5980, 5981, 6005, 6006, 6007, 6008, 7663, 5963, 5964, 5965, 364, 1657, 1664, 6048, 1665, 6047,
+            366, 1647, 365, 1670, 6040, 6581, 1645, 1649, 8862, 6034, 6041, 6029, 8556, 6031, 6038, 6042, 6033, 1667,
+            6039, 1644, 1653, 1654, 1660, 1662, 1673, 6036, 1659, 1651, 1663, 1648, 1668, 1674, 6032, 6035, 6043, 6045,
+            6080, 6049, 6044, 363, 395, 6046, 1655, 1661, 1650, 5966, 5967, 5968, 5969, 5956, 5957, 5958, 6037, 5996,
+            5997, 2384, 1669, 1656,
+          ],
+        },
+      ],
+      next_reviews_at: v.parse(WK.DatableString, "2025-02-23T12:00:00.000000Z"),
+      reviews: [
+        {
+          available_at: v.parse(WK.DatableString, "2025-02-23T11:00:00.000000Z"),
+          subject_ids: [],
+        },
+        {
+          available_at: v.parse(WK.DatableString, "2025-02-23T12:00:00.000000Z"),
+          subject_ids: [6026, 5959, 5961, 5989, 5979, 5990, 7609, 5960, 5962, 5991],
+        },
+      ],
+    },
+  },
+
+  // User
+  lessonBatchSizeNumbers: Array<number>(WK.MAX_LESSON_BATCH_SIZE - 2)
+    .fill(WK.MIN_LESSON_BATCH_SIZE)
+    .map((batchSize, batchSizeIdx) => batchSize + batchSizeIdx),
+  user: {
+    object: "user" as const,
+    url: "https://api.wanikani.com/v2/user",
+    data_updated_at: v.parse(WK.DatableString, "2025-02-20T02:00:33.354445Z"),
+    data: {
+      id: "d5809441-e17f-4e57-acb0-6a232b714538",
+      username: "BachMac",
+      level: 37,
+      profile_url: "https://www.wanikani.com/users/BachMac",
+      started_at: v.parse(WK.DatableString, "2017-10-22T15:41:43.815029Z"),
+      subscription: {
+        active: true,
+        type: "lifetime" as const,
+        max_level_granted: 60,
+        period_ends_at: null,
+      },
+      current_vacation_started_at: null,
+      preferences: {
+        lessons_autoplay_audio: false,
+        lessons_batch_size: 10,
+        reviews_autoplay_audio: false,
+        reviews_display_srs_indicator: true,
+        extra_study_autoplay_audio: false,
+        reviews_presentation_order: "lower_levels_first" as const,
+        lessons_presentation_order: "ascending_level_then_subject" as const,
+        default_voice_actor_id: 1,
+      },
+    },
+  },
+  userPayloadWithRequiredProperties: {
+    user: {
+      preferences: {},
+    },
+  },
+  userPayloadWithAllProperties: {
+    user: {
+      preferences: {
+        default_voice_actor_id: 1,
+        extra_study_autoplay_audio: false,
+        lessons_autoplay_audio: false,
+        lessons_batch_size: 10,
+        lessons_presentation_order: "ascending_level_then_subject" as const,
+        reviews_autoplay_audio: false,
+        reviews_display_srs_indicator: true,
+        reviews_presentation_order: "shuffled" as const,
+      },
+    },
+  },
+
+  // Voice Actor
   voiceActor,
-  voiceActorCollection,
+  voiceActorCollection: {
+    object: "collection" as const,
+    url: "https://api.wanikani.com/v2/voice_actors",
+    pages: {
+      per_page: 500,
+      next_url: null,
+      previous_url: null,
+    },
+    total_count: 3,
+    data_updated_at: v.parse(WK.DatableString, "2024-11-25T00:39:22.591103Z"),
+    data: [voiceActor],
+  },
 });
