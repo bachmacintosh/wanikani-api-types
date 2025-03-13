@@ -726,43 +726,82 @@ export function isSubjectCollection(value: unknown): value is SubjectCollection 
 }
 
 /**
- * A set of regular expression literals that match to various markup patterns in a Subject's Meaning/Reading Mnemonics
- * and Hints.
+ * A regular expression that matches the markup found in WaniKani's subject mnemonics and hints. Both the tag and inner
+ * text are captured for each match.
  *
- * @see {@link https://docs.api.wanikani.com/20170710/#subjects}
  * @category Subjects
  */
-export const SUBJECT_MARKUP_MATCHERS = {
-  /**
-   * A regular expression literal that matches to Japanese text surrounded by `<ja>` tags.
-   */
-  ja: /<ja>(?<innerText>.+?)<\/ja>/gu,
+export const SUBJECT_MARKUP_MATCHER = /<(?<tag>ja|kanji|meaning|radical|reading|vocabulary)>(?<innerText>.+?)<\/\1>/dgu;
 
-  /**
-   * A regular expression literal that matches to Japanese kanji surrounded by `<kanji>` tags.
-   */
-  kanji: /<kanji>(?<innerText>.+?)<\/kanji>/gu,
+/**
+ * An object representing parsed subject markup.
+ *
+ * @category Subjects
+ */
+export type ParsedSubjectMarkup =
+  | {
+      /** Plain text, either on its own or within a markup tag. */
+      text: string;
+    }
+  | {
+      /** The children underneath a given markup tag, can be either text or additional markup tags. */
+      children: ParsedSubjectMarkup[];
+      /** The subject markup tag that encapsulates text or other markup tags. */
+      tag: "ja" | "kanji" | "meaning" | "radical" | "reading" | "vocabulary";
+    };
 
-  /**
-   * A regular expression literal that matches to a subject meaning surrounded by `<meaning>` tags.
-   */
-  meaning: /<meaning>(?<innerText>.+?)<\/meaning>/gu,
+/**
+ * Parses WaniKani subject markup (mnemonics, hints, etc) for easier display/formatting.
+ *
+ * @param text The subject markup to parse
+ * @returns A structured array of objects that can be traversed and displayed
+ */
+export function parseSubjectMarkup(text: string): ParsedSubjectMarkup[] {
+  if (!text) {
+    return [
+      {
+        text,
+      },
+    ];
+  }
+  const markupArray: ParsedSubjectMarkup[] = [];
+  let lastIdx = 0;
 
-  /**
-   * A regular expression literal that matches to WaniKani Radical names surrounded by `<radical>` tags.
-   */
-  radical: /<radical>(?<innerText>.+?)<\/radical>/gu,
+  for (const match of text.matchAll(SUBJECT_MARKUP_MATCHER)) {
+    if (typeof match.indices?.[0] !== "undefined") {
+      const beforeText = text.substring(lastIdx, match.indices[0][0]);
+      if (beforeText) {
+        markupArray.push({
+          text: beforeText,
+        });
+      }
+      if (
+        typeof match.groups?.innerText === "string" &&
+        (match.groups.tag === "ja" ||
+          match.groups.tag === "kanji" ||
+          match.groups.tag === "meaning" ||
+          match.groups.tag === "radical" ||
+          match.groups.tag === "reading" ||
+          match.groups.tag === "vocabulary")
+      ) {
+        const tagNode: ParsedSubjectMarkup = {
+          tag: match.groups.tag,
+          children: parseSubjectMarkup(match.groups.innerText),
+        };
+        markupArray.push(tagNode);
+      }
+      lastIdx = match.indices[0][1];
+    }
+  }
+  const afterText = text.substring(lastIdx, text.length);
+  if (afterText) {
+    markupArray.push({
+      text: afterText,
+    });
+  }
 
-  /**
-   * A regular expression literal that matches to a kanji/vocabulary reading surrounded by `<reading>` tags.
-   */
-  reading: /<reading>(?<innerText>.+?)<\/reading>/gu,
-
-  /**
-   * A regular expression literal that matches to WaniKani Vocabulary surrounded by `<vocabulary>` tags.
-   */
-  vocabulary: /<vocabulary>(?<innerText>.+?)<\/vocabulary>/gu,
-} as const;
+  return markupArray;
+}
 
 /**
  * Parameters that can be passed to the WaniKani API to filter a request for a Subject Collection.
