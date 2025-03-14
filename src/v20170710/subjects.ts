@@ -759,11 +759,7 @@ export type ParsedSubjectMarkup =
  */
 export function parseSubjectMarkup(text: string): ParsedSubjectMarkup[] {
   if (!text) {
-    return [
-      {
-        text,
-      },
-    ];
+    return [];
   }
   const markupArray: ParsedSubjectMarkup[] = [];
   let lastIdx = 0;
