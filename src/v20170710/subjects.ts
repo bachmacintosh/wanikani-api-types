@@ -731,7 +731,7 @@ export function isSubjectCollection(value: unknown): value is SubjectCollection 
  *
  * @category Subjects
  */
-export const SUBJECT_MARKUP_MATCHER = /<(?<tag>ja|kanji|meaning|radical|reading|vocabulary)>(?<innerText>.+?)<\/\1>/dgu;
+export const SUBJECT_MARKUP_MATCHER = /<(?<tag>ja|kanji|meaning|radical|reading|vocabulary)>(?<innerText>.*?)<\/\1>/dgu;
 
 /**
  * An object representing parsed subject markup.
