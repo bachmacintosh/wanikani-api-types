@@ -38,17 +38,6 @@ export type DatableString = v.Brand<"DatableString"> & string;
 export const DatableString = v.pipe(v.string(), v.trim(), v.isoTimestamp(), v.brand("DatableString"));
 
 /**
- * Validates that a string is a well-formatted ISO-8601 dat string.
- *
- * @param value The string you wish to parse and validate
- * @returns A string that can be used for date filtering in the WaniKani API
- * @category Base
- */
-export function datableString(value: string): DatableString {
-  return v.parse(DatableString, value);
-}
-
-/**
  * A type guard that checks if the given value matches the type predicate.
  *
  * @category Base

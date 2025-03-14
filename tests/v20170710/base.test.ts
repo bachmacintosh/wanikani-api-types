@@ -13,17 +13,14 @@ describe("ApiRevision", () => {
 describe("DatableString", () => {
   testFor("Valid UTC timestamp string", ({ dateTimeUtcString }) => {
     expect(() => v.assert(WK.DatableString, dateTimeUtcString)).not.toThrow();
-    expect(() => WK.datableString(dateTimeUtcString)).not.toThrow();
     expect(WK.isDatableString(dateTimeUtcString)).toBe(true);
   });
   testFor("Valid offset timestamp string", ({ dateTimeOffsetString }) => {
     expect(() => v.assert(WK.DatableString, dateTimeOffsetString)).not.toThrow();
-    expect(() => WK.datableString(dateTimeOffsetString)).not.toThrow();
     expect(WK.isDatableString(dateTimeOffsetString)).toBe(true);
   });
   testFor("String created from Date.toISOString", ({ dateIsoString }) => {
     expect(() => v.assert(WK.DatableString, dateIsoString)).not.toThrow();
-    expect(() => WK.datableString(dateIsoString)).not.toThrow();
     expect(WK.isDatableString(dateIsoString)).toBe(true);
   });
 });
